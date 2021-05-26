@@ -23,13 +23,6 @@ export default {
     AppHeader,
     AppFooter,
   },
-  watch: {
-    $route(to, from) {
-      const toDepth = to.path.split('/').length;
-      const fromDepth = from.path.split('/').length;
-      this.routeEffect = toDepth < fromDepth ? 'slide-right' : 'slide-left';
-    },
-  },
 };
 </script>
 

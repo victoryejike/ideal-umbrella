@@ -60,11 +60,11 @@ export default {
 <style scoped>
 .tabs {
   background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  border-radius: 10px;
+  border: 0.1rem solid rgba(255, 255, 255, 0.25);
+  border-radius: 0.6rem;
   display: inline-flex;
   font-weight: 600;
-  padding: 4px 4px 4px 4px;
+  padding: 0.25rem 0.25rem 0.25rem 0.25rem;
 }
 
 .navs {
@@ -79,16 +79,16 @@ export default {
 
 .active {
   background-color: #dcdde4;
-  border-radius: 10px;
+  border-radius: 0.6rem;
   color: #1b2143;
 }
 
 .auto {
-  padding: 10px 42px 10px 42px;
+  padding: 0.6rem 2.5rem 0.6rem 2.5rem;
 }
 
 .fixed {
-  padding: 10px 0 10px 0;
+  padding: 0.6rem 0 0.6rem 0;
   width: var(--width);
 }
 
