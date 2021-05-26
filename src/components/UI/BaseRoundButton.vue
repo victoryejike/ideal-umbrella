@@ -30,10 +30,11 @@ export default {
 <style scoped>
 button {
   align-items: center;
-  border-radius: 32px;
+  border-radius: 2rem;
   border-width: 0;
   cursor: pointer;
   display: flex;
+  font-size: 1rem;
   justify-content: center;
   line-height: 150%;
   outline: 0;
@@ -45,27 +46,27 @@ button {
 }
 
 .l {
-  padding: 12px 28px 12px 28px;
+  padding: 0.75rem 1.75rem 0.75rem 1.75rem;
 }
 
 .m {
-  padding: 7px 28px 7px 28px;
+  padding: 0.45rem 1.75rem 0.45rem 1.75rem;
 }
 
 .s {
-  font-size: 12px;
-  padding: 5px 12px 5px 12px;
+  font-size: 0.75rem;
+  padding: 0.35rem 0.75rem 0.35rem 0.75rem;
 }
 
 button:active {
   filter: brightness(85%);
-  transform: translateY(4px);
+  transform: translateY(0.25rem);
 }
 
 .btn-icon {
-  height: 32px;
-  margin-left: 20px;
-  width: 32px;
+  height: 2rem;
+  margin-left: 1.25rem;
+  width: 2rem;
 }
 
 .primary {
@@ -80,7 +81,7 @@ button:active {
 
 .outline {
   background-color: transparent;
-  border: 1px solid #2c43ad;
+  border: 0.1rem solid #2c43ad;
   color: #2c43ad;
 }
 </style>

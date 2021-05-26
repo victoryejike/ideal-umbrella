@@ -79,6 +79,7 @@ header {
 
 .link {
   color: #000;
+  font-size: 0.9rem;
   font-weight: bold;
   margin-left: 2.5rem;
 }

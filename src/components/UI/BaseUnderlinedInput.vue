@@ -154,7 +154,7 @@ export default {
   color: #000;
   flex-grow: 1;
   font-size: 1rem;
-  height: 40px;
+  height: 2.5rem;
   margin-right: 0.6rem;
   outline: 0;
 }
