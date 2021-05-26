@@ -8,9 +8,7 @@
 
 export default {
   name: 'Default',
-  components: {
-    // Component: () => import('@/components/Component.vue'),
-  },
+  components: {},
   data() {
     return {
 
