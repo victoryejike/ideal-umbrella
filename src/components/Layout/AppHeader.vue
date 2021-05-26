@@ -69,7 +69,6 @@ export default {
 header {
   align-items: center;
   display: flex;
-  flex-direction: column column;
   justify-content: space-between;
 }
 
