@@ -1,3 +1,13 @@
 {
-  "default": "Default Template"
+  "default": "Default Template",
+  "login_screen": {
+    "forgot_password": "Forgot Password?",
+    "login": "Login",
+    "not_a_member": "Not a member?",
+    "password_placehoder": "Enter your password",
+    "password_text": "Login Password",
+    "registered": "Registered",
+    "username_placeholder": "Enter your Email address or phone number",
+    "username_text": "Email Address or Phone Number"
+  }
 }
