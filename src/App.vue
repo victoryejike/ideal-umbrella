@@ -2,7 +2,12 @@
   <div id="wrapper">
     <AppHeader id="header" />
     <div id="content">
-      <router-view />
+      <Transition
+        name="fade"
+        mode="out-in"
+      >
+        <router-view />
+      </Transition>
     </div>
   </div>
   <AppFooter id="footer" />
@@ -17,6 +22,13 @@ export default {
   components: {
     AppHeader,
     AppFooter,
+  },
+  watch: {
+    $route(to, from) {
+      const toDepth = to.path.split('/').length;
+      const fromDepth = from.path.split('/').length;
+      this.routeEffect = toDepth < fromDepth ? 'slide-right' : 'slide-left';
+    },
   },
 };
 </script>
@@ -62,5 +74,15 @@ a {
 
 #footer {
   min-height: 10vh;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>
