@@ -4,9 +4,9 @@
       class="login-form"
       action=""
     >
-      <h2 class="login-text">
+      <h1 class="login-text">
         {{ $t("login_screen.login") }}
-      </h2>
+      </h1>
       <BaseUnderlinedInput
         class="username-input-group"
         :text="$t('login_screen.username_text')"
@@ -27,7 +27,7 @@
         size="m"
         :bold="true"
       />
-      <div class="extra-div">
+      <div class="helper-div">
         <a
           class="forgot-pass-link"
           href="#"
@@ -72,27 +72,23 @@ export default {
 .login-text {
   font-size: 2rem;
   font-weight: bold;
-  margin-bottom: 50px;
-}
-
-.login-form {
-  margin-right: 220px;
+  margin-bottom: 3rem;
 }
 
 .username-input-group {
-  margin-bottom: 40px;
+  margin-bottom: 2.5rem;
 }
 
 .password-input-group {
-  margin-bottom: 70px;
+  margin-bottom: 3.75rem;
 }
 
-.extra-div {
-  margin-top: 50px;
+.helper-div {
+  margin-top: 2.5rem;
 }
 
 .register-div {
   color: rgba(0, 0, 0, 0.75);
-  margin-top: 25px;
+  margin-top: 1.5rem;
 }
 </style>
