@@ -17,6 +17,12 @@
         <slot name="icon" />
       </div>
       <template v-if="type == 'password'">
+        <img
+          v-if="$route.name ==
+            'Register'"
+          class="password-lock"
+          src="@svg/password-lock.svg"
+        >
         <input
           v-model="inputValue"
           :type="(isDisplay) ? 'text' : 'password'"
@@ -26,6 +32,7 @@
           @focusout="isFocus = false"
           @change="$emit('input', $event.target.value)"
         >
+
         <img
           class="password-eye"
           src="@svg/password-eye.svg"
@@ -178,5 +185,9 @@ export default {
 
 .input-phone {
   width: 2rem;
+}
+
+.password-lock {
+  padding-right: 14px;
 }
 </style>
