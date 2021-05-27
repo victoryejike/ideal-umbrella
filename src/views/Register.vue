@@ -41,6 +41,21 @@
       name="confirmPassword"
       type="password"
     />
+    <BaseUnderlinedInput
+      class="input-field"
+      name="verification-code"
+      :text="$t('register_screen.verification_code_label')"
+      :placeholder="$t('register_screen.verification_code__placehoder')"
+      type="with-button"
+    >
+      <template #button>
+        <BaseRoundButton
+          :text="$t('register_screen.send_code')"
+          type="outline"
+          size="s"
+        />
+      </template>
+    </BaseUnderlinedInput>
     <div class="input-agree-div">
       <input
         id="checkbox"
@@ -91,6 +106,7 @@ export default {
       registerTab: ['EMAIL', 'PHONE'],
     };
   },
+
 };
 </script>
 
