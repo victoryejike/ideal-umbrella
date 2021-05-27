@@ -21,6 +21,7 @@
         type="password"
       />
       <BaseRoundButton
+        class="login-btn"
         :text="$t('login_screen.login')"
         type="primary"
         icon="arrow-right"
@@ -94,5 +95,17 @@ export default {
 .register-div {
   color: rgba(0, 0, 0, 0.75);
   margin-top: 1.5rem;
+}
+
+@media (min-device-width: 29rem) {
+  .login-btn {
+    transition: all 0.5s;
+    width: 39% !important;
+  }
+}
+
+.login-btn {
+  transition: all 0.5s;
+  width: 100%;
 }
 </style>
