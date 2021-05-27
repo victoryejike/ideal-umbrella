@@ -100,7 +100,7 @@ header {
   opacity: 0.3;
 }
 
-@media (min-device-width: 60em) {
+@media (min-device-width: 60rem) {
   .menu {
     align-items: center;
     display: flex;

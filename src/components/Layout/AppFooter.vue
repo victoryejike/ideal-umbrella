@@ -199,7 +199,7 @@ footer {
   }
 }
 
-@media (min-device-width: 42em) {
+@media (min-device-width: 42rem) {
   .links-group {
     transition: all 0.5s;
     width: 12.5rem !important;
