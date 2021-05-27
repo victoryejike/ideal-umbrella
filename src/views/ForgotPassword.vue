@@ -26,21 +26,24 @@
           </div>
         </div>
       </div>
-      <div class="input border-bottom-dark p10 mt-30 mb-20">
+      <div class="input p10 mt-30 mb-20">
         <div>
-          <label>{{ $t('forgot_password.sms_code') }}</label>
-          <div class="mt-15 flex">
-            <Input
-              placeholder="Enter the verification code"
-              type="text"
-            />
-            <div class="w-full send-code">
-              <BaseRoundButton
-                :text="$t('register_screen.send_code')"
-                type="outline"
-                size="s"
-              />
-            </div>
+          <div class="mt-15">
+            <BaseUnderlinedInput
+              class="input-field"
+              name="verification-code"
+              :text="$t('register_screen.verification_code_label')"
+              :placeholder="$t('register_screen.verification_code__placehoder')"
+              type="with-button"
+            >
+              <template #button>
+                <BaseRoundButton
+                  :text="$t('register_screen.send_code')"
+                  type="outline"
+                  size="s"
+                />
+              </template>
+            </BaseUnderlinedInput>
           </div>
         </div>
       </div>
@@ -66,6 +69,7 @@
 
 <script>
 import BaseRoundButton from '@/components/UI/BaseRoundButton.vue';
+import BaseUnderlinedInput from '@/components/UI/BaseUnderlinedInput.vue';
 import CountryCode from '@/components/ForgotPassword/CountryCode.vue';
 import Input from '@/components/ForgotPassword/Input.vue';
 import BaseNavigationTab from '@/components/UI/BaseNavigationTab.vue';
@@ -73,7 +77,7 @@ import BaseNavigationTab from '@/components/UI/BaseNavigationTab.vue';
 export default {
   name: 'Login',
   components: {
-    BaseRoundButton, BaseNavigationTab, CountryCode, Input,
+    BaseRoundButton, BaseNavigationTab, CountryCode, Input, BaseUnderlinedInput,
   },
   data() {
     return {
