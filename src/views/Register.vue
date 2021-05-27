@@ -2,81 +2,90 @@
   <div class="container">
     <form
       class="register-form"
-    />
-    <h1 class="register-text">
-      {{ $t("register_screen.register") }}
-    </h1>
-    <BaseNavigationTab
-      :list="registerTab"
-      :width="170"
-    />
-    <BaseUnderlinedInput
-      class="input-field"
-      :text="$t('register_screen.email_label')"
-      :placeholder="$t('register_screen.email_placeholder')"
-      name="email"
-      type="text"
-    />
-
-    <BaseUnderlinedInput
-      class="input-field"
-      :text="$t('register_screen.phone_label')"
-
-      :placeholder="$t('register_screen.phone_placeholder')"
-      name="phone"
-      type="phone"
-    />
-    <BaseUnderlinedInput
-      class="input-field"
-      :text="$t('register_screen.login_password_label')"
-      :placeholder="$t('register_screen.login_password_placehoder')"
-      name="loginPassword"
-      type="password"
-    />
-
-    <BaseUnderlinedInput
-      class="input-field"
-      :text="$t('register_screen.confirm_password_label')"
-      :placeholder="$t('register_screen.confirm_password_placehoder')"
-      name="confirmPassword"
-      type="password"
-    />
-    <BaseUnderlinedInput
-      class="input-field"
-      name="verification-code"
-      :text="$t('register_screen.verification_code_label')"
-      :placeholder="$t('register_screen.verification_code__placehoder')"
-      type="with-button"
     >
-      <template #button>
-        <BaseRoundButton
-          :text="$t('register_screen.send_code')"
-          type="outline"
-          size="s"
-        />
-      </template>
-    </BaseUnderlinedInput>
-    <div class="input-agree-div">
-      <input
-        id="checkbox"
-        v-model="checked"
-        type="checkbox"
+      <h1 class="register-text">
+        {{ $t("register_screen.register") }}
+      </h1>
+      <BaseNavigationTab
+        :list="registerTab"
+        :width="170"
+      />
+      <BaseUnderlinedInput
+        class="input-field"
+        :text="$t('register_screen.email_label')"
+        :placeholder="$t('register_screen.email_placeholder')"
+        name="email"
+        type="text"
+      />
+
+      <BaseUnderlinedInput
+        class="input-field"
+        :text="$t('register_screen.phone_label')"
+
+        :placeholder="$t('register_screen.phone_placeholder')"
+        name="phone"
+        type="phone"
+      />
+      <BaseUnderlinedInput
+        class="input-field"
+        :text="$t('register_screen.login_password_label')"
+        :placeholder="$t('register_screen.login_password_placehoder')"
+        name="loginPassword"
+        type="password"
       >
-      <div class="agree-text">
-        {{ $t("register_screen.agree_text") }}
-        <router-link to="/">
-          {{ $t("register_screen.privacy_agreement") }}
-        </router-link>
+        <template #icon>
+          <img src="@svg/password-lock.svg">
+        </template>
+      </BaseUnderlinedInput>
+
+      <BaseUnderlinedInput
+        class="input-field"
+        :text="$t('register_screen.confirm_password_label')"
+        :placeholder="$t('register_screen.confirm_password_placehoder')"
+        name="confirmPassword"
+        type="password"
+      >
+        <template #icon>
+          <img src="@svg/password-lock.svg">
+        </template>
+      </BaseUnderlinedInput>
+      <BaseUnderlinedInput
+        class="input-field"
+        name="verification-code"
+        :text="$t('register_screen.verification_code_label')"
+        :placeholder="$t('register_screen.verification_code__placehoder')"
+        type="with-button"
+      >
+        <template #button>
+          <BaseRoundButton
+            :text="$t('register_screen.send_code')"
+            type="outline"
+            size="s"
+          />
+        </template>
+      </BaseUnderlinedInput>
+      <div class="input-agree-div">
+        <input
+          id="checkbox"
+          v-model="checked"
+          type="checkbox"
+        >
+        <div class="agree-text">
+          {{ $t("register_screen.agree_text") }}
+          <router-link to="/">
+            {{ $t("register_screen.privacy_agreement") }}
+          </router-link>
+        </div>
       </div>
-    </div>
-    <BaseRoundButton
-      class="register-button"
-      :text="$t('register_screen.register')"
-      type="primary"
-      icon="arrow-right"
-      size="m"
-      :bold="true"
-    />
+      <BaseRoundButton
+        class="register-button"
+        :text="$t('register_screen.register')"
+        type="primary"
+        icon="arrow-right"
+        size="m"
+        :bold="true"
+      />
+    </form>
     <div class="login-div">
       {{ $t("register_screen.already_have_account") }}
       <router-link
@@ -111,12 +120,19 @@ export default {
 </script>
 
 <style scoped>
+.register-form {
+  max-width: 24rem;
+}
+
 .input-field {
   margin-top: 40px;
 }
 
 .input-agree-div {
+  align-items: center;
+  display: flex;
   margin-top: 60px;
+  white-space: nowrap;
 }
 
 .agree-text {

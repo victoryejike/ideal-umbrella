@@ -69,6 +69,10 @@ export default {
   justify-content: space-between;
 }
 
+.login-form {
+  max-width: 24rem;
+}
+
 .login-text {
   font-size: 2rem;
   font-weight: bold;

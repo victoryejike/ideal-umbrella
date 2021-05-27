@@ -1,7 +1,6 @@
 <template>
   <div
     class="input-group"
-    :style="{width: width + 'rem'}"
   >
     <span
       v-if="text"
@@ -11,18 +10,12 @@
       class="inline-block"
     >
       <div
-        v-if="$slots.icon && type == 'phone'"
+        v-if="$slots.icon && type !== 'phone'"
         class="input-group-icon"
       >
         <slot name="icon" />
       </div>
       <template v-if="type == 'password'">
-        <img
-          v-if="$route.name ==
-            'Register'"
-          class="password-lock"
-          src="@svg/password-lock.svg"
-        >
         <input
           v-model="inputValue"
           :type="(isDisplay) ? 'text' : 'password'"
@@ -92,7 +85,6 @@
     <div
       class="input-line"
       :class="{focus:isFocus}"
-      :style="{width: width + 'rem'}"
     />
   </div>
 </template>
@@ -103,7 +95,6 @@ export default {
   props: {
     text: { type: String, required: false, default: null },
     placeholder: { type: String, required: true },
-    width: { type: Number, required: false, default: 24 },
     value: { type: String, required: false, default: null },
     type: {
       type: String,
@@ -120,6 +111,7 @@ export default {
       inputValue: this.value,
       isDisplay: false,
       isFocus: false,
+      inputWidth: this.width,
     };
   },
 };
@@ -129,7 +121,6 @@ export default {
 .input-group {
   display: flex;
   flex-wrap: wrap;
-  position: relative;
 }
 
 .input-group-text {
@@ -176,6 +167,7 @@ export default {
 .input-line {
   border-bottom: 1px solid rgba(0, 0, 0, 0.25);
   transition: border-bottom 0.3s ease-in-out;
+  width: 100%;
 }
 
 .focus {
@@ -184,10 +176,6 @@ export default {
 }
 
 .input-phone {
-  width: 2rem;
-}
-
-.password-lock {
-  padding-right: 14px;
+  max-width: 3rem;
 }
 </style>

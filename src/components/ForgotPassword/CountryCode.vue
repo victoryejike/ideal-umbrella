@@ -1,7 +1,7 @@
 <template>
   <div class="flex mt-15">
     <img
-      src="@svg/phone-dark.svg"
+      src="@svg/phone.svg"
     >
     <select>
       <option
@@ -21,30 +21,37 @@
   </div>
 </template>
 <style scoped>
-.flex{
-  display:flex;
+.flex {
+  display: flex;
 }
-.mt-15{
-    margin-top: 15px;
+
+.mt-15 {
+  margin-top: 15px;
 }
+
 select {
   -moz-appearance: none;
   -webkit-appearance: none;
-  border: none;
   background: inherit;
+  border: none;
   font-size: 16px;
 }
+
 select::-ms-expand {
   display: none;
 }
-.input-phone input{
-  border: none;
-  width: 200px;
-  color: rgba(0, 0, 0, 0.25);
+
+.input-phone input {
   background: inherit;
+  border: none;
+  color: rgba(0, 0, 0, 0.25);
   font-size: 16px;
+  width: 200px;
 }
-input:focus, textarea:focus, select:focus{
-    outline: none;
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
 }
 </style>
