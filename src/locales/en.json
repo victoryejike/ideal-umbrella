@@ -9,5 +9,19 @@
     "registered": "Registered",
     "username_placeholder": "Enter your Email address or phone number",
     "username_text": "Email Address or Phone Number"
+  },
+  "register_screen": {
+    "register": "Register",
+    "privacy_agreement": "I have read and agree to the Terms of Use Privacy Agreement",
+    "login_password_label": "Login Password",
+    "login_password_placehoder": "Enter your password",
+    "confirm_password_label": "Confirm Password",
+    "confirm_password_placehoder": "Confirm your password",
+    "sms_code_label": "SMS Code",
+    "sms_code__placehoder": "Enter the verification code",
+    "already_have_account":"Already have an account?",
+    "login": "Login",
+    "username_placeholder": "Enter your Email address or phone number",
+    "username_text": "Email Address or Phone Number"
   }
 }
