@@ -6,6 +6,10 @@
         src="@svg/logo.svg"
       >
     </router-link>
+    <img
+      class="mobile-menu"
+      src="@svg/mobile-menu.svg"
+    >
     <div class="menu">
       <router-link
         v-for="(item, index) in links"
@@ -73,7 +77,11 @@ header {
 }
 
 .menu {
-  align-items: center;
+  display: none;
+  transition: all 1s;
+}
+
+.mobile-menu {
   display: flex;
 }
 
@@ -90,5 +98,17 @@ header {
   height: 1.5rem;
   margin: 1.2rem 1.2rem;
   opacity: 0.3;
+}
+
+@media (min-device-width: 60em) {
+  .menu {
+    align-items: center;
+    display: flex;
+    transition: all 1s;
+  }
+
+  .mobile-menu {
+    display: none;
+  }
 }
 </style>

@@ -52,7 +52,8 @@ a {
 }
 
 #wrapper {
-  padding: 2.5rem 8rem 0 8rem;
+  padding: 1rem 2rem 0 2rem;
+  transition: all 0.5s;
 }
 
 #header {
@@ -66,11 +67,14 @@ a {
   max-width: 90rem;
   min-height: 80vh;
   padding-bottom: 3.5rem;
-  padding-top: 3.5rem;
+  padding-top: 1.5rem;
+  transition: all 0.5s;
 }
 
 #footer {
   min-height: 10vh;
+  padding: 2.5rem 2rem 2.5rem 2rem;
+  transition: all 0.5s;
 }
 
 .fade-enter-active,
@@ -81,5 +85,22 @@ a {
 .fade-enter-from,
 .fade-leave-to {
   opacity: 0;
+}
+
+@media (min-device-width: 70rem) {
+  #wrapper {
+    padding: 2.5rem 8rem 0 8rem !important;
+    transition: all 0.5s;
+  }
+
+  #content {
+    padding-top: 3.5rem !important;
+    transition: all 0.5s;
+  }
+
+  #footer {
+    padding: 5rem 8rem 5rem 8rem !important;
+    transition: all 0.5s;
+  }
 }
 </style>

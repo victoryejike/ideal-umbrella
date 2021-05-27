@@ -39,9 +39,9 @@
       </div>
     </div>
     <div class="copyright-and-social-div">
-      <p class="copyright-text">
+      <div class="copyright-text">
         ©2021 Naffiti by Huobi. All rights reserved
-      </p>
+      </div>
       <div class="social-media">
         <a href="">
           <img
@@ -121,19 +121,17 @@ footer {
   color: #fff;
   display: flex;
   flex-direction: column;
-  padding: 5rem 8rem 2.5rem 8rem;
 }
 
 .logo-and-links-div {
   display: flex;
-  flex-direction: column column;
+  flex-wrap: wrap;
   justify-content: space-between;
-  margin-bottom: 5rem;
 }
 
 .copyright-and-social-div {
-  align-items: center;
   display: inline-flex;
+  flex-wrap: wrap;
   justify-content: space-between;
 }
 
@@ -142,15 +140,25 @@ footer {
 }
 
 .copyright-text {
-  white-space: nowrap;
+  margin-right: 1rem;
+  margin-top: 2.5rem;
+  transition: all 0.5s;
+}
+
+.logo-language-container {
+  margin-bottom: 4rem;
 }
 
 .links-group-container {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 
 .links-group {
-  width: 12.5rem;
+  margin-bottom: 2.5rem;
+  transition: all 0.5s;
+  width: 10.5rem;
 }
 
 .links-header {
@@ -171,10 +179,41 @@ footer {
 .social-media {
   align-items: center;
   display: flex;
+  margin-top: 2.5rem;
+  transition: all 0.5s;
 }
 
 .social-media-icons {
   margin-right: 2.5rem;
+}
+
+/* Here using 65 instead of 70 is to prevent links-group flickering when footer padding changed */
+
+@media (min-device-width: 65rem) {
+  .logo-and-links-div {
+    flex-wrap: nowrap;
+  }
+
+  .links-group-container {
+    flex-wrap: nowrap;
+  }
+}
+
+@media (min-device-width: 42em) {
+  .links-group {
+    transition: all 0.5s;
+    width: 12.5rem !important;
+  }
+
+  .social-media {
+    margin-top: 0 !important;
+    transition: all 0.5s;
+  }
+
+  .copyright-text {
+    margin-top: 0 !important;
+    transition: all 0.5s;
+  }
 }
 
 </style>
