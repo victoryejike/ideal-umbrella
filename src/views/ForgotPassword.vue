@@ -29,15 +29,18 @@
       <div class="input border-bottom-dark p10 mt-30 mb-20">
         <div>
           <label>{{ $t('forgot_password.sms_code') }}</label>
-          <div class="mt-15">
+          <div class="mt-15 flex">
             <Input
               placeholder="Enter the verification code"
               type="text"
             />
-            <Btn
-              text="Send"
-              float="right"
-            />
+            <div class="w-full send-code">
+              <BaseRoundButton
+                :text="$t('register_screen.send_code')"
+                type="outline"
+                size="s"
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -63,7 +66,6 @@
 
 <script>
 import BaseRoundButton from '@/components/UI/BaseRoundButton.vue';
-import Btn from '@/components/UI/BackgroundNoneBtn.vue';
 import CountryCode from '@/components/ForgotPassword/CountryCode.vue';
 import Input from '@/components/ForgotPassword/Input.vue';
 import BaseNavigationTab from '@/components/UI/BaseNavigationTab.vue';
@@ -71,7 +73,7 @@ import BaseNavigationTab from '@/components/UI/BaseNavigationTab.vue';
 export default {
   name: 'Login',
   components: {
-    BaseRoundButton, BaseNavigationTab, CountryCode, Input, Btn,
+    BaseRoundButton, BaseNavigationTab, CountryCode, Input,
   },
   data() {
     return {
@@ -98,11 +100,17 @@ export default {
 .mb-20{
   margin-bottom: 20px;
 }
+.send-code button{
+  float: right;
+}
 .border-bottom-dark{
   border-bottom: 1px solid rgba(0, 0, 0, 0.25);
 }
 .flex{
   display:flex;
+}
+.w-full{
+  width: 100%;
 }
 .p10{
   padding: 10px
