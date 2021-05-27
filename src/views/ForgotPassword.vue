@@ -16,12 +16,12 @@
           <label>{{ $t('forgot_password.country_code') }}</label>
           <CountryCode />
         </div>
-        <div class="ml-30">
-          <label>{{ $t('forgot_password.phone') }}</label>
-          <div class="mt-15">
-            <Input
-              placeholder="Enter your phone number"
-              type="text"
+        <div class="ml-30 mt-4 input-phone">
+          <div>
+            <BaseUnderlinedInput
+              class="input-field"
+              :text="$t('forgot_password.phone')"
+              :placeholder="$t('register_screen.phone_placeholder')"
             />
           </div>
         </div>
@@ -71,13 +71,13 @@
 import BaseRoundButton from '@/components/UI/BaseRoundButton.vue';
 import BaseUnderlinedInput from '@/components/UI/BaseUnderlinedInput.vue';
 import CountryCode from '@/components/ForgotPassword/CountryCode.vue';
-import Input from '@/components/ForgotPassword/Input.vue';
+// import Input from '@/components/ForgotPassword/Input.vue';
 import BaseNavigationTab from '@/components/UI/BaseNavigationTab.vue';
 
 export default {
   name: 'Login',
   components: {
-    BaseRoundButton, BaseNavigationTab, CountryCode, Input, BaseUnderlinedInput,
+    BaseRoundButton, BaseNavigationTab, CountryCode, BaseUnderlinedInput,
   },
   data() {
     return {
@@ -97,6 +97,9 @@ export default {
 }
 .mt-30{
   margin-top: 30px;
+}
+.mt-4{
+  margin-top: 4px;
 }
 .ml-30{
   margin-left: 30px;
@@ -122,6 +125,9 @@ export default {
 label{
   color: rgba(0, 0, 0, 0.75);
   font-size: 14px;
+}
+.input-phone .input-line{
+  border-bottom: none !important
 }
 .mt-15{
     margin-top: 15px;
