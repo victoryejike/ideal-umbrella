@@ -16,6 +16,11 @@ const routes = [
     name: 'Register',
     component: () => import('@view/Register.vue'),
   },
+  {
+    path: '/forgot-password',
+    name: 'ForgotPassword',
+    component: () => import('@view/ForgotPassword.vue'),
+  },
 ];
 
 const router = createRouter({

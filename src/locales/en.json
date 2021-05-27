@@ -27,6 +27,15 @@
     "phone_placeholder": "Enter your phone number",
     "email_label": "Email Address",
     "email_placeholder": "Enter your email address"
+  },
+  "forgot_password": {
+    "forgot_password": "Forgot Password",
+    "send":"Send",
+    "already_have_account":"Already have an account?",
+    "login":"Login",
+    "country_code":"Country Code",
+    "phone":"Phone Number",
+    "sms_code":"SMS Code"
   }
 
 }

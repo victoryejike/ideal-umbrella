@@ -28,12 +28,12 @@
         :bold="true"
       />
       <div class="helper-div">
-        <a
+        <router-link
           class="forgot-pass-link"
-          href="#"
-        >{{
-          $t("login_screen.forgot_password")
-        }}</a>
+          to="/forgot-password"
+        >
+          {{ $t("login_screen.forgot_password") }}
+        </router-link>
         <div class="register-div">
           {{ $t("login_screen.not_a_member") }}
           <router-link
