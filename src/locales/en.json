@@ -12,7 +12,8 @@
   },
   "register_screen": {
     "register": "Register",
-    "privacy_agreement": "I have read and agree to the Terms of Use Privacy Agreement",
+    "agree_text":"I have read and agree to the",
+    "privacy_agreement": " Terms of Use Privacy Agreement",
     "login_password_label": "Login Password",
     "login_password_placehoder": "Enter your password",
     "confirm_password_label": "Confirm Password",
