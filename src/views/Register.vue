@@ -11,7 +11,7 @@
       :width="170"
     />
     <BaseUnderlinedInput
-      class="login-password-input-group"
+      class="input-field"
       :text="$t('register_screen.email_label')"
       :placeholder="$t('register_screen.email_placeholder')"
       name="email"
@@ -19,7 +19,7 @@
     />
 
     <BaseUnderlinedInput
-      class="login-password-input-group"
+      class="input-field"
       :text="$t('register_screen.phone_label')"
 
       :placeholder="$t('register_screen.phone_placeholder')"
@@ -27,7 +27,7 @@
       type="phone"
     />
     <BaseUnderlinedInput
-      class="login-password-input-group"
+      class="input-field"
       :text="$t('register_screen.login_password_label')"
       :placeholder="$t('register_screen.login_password_placehoder')"
       name="loginPassword"
@@ -35,13 +35,18 @@
     />
 
     <BaseUnderlinedInput
-      class="confirm-password-input-group"
+      class="input-field"
       :text="$t('register_screen.confirm_password_label')"
       :placeholder="$t('register_screen.confirm_password_placehoder')"
       name="confirmPassword"
       type="password"
     />
     <div class="input-agree-div">
+      <input
+        id="checkbox"
+        v-model="checked"
+        type="checkbox"
+      >
       <div class="agree-text">
         {{ $t("register_screen.agree_text") }}
         <router-link to="/">
@@ -50,6 +55,7 @@
       </div>
     </div>
     <BaseRoundButton
+      class="register-button"
       :text="$t('register_screen.register')"
       type="primary"
       icon="arrow-right"
@@ -87,3 +93,53 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.input-field {
+  margin-top: 40px;
+}
+
+.input-agree-div {
+  margin-top: 60px;
+}
+
+.agree-text {
+  align-items: center;
+  color: rgba(0, 0, 0, 0.75);
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 18px;
+  margin-left: 10px;
+  margin-top: 4px;
+  vertical-align: top;
+}
+
+#checkbox {
+  background: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-sizing: border-box;
+  height: 20px;
+  left: 130px;
+  top: 910px;
+  width: 20px;
+}
+
+.register-button {
+  margin-top: 40px;
+}
+
+.login-div {
+  align-items: center;
+  color: rgba(0, 0, 0, 0.75);
+  display: flex;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 18px;
+  margin-top: 40px;
+}
+
+.login-link {
+  padding-left: 5px;
+}
+</style>
