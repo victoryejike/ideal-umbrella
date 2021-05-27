@@ -59,8 +59,8 @@ export default {
 
 <style scoped>
 .tabs {
-  background: rgba(255, 255, 255, 0.05);
-  border: 0.1rem solid rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.25);
+  border: 1px solid rgba(44, 67, 173, 0.25);
   border-radius: 0.6rem;
   display: inline-flex;
   font-weight: 600;
@@ -70,7 +70,7 @@ export default {
 .navs {
   background-color: transparent;
   border-width: 0;
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(44, 67, 173, 0.5);
 }
 
 .navs:hover {
@@ -78,9 +78,9 @@ export default {
 }
 
 .active {
-  background-color: #dcdde4;
+  background: #5e6ec2;
   border-radius: 0.6rem;
-  color: #1b2143;
+  color: #fff;
 }
 
 .auto {
