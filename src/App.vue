@@ -2,12 +2,16 @@
   <div id="wrapper">
     <AppHeader id="header" />
     <div id="content">
-      <Transition
-        name="fade"
-        mode="out-in"
-      >
-        <router-view />
-      </Transition>
+      <router-view v-slot="{ Component }">
+        <Transition
+          name="fade"
+          mode="out-in"
+        >
+          <KeepAlive>
+            <Component :is="Component" />
+          </KeepAlive>
+        </Transition>
+      </router-view>
     </div>
   </div>
   <AppFooter id="footer" />
@@ -71,7 +75,7 @@ a {
 
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.5s ease;
+  transition: opacity 0.1s ease;
 }
 
 .fade-enter-from,
