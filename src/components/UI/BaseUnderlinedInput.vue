@@ -199,8 +199,7 @@ export default {
 }
 
 select {
-  -moz-appearance: none;
-  -webkit-appearance: none;
+  appearance: none;
   background: inherit;
   border: none;
   font-size: 1rem;

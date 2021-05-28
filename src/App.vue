@@ -33,11 +33,12 @@ export default {
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Mulish:wght@500;600;700;800&display=swap');
 
+* {
+  transition: all 0.5s;
+}
+
 body {
   background: url('./assets/image/background.png') no-repeat center center fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
   background-size: cover;
   box-sizing: border-box;
   color: #000;
@@ -53,7 +54,6 @@ a {
 
 #wrapper {
   padding: 1rem 2rem 0 2rem;
-  transition: all 0.5s;
 }
 
 #header {
@@ -68,13 +68,11 @@ a {
   min-height: 80vh;
   padding-bottom: 3.5rem;
   padding-top: 1.5rem;
-  transition: all 0.5s;
 }
 
 #footer {
   min-height: 10vh;
   padding: 2.5rem 2rem 2.5rem 2rem;
-  transition: all 0.5s;
 }
 
 .fade-enter-active,
@@ -90,17 +88,14 @@ a {
 @media (min-device-width: 70rem) {
   #wrapper {
     padding: 2.5rem 8rem 0 8rem !important;
-    transition: all 0.5s;
   }
 
   #content {
     padding-top: 3.5rem !important;
-    transition: all 0.5s;
   }
 
   #footer {
     padding: 5rem 8rem 5rem 8rem !important;
-    transition: all 0.5s;
   }
 }
 </style>

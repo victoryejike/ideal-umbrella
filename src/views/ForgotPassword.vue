@@ -147,18 +147,6 @@ label {
   margin-top: 15px;
 }
 
-select {
-  -moz-appearance: none;
-  -webkit-appearance: none;
-  background-color: inherit;
-  border: none;
-  font-size: 16px;
-}
-
-select::-ms-expand {
-  display: none;
-}
-
 .input button {
   margin: -6px !important;
 }

@@ -89,6 +89,7 @@ export default {
 }
 
 .helper-div {
+  font-size: 0.9rem;
   margin-top: 2.5rem;
 }
 
@@ -99,13 +100,11 @@ export default {
 
 @media (min-device-width: 29rem) {
   .login-btn {
-    transition: all 0.5s;
     width: 39% !important;
   }
 }
 
 .login-btn {
-  transition: all 0.5s;
   width: 100%;
 }
 </style>

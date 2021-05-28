@@ -125,6 +125,9 @@ footer {
 
 .logo-and-links-div {
   display: flex;
+
+  /* Fixing a mobile Safari bug (not going to wrap the links when refreshing) */
+  flex: 1 1 auto;
   flex-wrap: wrap;
   justify-content: space-between;
 }
@@ -142,7 +145,6 @@ footer {
 .copyright-text {
   margin-right: 1rem;
   margin-top: 2.5rem;
-  transition: all 0.5s;
 }
 
 .logo-language-container {
@@ -157,7 +159,6 @@ footer {
 
 .links-group {
   margin-bottom: 2.5rem;
-  transition: all 0.5s;
   width: 10.5rem;
 }
 
@@ -180,7 +181,6 @@ footer {
   align-items: center;
   display: flex;
   margin-top: 2.5rem;
-  transition: all 0.5s;
 }
 
 .social-media-icons {
@@ -191,28 +191,25 @@ footer {
 
 @media (min-device-width: 65rem) {
   .logo-and-links-div {
-    flex-wrap: nowrap;
+    flex-wrap: nowrap !important;
   }
 
   .links-group-container {
-    flex-wrap: nowrap;
+    flex-wrap: nowrap !important;
   }
 }
 
 @media (min-device-width: 42rem) {
   .links-group {
-    transition: all 0.5s;
     width: 12.5rem !important;
   }
 
   .social-media {
     margin-top: 0 !important;
-    transition: all 0.5s;
   }
 
   .copyright-text {
     margin-top: 0 !important;
-    transition: all 0.5s;
   }
 }
 
