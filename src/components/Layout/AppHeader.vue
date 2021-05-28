@@ -31,11 +31,9 @@
 </template>
 
 <script>
-import BaseRoundButton from '@/components/UI/BaseRoundButton.vue';
 
 export default {
   name: 'AppHeader',
-  components: { BaseRoundButton },
   data() {
     return {
       links: [

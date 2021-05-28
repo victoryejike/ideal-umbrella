@@ -98,17 +98,9 @@
 </template>
 
 <script>
-import BaseUnderlinedInput from '@/components/UI/BaseUnderlinedInput.vue';
-import BaseNavigationTab from '@/components/UI/BaseNavigationTab.vue';
-import BaseRoundButton from '@/components/UI/BaseRoundButton.vue';
 
 export default {
   name: 'Register',
-  components: {
-    BaseUnderlinedInput,
-    BaseNavigationTab,
-    BaseRoundButton,
-  },
   data() {
     return {
       registerTab: ['EMAIL', 'PHONE'],

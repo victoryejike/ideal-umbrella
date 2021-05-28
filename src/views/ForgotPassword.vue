@@ -65,15 +65,9 @@
 </template>
 
 <script>
-import BaseRoundButton from '@/components/UI/BaseRoundButton.vue';
-import BaseUnderlinedInput from '@/components/UI/BaseUnderlinedInput.vue';
-import BaseNavigationTab from '@/components/UI/BaseNavigationTab.vue';
 
 export default {
-  name: 'Login',
-  components: {
-    BaseRoundButton, BaseNavigationTab, BaseUnderlinedInput,
-  },
+  name: 'ForgotPassword',
   data() {
     return {
       forgotPasswordTab: ['EMAIL', 'PHONE'],

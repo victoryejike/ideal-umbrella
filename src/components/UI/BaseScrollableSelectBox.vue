@@ -143,7 +143,6 @@ export default {
 }
 
 .selector-group-text {
-  color: rgba(196, 196, 196, 0.75);
   font-size: 0.9rem;
   margin-bottom: 1.3rem;
 }

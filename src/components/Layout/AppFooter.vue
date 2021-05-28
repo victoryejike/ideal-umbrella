@@ -73,11 +73,9 @@
 </template>
 
 <script>
-import BaseScrollableSelectBox from '@/components/UI/BaseScrollableSelectBox.vue';
 
 export default {
   name: 'AppFooter',
-  components: { BaseScrollableSelectBox },
   data() {
     return {
       languageList: ['English', 'Chinese', 'Japanese', 'Korean'],

@@ -50,12 +50,9 @@
 </template>
 
 <script>
-import BaseUnderlinedInput from '@/components/UI/BaseUnderlinedInput.vue';
-import BaseRoundButton from '@/components/UI/BaseRoundButton.vue';
 
 export default {
   name: 'Login',
-  components: { BaseUnderlinedInput, BaseRoundButton },
   data() {
     return {
 
