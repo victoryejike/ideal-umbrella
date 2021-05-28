@@ -54,16 +54,31 @@
           src="@svg/phone.svg"
           class="input-group-icon"
         >
-        <input
+        <!-- <input
           v-model="phoneCode"
           type="text"
           maxlength="4"
           class="input-box input-phone"
-        >
+        > -->
+        <select>
+          <option
+            data-countryCode="GB"
+            value="44"
+            selected
+          >
+            +44
+          </option>
+          <option
+            data-countryCode="US"
+            value="1"
+          >
+            +1
+          </option>
+        </select>
         <input
           v-model="inputValue"
           type="text"
-          class="input-box"
+          class="input-box input-phone"
           :placeholder="placeholder"
           @focus="isFocus = true"
           @focusout="isFocus = false"
@@ -176,6 +191,19 @@ export default {
 }
 
 .input-phone {
-  max-width: 3rem;
+  margin-left: 2rem;
 }
+
+select {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  background: inherit;
+  border: none;
+  font-size: 1rem;
+}
+
+select::-ms-expand {
+  display: none;
+}
+
 </style>
