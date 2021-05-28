@@ -6,10 +6,6 @@
         src="@svg/logo.svg"
       >
     </router-link>
-    <img
-      class="mobile-menu"
-      src="@svg/mobile-menu.svg"
-    >
     <div class="menu">
       <router-link
         v-for="(item, index) in links"
@@ -27,6 +23,10 @@
         url="/register"
       />
     </div>
+    <img
+      class="mobile-menu"
+      src="@svg/mobile-menu.svg"
+    >
   </header>
 </template>
 
@@ -77,12 +77,19 @@ header {
 }
 
 .menu {
-  display: none;
-  transition: all 1s;
+  align-items: center;
+  display: flex;
+  left: -9999px;
+  opacity: 0;
+  position: absolute;
+  top: -9999px;
+  transition: opacity 1s;
 }
 
 .mobile-menu {
-  display: flex;
+  opacity: 100;
+  position: inherit;
+  transition: opacity 1s;
 }
 
 .link {
@@ -102,13 +109,17 @@ header {
 
 @media (min-device-width: 60rem) {
   .menu {
-    align-items: center;
-    display: flex;
-    transition: all 1s;
+    opacity: 100;
+    position: inherit;
+    transition: opacity 1s;
   }
 
   .mobile-menu {
-    display: none;
+    left: -9999px;
+    opacity: 0;
+    position: absolute;
+    top: -9999px;
+    transition: opacity 1s;
   }
 }
 </style>
