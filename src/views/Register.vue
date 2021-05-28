@@ -7,6 +7,7 @@
         {{ $t("register_screen.register") }}
       </h1>
       <BaseNavigationTab
+        class="tabs"
         :list="registerTab"
         :width="170"
       />
@@ -21,7 +22,6 @@
       <BaseUnderlinedInput
         class="input-field"
         :text="$t('register_screen.phone_label')"
-
         :placeholder="$t('register_screen.phone_placeholder')"
         name="phone"
         type="phone"
@@ -132,7 +132,7 @@ export default {
   align-items: center;
   display: flex;
   margin-top: 60px;
-  white-space: nowrap;
+  width: 440px;
 }
 
 .agree-text {
@@ -148,12 +148,7 @@ export default {
 }
 
 #checkbox {
-  background: #fff;
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  box-sizing: border-box;
   height: 20px;
-  left: 130px;
-  top: 910px;
   width: 20px;
 }
 
@@ -174,4 +169,25 @@ export default {
 .login-link {
   padding-left: 5px;
 }
+
+@media (max-width: 480px) {
+  .agree-text {
+    font-size: 12px;
+    line-height: 15px;
+    margin-top: 0;
+  }
+
+  .input-agree-div {
+    width: 220px;
+  }
+
+  .tabs {
+    width: 100%;
+  }
+
+  .register-button {
+    width: 100%;
+  }
+}
+
 </style>

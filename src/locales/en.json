@@ -26,7 +26,8 @@
     "phone_label": "Phone Number",
     "phone_placeholder": "Enter your phone number",
     "email_label": "Email Address",
-    "email_placeholder": "Enter your email address"
+    "email_placeholder": "Enter your email address",
+    "country_code":"Country Code"
   },
   "forgot_password": {
     "forgot_password": "Forgot Password",
