@@ -2,10 +2,18 @@
   <div
     class="input-group"
   >
-    <span
+    <div
       v-if="text"
       class="input-group-text"
-    >{{ text }}</span>
+    >
+      <span
+        v-if="type == 'phone'"
+        style="margin-right: 1rem;"
+      >
+        {{ $t('components.country_code') }}
+      </span>
+      {{ text }}
+    </div>
     <div
       class="inline-block"
     >
@@ -54,12 +62,7 @@
           src="@svg/phone.svg"
           class="input-group-icon"
         >
-        <!-- <input
-          v-model="phoneCode"
-          type="text"
-          maxlength="4"
-          class="input-box input-phone"
-        > -->
+        <!-- TODO: Better UI -->
         <select>
           <option
             data-countryCode="GB"
@@ -169,6 +172,7 @@ export default {
   font-size: 1rem;
   height: 2.5rem;
   margin-right: 0.6rem;
+  min-width: 2.5rem;
   outline: 0;
 }
 

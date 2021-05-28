@@ -163,6 +163,10 @@ select::-ms-expand {
   margin: -6px !important;
 }
 
+.forgot-password-form {
+  max-width: 24rem;
+}
+
 .forgot-password-form button {
   margin-top: 50px;
 }

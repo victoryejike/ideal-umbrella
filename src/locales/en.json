@@ -1,5 +1,17 @@
 {
+  "components": {
+    "country_code": "Country Code"
+  },
   "default": "Default Template",
+  "forgot_password": {
+    "already_have_account": "Already have an account?",
+    "country_code": "Country Code",
+    "forgot_password": "Forgot Password",
+    "login": "Login",
+    "phone": "Phone Number",
+    "send": "Send",
+    "sms_code": "SMS Code"
+  },
   "login_screen": {
     "forgot_password": "Forgot Password?",
     "login": "Login",
@@ -11,32 +23,21 @@
     "username_text": "Email Address or Phone Number"
   },
   "register_screen": {
-    "register": "Register",
-    "agree_text":"I have read and agree to the",
-    "privacy_agreement": " Terms of Use Privacy Agreement",
-    "login_password_label": "Login Password",
-    "login_password_placehoder": "Enter your password",
+    "agree_text": "I have read and agree to the",
+    "already_have_account": "Already have an account?",
     "confirm_password_label": "Confirm Password",
     "confirm_password_placehoder": "Confirm your password",
-    "verification_code_label": "SMS Code",
-    "verification_code__placehoder": "Enter the verification code",
-    "send_code":"Send Code",
-    "already_have_account":"Already have an account?",
-    "login": "Login",
-    "phone_label": "Phone Number",
-    "phone_placeholder": "Enter your phone number",
     "email_label": "Email Address",
     "email_placeholder": "Enter your email address",
-    "country_code":"Country Code"
-  },
-  "forgot_password": {
-    "forgot_password": "Forgot Password",
-    "send":"Send",
-    "already_have_account":"Already have an account?",
-    "login":"Login",
-    "country_code":"Country Code",
-    "phone":"Phone Number",
-    "sms_code":"SMS Code"
+    "login": "Login",
+    "login_password_label": "Login Password",
+    "login_password_placehoder": "Enter your password",
+    "phone_label": "Phone Number",
+    "phone_placeholder": "Enter your phone number",
+    "privacy_agreement": " Terms of Use Privacy Agreement",
+    "register": "Register",
+    "send_code": "Send Code",
+    "verification_code__placehoder": "Enter the verification code",
+    "verification_code_label": "SMS Code"
   }
-
 }

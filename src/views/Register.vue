@@ -18,37 +18,13 @@
         name="email"
         type="text"
       />
-      <div class="phone-main-div">
-        <div class="country-main-div">
-          <div class="code-input-div">
-            <span class="country-code-label">
-              {{ $t("register_screen.country_code") }}</span>
-
-            <div>
-              <img
-                src="@svg/phone.svg"
-                class="input-group-icon"
-              >
-              <input
-                v-model="phoneCode"
-                type="text"
-
-                class="input-box input-phone"
-              >
-            </div>
-          </div>
-          <div
-            class="input-line focus"
-          />
-        </div>
-        <BaseUnderlinedInput
-          class="input-field"
-          :text="$t('register_screen.phone_label')"
-          :placeholder="$t('register_screen.phone_placeholder')"
-          name="phone"
-          type="text"
-        />
-      </div>
+      <BaseUnderlinedInput
+        class="input-field"
+        :text="$t('register_screen.phone_label')"
+        :placeholder="$t('register_screen.phone_placeholder')"
+        name="phone"
+        type="phone"
+      />
       <BaseUnderlinedInput
         class="input-field"
         :text="$t('register_screen.login_password_label')"
@@ -249,10 +225,6 @@ export default {
 
   .input-agree-div {
     width: 220px;
-  }
-
-  .tabs {
-    width: 100%;
   }
 
   .register-button {
