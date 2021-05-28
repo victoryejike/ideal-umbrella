@@ -18,14 +18,37 @@
         name="email"
         type="text"
       />
+      <div class="phone-main-div">
+        <div class="country-main-div">
+          <div class="code-input-div">
+            <span class="country-code-label">
+              {{ $t("register_screen.country_code") }}</span>
 
-      <BaseUnderlinedInput
-        class="input-field"
-        :text="$t('register_screen.phone_label')"
-        :placeholder="$t('register_screen.phone_placeholder')"
-        name="phone"
-        type="phone"
-      />
+            <div>
+              <img
+                src="@svg/phone.svg"
+                class="input-group-icon"
+              >
+              <input
+                v-model="phoneCode"
+                type="text"
+
+                class="input-box input-phone"
+              >
+            </div>
+          </div>
+          <div
+            class="input-line focus"
+          />
+        </div>
+        <BaseUnderlinedInput
+          class="input-field"
+          :text="$t('register_screen.phone_label')"
+          :placeholder="$t('register_screen.phone_placeholder')"
+          name="phone"
+          type="text"
+        />
+      </div>
       <BaseUnderlinedInput
         class="input-field"
         :text="$t('register_screen.login_password_label')"
@@ -128,6 +151,53 @@ export default {
   margin-top: 40px;
 }
 
+.phone-main-div {
+  display: flex;
+}
+
+.country-main-div {
+  margin-top: 40px;
+  max-width: 120px;
+}
+
+.country-code-label {
+  color: rgba(0, 0, 0, 0.75);
+  font-size: 0.9rem;
+  margin-bottom: 1.2rem;
+}
+
+.input-group-icon {
+  height: 1rem;
+  padding: 0 0.6rem 0 0.6rem;
+  width: 1rem;
+}
+
+.input-line {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+  transition: border-bottom 0.3s ease-in-out;
+  width: 100%;
+}
+
+.input-box {
+  background-color: transparent;
+  border: 0;
+  color: #000;
+  flex-grow: 1;
+  font-size: 1rem;
+  height: 2.5rem;
+  margin-right: 0.6rem;
+  outline: 0;
+}
+
+.code-input-div {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.input-phone {
+  max-width: 3rem;
+}
+
 .input-agree-div {
   align-items: center;
   display: flex;
@@ -189,5 +259,4 @@ export default {
     width: 100%;
   }
 }
-
 </style>
