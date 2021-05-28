@@ -29,7 +29,8 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  // fixing unusual behavior in Chrome
+  if (from.fullPath !== to.fullPath) { window.scrollTo({ top: 0, behavior: 'smooth' }); }
   next();
 });
 
