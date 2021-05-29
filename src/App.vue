@@ -85,7 +85,9 @@ a {
   opacity: 0;
 }
 
-@media (min-device-width: 70rem) {
+/* The reason using 70em is to fit the footer UI */
+
+@media (min-device-width: 70em) {
   #wrapper {
     padding: 2.5rem 8rem 0 8rem !important;
   }

@@ -95,8 +95,9 @@ export default {
   margin-top: 1.5rem;
 }
 
-@media (min-device-width: 29rem) {
+@media (min-device-width: 30em) {
   .login-btn {
+    /* Using auto do not have transition animation, 39% excetly the same to the default width */
     width: 39% !important;
   }
 }

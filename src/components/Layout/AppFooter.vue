@@ -187,7 +187,7 @@ footer {
 
 /* Here using 65 instead of 70 is to prevent links-group flickering when footer padding changed */
 
-@media (min-device-width: 65rem) {
+@media (min-device-width: 65em) {
   .logo-and-links-div {
     flex-wrap: nowrap !important;
   }
@@ -197,7 +197,7 @@ footer {
   }
 }
 
-@media (min-device-width: 42rem) {
+@media (min-device-width: 70em) {
   .links-group {
     width: 12.5rem !important;
   }

@@ -101,7 +101,7 @@ header {
   opacity: 0.3;
 }
 
-@media (min-device-width: 60rem) {
+@media (min-device-width: 54em) {
   .menu {
     opacity: 100;
     position: inherit;
