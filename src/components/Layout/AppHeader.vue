@@ -19,7 +19,7 @@
       <BaseRoundButton
         :bold="true"
         type="secondary"
-        text="Register"
+        :text="$t('header.register')"
         url="/register"
       />
     </div>
@@ -38,27 +38,23 @@ export default {
     return {
       links: [
         {
-          name: 'Discover',
+          name: this.$t('header.discover'),
           url: '/',
         },
         {
-          name: 'My Item',
+          name: this.$t('header.my_nft'),
           url: '/',
         },
         {
-          name: 'My Profile',
+          name: this.$t('header.how_it_works'),
           url: '/',
         },
         {
-          name: 'How it works',
+          name: this.$t('header.fanschain'),
           url: '/',
         },
         {
-          name: 'Fanschain',
-          url: '/',
-        },
-        {
-          name: 'Login',
+          name: this.$t('header.login'),
           url: '/login',
         },
       ],

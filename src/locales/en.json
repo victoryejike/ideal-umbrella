@@ -12,6 +12,15 @@
     "send": "Send",
     "sms_code": "SMS Code"
   },
+  "header": {
+    "discover": "Discover",
+    "fanschain": "Fanschain",
+    "how_it_works": "How it works",
+    "login": "Login",
+    "my_nft": "My NFT",
+    "register": "Register",
+    "wallet": "Wallet"
+  },
   "login_screen": {
     "forgot_password": "Forgot Password?",
     "login": "Login",
