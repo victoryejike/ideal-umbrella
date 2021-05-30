@@ -33,7 +33,7 @@ export default {
   computed: {
     widthVars() {
       return {
-        '--width': `${this.width}px`,
+        '--width': `${this.width}rem`,
       };
     },
   },
@@ -60,7 +60,7 @@ export default {
 <style scoped>
 .tabs {
   background: rgba(255, 255, 255, 0.25);
-  border: 1px solid rgba(44, 67, 173, 0.25);
+  border: 0.06rem solid rgba(44, 67, 173, 0.25);
   border-radius: 0.6rem;
   display: inline-flex;
   font-weight: 600;

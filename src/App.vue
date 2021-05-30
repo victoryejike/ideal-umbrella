@@ -66,7 +66,7 @@ a {
   margin: auto auto;
   max-width: 90rem;
   min-height: 80vh;
-  padding-bottom: 3.5rem;
+  padding-bottom: 3.75rem;
   padding-top: 1.5rem;
 }
 
@@ -93,7 +93,7 @@ a {
   }
 
   #content {
-    padding-top: 3.5rem !important;
+    padding-top: 3.75rem !important;
   }
 
   #footer {

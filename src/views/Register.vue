@@ -9,7 +9,7 @@
       <BaseNavigationTab
         class="tabs"
         :list="registerTab"
-        :width="170"
+        :width="10.6"
       />
       <BaseUnderlinedInput
         class="input-field"
@@ -115,8 +115,13 @@ export default {
   max-width: 24rem;
 }
 
+.register-text {
+  font-size: 2rem;
+  margin-bottom: 2.5rem;
+}
+
 .input-field {
-  margin-top: 40px;
+  margin-top: 2.5rem;
 }
 
 .phone-main-div {
@@ -124,99 +129,61 @@ export default {
 }
 
 .country-main-div {
-  margin-top: 40px;
-  max-width: 120px;
-}
-
-.country-code-label {
-  color: rgba(0, 0, 0, 0.75);
-  font-size: 0.9rem;
-  margin-bottom: 1.2rem;
-}
-
-.input-group-icon {
-  height: 1rem;
-  padding: 0 0.6rem 0 0.6rem;
-  width: 1rem;
-}
-
-.input-line {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.25);
-  transition: border-bottom 0.3s ease-in-out;
-  width: 100%;
-}
-
-.input-box {
-  background-color: transparent;
-  border: 0;
-  color: #000;
-  flex-grow: 1;
-  font-size: 1rem;
-  height: 2.5rem;
-  margin-right: 0.6rem;
-  outline: 0;
-}
-
-.code-input-div {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.input-phone {
-  max-width: 3rem;
+  margin-top: 2.5rem;
+  max-width: 7.5rem;
 }
 
 .input-agree-div {
   align-items: center;
   display: flex;
-  margin-top: 60px;
-  width: 440px;
+  margin-top: 3.75rem;
+  width: 27.5rem;
 }
 
 .agree-text {
   align-items: center;
   color: rgba(0, 0, 0, 0.75);
   display: inline-block;
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 600;
-  line-height: 18px;
-  margin-left: 10px;
-  margin-top: 4px;
+  line-height: 1.125rem;
+  margin-left: 0.625rem;
+  margin-top: 0.25rem;
   vertical-align: top;
 }
 
 #checkbox {
-  height: 20px;
-  width: 20px;
+  height: 1.25rem;
+  width: 1.25rem;
 }
 
 .register-button {
-  margin-top: 40px;
+  margin-top: 2.5rem;
 }
 
 .login-div {
   align-items: center;
   color: rgba(0, 0, 0, 0.75);
   display: flex;
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 600;
-  line-height: 18px;
-  margin-top: 40px;
+  line-height: 1.125rem;
+  margin-top: 2.5rem;
 }
 
 .login-link {
-  padding-left: 5px;
+  padding-left: 0.3125rem;
 }
 
-@media (max-width: 480px) {
+@media (max-width: 30em) {
   .agree-text {
-    font-size: 12px;
-    line-height: 15px;
+    font-size: 0.75rem;
+    line-height: 0.9375rem;
     margin-top: 0;
   }
 
   .input-agree-div {
-    width: 220px;
+    width: 13.75rem;
   }
 
   .register-button {

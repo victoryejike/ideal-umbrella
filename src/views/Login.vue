@@ -8,13 +8,13 @@
         {{ $t("login_screen.login") }}
       </h1>
       <BaseUnderlinedInput
-        class="username-input-group"
+        class="input-group"
         :text="$t('login_screen.username_text')"
         :placeholder="$t('login_screen.username_placeholder')"
         name="username"
       />
       <BaseUnderlinedInput
-        class="password-input-group"
+        class="input-group"
         :text="$t('login_screen.password_text')"
         :placeholder="$t('login_screen.password_placehoder')"
         name="password"
@@ -62,11 +62,6 @@ export default {
 </script>
 
 <style scoped>
-.container {
-  display: flex;
-  justify-content: space-between;
-}
-
 .login-form {
   max-width: 24rem;
 }
@@ -74,15 +69,15 @@ export default {
 .login-text {
   font-size: 2rem;
   font-weight: bold;
-  margin-bottom: 3rem;
 }
 
-.username-input-group {
-  margin-bottom: 2.5rem;
+.input-group {
+  margin-top: 2.5rem;
 }
 
-.password-input-group {
-  margin-bottom: 3.75rem;
+.login-btn {
+  margin-top: 3.75rem;
+  width: 100%;
 }
 
 .helper-div {
@@ -92,7 +87,7 @@ export default {
 
 .register-div {
   color: rgba(0, 0, 0, 0.75);
-  margin-top: 1.5rem;
+  margin-top: 2rem;
 }
 
 @media (min-device-width: 30em) {
@@ -100,9 +95,5 @@ export default {
     /* Using auto do not have transition animation, 39% excetly the same to the default width */
     width: 39% !important;
   }
-}
-
-.login-btn {
-  width: 100%;
 }
 </style>

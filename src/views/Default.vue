@@ -8,7 +8,6 @@
 
 export default {
   name: 'Default',
-  components: {},
   data() {
     return {
 

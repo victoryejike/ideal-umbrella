@@ -73,10 +73,10 @@ header {
 .menu {
   align-items: center;
   display: flex;
-  left: -9999px;
+  left: -9999rem;
   opacity: 0;
   position: absolute;
-  top: -9999px;
+  top: -9999rem;
   transition: opacity 1s;
 }
 
@@ -109,10 +109,10 @@ header {
   }
 
   .mobile-menu {
-    left: -9999px;
+    left: -9999rem;
     opacity: 0;
     position: absolute;
-    top: -9999px;
+    top: -9999rem;
     transition: opacity 1s;
   }
 }

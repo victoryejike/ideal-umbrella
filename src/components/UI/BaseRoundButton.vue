@@ -61,6 +61,7 @@ button {
 button:active {
   filter: brightness(85%);
   transform: translateY(0.25rem);
+  transition: all 0s;
 }
 
 .btn-icon {
