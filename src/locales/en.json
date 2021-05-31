@@ -48,5 +48,40 @@
     "send_code": "Send Code",
     "verification_code__placehoder": "Enter the verification code",
     "verification_code_label": "SMS Code"
+  },
+  "user_index_screen": {
+    "account": "ACCOUNT",
+    "edit_profile": "EDIT PROFILE",
+    "settings": {
+      "body": {
+        "anti_phish": "Once you enable the anti-phishing code, it will be included in all authentic emails sent from us.",
+        "api": "Generate an API key for pulling market data and real-time trading services.",
+        "asset_pwd": "Used for withdrawals and asset transfers.",
+        "for_security": "For login, withdrawal and general account security.",
+        "id_ver": "Used for withdrawals and API verification."
+      },
+      "button": {
+        "change": "CHANGE",
+        "rebind": "RE-BIND",
+        "settings": "SETTINGS",
+        "verify": "VERIFY"
+      },
+      "header": {
+        "anti_phish": "ANTI-PHISHING CODE",
+        "api": "API",
+        "asset_pwd": "ASSET PASSWORD",
+        "email": "EMAIL",
+        "google_2fa": "GOOGLE 2FA",
+        "id_ver": "IDENTITY VERIFICATION",
+        "login_pwd": "LOGIN PASSWORD",
+        "phone": "PHONE",
+        "preference": "PREFERENCE"
+      }
+    },
+    "tab_titles": [
+      "SETTING",
+      "LOG HISTORY"
+    ],
+    "uid": "UID"
   }
 }

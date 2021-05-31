@@ -85,4 +85,11 @@ button:active {
   border: 0.1rem solid #2c43ad;
   color: #2c43ad;
 }
+
+.outline-danger {
+  background-color: transparent;
+  border: 1px solid #ff3a31;
+  border-radius: 10px;
+  color: #ff3a31;
+}
 </style>
