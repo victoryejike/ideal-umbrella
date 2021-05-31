@@ -43,28 +43,16 @@
         ©2021 Naffiti by Huobi. All rights reserved
       </div>
       <div class="social-media">
-        <a href="">
+        <a
+          v-for="(item, index) in socialMediaList"
+          :key="index"
+          :href="item.url"
+        >
           <img
             class="social-media-icons"
-            src="@svg/facebook.svg"
-          >
-        </a>
-        <a href="">
-          <img
-            class="social-media-icons"
-            src="@svg/instagram.svg"
-          >
-        </a>
-        <a href="">
-          <img
-            class="social-media-icons"
-            src="@svg/youtube.svg"
-          >
-        </a>
-        <a href="">
-          <img
-            class="social-media-icons"
-            src="@svg/twitter.svg"
+            :src="item.icon"
+            width="24"
+            height="20"
           >
         </a>
       </div>
@@ -73,6 +61,10 @@
 </template>
 
 <script>
+import Facebook from '@svg/facebook.svg';
+import Instagram from '@svg/instagram.svg';
+import Youtube from '@svg/youtube.svg';
+import Twitter from '@svg/twitter.svg';
 
 export default {
   name: 'AppFooter',
@@ -105,6 +97,24 @@ export default {
             { name: 'Privacy Policy', url: '/' },
             { name: 'Insider Trading Policy', url: '/' },
           ],
+        },
+      ],
+      socialMediaList: [
+        {
+          icon: Facebook,
+          url: '',
+        },
+        {
+          icon: Instagram,
+          url: '',
+        },
+        {
+          icon: Youtube,
+          url: '',
+        },
+        {
+          icon: Twitter,
+          url: '',
         },
       ],
     };

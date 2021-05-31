@@ -4,6 +4,8 @@
       <img
         class="logo"
         src="@svg/logo.svg"
+        width="102"
+        height="24"
       >
     </router-link>
     <div class="menu">
@@ -26,6 +28,8 @@
     <img
       class="mobile-menu"
       src="@svg/mobile-menu.svg"
+      width="20"
+      height="20"
     >
   </header>
 </template>

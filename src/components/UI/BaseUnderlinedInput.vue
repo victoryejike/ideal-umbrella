@@ -35,9 +35,12 @@
         >
 
         <img
+          ref="password-eye"
           class="password-eye"
           src="@svg/password-eye.svg"
-          @click="isDisplay = !isDisplay"
+          width="16"
+          height="16"
+          @click="toggleEye"
         >
       </template>
       <template v-else-if="type == 'with-button'">
@@ -61,6 +64,8 @@
         <img
           src="@svg/phone.svg"
           class="input-group-icon"
+          width="12"
+          height="20"
         >
         <!-- TODO: Better UI -->
         <select>
@@ -108,6 +113,9 @@
 </template>
 
 <script>
+import PasswordEye from '@svg/password-eye.svg';
+import PasswordEyeClosed from '@svg/password-eye-closed.svg';
+
 export default {
   name: 'BaseUnderlinedInput',
   props: {
@@ -131,6 +139,12 @@ export default {
       isFocus: false,
       inputWidth: this.width,
     };
+  },
+  methods: {
+    toggleEye() {
+      this.$refs['password-eye'].src = (this.isDisplay) ? PasswordEye : PasswordEyeClosed;
+      this.isDisplay = !this.isDisplay;
+    },
   },
 };
 </script>
@@ -194,6 +208,11 @@ export default {
 
 .input-phone {
   margin-left: 2rem;
+}
+
+.password-eye {
+  align-self: center;
+  margin-right: 0.6rem;
 }
 
 select {

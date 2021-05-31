@@ -66,7 +66,6 @@
       <div class="input-agree-div">
         <input
           id="checkbox"
-          v-model="checked"
           type="checkbox"
         >
         <div class="agree-text">

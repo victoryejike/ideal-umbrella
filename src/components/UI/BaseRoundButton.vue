@@ -9,6 +9,8 @@
       v-if="icon == 'arrow-right'"
       src="@svg/arrow-right.svg"
       class="btn-icon"
+      width="32"
+      height="32"
     >
   </button>
 </template>
@@ -43,6 +45,10 @@ button {
 
 .bold-text {
   font-weight: bold;
+}
+
+.xl {
+  padding: 0.75rem 2.5rem 0.75rem 2.5rem;
 }
 
 .l {
