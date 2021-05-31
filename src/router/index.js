@@ -21,6 +21,11 @@ const routes = [
     name: 'ForgotPassword',
     component: () => import('@view/ForgotPassword.vue'),
   },
+  {
+    path: '/account-setting',
+    name: 'AccountSetting',
+    component: () => import('@view/User/Index.vue'),
+  },
 ];
 
 const router = createRouter({
