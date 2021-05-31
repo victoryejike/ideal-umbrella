@@ -92,4 +92,9 @@ export default {
   width: var(--width);
 }
 
+@media (max-width: 30em) {
+  .tabs {
+    width: 100%;
+  }
+}
 </style>
