@@ -58,13 +58,13 @@ a {
 
 #header {
   margin: auto auto;
-  max-width: 90rem;
+  max-width: 73.75rem;
   min-height: 10vh;
 }
 
 #content {
   margin: auto auto;
-  max-width: 90rem;
+  max-width: 73.75rem;
   min-height: 80vh;
   padding-bottom: 3.75rem;
   padding-top: 1.5rem;
@@ -97,7 +97,7 @@ a {
   }
 
   #footer {
-    padding: 5rem 8rem 5rem 8rem !important;
+    padding: 5rem 8rem !important;
   }
 }
 </style>

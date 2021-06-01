@@ -163,7 +163,7 @@ export default {
 
 .input-group-icon {
   height: 1rem;
-  padding: 0 0.6rem 0 0.6rem;
+  padding: 0 0.6rem;
   width: 1rem;
 }
 

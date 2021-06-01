@@ -48,20 +48,20 @@ button {
 }
 
 .xl {
-  padding: 0.75rem 2.5rem 0.75rem 2.5rem;
+  padding: 0.75rem 2.5rem;
 }
 
 .l {
-  padding: 0.75rem 1.75rem 0.75rem 1.75rem;
+  padding: 0.75rem 1.75rem;
 }
 
 .m {
-  padding: 0.45rem 1.75rem 0.45rem 1.75rem;
+  padding: 0.45rem 1.75rem;
 }
 
 .s {
   font-size: 0.75rem;
-  padding: 0.35rem 0.75rem 0.35rem 0.75rem;
+  padding: 0.35rem 0.75rem;
 }
 
 button:active {

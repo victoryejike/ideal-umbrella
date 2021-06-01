@@ -133,7 +133,7 @@ export default {
   cursor: pointer;
   display: flex;
   height: 2.5rem;
-  padding: 0 1.2rem 0 1.2rem;
+  padding: 0 1.2rem;
   transition: background 0.3s ease-in-out;
   width: var(--width);
 }

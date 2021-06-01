@@ -64,13 +64,14 @@ export default {
   border-radius: 0.6rem;
   display: inline-flex;
   font-weight: 600;
-  padding: 0.25rem 0.25rem 0.25rem 0.25rem;
+  padding: 0.25rem;
 }
 
 .navs {
   background-color: transparent;
   border-width: 0;
   color: rgba(44, 67, 173, 0.5);
+  transition: all 0s;
 }
 
 .navs:hover {
@@ -81,14 +82,15 @@ export default {
   background: #5e6ec2;
   border-radius: 0.6rem;
   color: #fff;
+  transition: all 0s;
 }
 
 .auto {
-  padding: 0.6rem 2.5rem 0.6rem 2.5rem;
+  padding: 0.6rem 2.5rem;
 }
 
 .fixed {
-  padding: 0.6rem 0 0.6rem 0;
+  padding: 0.6rem 0;
   width: var(--width);
 }
 
