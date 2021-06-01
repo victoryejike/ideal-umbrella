@@ -83,5 +83,16 @@
       "LOG HISTORY"
     ],
     "uid": "UID"
+  },
+  "reset_password_screen":{
+    "reset_password": "Reset Password",
+    "original_password_label": "Original Password",
+    "original_password_placehoder": "Enter current password",
+    "new_password_label": "New Password",
+    "new_password_placehoder": "Enter new password",
+    "confirm_password_label": "Confirm Password",
+    "confirm_password_placehoder": "Enter new password",
+    "reset": "Reset",
+    "cancel": "Cancel"
   }
 }
