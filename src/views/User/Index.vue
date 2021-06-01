@@ -69,7 +69,7 @@ export default {
           notes: null,
           btnText: this.$t('user_index_screen.settings.button.change'),
           icon: 'lock',
-          url: '/reset-password',
+          url: '/account-setting/reset-password',
         },
         {
           title: this.$t('user_index_screen.settings.header.email'),
