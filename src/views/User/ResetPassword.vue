@@ -1,8 +1,5 @@
 <template>
-  <div class="container">
-    <h1 class="reset-password-text">
-      {{ $t("reset_password_screen.reset_password") }}
-    </h1>
+  <BaseSettingFrame :title="$t('reset_password_screen.reset_password')">
     <BaseUnderlinedInput
       class="input-field"
       :text="$t('reset_password_screen.original_password_label')"
@@ -55,17 +52,19 @@
         {{ $t("reset_password_screen.cancel") }}
       </router-link>
     </div>
-  </div>
+  </BaseSettingFrame>
 </template>
-<style scoped>
-.container {
-  max-width: 24rem;
-}
+<script>
+import BaseSettingFrame from './BaseSettingFrame.vue';
 
-.reset-password-text-text {
-  font-size: 2rem;
-  margin-bottom: 2.5rem;
-}
+export default {
+  name: 'ResetPassword',
+  components: { BaseSettingFrame },
+};
+
+</script>
+
+<style scoped>
 
 .input-field {
   margin-top: 2.5rem;
@@ -82,8 +81,8 @@
 }
 
 .cancel-link {
-  font-size: 0.875em;
+  font-size: 0.875rem;
   font-weight: 600;
-  line-height: 1.125em;
+  line-height: 1.125rem;
 }
 </style>
