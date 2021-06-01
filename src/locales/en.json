@@ -5,6 +5,28 @@
     "search_placeholder": "Search by creator, collectible or collection"
   },
   "default": "Default Template",
+  "footer": {
+    "fanschain": {
+      "community": "Community",
+      "exchange": "Exchange",
+      "fto": "Fan Token Offering",
+      "title": "Fanschain"
+    },
+    "legal": {
+      "privacy_policy": "Privacy Policy",
+      "terms": "Terms",
+      "title": "Legal",
+      "trading_policy": "Insider Trading Policy"
+    },
+    "nft": {
+      "create": "Create NFT",
+      "discover": "Discover",
+      "how_it_works": "How it works",
+      "profile": "My Profile",
+      "title": "NFT Marketplace",
+      "wallet": "Wallet"
+    }
+  },
   "forgot_password": {
     "already_have_account": "Already have an account?",
     "country_code": "Country Code",

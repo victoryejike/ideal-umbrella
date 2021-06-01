@@ -70,32 +70,32 @@ export default {
   name: 'AppFooter',
   data() {
     return {
-      languageList: ['English', 'Chinese', 'Japanese', 'Korean'],
+      languageList: ['English', '中文', '日本語', '한국어'],
       links: [
         {
-          header: 'NFT Marketplace',
+          header: this.$t('footer.nft.title'),
           content: [
-            { name: 'Discover', url: '/' },
-            { name: 'Create NFT', url: '/' },
-            { name: 'My Profile', url: '/' },
-            { name: 'Wallet', url: '/' },
-            { name: 'How it works', url: '/' },
+            { name: this.$t('footer.nft.discover'), url: '/' },
+            { name: this.$t('footer.nft.create'), url: '/' },
+            { name: this.$t('footer.nft.profile'), url: '/' },
+            { name: this.$t('footer.nft.wallet'), url: '/' },
+            { name: this.$t('footer.nft.how_it_works'), url: '/' },
           ],
         },
         {
-          header: 'Fanschain',
+          header: this.$t('footer.fanschain.title'),
           content: [
-            { name: 'Exchange', url: '/' },
-            { name: 'Fan Token Offering', url: '/' },
-            { name: 'Community', url: '/' },
+            { name: this.$t('footer.fanschain.exchange'), url: '/' },
+            { name: this.$t('footer.fanschain.fto'), url: '/' },
+            { name: this.$t('footer.fanschain.community'), url: '/' },
           ],
         },
         {
-          header: 'Legal',
+          header: this.$t('footer.legal.title'),
           content: [
-            { name: 'Terms', url: '/' },
-            { name: 'Privacy Policy', url: '/' },
-            { name: 'Insider Trading Policy', url: '/' },
+            { name: this.$t('footer.legal.terms'), url: '/' },
+            { name: this.$t('footer.legal.privacy_policy'), url: '/' },
+            { name: this.$t('footer.legal.trading_policy'), url: '/' },
           ],
         },
       ],
