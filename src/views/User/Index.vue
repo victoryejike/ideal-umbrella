@@ -77,7 +77,7 @@ export default {
           notes: 'f******n@gmail.com',
           btnText: this.$t('user_index_screen.settings.button.rebind'),
           icon: 'mail',
-          url: '',
+          url: '/account-setting/rebind-email',
         },
         {
           title: this.$t('user_index_screen.settings.header.phone'),
@@ -85,7 +85,7 @@ export default {
           notes: '****1234',
           btnText: this.$t('user_index_screen.settings.button.rebind'),
           icon: 'phone',
-          url: '',
+          url: '/account-setting/rebind-phone',
         },
         {
           title: this.$t('user_index_screen.settings.header.id_ver'),

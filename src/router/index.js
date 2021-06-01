@@ -41,6 +41,11 @@ const routes = [
     name: 'RebindPhone',
     component: () => import('@view/User/RebindPhone.vue'),
   },
+  {
+    path: '/account-setting/rebind-email',
+    name: 'RebindEmail',
+    component: () => import('@view/User/RebindEmail.vue'),
+  },
 ];
 
 const router = createRouter({
