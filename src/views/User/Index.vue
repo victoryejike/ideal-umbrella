@@ -93,7 +93,7 @@ export default {
           notes: null,
           btnText: this.$t('user_index_screen.settings.button.verify'),
           icon: 'identity',
-          url: '/user/id-verification',
+          url: '/account-setting/id-verification',
         },
       ],
     };

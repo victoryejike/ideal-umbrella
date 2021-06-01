@@ -31,6 +31,11 @@ const routes = [
     name: 'ResetPassword',
     component: () => import('@view/User/ResetPassword.vue'),
   },
+  {
+    path: '/account-setting/id-verification',
+    name: 'IdentityVerification',
+    component: () => import('@view/User/Kyc.vue'),
+  },
 ];
 
 const router = createRouter({
