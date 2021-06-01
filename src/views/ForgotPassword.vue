@@ -59,7 +59,9 @@ export default {
   name: 'ForgotPassword',
   data() {
     return {
-      forgotPasswordTab: ['EMAIL', 'PHONE'],
+      forgotPasswordTab: [
+        this.$t('tab_titles.email'), this.$t('tab_titles.email'),
+      ],
     };
   },
 };

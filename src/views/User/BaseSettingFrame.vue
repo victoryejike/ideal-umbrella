@@ -13,7 +13,7 @@
 
 <script>
 export default {
-  name: 'SettingRootFrame',
+  name: 'UserBaseSettingFrame',
   props: { title: { type: String, required: true } },
 };
 </script>

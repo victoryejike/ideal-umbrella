@@ -52,6 +52,36 @@
     "username_placeholder": "Enter your email or phone number",
     "username_text": "Email Address or Phone Number"
   },
+  "rabind_email_screen": {
+    "cancel": "Cancel",
+    "confirm": "confirm",
+    "email_verfication": "Phone Verification Code",
+    "email_verfication_label": "Email Verification Code",
+    "email_verfication_placehoder": "Enter the verification code",
+    "new_phone_label": "New Phone",
+    "new_phone_placeholder": "Enter New Phone",
+    "original_email_label": "Original Email",
+    "original_email_placehoder": "c*********@gmail.com",
+    "phone_label": "Phone",
+    "phone_label_label": "****4321",
+    "phone_verfication_placehoder": "Enter the verification code",
+    "rebind_email": "Rebind Email"
+  },
+  "rabind_phone_screen": {
+    "cancel": "Cancel",
+    "confirm": "confirm",
+    "email_verfication_label": "Email Verification Code",
+    "email_verfication_placehoder": "Enter the verification code",
+    "new_phone_label": "New Phone",
+    "new_phone_placeholder": "Enter New Phone",
+    "original_phone_label": "Original Phone",
+    "original_phone_placehoder": "Enter Phone Number",
+    "phone_label": "Phone",
+    "phone_label_label": "****4321",
+    "phone_verfication": "Phone Verification Code",
+    "phone_verfication_placehoder": "Enter the verification code",
+    "rebind_phone": "Rebind Phone"
+  },
   "register_screen": {
     "agree_text": "I have read and agree to the",
     "already_have_account": "Already have an account?",
@@ -69,6 +99,21 @@
     "send_code": "Send Code",
     "verification_code__placehoder": "Enter the verification code",
     "verification_code_label": "SMS Code"
+  },
+  "reset_password_screen": {
+    "cancel": "Cancel",
+    "confirm_password_label": "Confirm Password",
+    "confirm_password_placehoder": "Enter new password",
+    "new_password_label": "New Password",
+    "new_password_placehoder": "Enter new password",
+    "original_password_label": "Original Password",
+    "original_password_placehoder": "Enter current password",
+    "reset": "Reset",
+    "reset_password": "Reset Password"
+  },
+  "tab_titles": {
+    "email": "EMAIL",
+    "phone": "PHONE"
   },
   "user_index_screen": {
     "account": "ACCOUNT",
@@ -99,51 +144,6 @@
         "preference": "PREFERENCE"
       }
     },
-    "tab_titles": [
-      "SETTING",
-      "LOG HISTORY"
-    ],
     "uid": "UID"
-  },
-  "reset_password_screen":{
-    "reset_password": "Reset Password",
-    "original_password_label": "Original Password",
-    "original_password_placehoder": "Enter current password",
-    "new_password_label": "New Password",
-    "new_password_placehoder": "Enter new password",
-    "confirm_password_label": "Confirm Password",
-    "confirm_password_placehoder": "Enter new password",
-    "reset": "Reset",
-    "cancel": "Cancel"
-  },
-  "rabind_phone_screen":{
-    "rebind_phone": "Rebind Phone",
-    "original_phone_label": "Original Phone",
-    "original_phone_placehoder": "Enter Phone Number",
-    "phone_verfication": "Phone Verification Code",
-    "phone_verfication_placehoder": "Enter the verification code",
-    "phone_label": "Phone",
-    "phone_label_label": "****4321",
-    "email_verfication_label": "Email Verification Code",
-    "email_verfication_placehoder": "Enter the verification code",
-    "new_phone_label": "New Phone",
-    "new_phone_placeholder": "Enter New Phone",
-    "confirm": "confirm",
-    "cancel": "Cancel"
-  },
-  "rabind_email_screen":{
-    "rebind_email": "Rebind Email",
-    "original_email_label": "Original Email",
-    "original_email_placehoder": "c*********@gmail.com",
-    "email_verfication": "Phone Verification Code",
-    "phone_verfication_placehoder": "Enter the verification code",
-    "phone_label": "Phone",
-    "phone_label_label": "****4321",
-    "email_verfication_label": "Email Verification Code",
-    "email_verfication_placehoder": "Enter the verification code",
-    "new_phone_label": "New Phone",
-    "new_phone_placeholder": "Enter New Phone",
-    "confirm": "confirm",
-    "cancel": "Cancel"
   }
 }

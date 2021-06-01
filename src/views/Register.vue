@@ -102,7 +102,9 @@ export default {
   name: 'Register',
   data() {
     return {
-      registerTab: ['EMAIL', 'PHONE'],
+      registerTab: [
+        this.$t('tab_titles.email'), this.$t('tab_titles.email'),
+      ],
     };
   },
 

@@ -58,7 +58,7 @@
 import BaseSettingFrame from './BaseSettingFrame.vue';
 
 export default {
-  name: 'ResetPassword',
+  name: 'UserResetPassword',
   components: { BaseSettingFrame },
 };
 
