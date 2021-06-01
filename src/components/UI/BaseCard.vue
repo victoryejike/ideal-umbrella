@@ -56,19 +56,18 @@ export default {
 
 <style scoped>
 .card {
-  backdrop-filter: blur(4px);
   background: rgba(255, 255, 255, 0.25);
-  border-radius: 16px;
+  border-radius: 1rem;
   display: flex;
   flex-direction: column;
-  height: 180px;
+  height: 11.25rem;
   overflow: hidden;
-  width: 350px;
+  width: 23.75rem;
 }
 
 .card-padding {
   height: 100%;
-  padding: 20px 30px 20px 40px;
+  padding: 1.25rem 1.875rem 1.25rem 2.5rem;
 }
 
 .card-header {
@@ -76,7 +75,7 @@ export default {
   display: flex;
   height: 15%;
   justify-content: space-between;
-  margin-bottom: 10px;
+  margin-bottom: 0.625rem;
   width: 100%;
 }
 
@@ -88,16 +87,16 @@ export default {
 }
 
 .card-header-icon {
-  height: 16px;
-  width: 16px;
+  height: 1rem;
+  width: 1rem;
 }
 
 .card-body {
   color: #808080;
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 600;
   height: 45%;
-  margin-bottom: 10px;
+  margin-bottom: 0.625rem;
   overflow: hidden;
   width: 92%;
 }

@@ -105,6 +105,7 @@ export default {
 .container {
   display: flex;
   flex-direction: column;
+  margin-bottom: 20rem;
 }
 
 .header {
@@ -113,21 +114,21 @@ export default {
 }
 
 .phone {
-  margin-right: 15px;
+  margin-right: 0.9375rem;
 }
 
 .telephone {
-  font-size: 32px;
+  font-size: 2rem;
   font-weight: bold;
   line-height: 150%;
 }
 
 .ver-btn {
-  margin-left: 50px;
+  margin-left: 3.125rem;
 }
 
 .logout-btn {
-  margin-left: 50px;
+  margin-left: 3.125rem;
 }
 
 .settings-tab {
@@ -136,17 +137,19 @@ export default {
 
 .uid {
   color: #808080;
-  margin-top: 10px;
+  margin-top: 0.625rem;
 }
 
 .main-settings {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  margin-top: 50px;
+  margin-right: -1.25rem;
+  margin-top: 3.125rem;
 }
 
 .settings-card {
-  margin-bottom: 40px;
+  margin-bottom: 1.25rem;
+  margin-right: 1.25rem;
 }
 </style>
