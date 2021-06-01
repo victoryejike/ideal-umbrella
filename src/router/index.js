@@ -36,6 +36,11 @@ const routes = [
     name: 'IdentityVerification',
     component: () => import('@view/User/Kyc.vue'),
   },
+  {
+    path: '/account-setting/rebind-phone',
+    name: 'RebindPhone',
+    component: () => import('@view/User/RebindPhone.vue'),
+  },
 ];
 
 const router = createRouter({

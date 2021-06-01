@@ -94,5 +94,20 @@
     "confirm_password_placehoder": "Enter new password",
     "reset": "Reset",
     "cancel": "Cancel"
+  },
+  "rabind_phone_screen":{
+    "rebind_phone": "Rebind Phone",
+    "original_phone_label": "Original Phone",
+    "original_phone_placehoder": "c*********@gmail.com",
+    "phone_verfication": "Phone Verification Code",
+    "phone_verfication_placehoder": "Enter the verification code",
+    "phone_label": "Phone",
+    "phone_label_label": "****4321",
+    "email_verfication_label": "Email Verification Code",
+    "email_verfication_placehoder": "Enter the verification code",
+    "new_phone_label": "New Phone",
+    "new_phone_placeholder": "Enter New Phone",
+    "confirm": "confirm",
+    "cancel": "Cancel"
   }
 }
