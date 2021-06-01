@@ -1,6 +1,8 @@
 {
   "components": {
-    "country_code": "Country Code"
+    "country_code": "Country Code",
+    "search": "Search",
+    "search_placeholder": "Search by creator, collectible or collection"
   },
   "default": "Default Template",
   "forgot_password": {
@@ -20,6 +22,25 @@
     "my_nft": "My NFT",
     "register": "Register",
     "wallet": "Wallet"
+  },
+  "index_screen": {
+    "banner_text": "NFT Marketplace",
+    "discover_tab": {
+      "cheap": "CHEAPEST",
+      "high": "HIGHEST PRICE",
+      "recent": "RECENTLY ADDED"
+    },
+    "more": "More",
+    "seller_tab": {
+      "day": "Day",
+      "month": "Month",
+      "week": "Week"
+    },
+    "title": {
+      "discover": "Discover",
+      "popular": "Popular",
+      "top_seller": "Top Seller"
+    }
   },
   "login_screen": {
     "forgot_password": "Forgot Password?",
