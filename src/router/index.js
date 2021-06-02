@@ -46,6 +46,11 @@ const routes = [
     name: 'RebindEmail',
     component: () => import('@view/User/RebindEmail.vue'),
   },
+  {
+    path: '/nft',
+    name: 'NFT',
+    component: () => import('@view/Nft/Index.vue'),
+  },
 ];
 
 const router = createRouter({

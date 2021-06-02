@@ -47,7 +47,7 @@ export default {
         },
         {
           name: this.$t('header.my_nft'),
-          url: '/',
+          url: '/nft',
         },
         {
           name: this.$t('header.how_it_works'),

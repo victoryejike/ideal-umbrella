@@ -178,5 +178,10 @@
       }
     },
     "uid": "UID"
+  },
+  "nft_index":{
+    "title":"Create Collectible",
+    "description":"Choose Single if you want your collectible to be one of a kind or Multiple if you want to sell one collectible multiple times. We do not own your private keys and cannot access your funds without your confirmation",
+    "button_text": "Timed Auctions"
   }
 }
