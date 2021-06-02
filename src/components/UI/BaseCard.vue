@@ -46,10 +46,10 @@
 export default {
   name: 'BaseCard',
   props: {
-    title: { type: String, required: false, default: null },
-    icon: { type: String, required: false, default: null },
     body: { type: String, required: false, default: null },
+    icon: { type: String, required: false, default: null },
     notes: { type: String, required: false, default: null },
+    title: { type: String, required: false, default: null },
   },
 };
 </script>
@@ -58,32 +58,34 @@ export default {
 .card {
   background: rgba(255, 255, 255, 0.25);
   border-radius: 1rem;
-  display: flex;
-  flex-direction: column;
-  height: 11.25rem;
-  overflow: hidden;
   width: 23.75rem;
 }
 
 .card-padding {
-  height: 100%;
-  padding: 1.25rem 1.875rem 1.25rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+  height: 8.75rem;
+  overflow: hidden;
+  padding: 1.25rem 1.75rem 1.25rem 2.5rem;
 }
 
-.card-header {
+.card-header,
+.card-footer {
   align-items: center;
   display: flex;
-  height: 15%;
   justify-content: space-between;
-  margin-bottom: 0.625rem;
-  width: 100%;
 }
 
 .card-header-title {
   font-weight: bold;
   overflow: hidden;
   text-transform: uppercase;
-  width: 72%;
+  white-space: nowrap;
+  width: 92%;
+}
+
+.card-footer {
+  margin-top: 0.625rem;
 }
 
 .card-header-icon {
@@ -93,30 +95,19 @@ export default {
 
 .card-body {
   color: #808080;
+  flex-grow: 1;
   font-size: 0.875rem;
   font-weight: 600;
-  height: 45%;
-  margin-bottom: 0.625rem;
+  margin-top: 0.625rem;
   overflow: hidden;
   width: 92%;
 }
 
-.card-footer {
-  align-items: center;
-  align-self: flex-end;
-  display: flex;
-  justify-content: space-between;
-}
-
 .card-footer-notes {
-  color: #3671e9;
+  color: #5e6ec2;
 }
 
-button {
-  font-size: 0.7rem;
-}
-
-@media only screen and (max-width: 371px) {
+@media only screen and (max-width: 23em) {
   .card-footer-notes {
     font-size: 0.8rem;
   }

@@ -159,28 +159,28 @@ export default {
   display: flex;
 }
 
-@media only screen and (max-width: 865px) {
+@media only screen and (max-width: 54.0625em) {
   .header {
     display: block;
   }
 
   .flex {
-    padding-bottom: 20px;
-    padding-top: 20px;
+    padding-bottom: 1.25rem;
+    padding-top: 1.25rem;
   }
 
   .flex button {
-    margin-left: 1px;
+    margin-left: 0.0625rem;
   }
 
   .logout-btn {
-    margin-left: 20px !important;
+    margin-left: 1.25rem !important;
   }
 }
 
-@media only screen and (max-width: 421px) {
+@media only screen and (max-width: 26.3125em) {
   .main-settings button {
-    font-size: 12px;
+    font-size: 0.75rem;
     padding: 0.35rem 1rem;
   }
 }
