@@ -9,18 +9,20 @@
         >
         <span>{{ phone }}</span>
       </div>
-      <BaseRoundButton
-        class="ver-btn"
-        text="No ID Verification"
-        type="outline-danger"
-        size="s"
-      />
-      <BaseRoundButton
-        class="logout-btn"
-        text="Logout"
-        type="outline"
-        size="m"
-      />
+      <div class="flex">
+        <BaseRoundButton
+          class="ver-btn"
+          text="No ID Verification"
+          type="outline-danger"
+          size="s"
+        />
+        <BaseRoundButton
+          class="logout-btn"
+          text="Logout"
+          type="outline"
+          size="m"
+        />
+      </div>
       <BaseNavigationTab
         class="settings-tab"
         :list="tabTitle"
@@ -151,5 +153,35 @@ export default {
 .settings-card {
   margin-bottom: 1.25rem;
   margin-right: 1.25rem;
+}
+
+.flex {
+  display: flex;
+}
+
+@media only screen and (max-width: 865px) {
+  .header {
+    display: block;
+  }
+
+  .flex {
+    padding-bottom: 20px;
+    padding-top: 20px;
+  }
+
+  .flex button {
+    margin-left: 1px;
+  }
+
+  .logout-btn {
+    margin-left: 20px !important;
+  }
+}
+
+@media only screen and (max-width: 421px) {
+  .main-settings button {
+    font-size: 12px;
+    padding: 0.35rem 1rem;
+  }
 }
 </style>

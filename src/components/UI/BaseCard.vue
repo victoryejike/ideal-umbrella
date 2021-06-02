@@ -115,4 +115,14 @@ export default {
 button {
   font-size: 0.7rem;
 }
+
+@media only screen and (max-width: 371px) {
+  .card-footer-notes {
+    font-size: 0.8rem;
+  }
+
+  .card-padding {
+    padding: 1.25rem 0.975rem 1.25rem 0.975rem;
+  }
+}
 </style>
