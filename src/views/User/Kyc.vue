@@ -9,6 +9,8 @@
       :options="countryList"
       :bg-color="backgroundColor"
       :border-color="borderColor"
+      hover-color="#DDE1FB"
+      active-color="#DDE1FB"
     />
     <BaseUnderlinedInput
       class="input-div"
@@ -23,6 +25,8 @@
         :options="idTypeList"
         :bg-color="backgroundColor"
         :border-color="borderColor"
+        hover-color="#DDE1FB"
+        active-color="#DDE1FB"
       />
       <BaseUnderlinedInput
         class="input-user-id"
@@ -56,8 +60,7 @@ export default {
   },
   data() {
     return {
-
-      backgroundColor: 'rgba(44, 67, 173, 0.05)',
+      backgroundColor: '#E5E5E5',
       borderColor: 'transparent',
       idTypeList: ['Id Card'],
       countryList: [
