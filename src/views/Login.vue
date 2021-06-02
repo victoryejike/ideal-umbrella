@@ -2,7 +2,7 @@
   <div class="container">
     <form
       class="login-form"
-      action=""
+      @submit.prevent
     >
       <h1 class="login-text">
         {{ $t("login_screen.login") }}

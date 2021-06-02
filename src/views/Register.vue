@@ -2,6 +2,7 @@
   <div class="container">
     <form
       class="register-form"
+      @submit.prevent
     >
       <h1 class="register-text">
         {{ $t("register_screen.register") }}

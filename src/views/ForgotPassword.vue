@@ -2,7 +2,7 @@
   <div class="container">
     <form
       class="forgot-password-form"
-      action=""
+      @submit.prevent
     >
       <h1 class="forgot-password-text">
         {{ $t("forgot_password.forgot_password") }}

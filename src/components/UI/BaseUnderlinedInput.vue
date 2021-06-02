@@ -96,7 +96,7 @@
       <template v-else>
         <input
           v-model="inputValue"
-          type="text"
+          :type="type"
           class="input-box"
           :placeholder="placeholder"
           @focus="isFocus = true"
@@ -126,9 +126,6 @@ export default {
       type: String,
       required: false,
       default: 'text',
-      validator(value) {
-        return ['text', 'phone', 'password', 'with-button'].indexOf(value) !== -1;
-      },
     },
   },
   emits: ['input'],

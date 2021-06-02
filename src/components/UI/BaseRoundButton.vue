@@ -1,8 +1,8 @@
 <template>
   <button
-    ref="btn"
+    class="btn"
     :class="[type, size, {'bold-text':bold}]"
-    @click="if(url.length !== 0) $router.push(url);"
+    @click="forwardURL"
   >
     {{ text }}
     <img
@@ -20,17 +20,22 @@ export default {
   name: 'BaseRoundButton',
   props: {
     text: { type: String, required: true },
-    type: { type: String, default: 'primary' },
-    icon: { type: String, required: false, default: 'primary' },
-    url: { type: String, required: false, default: '' },
-    size: { type: String, required: false, default: 'l' },
     bold: { type: Boolean, required: false, default: false },
+    icon: { type: String, required: false, default: null },
+    size: { type: String, required: false, default: 'l' },
+    type: { type: String, required: false, default: 'primary' },
+    url: { type: String, required: false, default: null },
+  },
+  methods: {
+    forwardURL() {
+      if (this.url !== null) { this.$router.push(this.url); }
+    },
   },
 };
 </script>
 
 <style scoped>
-button {
+.btn {
   align-items: center;
   border-radius: 2rem;
   border-width: 0;
@@ -41,6 +46,7 @@ button {
   line-height: 150%;
   outline: 0;
   text-align: center;
+  transition: all 0s;
 }
 
 .bold-text {
@@ -64,10 +70,10 @@ button {
   padding: 0.35rem 0.75rem;
 }
 
-button:active {
+.btn:active {
   filter: brightness(85%);
   transform: translateY(0.25rem);
-  transition: all 0s;
+  transition: all 0s !important;
 }
 
 .btn-icon {
@@ -94,8 +100,8 @@ button:active {
 
 .outline-danger {
   background-color: transparent;
-  border: 1px solid #ff3a31;
-  border-radius: 10px;
+  border: 0.1rem solid #ff3a31;
+  border-radius: 0.5rem;
   color: #ff3a31;
 }
 </style>
