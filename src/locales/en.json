@@ -137,6 +137,17 @@
     "email": "EMAIL",
     "phone": "PHONE"
   },
+  "kyc_screen":{
+    "id_verification":"ID Verfication",
+    "nationality_label":"Nationality",
+    "name_label":"Full Name",
+    "name_placeholder":"Enter your full name",
+    "id_type_label":"ID Type",
+    "id_number_label":"ID Number",
+    "id_number_placeholder":"Enter your ID number",
+    "confirm": "Confirm"
+
+  },
   "user_index_screen": {
     "account": "ACCOUNT",
     "edit_profile": "EDIT PROFILE",
