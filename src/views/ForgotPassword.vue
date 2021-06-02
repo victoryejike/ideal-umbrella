@@ -84,5 +84,12 @@ export default {
 .send-btn {
   margin-bottom: 22rem;
   margin-top: 3.125rem;
+  min-width: 100%;
+}
+
+@media (min-device-width: 30em) {
+  .send-btn {
+    min-width: 0% !important;
+  }
 }
 </style>

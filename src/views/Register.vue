@@ -161,6 +161,7 @@ export default {
 
 .register-button {
   margin-top: 2.5rem;
+  min-width: 0%;
 }
 
 .login-div {
@@ -189,7 +190,7 @@ export default {
   }
 
   .register-button {
-    width: 100%;
+    min-width: 100%;
   }
 }
 </style>

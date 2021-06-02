@@ -1,6 +1,7 @@
 <template>
   <div
     class="tabs"
+    :style="widthVars"
   >
     <button
       v-for="(name, index) in titleList"
@@ -34,6 +35,7 @@ export default {
     widthVars() {
       return {
         '--width': `${this.width}rem`,
+        '--tab-width': `${this.width * this.list.length}rem`,
       };
     },
   },
@@ -65,13 +67,15 @@ export default {
   display: inline-flex;
   font-weight: 600;
   padding: 0.25rem;
+  width: var(--tab-width);
 }
 
 .navs {
   background-color: transparent;
+  border-radius: 0.6rem;
   border-width: 0;
   color: rgba(44, 67, 173, 0.5);
-  transition: all 0s;
+  transition: all 0.5s, background-color 0s, color 0s;
 }
 
 .navs:hover {
@@ -79,10 +83,10 @@ export default {
 }
 
 .active {
-  background: #5e6ec2;
+  background-color: #5e6ec2;
   border-radius: 0.6rem;
   color: #fff;
-  transition: all 0s;
+  transition: all 0.5s, background-color 0s, color 0s;
 }
 
 .auto {
@@ -96,6 +100,10 @@ export default {
 
 @media (max-width: 30em) {
   .tabs {
+    width: 100%;
+  }
+
+  .fixed {
     width: 100%;
   }
 }

@@ -46,7 +46,7 @@ export default {
   line-height: 150%;
   outline: 0;
   text-align: center;
-  transition: all 0s;
+  transition: all 0.5s, filter 0s, transform 0s;
 }
 
 .bold-text {
@@ -73,7 +73,7 @@ export default {
 .btn:active {
   filter: brightness(85%);
   transform: translateY(0.25rem);
-  transition: all 0s !important;
+  transition: all 0.5s, filter 0s, transform 0s;
 }
 
 .btn-icon {

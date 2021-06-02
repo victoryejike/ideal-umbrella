@@ -77,7 +77,7 @@ export default {
 
 .login-btn {
   margin-top: 3.75rem;
-  width: 100%;
+  min-width: 100%;
 }
 
 .helper-div {
@@ -92,8 +92,7 @@ export default {
 
 @media (min-device-width: 30em) {
   .login-btn {
-    /* Using auto do not have transition animation, 39% excetly the same to the default width */
-    width: 39% !important;
+    min-width: 0% !important;
   }
 }
 </style>
