@@ -25,27 +25,29 @@
         :class="{'rotate':isPullDown}"
       />
     </div>
-    <div
-      v-if="isPullDown"
-      class="selector-menu"
-      :style="[customCSS, dynamicPos]"
-    >
+    <div style="position: relative;">
       <div
-        v-for="(item, index) in options"
-        :key="index"
-        class="selector-options"
-        :class="{'active': optionStatus[index]}"
-        :style="customCSS"
-        :onClick="() => {selectItem(item, index)}"
+        v-if="isPullDown"
+        class="selector-menu"
+        :style="[customCSS]"
       >
-        <img
-          v-if="item.image"
-          class="options-image"
-          :src="item.image"
+        <div
+          v-for="(item, index) in options"
+          :key="index"
+          class="selector-options"
+          :class="{'active': optionStatus[index]}"
+          :style="customCSS"
+          :onClick="() => {selectItem(item, index)}"
         >
-        <span
-          class="options-text"
-        >{{ item.name || item }}</span>
+          <img
+            v-if="item.image"
+            class="options-image"
+            :src="item.image"
+          >
+          <span
+            class="options-text"
+          >{{ item.name || item }}</span>
+        </div>
       </div>
     </div>
   </div>
@@ -97,10 +99,6 @@ export default {
   },
   methods: {
     toogleMenu() {
-      this.dynamicPos = {
-        top: `${this.$refs.selector.offsetTop + 40}px`,
-        left: `${this.$refs.selector.offsetLeft}px`,
-      };
       this.isPullDown = !this.isPullDown;
     },
     selectItem(item, index) {

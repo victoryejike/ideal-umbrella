@@ -8,6 +8,7 @@
           src="@svg/logo-white.svg"
         >
         <BaseScrollableSelectBox
+          ref="language-selectbox"
           class="select-language"
           :width="14"
           :options="languageList"
@@ -118,6 +119,16 @@ export default {
         },
       ],
     };
+  },
+  watch: {
+    $route() {
+      /*
+        When user pull down the menu and forward to another page,
+        the menu position is not correct since the position is absolute,
+        so just set to FALSE when $route changed.
+      */
+      this.$refs['language-selectbox'].isPullDown = false;
+    },
   },
 };
 </script>

@@ -7,9 +7,7 @@
           name="fade"
           mode="out-in"
         >
-          <KeepAlive>
-            <Component :is="Component" />
-          </KeepAlive>
+          <Component :is="Component" />
         </Transition>
       </router-view>
     </div>
