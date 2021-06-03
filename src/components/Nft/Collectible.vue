@@ -1,35 +1,47 @@
 <template>
-  <div class="input-group" />
-  <div
-    v-if="text"
-    class="input-group-text"
-  >
-    {{ text }}
-  </div>
-  <div class="inline-block">
-    <template v-if="type == 'amount'">
-      <input
-        v-model="inputValue"
-        :type="type"
-        class="input-box"
-        :placeholder="placeholder"
-        @focus="isFocus = true"
-        @focusout="isFocus = false"
-      >
+  <div class="input-group">
+    <div
+      v-if="text"
+      class="input-group-text"
+    >
+      {{ text }}
+    </div>
+    <div class="inline-block">
+      <template v-if="type == 'amount'">
+        <input
+          v-model="inputValue"
+          :type="type"
+          class="input-box"
+          :placeholder="placeholder"
+          @focus="isFocus = true"
+          @focusout="isFocus = false"
+        >
 
-      <BaseScrollableSelectBox
-        class="input-div"
-        :options="coinList"
-        bg-color="#E5E5E5"
-        border-color="none"
-        hover-color="#DDE1FB"
-        active-color="#DDE1FB"
-      />
-    </template>
+        <BaseScrollableSelectBox
+          class="input-div"
+          :options="coinList"
+          :width="14"
+          bg-color="#E5E5E5"
+          border-color="none"
+          hover-color="#DDE1FB"
+          active-color="#DDE1FB"
+        />
+      </template>
+      <template v-else>
+        <input
+          v-model="inputValue"
+          :type="type"
+          class="input-box"
+          :placeholder="placeholder"
+          @focus="isFocus = true"
+          @focusout="isFocus = false"
+        >
+      </template>
+    </div>
+    <div
+      class="input-line"
+    />
   </div>
-  <div
-    class="input-line"
-  />
 </template>
 <script>
 export default {

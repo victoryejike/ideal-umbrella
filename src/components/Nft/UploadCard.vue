@@ -28,9 +28,14 @@ export default {
   border: 0.0625rem dashed rgba(0, 0, 0, 0.25);
   border-radius: 1rem;
   box-sizing: border-box;
+  color: #808080;
   display: flex;
   flex-direction: column;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: bold;
   height: 11.25rem;
+  line-height: 150%;
   margin-bottom: 2.5rem;
   margin-top: 1.375rem;
   padding-top: 1.875rem;
@@ -41,7 +46,7 @@ export default {
   margin-top: 64.5px;
 }
 
-.c {
+.label {
   color: rgba(0, 0, 0, 0.75);
   font-size: 0.9rem;
   font-style: normal;
