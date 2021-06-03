@@ -7,6 +7,7 @@
       <NftCard
         btn="true"
         type="single"
+        url="/nft/single"
       />
       <NftCard
         type="multiple"

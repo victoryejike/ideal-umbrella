@@ -183,5 +183,28 @@
     "title":"Create Collectible",
     "description":"Choose Single if you want your collectible to be one of a kind or Multiple if you want to sell one collectible multiple times. We do not own your private keys and cannot access your funds without your confirmation",
     "button_text": "Timed Auctions"
+  },
+  "single_collectible":{
+    "title":"Create Single Collectible",
+    "upload_file_label":"Upload File",
+    "upload_button_text":"UPLOAD",
+    "file_type_text":"PNG, GIF, WEBP, MP4 or MP3. Max 100mb.",
+    "put_on_marketplace":"Put on marketplace",
+    "tab": {
+      "fixed_price": "FIXED PRICE",
+      "timed_auction": "TIMED AUCTION",
+      "unlimited_auction": "UNLIMITED AUCTION"
+    },
+    "amount_label":"Amount",
+    "amount_placeholder": "Enter price for one piece",
+    "received_amount_label":"Received Amount (Service fee: 2.5%)",
+    "received_amount_placeholder":"Enter price for one piece",
+    "choose_collection_label":"Choose Collection",
+    "title_label":"Title",
+    "title_placeholder":"e.g. “Redeemable Lady Gaga T-Shirt”",
+    "discription_label":"Description",
+    "discription_placeholder": "e.g. “After purchasing you’ll be able to get the real T-Shirt”",
+    "royalties_label":"Royalties",
+    "create_button_text":"Create"
   }
 }

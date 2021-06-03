@@ -61,7 +61,7 @@ export default {
   data() {
     return {
       backgroundColor: '#E5E5E5',
-      borderColor: 'transparent',
+      borderColor: 'none',
       idTypeList: ['Id Card'],
       countryList: [
         { name: 'Singapore', image: 'https://www.countryflags.io/SG/flat/16.png' },

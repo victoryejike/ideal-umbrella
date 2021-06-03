@@ -1,5 +1,8 @@
 <template>
-  <div class="nft-card">
+  <div
+    class="nft-card"
+    @click="forwardURL"
+  >
     <div v-if="btn == 'true'">
       <BaseRoundButton
         :text="$t('nft_index.button_text')"
@@ -32,7 +35,16 @@
 <script>
 export default {
   name: 'NFTCard',
-  props: { btn: { type: String, required: true }, type: { type: String, required: true } },
+  props: {
+    btn: { type: String, required: true },
+    type: { type: String, required: true },
+    url: { type: String, required: false, default: null },
+  },
+  methods: {
+    forwardURL() {
+      if (this.url !== null) { this.$router.push(this.url); }
+    },
+  },
 };
 
 </script>

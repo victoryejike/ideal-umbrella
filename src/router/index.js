@@ -51,6 +51,11 @@ const routes = [
     name: 'NFT',
     component: () => import('@view/Nft/Index.vue'),
   },
+  {
+    path: '/nft/single',
+    name: 'CollectibleSingle',
+    component: () => import('@view/Nft/CollectibleSingle.vue'),
+  },
 ];
 
 const router = createRouter({
