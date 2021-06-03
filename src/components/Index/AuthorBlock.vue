@@ -10,7 +10,7 @@
     <div class="information">
       <div class="author">
         <span class="author-name">
-          {{ (author.length > MAX_LENGTH) ? `${author.substring(0, MAX_LENGTH)}...` : author }}
+          {{ author }}
         </span>
         <img
           v-if="verified"
@@ -35,9 +35,6 @@ export default {
     totalCoin: { type: Number, required: true },
     coinType: { type: String, required: false, default: 'HT' },
     verified: { type: Boolean, required: false, default: false },
-  },
-  created() {
-    this.MAX_LENGTH = 11;
   },
   methods: {
     handleAvatarError(event) {
@@ -75,8 +72,9 @@ export default {
 
 .author-name {
   overflow: hidden;
+  text-overflow: ellipsis;
   white-space: nowrap;
-  width: 7.5rem;
+  width: 8rem;
 }
 
 .tick-icon {

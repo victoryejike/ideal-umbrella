@@ -79,13 +79,14 @@ export default {
 .card-header-title {
   font-weight: bold;
   overflow: hidden;
+  text-overflow: ellipsis;
   text-transform: uppercase;
   white-space: nowrap;
   width: 92%;
 }
 
 .card-footer {
-  margin-top: 0.625rem;
+  margin-top: 1rem;
 }
 
 .card-header-icon {
@@ -94,10 +95,13 @@ export default {
 }
 
 .card-body {
+  -webkit-box-orient: vertical;
   color: #808080;
+  display: -webkit-box;
   flex-grow: 1;
   font-size: 0.875rem;
   font-weight: 600;
+  -webkit-line-clamp: 3;
   margin-top: 0.625rem;
   overflow: hidden;
   width: 92%;

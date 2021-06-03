@@ -1,17 +1,19 @@
 <template>
   <div
     class="tabs"
-    :style="widthVars"
+    :style="width !== 0 ? {width: `${width * list.length}rem`} : null"
   >
     <button
       v-for="(name, index) in titleList"
       :key="index"
       class="navs"
-      :class="[{active: isActive[index]}, width === 0 ? 'auto' : 'fixed']"
+      :class="[{active: isActive[index]}, width !== 0 ? 'fixed' : 'auto']"
       :onClick="() => {toggleTab(index),execute(index)}"
-      :style="widthVars"
+      :style="width !== 0 ? {width: `${width}rem`} : null"
     >
-      {{ name }}
+      <span class="btn-text">
+        {{ name }}
+      </span>
     </button>
   </div>
 </template>
@@ -30,14 +32,6 @@ export default {
       titleList: [],
       functionList: [],
     };
-  },
-  computed: {
-    widthVars() {
-      return {
-        '--width': `${this.width}rem`,
-        '--tab-width': `${this.width * this.list.length}rem`,
-      };
-    },
   },
   created() {
     for (let i = 0; i < this.list.length; i += 1) {
@@ -65,9 +59,7 @@ export default {
   border: 0.06rem solid rgba(44, 67, 173, 0.25);
   border-radius: 0.6rem;
   display: inline-flex;
-  font-weight: 600;
   padding: 0.25rem;
-  width: var(--tab-width);
 }
 
 .navs {
@@ -75,11 +67,20 @@ export default {
   border-radius: 0.6rem;
   border-width: 0;
   color: rgba(44, 67, 173, 0.5);
+  overflow: hidden;
+  text-overflow: ellipsis;
   transition: all 0.5s, background-color 0s, color 0s;
 }
 
 .navs:hover {
   cursor: pointer;
+}
+
+.btn-text {
+  font-size: 0.9rem;
+  font-weight: bold;
+  padding: 0 0.5rem;
+  white-space: nowrap;
 }
 
 .active {
@@ -95,7 +96,6 @@ export default {
 
 .fixed {
   padding: 0.6rem 0;
-  width: var(--width);
 }
 
 @media (max-width: 30em) {

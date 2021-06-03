@@ -60,7 +60,7 @@ export default {
   data() {
     return {
       forgotPasswordTab: [
-        this.$t('tab_titles.email'), this.$t('tab_titles.email'),
+        this.$t('tab_titles.email'), this.$t('tab_titles.phone'),
       ],
     };
   },

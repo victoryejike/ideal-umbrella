@@ -3,7 +3,7 @@
     class="nft-card"
     @click="forwardURL"
   >
-    <div v-if="btn == 'true'">
+    <div v-if="btn === 'true'">
       <BaseRoundButton
         :text="$t('nft_index.button_text')"
         type="outline"
@@ -11,13 +11,13 @@
       />
     </div>
     <div
-      v-if="type == 'single'"
+      v-if="type === 'single'"
       class="symbol"
     >
       <div class="bg-symbol" />
     </div>
     <div
-      v-if="type == 'multiple'"
+      v-if="type === 'multiple'"
       class="multiple-section"
     >
       <div class="bg-symbol multiple one" />
@@ -26,7 +26,7 @@
     </div>
     <div
       class="type"
-      :class="{'relative': type == 'multiple'}"
+      :class="{'relative': type === 'multiple'}"
     >
       <h5>{{ type }}</h5>
     </div>

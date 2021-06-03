@@ -7,7 +7,7 @@
       {{ text }}
     </div>
     <div class="inline-block">
-      <template v-if="type == 'amount'">
+      <template v-if="type === 'amount'">
         <input
           v-model="inputValue"
           :type="type"

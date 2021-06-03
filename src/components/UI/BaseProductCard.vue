@@ -7,7 +7,10 @@
       class="card-inner-div"
       :style="{padding:(bgColor == null) ? null : '1.25rem 1.875rem'}"
     >
-      <div class="author">
+      <div
+        class="author"
+        :class="(abstractLength <= MINIMUM_LENGTH) ? 'center' : null"
+      >
         <img
           class="avatar"
           :src="avatar"
@@ -15,10 +18,14 @@
           height="30"
           :onerror="handleAvatarError"
         >
-        {{ textAbstract(author, abstractLength) }}
+        <span
+          v-if="abstractedAuthorName = textAbstract(author, abstractLength)"
+          class="author-name"
+        >
+          {{ abstractedAuthorName }}
+        </span>
         <img
           v-if="verified"
-          :class="(abstractLength > MINIMUM_LENGTH) ? 'has-margin-left' : null"
           class="tick-icon"
           src="@svg/tick.svg"
           width="16"
@@ -33,12 +40,15 @@
         :onerror="handleImageError"
       >
       <div class="description">
-        <span class="product-name">
-          {{ textAbstract(name, abstractLength) }}
+        <span
+          v-if="abstractedProductName = textAbstract(name, abstractLength)"
+          class="product-name"
+        >
+          {{ abstractedProductName }}
         </span>
         <div
           class="coins-and-price-div"
-          :class="(abstractLength <= MINIMUM_LENGTH) ? 'empty-name' : null"
+          :class="(abstractLength <= MINIMUM_LENGTH) ? 'center' : null"
         >
           <img
             class="coins-icon"
@@ -73,7 +83,10 @@ export default {
   },
   computed: {
     abstractLength() {
-      // Linear Regression (y = ax + b)
+      /*
+       * Linear Regression (y = ax + b)
+       * Here not using text-overflow because we cant fixed width of the author + product name
+      */
       return Math.ceil(this.size * 0.1537 - 13.05);
     },
   },
@@ -90,7 +103,7 @@ export default {
       target.src = NoImage;
     },
     textAbstract(text, maxLength) {
-      if (maxLength <= this.MINIMUM_LENGTH) { return null; }
+      if (maxLength <= this.MINIMUM_LENGTH) { console.log('hello'); return null; }
       return (text.length > maxLength) ? `${text.substring(0, maxLength)}...` : text;
     },
   },
@@ -130,8 +143,8 @@ export default {
   margin-right: 0.625rem;
 }
 
-.has-margin-left {
-  margin-left: 0.625rem;
+.author-name {
+  margin-right: 0.625rem;
 }
 
 .product-image {
@@ -151,7 +164,9 @@ export default {
   margin-left: 0.375rem;
 }
 
-.empty-name {
-  margin-right: auto;
+/* If the length of author name or product name lower then MINIMUM_LENGTH, center the div */
+
+.center {
+  margin: auto auto;
 }
 </style>
