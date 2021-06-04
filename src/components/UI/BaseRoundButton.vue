@@ -2,17 +2,18 @@
   <button
     class="btn"
     :class="[type, size, {'bold-text':bold}]"
-    @click="forwardURL"
+    :disabled="isActive"
+    @click="timeDelay(); forwardURL(); submit ? onSubmit() : null"
   >
     <span class="btn-text">
       {{ text }}
     </span>
     <img
       v-if="icon === 'arrow-right'"
-      src="@svg/arrow-right.svg"
       class="btn-icon"
-      width="32"
       height="32"
+      src="@svg/arrow-right.svg"
+      width="32"
     >
   </button>
 </template>
@@ -21,16 +22,34 @@
 export default {
   name: 'BaseRoundButton',
   props: {
-    text: { type: String, required: true },
     bold: { type: Boolean, required: false, default: false },
     icon: { type: String, required: false, default: null },
     size: { type: String, required: false, default: 'l' },
+    submit: { type: Boolean, required: false, default: false },
+    text: { type: String, required: true },
     type: { type: String, required: false, default: 'primary' },
     url: { type: String, required: false, default: null },
+  },
+  data() {
+    return { isActive: false };
   },
   methods: {
     forwardURL() {
       if (this.url !== null) { this.$router.push(this.url); }
+    },
+    onSubmit() {
+      this.$parent.validate().then(({ valid }) => {
+        if (!valid) {
+          const { classList } = document.querySelector('.error-msg');
+          classList.add('shake');
+          setTimeout(() => { classList.remove('shake'); }, 1000);
+        }
+      });
+    },
+    // Prevent multiple click in short time
+    timeDelay() {
+      this.isActive = true;
+      setTimeout(() => { this.isActive = false; }, 1000);
     },
   },
 };

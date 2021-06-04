@@ -1,32 +1,32 @@
 <template>
   <div class="container">
-    <form
+    <Form
       class="login-form"
-      @submit.prevent
+      @submit="onSubmit"
     >
       <h1 class="login-text">
         {{ $t("login_screen.login") }}
       </h1>
       <BaseUnderlinedInput
         class="input-group"
-        :text="$t('login_screen.username_text')"
-        :placeholder="$t('login_screen.username_placeholder')"
         name="username"
+        :placeholder="$t('login_screen.username_placeholder')"
+        rules="required|username"
+        :text="$t('login_screen.username_text')"
       />
       <BaseUnderlinedInput
         class="input-group"
-        :text="$t('login_screen.password_text')"
-        :placeholder="$t('login_screen.password_placehoder')"
         name="password"
+        :placeholder="$t('login_screen.password_placehoder')"
+        rules="required|password"
+        :text="$t('login_screen.password_text')"
         type="password"
       />
       <BaseRoundButton
-        class="login-btn"
-        :text="$t('login_screen.login')"
-        type="primary"
+        class="login-btn primary m bold-text"
         icon="arrow-right"
-        size="m"
-        :bold="true"
+        :submit="true"
+        :text="$t('login_screen.login')"
       />
       <div class="helper-div">
         <router-link
@@ -45,7 +45,7 @@
           </router-link>
         </div>
       </div>
-    </form>
+    </Form>
   </div>
 </template>
 
@@ -53,10 +53,10 @@
 
 export default {
   name: 'Login',
-  data() {
-    return {
-
-    };
+  methods: {
+    onSubmit(data) {
+      // call API...
+    },
   },
 };
 </script>

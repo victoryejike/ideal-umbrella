@@ -24,35 +24,41 @@
         <slot name="icon" />
       </div>
       <template v-if="type === 'password'">
-        <input
+        <Field
           v-model="inputValue"
-          :type="(isDisplay) ? 'text' : 'password'"
           class="input-box"
+          :name="name"
           :placeholder="placeholder"
+          :rules="rules"
+          :type="(isDisplay) ? 'text' : 'password'"
+          :validate-on-change="false"
+          @change="$emit('input', $event.target.value)"
           @focus="isFocus = true"
           @focusout="isFocus = false"
-          @change="$emit('input', $event.target.value)"
-        >
+        />
 
         <img
           ref="password-eye"
           class="password-eye"
+          height="16"
           src="@svg/password-eye.svg"
           width="16"
-          height="16"
           @click="toggleEye"
         >
       </template>
       <template v-else-if="type === 'with-button'">
-        <input
+        <Field
           v-model="inputValue"
-          type="text"
           class="input-box"
+          :name="name"
           :placeholder="placeholder"
+          :rules="rules"
+          :type="type"
+          :validate-on-change="false"
+          @change="$emit('input', $event.target.value)"
           @focus="isFocus = true"
           @focusout="isFocus = false"
-          @change="$emit('input', $event.target.value)"
-        >
+        />
         <div
           v-if="$slots.button"
           class="input-group-button"
@@ -62,17 +68,17 @@
       </template>
       <template v-else-if="type === 'phone'">
         <img
-          src="@svg/phone.svg"
           class="input-group-icon"
-          width="12"
           height="20"
+          src="@svg/phone.svg"
+          width="12"
         >
         <!-- TODO: Better UI -->
         <select>
           <option
             data-countryCode="GB"
-            value="44"
             selected
+            value="44"
           >
             +44
           </option>
@@ -83,31 +89,44 @@
             +1
           </option>
         </select>
-        <input
+        <Field
           v-model="inputValue"
-          type="text"
           class="input-box input-phone"
+          :name="name"
           :placeholder="placeholder"
+          rules="required|phone"
+          type="tel"
+          :validate-on-change="false"
+          @change="$emit('input', $event.target.value)"
           @focus="isFocus = true"
           @focusout="isFocus = false"
-          @change="$emit('input', phoneCode + $event.target.value)"
-        >
+          @keypress="isNumber($event)"
+        />
       </template>
       <template v-else>
-        <input
+        <Field
           v-model="inputValue"
-          :type="type"
           class="input-box"
+          :name="name"
           :placeholder="placeholder"
+          :rules="rules"
+          :type="type"
+          :validate-on-change="false"
+          @change="$emit('input', $event.target.value)"
           @focus="isFocus = true"
           @focusout="isFocus = false"
-          @change="$emit('input', $event.target.value)"
-        >
+          @keypress="type === 'number' ? isNumber($event) : null"
+        />
       </template>
     </div>
     <div
       class="input-line"
       :class="{focus:isFocus}"
+    />
+    <ErrorMessage
+      ref="errorMsg"
+      class="error-msg"
+      :name="name"
     />
   </div>
 </template>
@@ -115,18 +134,18 @@
 <script>
 import PasswordEye from '@svg/password-eye.svg';
 import PasswordEyeClosed from '@svg/password-eye-closed.svg';
+import { Field, ErrorMessage } from 'vee-validate';
 
 export default {
   name: 'BaseUnderlinedInput',
+  components: { ErrorMessage, Field },
   props: {
+    name: { type: String, required: true },
+    placeholder: { type: String, required: false, default: null },
+    rules: { type: String, required: false, default: null },
     text: { type: String, required: false, default: null },
-    placeholder: { type: String, required: true },
-    value: { type: String, required: false, default: null },
-    type: {
-      type: String,
-      required: false,
-      default: 'text',
-    },
+    type: { type: String, required: false, default: 'text' },
+    value: { type: String, required: false, default: '' },
   },
   emits: ['input'],
   data() {
@@ -134,10 +153,15 @@ export default {
       inputValue: this.value,
       isDisplay: false,
       isFocus: false,
-      inputWidth: this.width,
     };
   },
   methods: {
+    isNumber(event) {
+      const charCode = (event.which) ? event.which : event.keyCode;
+      if ((charCode > 31 && (charCode < 48 || charCode > 57)) && charCode !== 46) {
+        event.preventDefault();
+      }
+    },
     toggleEye() {
       this.$refs['password-eye'].src = (this.isDisplay) ? PasswordEye : PasswordEyeClosed;
       this.isDisplay = !this.isDisplay;
@@ -228,4 +252,39 @@ select::-ms-expand {
   display: none;
 }
 
+.error-msg {
+  color: #ff3a31;
+  font-size: 0.85rem;
+  margin-top: 0.2rem;
+  text-align: justify;
+}
+
+.shake {
+  animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+  backface-visibility: hidden;
+  transform: translate3d(0, 0, 0);
+}
+
+@keyframes shake {
+  10%,
+  90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+
+  20%,
+  80% {
+    transform: translate3d(2px, 0, 0);
+  }
+
+  30%,
+  50%,
+  70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+
+  40%,
+  60% {
+    transform: translate3d(4px, 0, 0);
+  }
+}
 </style>
