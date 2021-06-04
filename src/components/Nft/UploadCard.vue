@@ -5,10 +5,10 @@
   <div class="upload-box">
     {{ $t('single_collectible.file_type_text') }}
     <BaseRoundButton
-      class="upload-button "
+      class="btn"
+      size="m"
       :text="$t('single_collectible.upload_button_text')"
       type="primary"
-      size="m"
     />
   </div>
 </template>

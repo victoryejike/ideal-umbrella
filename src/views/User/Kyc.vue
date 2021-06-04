@@ -3,47 +3,47 @@
     :title="$t('kyc_screen.id_verification')"
   >
     <BaseScrollableSelectBox
-      class="input-div"
-      :text="$t('kyc_screen.nationality_label')"
-      :width="13.5"
-      :options="countryList"
+      active-color="#DDE1FB"
       :bg-color="backgroundColor"
       :border-color="borderColor"
+      class="input-div"
       hover-color="#DDE1FB"
-      active-color="#DDE1FB"
+      :options="countryList"
+      :text="$t('kyc_screen.nationality_label')"
+      :width="13.5"
     />
     <BaseUnderlinedInput
       class="input-div"
-      :text="$t('kyc_screen.name_label')"
-      :placeholder="$t('kyc_screen.name_placeholder')"
       name="userName"
+      :placeholder="$t('kyc_screen.name_placeholder')"
+      :text="$t('kyc_screen.name_label')"
     />
     <div class="user-id-div input-div">
       <BaseScrollableSelectBox
-        :text="$t('kyc_screen.id_type_label')"
-        :width="9.75"
-        :options="idTypeList"
+        active-color="#DDE1FB"
         :bg-color="backgroundColor"
         :border-color="borderColor"
         hover-color="#DDE1FB"
-        active-color="#DDE1FB"
+        :options="idTypeList"
+        :text="$t('kyc_screen.id_type_label')"
+        :width="9.75"
       />
       <BaseUnderlinedInput
         class="input-user-id"
-        :text="$t('kyc_screen.id_number_label')"
-        :placeholder="$t('kyc_screen.id_number_placeholder')"
-        :width="17.5"
         name="userName"
+        :placeholder="$t('kyc_screen.id_number_placeholder')"
+        :text="$t('kyc_screen.id_number_label')"
+        :width="17.5"
       />
     </div>
     <div class="actions-div">
       <BaseRoundButton
+        :bold="true"
         class="confirm-button"
-        :text="$t('kyc_screen.confirm')"
-        type="primary"
         icon="arrow-right"
         size="m"
-        :bold="true"
+        :text="$t('kyc_screen.confirm')"
+        type="primary"
       />
     </div>
   </BaseSettingFrame>

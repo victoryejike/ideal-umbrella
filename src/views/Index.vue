@@ -5,8 +5,8 @@
     >
       <img
         class="index-hero"
-        src="@img/index-hero.png"
         height="390"
+        src="@img/index-hero.png"
         width="274"
       >
       <div class="banner-title-and-searchbar">
@@ -25,11 +25,11 @@
           <BaseProductCard
             v-for="(item, index) in popularList"
             :key="index"
-            class="popular-product-card"
+            :author="item.author"
             :avatar="item.avatar"
+            class="popular-product-card"
             :image="item.image"
             :name="item.name"
-            :author="item.author"
             :price="item.price"
             :verified="item.verified"
           />
@@ -51,9 +51,9 @@
           <AuthorBlock
             v-for="(item, index) in topSellerList"
             :key="index"
-            class="seller-block"
-            :avatar="item.avatar"
             :author="item.author"
+            :avatar="item.avatar"
+            class="seller-block"
             :total-coin="item.totalCoin"
             :verified="item.verified"
           />
@@ -75,24 +75,24 @@
           <BaseProductCard
             v-for="(item, index) in discoverList"
             :key="index"
-            class="discover-product-card"
-            :bg-color="null"
+            :author="item.author"
             :avatar="item.avatar"
+            :bg-color="null"
+            class="discover-product-card"
             :image="item.image"
             :name="item.name"
-            :author="item.author"
             :price="item.price"
-            :verified="item.verified"
             :size="190"
+            :verified="item.verified"
           />
         </div>
       </template>
     </IndexSection>
     <BaseRoundButton
       class="load-more-btn"
+      size="xl"
       :text="$t('index_screen.more')"
       type="outline"
-      size="xl"
     />
   </div>
 </template>

@@ -7,8 +7,8 @@
       <img src="@svg/search.svg">
       <input
         class="search-input"
-        type="text"
         :placeholder="$t('components.search_placeholder')"
+        type="text"
       >
       <BaseRoundButton
         :bold="true"

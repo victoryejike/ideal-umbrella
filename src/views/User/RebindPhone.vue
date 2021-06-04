@@ -2,83 +2,83 @@
   <BaseSettingFrame :title="$t('rabind_phone_screen.rebind_phone')">
     <BaseUnderlinedInput
       class="input-field"
-      :text="$t('rabind_phone_screen.original_phone_label')"
-      :placeholder="$t('rabind_phone_screen.original_phone_placehoder')"
       name="resetPassword"
+      :placeholder="$t('rabind_phone_screen.original_phone_placehoder')"
+      :text="$t('rabind_phone_screen.original_phone_label')"
       type="password"
     />
     <BaseUnderlinedInput
       class="input-field"
       name="verification-code"
-      :text="$t('rabind_phone_screen.phone_verfication')"
       :placeholder="$t('rabind_phone_screen.phone_verfication_placehoder')"
+      :text="$t('rabind_phone_screen.phone_verfication')"
       type="with-button"
     >
       <template #button>
         <BaseRoundButton
+          size="s"
           :text="$t('register_screen.send_code')"
           type="outline"
-          size="s"
         />
       </template>
     </BaseUnderlinedInput>
 
     <BaseUnderlinedInput
       class="input-field"
-      :text="$t('rabind_phone_screen.phone_label')"
-      :placeholder="$t('rabind_phone_screen.phone_label_label')"
       name="resetPassword"
+      :placeholder="$t('rabind_phone_screen.phone_label_label')"
+      :text="$t('rabind_phone_screen.phone_label')"
       type="text"
     />
 
     <BaseUnderlinedInput
       class="input-field"
       name="verification-code"
-      :text="$t('rabind_phone_screen.email_verfication_label')"
       :placeholder="$t('rabind_phone_screen.email_verfication_placehoder')"
+      :text="$t('rabind_phone_screen.email_verfication_label')"
       type="with-button"
     >
       <template #button>
         <BaseRoundButton
+          size="s"
           :text="$t('register_screen.send_code')"
           type="outline"
-          size="s"
         />
       </template>
     </BaseUnderlinedInput>
 
     <BaseUnderlinedInput
       class="input-field"
-      :text="$t('rabind_phone_screen.new_phone_label')"
-      :placeholder="$t('rabind_phone_screen.new_phone_placeholder')"
       name="newPassword"
+      :placeholder="$t('rabind_phone_screen.new_phone_placeholder')"
+      :text="$t('rabind_phone_screen.new_phone_label')"
       type="text"
     />
 
     <BaseUnderlinedInput
       class="input-field"
       name="verification-code"
-      :text="$t('rabind_phone_screen.phone_verfication')"
       :placeholder="$t('rabind_phone_screen.phone_verfication_placehoder')"
+      :text="$t('rabind_phone_screen.phone_verfication')"
       type="with-button"
     >
       <template #button>
         <BaseRoundButton
+          size="s"
           :text="$t('register_screen.send_code')"
           type="outline"
-          size="s"
         />
       </template>
     </BaseUnderlinedInput>
 
     <div class="actions-div">
       <BaseRoundButton
+        :bold="true"
         class="reset-button"
-        :text="$t('rabind_phone_screen.confirm')"
-        type="primary"
         icon="arrow-right"
         size="m"
-        :bold="true"
+        :text="$t('rabind_phone_screen.confirm')"
+        type="primary"
       />
 
       <router-link

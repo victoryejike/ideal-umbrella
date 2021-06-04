@@ -4,8 +4,8 @@
     <div id="content">
       <router-view v-slot="{ Component }">
         <Transition
-          name="fade"
           mode="out-in"
+          name="fade"
         >
           <Component :is="Component" />
         </Transition>
@@ -22,8 +22,8 @@ import AppFooter from '@/components/Layout/AppFooter.vue';
 export default {
   name: 'App',
   components: {
-    AppHeader,
     AppFooter,
+    AppHeader,
   },
 };
 </script>

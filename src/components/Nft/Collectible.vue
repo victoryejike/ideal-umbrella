@@ -10,29 +10,29 @@
       <template v-if="type === 'amount'">
         <input
           v-model="inputValue"
-          :type="type"
           class="input-box"
           :placeholder="placeholder"
+          :type="type"
           @focus="isFocus = true"
           @focusout="isFocus = false"
         >
 
         <BaseScrollableSelectBox
-          class="input-div"
-          :options="coinList"
-          :width="8"
+          active-color="#DDE1FB"
           bg-color="#E5E5E5"
           border-color="none"
+          class="input-div"
           hover-color="#DDE1FB"
-          active-color="#DDE1FB"
+          :options="coinList"
+          :width="14"
         />
       </template>
       <template v-else>
         <input
           v-model="inputValue"
-          :type="type"
           class="input-box"
           :placeholder="placeholder"
+          :type="type"
           @focus="isFocus = true"
           @focusout="isFocus = false"
         >
@@ -47,8 +47,8 @@
 export default {
   name: 'BaseUnderlinedInput',
   props: {
-    text: { type: String, required: false, default: null },
     placeholder: { type: String, required: false, default: null },
+    text: { type: String, required: false, default: null },
     type: {
       type: String,
       required: false,

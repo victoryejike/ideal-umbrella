@@ -4,8 +4,8 @@ module.exports = {
   configureWebpack: {
     resolve: {
       alias: {
-        '@svg': path.resolve(__dirname, 'src/assets/svg'),
         '@img': path.resolve(__dirname, 'src/assets/image'),
+        '@svg': path.resolve(__dirname, 'src/assets/svg'),
         '@view': path.resolve(__dirname, 'src/views'),
       },
     },
@@ -13,8 +13,8 @@ module.exports = {
   pages: {
     index: {
       entry: 'src/main.js',
-      template: 'public/index.html',
       filename: 'index.html',
+      template: 'public/index.html',
       title: 'Naffiti - NFT Marketplace',
     },
   },

@@ -14,23 +14,23 @@
       />
       <BaseUnderlinedInput
         class="input-field"
-        :text="$t('register_screen.email_label')"
-        :placeholder="$t('register_screen.email_placeholder')"
         name="email"
+        :placeholder="$t('register_screen.email_placeholder')"
+        :text="$t('register_screen.email_label')"
         type="text"
       />
       <BaseUnderlinedInput
         class="input-field"
-        :text="$t('register_screen.phone_label')"
-        :placeholder="$t('register_screen.phone_placeholder')"
         name="phone"
+        :placeholder="$t('register_screen.phone_placeholder')"
+        :text="$t('register_screen.phone_label')"
         type="phone"
       />
       <BaseUnderlinedInput
         class="input-field"
-        :text="$t('register_screen.login_password_label')"
-        :placeholder="$t('register_screen.login_password_placehoder')"
         name="loginPassword"
+        :placeholder="$t('register_screen.login_password_placehoder')"
+        :text="$t('register_screen.login_password_label')"
         type="password"
       >
         <template #icon>
@@ -40,9 +40,9 @@
 
       <BaseUnderlinedInput
         class="input-field"
-        :text="$t('register_screen.confirm_password_label')"
-        :placeholder="$t('register_screen.confirm_password_placehoder')"
         name="confirmPassword"
+        :placeholder="$t('register_screen.confirm_password_placehoder')"
+        :text="$t('register_screen.confirm_password_label')"
         type="password"
       >
         <template #icon>
@@ -52,15 +52,15 @@
       <BaseUnderlinedInput
         class="input-field"
         name="verification-code"
-        :text="$t('register_screen.verification_code_label')"
         :placeholder="$t('register_screen.verification_code__placehoder')"
+        :text="$t('register_screen.verification_code_label')"
         type="with-button"
       >
         <template #button>
           <BaseRoundButton
+            size="s"
             :text="$t('register_screen.send_code')"
             type="outline"
-            size="s"
           />
         </template>
       </BaseUnderlinedInput>
@@ -77,12 +77,12 @@
         </div>
       </div>
       <BaseRoundButton
+        :bold="true"
         class="register-button"
-        :text="$t('register_screen.register')"
-        type="primary"
         icon="arrow-right"
         size="m"
-        :bold="true"
+        :text="$t('register_screen.register')"
+        type="primary"
       />
     </form>
     <div class="login-div">

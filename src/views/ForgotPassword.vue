@@ -13,32 +13,32 @@
       />
       <BaseUnderlinedInput
         class="input-field"
+        :placeholder="$t('register_screen.phone_placeholder')"
         :text="$t('forgot_password.phone')"
         type="phone"
-        :placeholder="$t('register_screen.phone_placeholder')"
       />
       <BaseUnderlinedInput
         class="input-field"
         name="verification-code"
-        :text="$t('register_screen.verification_code_label')"
         :placeholder="$t('register_screen.verification_code__placehoder')"
+        :text="$t('register_screen.verification_code_label')"
         type="with-button"
       >
         <template #button>
           <BaseRoundButton
+            size="s"
             :text="$t('register_screen.send_code')"
             type="outline"
-            size="s"
           />
         </template>
       </BaseUnderlinedInput>
       <BaseRoundButton
+        :bold="false"
         class="send-btn"
-        :text="$t('forgot_password.send')"
-        type="primary"
         icon="arrow-right"
         size="m"
-        :bold="false"
+        :text="$t('forgot_password.send')"
+        type="primary"
       />
       <div class="forgot-password-div">
         {{ $t("forgot_password.already_have_account") }}

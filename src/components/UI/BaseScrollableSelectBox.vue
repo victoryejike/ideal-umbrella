@@ -10,8 +10,8 @@
     <div
       ref="selector"
       class="selector-root"
-      :style="customCSS"
       :onClick="() => {toogleMenu()}"
+      :style="customCSS"
     >
       <img
         v-if="selectedItem.image"
@@ -20,9 +20,9 @@
       >
       <span class="options-text">{{ selectedItem.name || selectedItem }}</span>
       <i
-        :style="customCSS"
         class="selector-arrow"
         :class="{'rotate':isPullDown}"
+        :style="customCSS"
       />
     </div>
     <div style="position: relative;">
@@ -36,8 +36,8 @@
           :key="index"
           class="selector-options"
           :class="{'active': optionStatus[index]}"
-          :style="customCSS"
           :onClick="() => {selectItem(item, index)}"
+          :style="customCSS"
         >
           <img
             v-if="item.image"
@@ -57,15 +57,15 @@
 export default {
   name: 'BaseScrollingSlectBox',
   props: {
-    text: { type: String, required: false, default: null },
-    options: { type: [Array, Object], required: true },
-    width: { type: Number, required: false, default: 10 },
+    activeColor: { type: String, required: false, default: '#31459f' },
+    arrowColor: { type: String, required: false, default: '#9ba6d8' },
     bgColor: { type: String, required: false, default: '#374db1' },
     borderColor: { type: String, required: false, default: '#697ac5' },
     hoverColor: { type: String, required: false, default: '#31459f' },
-    activeColor: { type: String, required: false, default: '#31459f' },
-    arrowColor: { type: String, required: false, default: '#9ba6d8' },
+    options: { type: [Array, Object], required: true },
+    text: { type: String, required: false, default: null },
     value: { type: Number, required: false, default: 0 },
+    width: { type: Number, required: false, default: 10 },
   },
   emits: ['selected'],
   data() {
@@ -78,12 +78,12 @@ export default {
   computed: {
     customCSS() {
       return {
-        '--width': `${this.width}rem`,
+        '--active-color': this.activeColor,
+        '--arrow-color': this.arrowColor,
         '--bg-color': this.bgColor,
         '--border-color': this.borderColor,
-        '--active-color': this.activeColor,
         '--hover-color': this.hoverColor,
-        '--arrow-color': this.arrowColor,
+        '--width': `${this.width}rem`,
       };
     },
   },
@@ -98,9 +98,6 @@ export default {
     }
   },
   methods: {
-    toogleMenu() {
-      this.isPullDown = !this.isPullDown;
-    },
     selectItem(item, index) {
       this.isPullDown = !this.isPullDown;
       if (index !== this.activeIndex) {
@@ -110,6 +107,9 @@ export default {
         this.optionStatus[index] = true;
         this.activeIndex = index;
       }
+    },
+    toogleMenu() {
+      this.isPullDown = !this.isPullDown;
     },
   },
 

@@ -11,13 +11,19 @@ module.exports = {
     parser: 'babel-eslint',
   },
   rules: {
-    'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
-    'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
-    'linebreak-style': 0,
     camelcase: [
       'error',
       {
         properties: 'always',
+      },
+    ],
+    'linebreak-style': 0,
+    'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+    'no-unused-vars': [
+      'error',
+      {
+        args: 'none',
       },
     ],
     'vue/component-name-in-template-casing': [
@@ -31,12 +37,9 @@ module.exports = {
         ],
       },
     ],
-    'no-unused-vars': [
-      'error',
-      {
-        args: 'none',
-      },
-    ],
+    'vue/attributes-order': ['warn', {
+      'alphabetical': true
+    }],
   },
   overrides: [
     {

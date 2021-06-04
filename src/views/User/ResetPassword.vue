@@ -2,9 +2,9 @@
   <BaseSettingFrame :title="$t('reset_password_screen.reset_password')">
     <BaseUnderlinedInput
       class="input-field"
-      :text="$t('reset_password_screen.original_password_label')"
+      name="resetPassword"
       :placeholder="$t('reset_password_screen.original_password_placehoder')"
-      name="resetPassword"
+      :text="$t('reset_password_screen.original_password_label')"
       type="password"
     >
       <template #icon>
@@ -14,9 +14,9 @@
 
     <BaseUnderlinedInput
       class="input-field"
-      :text="$t('reset_password_screen.new_password_label')"
-      :placeholder="$t('reset_password_screen.new_password_placehoder')"
       name="newPassword"
+      :placeholder="$t('reset_password_screen.new_password_placehoder')"
+      :text="$t('reset_password_screen.new_password_label')"
       type="password"
     >
       <template #icon>
@@ -26,9 +26,9 @@
 
     <BaseUnderlinedInput
       class="input-field"
-      :text="$t('reset_password_screen.confirm_password_label')"
-      :placeholder="$t('reset_password_screen.confirm_password_placehoder')"
       name="resetPassword"
+      :placeholder="$t('reset_password_screen.confirm_password_placehoder')"
+      :text="$t('reset_password_screen.confirm_password_label')"
       type="password"
     >
       <template #icon>
@@ -37,12 +37,12 @@
     </BaseUnderlinedInput>
     <div class="actions-div">
       <BaseRoundButton
+        :bold="true"
         class="reset-button"
-        :text="$t('reset_password_screen.reset')"
-        type="primary"
         icon="arrow-right"
         size="m"
-        :bold="true"
+        :text="$t('reset_password_screen.reset')"
+        type="primary"
       />
 
       <router-link

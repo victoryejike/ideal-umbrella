@@ -3,9 +3,9 @@
     <router-link to="/">
       <img
         class="logo"
+        height="24"
         src="@svg/logo.svg"
         width="102"
-        height="24"
       >
     </router-link>
     <div class="menu">
@@ -20,16 +20,16 @@
       <hr class="vl">
       <BaseRoundButton
         :bold="true"
-        type="secondary"
         :text="$t('header.register')"
+        type="secondary"
         url="/register"
       />
     </div>
     <img
       class="mobile-menu"
+      height="20"
       src="@svg/mobile-menu.svg"
       width="20"
-      height="20"
     >
   </header>
 </template>

@@ -12,8 +12,8 @@
 
           <label class="switch">
             <input
-              type="checkbox"
               checked
+              type="checkbox"
             >
             <span class="slider round" />
           </label>
@@ -27,60 +27,64 @@
 
       <Collectible
         class="input-field"
-        :text="$t('single_collectible.amount_label')"
-        :placeholder="$t('single_collectible.amount_placeholder')"
         name="amount"
+        :placeholder="$t('single_collectible.amount_placeholder')"
+        :text="$t('single_collectible.amount_label')"
         type="amount"
       />
       <Collectible
         class="input-field"
-        :text="$t('single_collectible.received_amount_label')"
-        :placeholder="$t('single_collectible.received_amount_placeholder')"
         name="receivedAmount"
+        :placeholder="$t('single_collectible.received_amount_placeholder')"
+        :text="$t('single_collectible.received_amount_label')"
         type="amount"
       />
 
-      <BaseScrollableSelectBox
-        class="input-div label"
-        :text="$t('single_collectible.choose_collection_label')"
-        :options="collectibleList"
-        :width="14"
-        bg-color="#E5E5E5"
-        border-color="none"
-        hover-color="#DDE1FB"
-        active-color="#DDE1FB"
-      />
+      <div>
+        <div class="collection-text label">
+          {{ $t('single_collectible.choose_collection_label') }}
+        </div>
+        <BaseScrollableSelectBox
+          active-color="#DDE1FB"
+          bg-color="#E5E5E5"
+          border-color="none"
+          class="input-div"
+          hover-color="#DDE1FB"
+          :options="collectibleList"
+          :width="14"
+        />
+      </div>
 
       <Collectible
         class="input-field"
-        :text="$t('single_collectible.title_label')"
-        :placeholder="$t('single_collectible.title_placeholder')"
         name="title"
+        :placeholder="$t('single_collectible.title_placeholder')"
+        :text="$t('single_collectible.title_label')"
       />
       <Collectible
         class="input-field"
-        :text="$t('single_collectible.discription_label')"
-        :placeholder="$t('single_collectible.discription_placeholder')"
         name="description"
+        :placeholder="$t('single_collectible.discription_placeholder')"
+        :text="$t('single_collectible.discription_label')"
       />
       <BaseScrollableSelectBox
-        class="input-div label"
-        :text="$t('single_collectible.royalties_label')"
-        :options="royaltiesList"
-        :width="14"
+        active-color="#DDE1FB"
         bg-color="#E5E5E5"
         border-color="none"
+        class="input-div label"
         hover-color="#DDE1FB"
-        active-color="#DDE1FB"
+        :options="royaltiesList"
+        :text="$t('single_collectible.royalties_label')"
+        :width="14"
       />
       <div>
         <BaseRoundButton
+          :bold="true"
           class="btn"
-          :text="$t('single_collectible.create_button_text')"
-          type="primary"
           icon="arrow-right"
           size="m"
-          :bold="true"
+          :text="$t('single_collectible.create_button_text')"
+          type="primary"
         />
       </div>
     </BaseFrame>

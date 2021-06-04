@@ -9,23 +9,23 @@
         </span>
         <img
           v-if="icon === 'lock'"
-          src="@svg/password-lock-blue.svg"
           class="card-header-icon"
+          src="@svg/password-lock-blue.svg"
         >
         <img
           v-else-if="icon === 'identity'"
-          src="@svg/identity.svg"
           class="card-header-icon"
+          src="@svg/identity.svg"
         >
         <img
           v-else-if="icon === 'mail'"
-          src="@svg/mail-blue.svg"
           class="card-header-icon"
+          src="@svg/mail-blue.svg"
         >
         <img
           v-else-if="icon === 'phone'"
-          src="@svg/phone-blue.svg"
           class="card-header-icon"
+          src="@svg/phone-blue.svg"
         >
       </div>
       <div class="card-body">

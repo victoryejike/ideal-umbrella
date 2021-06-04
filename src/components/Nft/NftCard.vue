@@ -5,9 +5,9 @@
   >
     <div v-if="btn === 'true'">
       <BaseRoundButton
+        size="s"
         :text="$t('nft_index.button_text')"
         type="outline"
-        size="s"
       />
     </div>
     <div

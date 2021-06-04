@@ -4,23 +4,23 @@
       <div class="telephone">
         <img
           class="phone"
-          width="15"
           src="@svg/phone.svg"
+          width="15"
         >
         <span>{{ phone }}</span>
       </div>
       <div class="flex">
         <BaseRoundButton
           class="ver-btn"
+          size="s"
           text="No ID Verification"
           type="outline-danger"
-          size="s"
         />
         <BaseRoundButton
           class="logout-btn"
+          size="m"
           text="Logout"
           type="outline"
-          size="m"
         />
       </div>
       <BaseNavigationTab
@@ -34,17 +34,17 @@
       <BaseCard
         v-for="(item,index) in settingList"
         :key="index"
-        class="settings-card"
-        :title="item.title"
         :body="item.body"
-        :notes="item.notes"
+        class="settings-card"
         :icon="item.icon"
+        :notes="item.notes"
+        :title="item.title"
       >
         <template #button>
           <BaseRoundButton
-            :text="item.btnText"
-            size="m"
             :bold="true"
+            size="m"
+            :text="item.btnText"
             :url="item.url"
           />
         </template>

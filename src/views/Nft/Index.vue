@@ -1,7 +1,7 @@
 <template>
   <BaseFrame
-    :title="$t('nft_index.title')"
     :description="$t('nft_index.description')"
+    :title="$t('nft_index.title')"
   >
     <div class="flex">
       <NftCard

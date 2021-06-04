@@ -2,10 +2,10 @@
   <div class="author-block">
     <img
       class="avatar"
-      :src="avatar"
-      width="60"
       height="60"
       :onerror="handleAvatarError"
+      :src="avatar"
+      width="60"
     >
     <div class="information">
       <div class="author">
@@ -15,9 +15,9 @@
         <img
           v-if="verified"
           class="tick-icon"
+          height="16"
           src="@svg/tick.svg"
           width="16"
-          height="16"
         >
       </div>
       <span class="total-coins">{{ `${Math.round(totalCoin * 1e5) / 1e5} ${coinType}` }}</span>
@@ -32,8 +32,8 @@ export default {
   props: {
     author: { type: String, required: true },
     avatar: { type: String, required: true },
-    totalCoin: { type: Number, required: true },
     coinType: { type: String, required: false, default: 'HT' },
+    totalCoin: { type: Number, required: true },
     verified: { type: Boolean, required: false, default: false },
   },
   methods: {

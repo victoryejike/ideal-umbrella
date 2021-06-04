@@ -27,10 +27,10 @@ export default {
   },
   data() {
     return {
-      isActive: [true],
       currentActiveIndex: 0,
-      titleList: [],
       functionList: [],
+      isActive: [true],
+      titleList: [],
     };
   },
   created() {
@@ -40,13 +40,13 @@ export default {
     }
   },
   methods: {
+    execute(index) {
+      if (this.functionList[index] != null) { this.functionList[index](); }
+    },
     toggleTab(index) {
       this.isActive[this.currentActiveIndex] = false;
       this.isActive[index] = true;
       this.currentActiveIndex = index;
-    },
-    execute(index) {
-      if (this.functionList[index] != null) { this.functionList[index](); }
     },
   },
 
@@ -77,7 +77,7 @@ export default {
 }
 
 .btn-text {
-  font-size: 0.9rem;
+  font-size: 0.875rem;
   font-weight: bold;
   padding: 0 0.5rem;
   white-space: nowrap;

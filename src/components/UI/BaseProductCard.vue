@@ -13,10 +13,10 @@
       >
         <img
           class="avatar"
-          :src="avatar"
-          width="30"
           height="30"
           :onerror="handleAvatarError"
+          :src="avatar"
+          width="30"
         >
         <span
           v-if="abstractedAuthorName = textAbstract(author, abstractLength)"
@@ -27,17 +27,17 @@
         <img
           v-if="verified"
           class="tick-icon"
+          height="16"
           src="@svg/tick.svg"
           width="16"
-          height="16"
         >
       </div>
       <img
         class="product-image"
-        :src="image"
-        :width="size"
         :height="size"
         :onerror="handleImageError"
+        :src="image"
+        :width="size"
       >
       <div class="description">
         <span
@@ -52,9 +52,9 @@
         >
           <img
             class="coins-icon"
+            height="20"
             src="@svg/ht.svg"
             width="20"
-            height="20"
           >
           <span class="price">
             <!-- Correct to 2 decimal places -->
@@ -74,10 +74,10 @@ export default {
   props: {
     author: { type: String, required: true },
     avatar: { type: String, required: true },
+    bgColor: { type: String, required: false, default: 'rgba(255, 255, 255, 0.25)' },
     image: { type: String, required: true },
     name: { type: String, required: true },
     price: { type: Number, required: true },
-    bgColor: { type: String, required: false, default: 'rgba(255, 255, 255, 0.25)' },
     size: { type: Number, required: false, default: 220 },
     verified: { type: Boolean, required: false, default: false },
   },

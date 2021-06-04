@@ -4,14 +4,14 @@
       <div class="logo-language-container">
         <img
           height="24"
-          width="102"
           src="@svg/logo-white.svg"
+          width="102"
         >
         <BaseScrollableSelectBox
           ref="language-selectbox"
           class="select-language"
-          :width="14"
           :options="languageList"
+          :width="14"
         />
       </div>
 
@@ -51,9 +51,9 @@
         >
           <img
             class="social-media-icons"
+            height="20"
             :src="item.icon"
             width="24"
-            height="20"
           >
         </a>
       </div>
