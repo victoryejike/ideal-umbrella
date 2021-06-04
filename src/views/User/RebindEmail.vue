@@ -17,9 +17,8 @@
     >
       <template #button>
         <BaseRoundButton
-          size="s"
+          class="btn-outline btn-sm"
           :text="$t('register_screen.send_code')"
-          type="outline"
         />
       </template>
     </BaseUnderlinedInput>
@@ -41,9 +40,8 @@
     >
       <template #button>
         <BaseRoundButton
-          size="s"
+          class="btn-outline btn-sm"
           :text="$t('register_screen.send_code')"
-          type="outline"
         />
       </template>
     </BaseUnderlinedInput>
@@ -64,21 +62,17 @@
     >
       <template #button>
         <BaseRoundButton
-          size="s"
+          class="btn-outline btn-sm"
           :text="$t('register_screen.send_code')"
-          type="outline"
         />
       </template>
     </BaseUnderlinedInput>
 
     <div class="actions-div">
       <BaseRoundButton
-        :bold="true"
-        class="reset-button"
+        class="reset-button btn-primary btn-md btn-bold"
         icon="arrow-right"
-        size="m"
         :text="$t('rabind_phone_screen.confirm')"
-        type="primary"
       />
 
       <router-link

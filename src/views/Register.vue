@@ -58,9 +58,8 @@
       >
         <template #button>
           <BaseRoundButton
-            size="s"
+            class="btn-outline btn-sm"
             :text="$t('register_screen.send_code')"
-            type="outline"
           />
         </template>
       </BaseUnderlinedInput>
@@ -77,12 +76,9 @@
         </div>
       </div>
       <BaseRoundButton
-        :bold="true"
-        class="register-button"
+        class="register-button btn-primary btn-md btn-bold"
         icon="arrow-right"
-        size="m"
         :text="$t('register_screen.register')"
-        type="primary"
       />
     </form>
     <div class="login-div">

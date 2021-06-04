@@ -5,16 +5,14 @@
   <div class="upload-box">
     {{ $t('single_collectible.file_type_text') }}
     <BaseRoundButton
-      class="btn"
-      size="m"
+      class="upload-button btn-primary btn-md"
       :text="$t('single_collectible.upload_button_text')"
-      type="primary"
     />
   </div>
 </template>
 <script>
 export default {
-  name: 'BaseUnderlinedInput',
+  name: 'UploadCard',
   props: {
     text: { type: String, required: false, default: null },
   },

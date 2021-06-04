@@ -11,16 +11,12 @@
       </div>
       <div class="flex">
         <BaseRoundButton
-          class="ver-btn"
-          size="s"
+          class="ver-btn btn-outline-danger btn-sm"
           text="No ID Verification"
-          type="outline-danger"
         />
         <BaseRoundButton
-          class="logout-btn"
-          size="m"
+          class="logout-btn btn-outline btn-md"
           text="Logout"
-          type="outline"
         />
       </div>
       <BaseNavigationTab
@@ -42,8 +38,7 @@
       >
         <template #button>
           <BaseRoundButton
-            :bold="true"
-            size="m"
+            class="btn-primary btn-md btn-bold"
             :text="item.btnText"
             :url="item.url"
           />
@@ -156,6 +151,7 @@ export default {
 }
 
 .flex {
+  align-items: center;
   display: flex;
 }
 

@@ -38,12 +38,9 @@
     </div>
     <div class="actions-div">
       <BaseRoundButton
-        :bold="true"
-        class="confirm-button"
+        class="confirm-button btn-primary btn-md btn-bold"
         icon="arrow-right"
-        size="m"
         :text="$t('kyc_screen.confirm')"
-        type="primary"
       />
     </div>
   </BaseSettingFrame>

@@ -11,8 +11,7 @@
         type="text"
       >
       <BaseRoundButton
-        :bold="true"
-        class="search-btn"
+        class="search-btn btn-primary btn-lg btn-bold"
         :text="$t('components.search')"
       />
     </div>

@@ -89,10 +89,8 @@
       </template>
     </IndexSection>
     <BaseRoundButton
-      class="load-more-btn"
-      size="xl"
+      class="load-more-btn btn-outline btn-xl"
       :text="$t('index_screen.more')"
-      type="outline"
     />
   </div>
 </template>

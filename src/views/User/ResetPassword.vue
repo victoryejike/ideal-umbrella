@@ -37,12 +37,9 @@
     </BaseUnderlinedInput>
     <div class="actions-div">
       <BaseRoundButton
-        :bold="true"
-        class="reset-button"
+        class="reset-button btn-primary btn-md btn-bold"
         icon="arrow-right"
-        size="m"
         :text="$t('reset_password_screen.reset')"
-        type="primary"
       />
 
       <router-link

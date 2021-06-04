@@ -23,7 +23,7 @@
         type="password"
       />
       <BaseRoundButton
-        class="login-btn primary m bold-text"
+        class="login-btn btn-primary btn-md btn-bold"
         icon="arrow-right"
         :submit="true"
         :text="$t('login_screen.login')"

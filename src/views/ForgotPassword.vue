@@ -26,19 +26,15 @@
       >
         <template #button>
           <BaseRoundButton
-            size="s"
+            class="btn-outline btn-sm"
             :text="$t('register_screen.send_code')"
-            type="outline"
           />
         </template>
       </BaseUnderlinedInput>
       <BaseRoundButton
-        :bold="false"
-        class="send-btn"
+        class="send-btn btn-primary btn-md"
         icon="arrow-right"
-        size="m"
         :text="$t('forgot_password.send')"
-        type="primary"
       />
       <div class="forgot-password-div">
         {{ $t("forgot_password.already_have_account") }}

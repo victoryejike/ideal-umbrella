@@ -19,7 +19,7 @@
       </router-link>
       <hr class="vl">
       <BaseRoundButton
-        :bold="true"
+        class="btn-primary btn-lg btn-bold"
         :text="$t('header.register')"
         type="secondary"
         url="/register"

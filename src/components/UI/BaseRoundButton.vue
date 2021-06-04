@@ -1,7 +1,6 @@
 <template>
   <button
-    class="btn"
-    :class="[type, size, {'bold-text':bold}]"
+    class="btn-root-style"
     :disabled="isActive"
     @click="timeDelay(); forwardURL(); submit ? onSubmit() : null"
   >
@@ -22,12 +21,9 @@
 export default {
   name: 'BaseRoundButton',
   props: {
-    bold: { type: Boolean, required: false, default: false },
     icon: { type: String, required: false, default: null },
-    size: { type: String, required: false, default: 'l' },
     submit: { type: Boolean, required: false, default: false },
     text: { type: String, required: true },
-    type: { type: String, required: false, default: 'primary' },
     url: { type: String, required: false, default: null },
   },
   data() {
@@ -56,7 +52,7 @@ export default {
 </script>
 
 <style scoped>
-.btn {
+.btn-root-style {
   align-items: center;
   border-radius: 2rem;
   border-width: 0;
@@ -70,28 +66,7 @@ export default {
   transition: all 0.5s, filter 0s, transform 0s;
 }
 
-.bold-text {
-  font-weight: bold;
-}
-
-.xl {
-  padding: 0.75rem 2.5rem;
-}
-
-.l {
-  padding: 0.75rem 1.75rem;
-}
-
-.m {
-  padding: 0.45rem 1.75rem;
-}
-
-.s {
-  font-size: 0.75rem;
-  padding: 0.35rem 0.75rem;
-}
-
-.btn:active {
+.btn-root-style:active {
   filter: brightness(85%);
   transform: translateY(0.25rem);
   transition: all 0.5s, filter 0s, transform 0s;
@@ -103,23 +78,48 @@ export default {
   width: 2rem;
 }
 
-.primary {
+.btn-bold {
+  font-weight: bold;
+}
+
+/* Button Size Classes */
+
+.btn-xl {
+  padding: 0.75rem 2.5rem;
+}
+
+.btn-lg {
+  padding: 0.75rem 1.75rem;
+}
+
+.btn-md {
+  padding: 0.45rem 1.75rem;
+}
+
+.btn-sm {
+  font-size: 0.75rem;
+  padding: 0.35rem 0.75rem;
+}
+
+/* Button Type Classes */
+
+.btn-primary {
   background: #2c43ad;
   color: #fff;
 }
 
-.secondary {
+.btn-secondary {
   background: #5d6ec2;
   color: #fff;
 }
 
-.outline {
+.btn-outline {
   background-color: transparent;
   border: 0.1rem solid #2c43ad;
   color: #2c43ad;
 }
 
-.outline-danger {
+.btn-outline-danger {
   background-color: transparent;
   border: 0.1rem solid #ff3a31;
   border-radius: 0.5rem;

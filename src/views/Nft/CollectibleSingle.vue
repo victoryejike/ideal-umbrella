@@ -79,12 +79,9 @@
       />
       <div>
         <BaseRoundButton
-          :bold="true"
-          class="btn"
+          class="btn-primary btn-md btn-bold"
           icon="arrow-right"
-          size="m"
           :text="$t('single_collectible.create_button_text')"
-          type="primary"
         />
       </div>
     </BaseFrame>

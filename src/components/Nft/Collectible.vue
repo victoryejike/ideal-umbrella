@@ -45,7 +45,7 @@
 </template>
 <script>
 export default {
-  name: 'BaseUnderlinedInput',
+  name: 'Collectible',
   props: {
     placeholder: { type: String, required: false, default: null },
     text: { type: String, required: false, default: null },
