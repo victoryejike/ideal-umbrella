@@ -40,20 +40,16 @@
         type="amount"
       />
 
-      <div>
-        <div class="collection-text label">
-          {{ $t('single_collectible.choose_collection_label') }}
-        </div>
-        <BaseScrollableSelectBox
-          class="input-div"
-          :options="collectibleList"
-          :width="14"
-          bg-color="#E5E5E5"
-          border-color="none"
-          hover-color="#DDE1FB"
-          active-color="#DDE1FB"
-        />
-      </div>
+      <BaseScrollableSelectBox
+        class="input-div label"
+        :text="$t('single_collectible.choose_collection_label')"
+        :options="collectibleList"
+        :width="14"
+        bg-color="#E5E5E5"
+        border-color="none"
+        hover-color="#DDE1FB"
+        active-color="#DDE1FB"
+      />
 
       <Collectible
         class="input-field"
@@ -67,6 +63,26 @@
         :placeholder="$t('single_collectible.discription_placeholder')"
         name="description"
       />
+      <BaseScrollableSelectBox
+        class="input-div label"
+        :text="$t('single_collectible.royalties_label')"
+        :options="royaltiesList"
+        :width="14"
+        bg-color="#E5E5E5"
+        border-color="none"
+        hover-color="#DDE1FB"
+        active-color="#DDE1FB"
+      />
+      <div>
+        <BaseRoundButton
+          class="btn"
+          :text="$t('single_collectible.create_button_text')"
+          type="primary"
+          icon="arrow-right"
+          size="m"
+          :bold="true"
+        />
+      </div>
     </BaseFrame>
   </div>
 </template>
@@ -93,6 +109,7 @@ export default {
       collectibleList: [
         { name: 'ERC-721' },
       ],
+      royaltiesList: ['10 %', '20 %', '30 %'],
     };
   },
 };
@@ -192,4 +209,5 @@ input:checked + .slider::before {
   font-weight: 600;
   line-height: 1.125rem;
 }
+
 </style>

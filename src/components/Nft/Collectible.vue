@@ -20,7 +20,7 @@
         <BaseScrollableSelectBox
           class="input-div"
           :options="coinList"
-          :width="14"
+          :width="8"
           bg-color="#E5E5E5"
           border-color="none"
           hover-color="#DDE1FB"
@@ -108,4 +108,11 @@ export default {
   transition: border-bottom 0.3s ease-in-out;
   width: 100%;
 }
+
+@media (max-width: 30em) {
+  .input-box::placeholder {
+    font-size: 0.6875rem;
+  }
+}
+
 </style>

@@ -5,7 +5,7 @@
   <div class="upload-box">
     {{ $t('single_collectible.file_type_text') }}
     <BaseRoundButton
-      class="btn"
+      class="upload-button "
       :text="$t('single_collectible.upload_button_text')"
       type="primary"
       size="m"
@@ -42,7 +42,7 @@ export default {
   width: 32.5rem;
 }
 
-.btn {
+.upload-button {
   margin-top: 64.5px;
 }
 
@@ -52,5 +52,12 @@ export default {
   font-style: normal;
   font-weight: 600;
   margin-bottom: 1.37rem;
+}
+
+@media (max-width: 37em) {
+  .upload-box {
+    font-size: 0.75rem;
+    width: 100%;
+  }
 }
 </style>

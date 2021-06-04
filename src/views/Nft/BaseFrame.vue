@@ -42,4 +42,11 @@ export default {
   font-weight: 600;
   margin-top: 1.99rem;
 }
+
+@media (max-width: 30em) {
+  .title {
+    font-size: 1.4rem;
+  }
+}
+
 </style>

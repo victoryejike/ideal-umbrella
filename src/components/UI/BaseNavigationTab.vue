@@ -98,7 +98,7 @@ export default {
   width: var(--width);
 }
 
-@media (max-width: 30em) {
+@media (max-width: 37em) {
   .tabs {
     width: 100%;
   }
