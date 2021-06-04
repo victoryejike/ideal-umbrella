@@ -4,9 +4,11 @@
     :class="[type, size, {'bold-text':bold}]"
     @click="forwardURL"
   >
-    {{ text }}
+    <span class="btn-text">
+      {{ text }}
+    </span>
     <img
-      v-if="icon == 'arrow-right'"
+      v-if="icon === 'arrow-right'"
       src="@svg/arrow-right.svg"
       class="btn-icon"
       width="32"

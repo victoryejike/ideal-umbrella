@@ -54,15 +54,25 @@
     },
     "more": "More",
     "seller_tab": {
-      "day": "Day",
-      "month": "Month",
-      "week": "Week"
+      "day": "DAY",
+      "month": "MONTH",
+      "week": "WEEK"
     },
     "title": {
       "discover": "Discover",
       "popular": "Popular",
       "top_seller": "Top Seller"
     }
+  },
+  "kyc_screen": {
+    "confirm": "Confirm",
+    "id_number_label": "ID Number",
+    "id_number_placeholder": "Enter your ID number",
+    "id_type_label": "ID Type",
+    "id_verification": "ID Verfication",
+    "name_label": "Full Name",
+    "name_placeholder": "Enter your full name",
+    "nationality_label": "Nationality"
   },
   "login_screen": {
     "forgot_password": "Forgot Password?",
@@ -73,6 +83,11 @@
     "registered": "Registered",
     "username_placeholder": "Enter your email or phone number",
     "username_text": "Email Address or Phone Number"
+  },
+  "nft_index": {
+    "button_text": "Timed Auctions",
+    "description": "Choose Single if you want your collectible to be one of a kind or Multiple if you want to sell one collectible multiple times. We do not own your private keys and cannot access your funds without your confirmation",
+    "title": "Create Collectible"
   },
   "rabind_email_screen": {
     "cancel": "Cancel",
@@ -133,20 +148,32 @@
     "reset": "Reset",
     "reset_password": "Reset Password"
   },
+  "single_collectible": {
+    "amount_label": "Amount",
+    "amount_placeholder": "Enter price for one piece",
+    "choose_collection_label": "Choose Collection",
+    "create_button_text": "Create",
+    "discription_label": "Description",
+    "discription_placeholder": "e.g. “After purchasing you’ll be able to get the real T-Shirt”",
+    "file_type_text": "PNG, GIF, WEBP, MP4 or MP3. Max 100mb.",
+    "put_on_marketplace": "Put on marketplace",
+    "received_amount_label": "Received Amount (Service fee: 2.5%)",
+    "received_amount_placeholder": "Enter price for one piece",
+    "royalties_label": "Royalties",
+    "tab": {
+      "fixed_price": "FIXED PRICE",
+      "timed_auction": "TIMED AUCTION",
+      "unlimited_auction": "UNLIMITED AUCTION"
+    },
+    "title": "Create Single Collectible",
+    "title_label": "Title",
+    "title_placeholder": "e.g. “Redeemable Lady Gaga T-Shirt”",
+    "upload_button_text": "UPLOAD",
+    "upload_file_label": "Upload File"
+  },
   "tab_titles": {
     "email": "EMAIL",
     "phone": "PHONE"
-  },
-  "kyc_screen":{
-    "id_verification":"ID Verfication",
-    "nationality_label":"Nationality",
-    "name_label":"Full Name",
-    "name_placeholder":"Enter your full name",
-    "id_type_label":"ID Type",
-    "id_number_label":"ID Number",
-    "id_number_placeholder":"Enter your ID number",
-    "confirm": "Confirm"
-
   },
   "user_index_screen": {
     "account": "ACCOUNT",
@@ -178,33 +205,5 @@
       }
     },
     "uid": "UID"
-  },
-  "nft_index":{
-    "title":"Create Collectible",
-    "description":"Choose Single if you want your collectible to be one of a kind or Multiple if you want to sell one collectible multiple times. We do not own your private keys and cannot access your funds without your confirmation",
-    "button_text": "Timed Auctions"
-  },
-  "single_collectible":{
-    "title":"Create Single Collectible",
-    "upload_file_label":"Upload File",
-    "upload_button_text":"UPLOAD",
-    "file_type_text":"PNG, GIF, WEBP, MP4 or MP3. Max 100mb.",
-    "put_on_marketplace":"Put on marketplace",
-    "tab": {
-      "fixed_price": "FIXED PRICE",
-      "timed_auction": "TIMED AUCTION",
-      "unlimited_auction": "UNLIMITED AUCTION"
-    },
-    "amount_label":"Amount",
-    "amount_placeholder": "Enter price for one piece",
-    "received_amount_label":"Received Amount (Service fee: 2.5%)",
-    "received_amount_placeholder":"Enter price for one piece",
-    "choose_collection_label":"Choose Collection",
-    "title_label":"Title",
-    "title_placeholder":"e.g. “Redeemable Lady Gaga T-Shirt”",
-    "discription_label":"Description",
-    "discription_placeholder": "e.g. “After purchasing you’ll be able to get the real T-Shirt”",
-    "royalties_label":"Royalties",
-    "create_button_text":"Create"
   }
 }

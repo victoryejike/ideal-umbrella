@@ -7,7 +7,7 @@
       class="input-group-text"
     >
       <span
-        v-if="type == 'phone'"
+        v-if="type === 'phone'"
         style="margin-right: 1rem;"
       >
         {{ $t('components.country_code') }}
@@ -23,7 +23,7 @@
       >
         <slot name="icon" />
       </div>
-      <template v-if="type == 'password'">
+      <template v-if="type === 'password'">
         <input
           v-model="inputValue"
           :type="(isDisplay) ? 'text' : 'password'"
@@ -43,7 +43,7 @@
           @click="toggleEye"
         >
       </template>
-      <template v-else-if="type == 'with-button'">
+      <template v-else-if="type === 'with-button'">
         <input
           v-model="inputValue"
           type="text"
@@ -60,7 +60,7 @@
           <slot name="button" />
         </div>
       </template>
-      <template v-else-if="type == 'phone'">
+      <template v-else-if="type === 'phone'">
         <img
           src="@svg/phone.svg"
           class="input-group-icon"
@@ -156,6 +156,9 @@ export default {
   color: rgba(0, 0, 0, 0.75);
   font-size: 0.9rem;
   margin-bottom: 1.2rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .input-group-icon {
@@ -190,6 +193,8 @@ export default {
 .input-box::placeholder {
   color: rgba(0, 0, 0, 0.25);
   font-family: "Inter", sans-serif;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .input-line {

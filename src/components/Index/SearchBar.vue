@@ -47,6 +47,7 @@ export default {
   border: 0;
   color: #000;
   flex-grow: 1;
+  font-size: 1rem;
   margin: 1rem 1rem;
   outline: 0;
 }
