@@ -3,8 +3,8 @@ import { Form } from 'vee-validate';
 import App from './App.vue';
 import router from './router';
 import store from './store';
-import i18n from './i18n';
 
+import i18n from './utils/i18n';
 import './utils/validator';
 
 const app = createApp(App).use(i18n).use(store).use(router);
