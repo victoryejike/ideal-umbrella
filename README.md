@@ -1,6 +1,6 @@
 # NFT Market Place Front-end
 
-## Commands
+## Commands:
 
 #### Project Setup and Compiles for Development
 ```
@@ -25,6 +25,7 @@ npm run test:unit
 ```
 ── public
 │   ├── favicon.ico
+│   ├── favicon.png
 │   ├── index.html
 ├── src
 │   ├── assets
@@ -36,6 +37,7 @@ npm run test:unit
 │   ├── router
 │   ├── services
 │   ├── store
+│   ├── utils
 │   ├── views
 │   ├── App.vue
 │   ├── main.js
@@ -60,13 +62,10 @@ npm run test:unit
 [Vue3 Realworld Example](https://github.com/mutoe/vue3-realworld-example-app)
 [Beauty Vue.js Boilerplate](https://github.com/zmts/beauty-vuejs-boilerplate)
 
-## Style Guide / Naming Convention
-
+## Style Guide / Naming Convention:
 `CSS class / id:` kebab case [e.g. two-words]
 
 `JS variable / function:` lower camel case [e.g. twoWords]
-
-`JS constant:`  screaming snake case [e.g. TWO_WORDS]
 
 `Vue component file / folder name:` upper camel case [e.g. TwoWords]
 
@@ -98,9 +97,9 @@ ext install dbaeumer.vscode-eslint
 //setting.json
 {
 	"editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true,
-    "source.fixAll.stylelint": true
-  },
+		"source.fixAll.eslint": true,
+		"source.fixAll.stylelint": true
+	},
 	"editor.formatOnSave": false,				// Prevent conflicting to ESLint
 }
 ```
