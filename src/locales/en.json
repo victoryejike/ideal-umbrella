@@ -205,5 +205,14 @@
       }
     },
     "uid": "UID"
+  },
+  "validator": {
+    "email_msg":"Invalid email.",
+    "phone_msg": "Invalid phone number.",
+    "required_msg": "Field cannot be empty.",
+    "match_msg": "Passwords must match.",
+    "username_msg": "Invalid username, it should be email or phone number.",
+    "password_msg": "Invalid password, the password must contain at least 8 characters in length, and at least 1 lowercase, uppercase, special characters and numeric values.",
+    "sms_msg": "The code should be a 6 digit number."
   }
 }
