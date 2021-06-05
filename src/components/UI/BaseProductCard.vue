@@ -103,7 +103,7 @@ export default {
       target.src = NoImage;
     },
     textAbstract(text, maxLength) {
-      if (maxLength <= this.MINIMUM_LENGTH) { console.log('hello'); return null; }
+      if (maxLength <= this.MINIMUM_LENGTH) { return null; }
       return (text.length > maxLength) ? `${text.substring(0, maxLength)}...` : text;
     },
   },

@@ -35,7 +35,7 @@ export default {
       if (this.url !== null) { this.$router.push(this.url); }
     },
     onSubmit() {
-      const { classList } = document.querySelector('.error-msg') ?? {};
+      const { classList } = document.querySelector('.input-error-msg') ?? {};
       if (classList) {
         classList.add('shake');
         setTimeout(() => { classList.remove('shake'); }, 1000);

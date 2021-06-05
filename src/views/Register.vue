@@ -121,7 +121,6 @@ export default {
   methods: {
     onSubmit(data) {
       // call API...
-      console.log(data);
     },
   },
 

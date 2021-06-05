@@ -101,13 +101,13 @@ export default {
   padding: 0.6rem 0;
 }
 
-@media (max-width: 37em) {
+@media (max-width: 30em) {
   .tabs {
-    width: 100%;
+    width: 100% !important;
   }
 
   .fixed {
-    width: 100%;
+    width: 100% !important;
   }
 }
 </style>

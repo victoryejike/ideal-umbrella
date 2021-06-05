@@ -131,7 +131,7 @@
     />
     <ErrorMessage
       ref="errorMsg"
-      class="error-msg"
+      class="input-error-msg"
       :name="name"
     />
   </div>
@@ -266,7 +266,7 @@ select::-ms-expand {
   display: none;
 }
 
-.error-msg {
+.input-error-msg {
   color: #ff3a31;
   font-size: 0.85rem;
   margin-top: 0.2rem;
