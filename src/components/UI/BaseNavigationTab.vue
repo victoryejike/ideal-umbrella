@@ -8,8 +8,9 @@
       :key="index"
       class="navs"
       :class="[{active: isActive[index]}, width !== 0 ? 'fixed' : 'auto']"
-      :onClick="() => {toggleTab(index),execute(index)}"
+      :onClick="() => {toggleTab(index); execute(index)}"
       :style="width !== 0 ? {width: `${width}rem`} : null"
+      type="button"
     >
       <span class="btn-text">
         {{ name }}
@@ -41,7 +42,9 @@ export default {
   },
   methods: {
     execute(index) {
-      if (this.functionList[index] != null) { this.functionList[index](); }
+      if (this.functionList[index] != null) {
+        this.functionList[index]();
+      }
     },
     toggleTab(index) {
       this.isActive[this.currentActiveIndex] = false;

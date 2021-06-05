@@ -1,8 +1,8 @@
 <template>
   <div class="container">
-    <form
+    <Form
       class="register-form"
-      @submit.prevent
+      @submit="onSubmit"
     >
       <h1 class="register-text">
         {{ $t("register_screen.register") }}
@@ -13,13 +13,15 @@
         :width="10.6"
       />
       <BaseUnderlinedInput
+        v-if="isEmail"
         class="input-field"
         name="email"
         :placeholder="$t('register_screen.email_placeholder')"
+        rules="required|email"
         :text="$t('register_screen.email_label')"
-        type="text"
       />
       <BaseUnderlinedInput
+        v-if="!isEmail"
         class="input-field"
         name="phone"
         :placeholder="$t('register_screen.phone_placeholder')"
@@ -30,6 +32,7 @@
         class="input-field"
         name="loginPassword"
         :placeholder="$t('register_screen.login_password_placehoder')"
+        rules="required|password"
         :text="$t('register_screen.login_password_label')"
         type="password"
       >
@@ -42,6 +45,7 @@
         class="input-field"
         name="confirmPassword"
         :placeholder="$t('register_screen.confirm_password_placehoder')"
+        rules="required|confirmed:loginPassword"
         :text="$t('register_screen.confirm_password_label')"
         type="password"
       >
@@ -51,8 +55,9 @@
       </BaseUnderlinedInput>
       <BaseUnderlinedInput
         class="input-field"
-        name="verification-code"
+        name="verificationCode"
         :placeholder="$t('register_screen.verification_code__placehoder')"
+        rules="required|sms"
         :text="$t('register_screen.verification_code_label')"
         type="with-button"
       >
@@ -78,6 +83,7 @@
       <BaseRoundButton
         class="register-button btn-primary btn-md btn-bold"
         icon="arrow-right"
+        :submit="true"
         :text="$t('register_screen.register')"
       />
     </form>
@@ -99,10 +105,24 @@ export default {
   name: 'Register',
   data() {
     return {
+      isEmail: true,
       registerTab: [
-        this.$t('tab_titles.email'), this.$t('tab_titles.email'),
+        {
+          name: this.$t('tab_titles.email'),
+          handler: () => { this.isEmail = true; },
+        },
+        {
+          name: this.$t('tab_titles.phone'),
+          handler: () => { this.isEmail = false; },
+        },
       ],
     };
+  },
+  methods: {
+    onSubmit(data) {
+      // call API...
+      console.log(data);
+    },
   },
 
 };

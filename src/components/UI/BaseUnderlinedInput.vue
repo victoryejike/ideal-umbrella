@@ -26,6 +26,7 @@
       <template v-if="type === 'password'">
         <Field
           v-model="inputValue"
+          v-bind="$attrs"
           class="input-box"
           :name="name"
           :placeholder="placeholder"
@@ -49,6 +50,7 @@
       <template v-else-if="type === 'with-button'">
         <Field
           v-model="inputValue"
+          v-bind="$attrs"
           class="input-box"
           :name="name"
           :placeholder="placeholder"
@@ -91,7 +93,10 @@
         </select>
         <Field
           v-model="inputValue"
+          v-bind="$attrs"
           class="input-box input-phone"
+          maxlength="15"
+          minlength="8"
           :name="name"
           :placeholder="placeholder"
           rules="required|phone"
@@ -100,12 +105,13 @@
           @change="$emit('input', $event.target.value)"
           @focus="isFocus = true"
           @focusout="isFocus = false"
-          @keypress="isNumber($event)"
+          @keypress="isInteger($event)"
         />
       </template>
       <template v-else>
         <Field
           v-model="inputValue"
+          v-bind="$attrs"
           class="input-box"
           :name="name"
           :placeholder="placeholder"
@@ -156,11 +162,19 @@ export default {
     };
   },
   methods: {
-    isNumber(event) {
-      const charCode = (event.which) ? event.which : event.keyCode;
-      if ((charCode > 31 && (charCode < 48 || charCode > 57)) && charCode !== 46) {
-        event.preventDefault();
+    isInteger(e) {
+      if (this.isNumber(e) && e.key !== '.') {
+        return true;
       }
+      e.preventDefault();
+      return false;
+    },
+    isNumber(e) {
+      if ((Number.isNaN(Number(e.key)) || e.key === null || e.key === ' ') && e.key !== '.') {
+        e.preventDefault();
+        return false;
+      }
+      return true;
     },
     toggleEye() {
       this.$refs['password-eye'].src = (this.isDisplay) ? PasswordEye : PasswordEyeClosed;

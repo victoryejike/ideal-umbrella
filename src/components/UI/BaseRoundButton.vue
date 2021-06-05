@@ -2,6 +2,7 @@
   <button
     class="btn-root-style"
     :disabled="isActive"
+    :type="submit ? 'submit' : 'button'"
     @click="timeDelay(); forwardURL(); submit ? onSubmit() : null"
   >
     <span class="btn-text">
