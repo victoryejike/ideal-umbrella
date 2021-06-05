@@ -35,13 +35,11 @@ export default {
       if (this.url !== null) { this.$router.push(this.url); }
     },
     onSubmit() {
-      this.$parent.validate().then(({ valid }) => {
-        if (!valid) {
-          const { classList } = document.querySelector('.error-msg');
-          classList.add('shake');
-          setTimeout(() => { classList.remove('shake'); }, 1000);
-        }
-      });
+      const { classList } = document.querySelector('.error-msg') ?? {};
+      if (classList) {
+        classList.add('shake');
+        setTimeout(() => { classList.remove('shake'); }, 1000);
+      }
     },
     // Prevent multiple click in short time
     timeDelay() {
