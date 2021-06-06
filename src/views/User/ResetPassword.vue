@@ -1,54 +1,56 @@
 <template>
   <BaseSettingFrame :title="$t('reset_password_screen.reset_password')">
-    <BaseUnderlinedInput
-      class="input-field"
-      name="resetPassword"
-      :placeholder="$t('reset_password_screen.original_password_placehoder')"
-      :text="$t('reset_password_screen.original_password_label')"
-      type="password"
-    >
-      <template #icon>
-        <img src="@svg/password-lock.svg">
-      </template>
-    </BaseUnderlinedInput>
-
-    <BaseUnderlinedInput
-      class="input-field"
-      name="newPassword"
-      :placeholder="$t('reset_password_screen.new_password_placehoder')"
-      :text="$t('reset_password_screen.new_password_label')"
-      type="password"
-    >
-      <template #icon>
-        <img src="@svg/password-lock.svg">
-      </template>
-    </BaseUnderlinedInput>
-
-    <BaseUnderlinedInput
-      class="input-field"
-      name="resetPassword"
-      :placeholder="$t('reset_password_screen.confirm_password_placehoder')"
-      :text="$t('reset_password_screen.confirm_password_label')"
-      type="password"
-    >
-      <template #icon>
-        <img src="@svg/password-lock.svg">
-      </template>
-    </BaseUnderlinedInput>
-    <div class="actions-div">
-      <BaseRoundButton
-        class="reset-button btn-primary btn-md btn-bold"
-        icon="arrow-right"
-        :text="$t('reset_password_screen.reset')"
-      />
-
-      <router-link
-        class="cancel-link"
-        to="/account-setting"
+    <Form class="reset-form">
+      <BaseUnderlinedInput
+        class="input-field"
+        name="resetPassword"
+        :placeholder="$t('reset_password_screen.original_password_placehoder')"
+        :text="$t('reset_password_screen.original_password_label')"
+        type="password"
       >
-        {{ $t("reset_password_screen.cancel") }}
-      </router-link>
-    </div>
+        <template #icon>
+          <img src="@svg/password-lock.svg">
+        </template>
+      </BaseUnderlinedInput>
+
+      <BaseUnderlinedInput
+        class="input-field"
+        name="newPassword"
+        :placeholder="$t('reset_password_screen.new_password_placehoder')"
+        :text="$t('reset_password_screen.new_password_label')"
+        type="password"
+      >
+        <template #icon>
+          <img src="@svg/password-lock.svg">
+        </template>
+      </BaseUnderlinedInput>
+
+      <BaseUnderlinedInput
+        class="input-field"
+        name="resetPassword"
+        :placeholder="$t('reset_password_screen.confirm_password_placehoder')"
+        :text="$t('reset_password_screen.confirm_password_label')"
+        type="password"
+      >
+        <template #icon>
+          <img src="@svg/password-lock.svg">
+        </template>
+      </BaseUnderlinedInput>
+      <div class="actions-div">
+        <BaseRoundButton
+          class="reset-button btn-primary btn-md btn-bold"
+          icon="arrow-right"
+          :text="$t('reset_password_screen.reset')"
+        />
+
+        <router-link
+          class="cancel-link"
+          to="/account-setting"
+        >
+          {{ $t("reset_password_screen.cancel") }}
+        </router-link>
+      </div>
+    </Form>
   </BaseSettingFrame>
 </template>
 <script>
@@ -62,6 +64,9 @@ export default {
 </script>
 
 <style scoped>
+.reset-form {
+  max-width: 24rem;
+}
 
 .input-field {
   margin-top: 2.5rem;

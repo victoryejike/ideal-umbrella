@@ -49,13 +49,10 @@
 
 <script>
 import BaseSettingFrame from './BaseSettingFrame.vue';
-import BaseScrollableSelectBox from '../../components/UI/BaseScrollableSelectBox.vue';
 
 export default {
-  components: {
-    BaseSettingFrame,
-    BaseScrollableSelectBox,
-  },
+  name: 'UserIDVerification',
+  components: { BaseSettingFrame },
   data() {
     return {
       backgroundColor: '#E5E5E5',

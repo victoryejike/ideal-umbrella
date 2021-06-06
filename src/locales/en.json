@@ -98,7 +98,7 @@
     "new_phone_label": "New Phone",
     "new_phone_placeholder": "Enter New Phone",
     "original_email_label": "Original Email",
-    "original_email_placehoder": "c*********@gmail.com",
+    "original_email_placehoder": "c*********@gmail.com <-- has interesting error! ",
     "phone_label": "Phone",
     "phone_label_label": "****4321",
     "phone_verfication_placehoder": "Enter the verification code",
