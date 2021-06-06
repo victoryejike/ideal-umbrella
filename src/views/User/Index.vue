@@ -118,6 +118,7 @@ export default {
   font-size: 2rem;
   font-weight: bold;
   line-height: 150%;
+  white-space: nowrap;
 }
 
 .ver-btn {
@@ -126,6 +127,7 @@ export default {
 
 .logout-btn {
   margin-left: 3.125rem;
+  margin-right: 3.125rem;
 }
 
 .settings-tab {
@@ -155,7 +157,7 @@ export default {
   display: flex;
 }
 
-@media (max-width: 54.0625em) {
+@media (max-width: 60em) {
   .header {
     display: block;
   }
@@ -172,12 +174,20 @@ export default {
   .logout-btn {
     margin-left: 1.25rem;
   }
+
+  .uid {
+    margin-top: 1.25rem;
+  }
 }
 
-@media (max-width: 26.3125em) {
+@media (max-width: 30em) {
   .main-settings button {
     font-size: 0.75rem;
     padding: 0.35rem 1rem;
+  }
+
+  .main-settings {
+    justify-content: center;
   }
 }
 </style>
