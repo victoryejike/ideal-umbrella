@@ -50,7 +50,7 @@
         name="phone"
         :placeholder="$t('register_screen.phone_placeholder')"
         :text="$t('forgot_password.phone')"
-        type="phone"
+        type="tel"
       />
 
       <BaseUnderlinedInput

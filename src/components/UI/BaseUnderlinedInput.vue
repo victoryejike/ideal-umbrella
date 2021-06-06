@@ -8,7 +8,7 @@
       class="input-group-text"
     >
       <span
-        v-if="type === 'phone'"
+        v-if="type === 'tel'"
         style="margin-right: 1rem;"
       >
         {{ $t('components.country_code') }}
@@ -19,7 +19,7 @@
       class="inline-block"
     >
       <div
-        v-if="$slots.icon && type !== 'phone'"
+        v-if="$slots.icon && type !== 'tel'"
         class="input-group-icon"
       >
         <slot name="icon" />
@@ -48,7 +48,7 @@
           @click="toggleEye"
         >
       </template>
-      <template v-else-if="type === 'phone'">
+      <template v-else-if="type === 'tel'">
         <img
           class="input-group-icon"
           height="20"

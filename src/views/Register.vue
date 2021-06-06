@@ -1,6 +1,7 @@
 <template>
   <div class="container">
     <Form
+      ref="form"
       class="register-form"
       @submit="onSubmit"
     >
@@ -26,7 +27,7 @@
         name="phone"
         :placeholder="$t('register_screen.phone_placeholder')"
         :text="$t('register_screen.phone_label')"
-        type="phone"
+        type="tel"
       />
       <BaseUnderlinedInput
         class="input-field"
@@ -64,6 +65,7 @@
           <BaseRoundButton
             class="btn-outline-primary btn-sm"
             :text="$t('register_screen.send_code')"
+            @click="sendSMS"
           />
         </template>
       </BaseUnderlinedInput>
@@ -120,6 +122,13 @@ export default {
   methods: {
     onSubmit(data) {
       // call API...
+    },
+    sendSMS() {
+      this.$refs.form.validateField(this.isEmail ? 'email' : 'phone').then((result) => {
+        if (result.valid) {
+          // Call API
+        }
+      });
     },
   },
 

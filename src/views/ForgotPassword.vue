@@ -2,6 +2,7 @@
   <div class="container">
     <Form
       class="forgot-password-form"
+      @submit="onSubmit"
     >
       <h1 class="forgot-password-text">
         {{ $t("forgot_password.forgot_password") }}
@@ -13,7 +14,7 @@
       <BaseUnderlinedInput
         v-if="isEmail"
         class="input-field"
-        name="email"
+        name="username"
         :placeholder="$t('register_screen.email_placeholder')"
         rules="required|email"
         :text="$t('register_screen.email_label')"
@@ -21,11 +22,11 @@
       <BaseUnderlinedInput
         v-if="!isEmail"
         class="input-field"
-        name="phone"
+        name="username"
         :placeholder="$t('register_screen.phone_placeholder')"
         rules="required|phone"
         :text="$t('forgot_password.phone')"
-        type="phone"
+        type="tel"
       />
       <BaseUnderlinedInput
         class="input-field"
@@ -42,7 +43,7 @@
         </template>
       </BaseUnderlinedInput>
       <BaseRoundButton
-        class="send-btn btn-primary btn-md"
+        class="send-btn btn-primary btn-md btn-bold"
         icon="arrow-right"
         :submit="true"
         :text="$t('forgot_password.send')"
@@ -78,6 +79,11 @@ export default {
         },
       ],
     };
+  },
+  methods: {
+    onSubmit(data) {
+      // call API...
+    },
   },
 };
 </script>
