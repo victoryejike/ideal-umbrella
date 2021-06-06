@@ -4,7 +4,7 @@
       <BaseUnderlinedInput
         class="input-field"
         name="resetPassword"
-        placeholder="c*********@gmail.com"
+        :placeholder="$t('rabind_email_screen.original_email_placehoder')"
         :text="$t('rabind_email_screen.original_email_label')"
         type="email"
       />
