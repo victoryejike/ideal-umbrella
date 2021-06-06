@@ -51,7 +51,7 @@ a {
 }
 
 #wrapper {
-  padding: 1rem 2rem 0 2rem;
+  padding: 2.5rem 8rem 0 8rem;
 }
 
 #header {
@@ -65,12 +65,12 @@ a {
   max-width: 73.75rem;
   min-height: 80vh;
   padding-bottom: 3.75rem;
-  padding-top: 1.5rem;
+  padding-top: 3.75rem;
 }
 
 #footer {
   min-height: 10vh;
-  padding: 2.5rem 2rem 2.5rem 2rem;
+  padding: 5rem 8rem;
 }
 
 .fade-enter-active,
@@ -85,17 +85,17 @@ a {
 
 /* The reason using 70em is to fit the footer UI */
 
-@media (min-device-width: 70em) {
+@media (max-width: 70em) {
   #wrapper {
-    padding: 2.5rem 8rem 0 8rem !important;
+    padding: 1rem 2rem 0 2rem;
   }
 
   #content {
-    padding-top: 3.75rem !important;
+    padding-top: 1.5rem;
   }
 
   #footer {
-    padding: 5rem 8rem !important;
+    padding: 2.5rem 2rem 2.5rem 2rem;
   }
 }
 </style>

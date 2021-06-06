@@ -77,7 +77,7 @@ export default {
 
 .login-btn {
   margin-top: 3.75rem;
-  min-width: 100%;
+  min-width: 0;
 }
 
 .helper-div {
@@ -90,9 +90,9 @@ export default {
   margin-top: 2rem;
 }
 
-@media (min-device-width: 30em) {
+@media (max-width: 30em) {
   .login-btn {
-    min-width: 0% !important;
+    min-width: 100%;
   }
 }
 </style>

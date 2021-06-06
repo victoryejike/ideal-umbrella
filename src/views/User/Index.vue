@@ -155,7 +155,7 @@ export default {
   display: flex;
 }
 
-@media only screen and (max-width: 54.0625em) {
+@media (max-width: 54.0625em) {
   .header {
     display: block;
   }
@@ -165,16 +165,16 @@ export default {
     padding-top: 1.25rem;
   }
 
-  .flex button {
-    margin-left: 0.0625rem;
+  .ver-btn {
+    margin-left: 0;
   }
 
   .logout-btn {
-    margin-left: 1.25rem !important;
+    margin-left: 1.25rem;
   }
 }
 
-@media only screen and (max-width: 26.3125em) {
+@media (max-width: 26.3125em) {
   .main-settings button {
     font-size: 0.75rem;
     padding: 0.35rem 1rem;

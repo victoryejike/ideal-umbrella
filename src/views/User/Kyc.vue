@@ -112,7 +112,7 @@ export default {
 
 @media (max-width: 30em) {
   .confirm-button {
-    min-width: 100% !important;
+    min-width: 100%;
   }
 }
 

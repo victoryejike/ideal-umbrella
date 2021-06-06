@@ -146,7 +146,7 @@ footer {
 
   /* Fixing a mobile Safari bug (not going to wrap the links when refreshing) */
   flex: 1 1 auto;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   justify-content: space-between;
 }
 
@@ -162,7 +162,7 @@ footer {
 
 .copyright-text {
   margin-right: 1rem;
-  margin-top: 2.5rem;
+  margin-top: 0;
 }
 
 .logo-language-container {
@@ -172,13 +172,13 @@ footer {
 
 .links-group-container {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   justify-content: space-between;
 }
 
 .links-group {
   margin-bottom: 2.5rem;
-  width: 10.5rem;
+  width: 12.5rem;
 }
 
 .links-header {
@@ -200,7 +200,7 @@ footer {
   align-items: center;
   display: flex;
   margin-right: -2.5rem;
-  margin-top: 2.5rem;
+  margin-top: 0;
 }
 
 .social-media-icons {
@@ -209,27 +209,27 @@ footer {
 
 /* Here using 65 instead of 70 is to prevent links-group flickering when footer padding changed */
 
-@media (min-device-width: 65em) {
+@media (max-width: 65em) {
   .logo-and-links-div {
-    flex-wrap: nowrap !important;
+    flex-wrap: wrap;
   }
 
   .links-group-container {
-    flex-wrap: nowrap !important;
+    flex-wrap: wrap;
   }
 }
 
-@media (min-device-width: 70em) {
+@media (max-width: 70em) {
   .links-group {
-    width: 12.5rem !important;
+    width: 10.5rem;
   }
 
   .social-media {
-    margin-top: 0 !important;
+    margin-top: 2.5rem;
   }
 
   .copyright-text {
-    margin-top: 0 !important;
+    margin-top: 2.5rem;
   }
 }
 

@@ -111,7 +111,7 @@ export default {
   color: #5e6ec2;
 }
 
-@media only screen and (max-width: 23em) {
+@media (max-width: 23em) {
   .card-footer-notes {
     font-size: 0.8rem;
   }

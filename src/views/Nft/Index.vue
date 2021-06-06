@@ -31,7 +31,7 @@ export default {
   display: flex;
 }
 
-@media only screen and (max-width: 686px) {
+@media (max-width: 686px) {
   .flex {
     display: block;
   }

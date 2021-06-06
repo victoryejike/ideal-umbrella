@@ -78,15 +78,17 @@ header {
   align-items: center;
   display: flex;
   left: -9999rem;
-  opacity: 0;
-  position: absolute;
+  opacity: 100;
+  position: inherit;
   top: -9999rem;
   transition: opacity 1s;
 }
 
 .mobile-menu {
-  opacity: 100;
-  position: inherit;
+  left: -9999rem;
+  opacity: 0;
+  position: absolute;
+  top: -9999rem;
   transition: opacity 1s;
 }
 
@@ -105,18 +107,16 @@ header {
   opacity: 0.3;
 }
 
-@media (min-device-width: 54em) {
+@media (max-width: 54em) {
   .menu {
-    opacity: 100;
-    position: inherit;
+    opacity: 0;
+    position: absolute;
     transition: opacity 1s;
   }
 
   .mobile-menu {
-    left: -9999rem;
-    opacity: 0;
-    position: absolute;
-    top: -9999rem;
+    opacity: 100;
+    position: inherit;
     transition: opacity 1s;
   }
 }
