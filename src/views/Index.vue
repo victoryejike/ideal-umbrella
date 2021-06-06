@@ -68,6 +68,14 @@
         />
       </template>
       <template #content>
+        <div class="filter">
+          <BaseRoundButton
+            v-for="(name, index) in filterBtn"
+            :key="index"
+            class="btn-outline-secondary btn-lg"
+            :text="name"
+          />
+        </div>
         <div
           class="gridbox card-gridbox"
           :style="{gridTemplateColumns: discoverSectionSetting}"
@@ -89,7 +97,7 @@
       </template>
     </IndexSection>
     <BaseRoundButton
-      class="load-more-btn btn-outline btn-xl"
+      class="load-more-btn btn-outline-primary btn-xl"
       :text="$t('index_screen.more')"
     />
   </div>
@@ -137,6 +145,13 @@ export default {
         this.$t('index_screen.discover_tab.recent'),
         this.$t('index_screen.discover_tab.cheap'),
         this.$t('index_screen.discover_tab.high'),
+      ],
+      filterBtn: [
+        '🎨 Art',
+        '🎵 Music',
+        '📸 Photography',
+        '⚽ Sports',
+        '💎 Collectibles',
       ],
       popularSectionSetting: null,
       sellerSectionSetting: null,
@@ -202,6 +217,10 @@ export default {
 .block-gridbox {
   grid-gap: 4rem;
   grid-row-gap: 3rem;
+}
+
+.filter {
+  display: flex;
 }
 
 .load-more-btn {

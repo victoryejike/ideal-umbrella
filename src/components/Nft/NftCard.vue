@@ -5,7 +5,7 @@
   >
     <div v-if="btn === 'true'">
       <BaseRoundButton
-        class="btn-outline btn-sm"
+        class="btn-outline-primary btn-sm"
         :text="$t('nft_index.button_text')"
       />
     </div>

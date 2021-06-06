@@ -15,7 +15,7 @@
           text="No ID Verification"
         />
         <BaseRoundButton
-          class="logout-btn btn-outline btn-md"
+          class="logout-btn btn-outline-primary btn-md"
           text="Logout"
         />
       </div>

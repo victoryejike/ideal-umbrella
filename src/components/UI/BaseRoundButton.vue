@@ -116,10 +116,16 @@ export default {
   color: #fff;
 }
 
-.btn-outline {
+.btn-outline-primary {
   background-color: transparent;
   border: 0.1rem solid #2c43ad;
   color: #2c43ad;
+}
+
+.btn-outline-secondary {
+  background-color: transparent;
+  border: 0.1rem solid #b4c5eb;
+  color: #8598d7;
 }
 
 .btn-outline-danger {

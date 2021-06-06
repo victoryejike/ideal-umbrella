@@ -23,6 +23,7 @@
         class="input-field"
         name="phone"
         :placeholder="$t('register_screen.phone_placeholder')"
+        rules="required|phone"
         :text="$t('forgot_password.phone')"
         type="phone"
       />
@@ -30,11 +31,12 @@
         class="input-field"
         name="verificationCode"
         :placeholder="$t('register_screen.verification_code__placehoder')"
+        rules="required|sms"
         :text="$t('register_screen.verification_code_label')"
       >
         <template #element>
           <BaseRoundButton
-            class="btn-outline btn-sm"
+            class="btn-outline-primary btn-sm"
             :text="$t('register_screen.send_code')"
           />
         </template>
@@ -42,6 +44,7 @@
       <BaseRoundButton
         class="send-btn btn-primary btn-md"
         icon="arrow-right"
+        :submit="true"
         :text="$t('forgot_password.send')"
       />
       <div class="forgot-password-div">

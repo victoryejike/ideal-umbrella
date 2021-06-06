@@ -17,7 +17,7 @@
       >
         <template #element>
           <BaseRoundButton
-            class="btn-outline btn-sm"
+            class="btn-outline-primary btn-sm"
             :text="$t('register_screen.send_code')"
           />
         </template>
@@ -39,7 +39,7 @@
       >
         <template #element>
           <BaseRoundButton
-            class="btn-outline btn-sm"
+            class="btn-outline-primary btn-sm"
             :text="$t('register_screen.send_code')"
           />
         </template>
@@ -61,7 +61,7 @@
       >
         <template #element>
           <BaseRoundButton
-            class="btn-outline btn-sm"
+            class="btn-outline-primary btn-sm"
             :text="$t('register_screen.send_code')"
           />
         </template>
