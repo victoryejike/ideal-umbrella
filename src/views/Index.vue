@@ -20,7 +20,7 @@
       <template #content>
         <div
           class="gridbox card-gridbox"
-          :style="{gridTemplateColumns: popularSectionSetting}"
+          :style="{gridTemplateColumns: setting.popularSection}"
         >
           <BaseProductCard
             v-for="(item, index) in popularList"
@@ -46,7 +46,7 @@
       <template #content>
         <div
           class="gridbox block-gridbox"
-          :style="{gridTemplateColumns: sellerSectionSetting}"
+          :style="{gridTemplateColumns: setting.sellerSection}"
         >
           <AuthorBlock
             v-for="(item, index) in topSellerList"
@@ -70,15 +70,17 @@
       <template #content>
         <div class="filter">
           <BaseRoundButton
-            v-for="(name, index) in filterBtn"
+            v-for="(item, index) in filterBtn"
             :key="index"
-            class="btn-outline-secondary btn-lg"
-            :text="name"
+            class="filter-btn btn-outline-secondary btn-lg btn-bold"
+            :class="{'filter-btn-active': item.isActive}"
+            :text="item.name"
+            @click="toogleFilterBtn(index)"
           />
         </div>
         <div
           class="gridbox card-gridbox"
-          :style="{gridTemplateColumns: discoverSectionSetting}"
+          :style="{gridTemplateColumns: setting.discoverSection}"
         >
           <BaseProductCard
             v-for="(item, index) in discoverList"
@@ -147,27 +149,34 @@ export default {
         this.$t('index_screen.discover_tab.high'),
       ],
       filterBtn: [
-        '🎨 Art',
-        '🎵 Music',
-        '📸 Photography',
-        '⚽ Sports',
-        '💎 Collectibles',
+        { name: '🎨 Art', isActive: true },
+        { name: '🎵 Music', isActive: false },
+        { name: '📸 Photography', isActive: false },
+        { name: '⚽ Sports', isActive: false },
+        { name: '💎 Collectibles', isActive: false },
       ],
-      popularSectionSetting: null,
-      sellerSectionSetting: null,
-      discoverSectionSetting: null,
+      currActiveIndex: 0,
+      setting: {
+        popularSection: 'popular-product-card',
+        sellerSection: 'seller-block',
+        discoverSection: 'discover-product-card',
+      },
     };
   },
   mounted() {
-    setTimeout(() => {
-      this.popularSectionSetting = `repeat(auto-fit, ${this.getWidth('popular-product-card')}rem)`;
-      this.sellerSectionSetting = `repeat(auto-fit, ${this.getWidth('seller-block')}rem)`;
-      this.discoverSectionSetting = `repeat(auto-fit, ${this.getWidth('discover-product-card')}rem)`;
-    }, 100);
+    // Calculate the grid template width
+    Object.keys(this.setting).forEach((key) => {
+      this.setting[key] = `repeat(auto-fit, ${this.getWidth(this.setting[key])}rem)`;
+    });
   },
   methods: {
     getWidth(className) {
       return document.querySelector(`.${className}`).clientWidth / 16;
+    },
+    toogleFilterBtn(index) {
+      this.filterBtn[this.currActiveIndex].isActive = false;
+      this.filterBtn[index].isActive = true;
+      this.currActiveIndex = index;
     },
   },
 };
@@ -221,6 +230,17 @@ export default {
 
 .filter {
   display: flex;
+  margin-bottom: 4.3rem;
+}
+
+.filter-btn {
+  margin-right: 1.2rem;
+}
+
+.filter-btn-active {
+  background-color: #586dc2;
+  color: #fff;
+  transition: all 0s;
 }
 
 .load-more-btn {
