@@ -2,7 +2,7 @@
   <button
     class="btn-root-style"
     :disabled="isActive"
-    :type="submit ? 'submit' : 'button'"
+    type="button"
     @click="timeDelay(); forwardURL(); submit ? onSubmit() : null"
   >
     <span class="btn-text">
@@ -35,11 +35,15 @@ export default {
       if (this.url !== null) { this.$router.push(this.url); }
     },
     onSubmit() {
-      const { classList } = document.querySelector('.input-error-msg') ?? {};
-      if (classList) {
-        classList.add('shake');
-        setTimeout(() => { classList.remove('shake'); }, 1000);
-      }
+      this.$parent.validate().then(({ valid }) => {
+        if (!valid) {
+          const { classList } = document.querySelector('.input-error-msg') ?? {};
+          if (classList) {
+            classList.add('shake');
+            setTimeout(() => { classList.remove('shake'); }, 1000);
+          }
+        }
+      });
     },
     // Prevent multiple click in short time
     timeDelay() {
