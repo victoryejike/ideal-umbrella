@@ -44,7 +44,7 @@
 
       <router-link
         class="cancel-link"
-        to="/"
+        to="/account-setting"
       >
         {{ $t("reset_password_screen.cancel") }}
       </router-link>

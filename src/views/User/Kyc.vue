@@ -2,47 +2,48 @@
   <BaseSettingFrame
     :title="$t('kyc_screen.id_verification')"
   >
-    <BaseScrollableSelectBox
-      active-color="#DDE1FB"
-      :bg-color="backgroundColor"
-      :border-color="borderColor"
-      class="input-div"
-      hover-color="#DDE1FB"
-      :options="countryList"
-      :text="$t('kyc_screen.nationality_label')"
-      :width="13.5"
-    />
-    <BaseUnderlinedInput
-      class="input-div"
-      name="userName"
-      :placeholder="$t('kyc_screen.name_placeholder')"
-      :text="$t('kyc_screen.name_label')"
-    />
-    <div class="user-id-div input-div">
+    <Form class="kyc-form">
       <BaseScrollableSelectBox
         active-color="#DDE1FB"
         :bg-color="backgroundColor"
         :border-color="borderColor"
+        class="input-div"
         hover-color="#DDE1FB"
-        :options="idTypeList"
-        :text="$t('kyc_screen.id_type_label')"
-        :width="9.75"
-      />
-      <BaseUnderlinedInput
-        class="input-user-id"
-        name="userName"
-        :placeholder="$t('kyc_screen.id_number_placeholder')"
-        :text="$t('kyc_screen.id_number_label')"
+        :options="countryList"
+        :text="$t('kyc_screen.nationality_label')"
         :width="17.5"
       />
-    </div>
-    <div class="actions-div">
-      <BaseRoundButton
-        class="confirm-button btn-primary btn-md btn-bold"
-        icon="arrow-right"
-        :text="$t('kyc_screen.confirm')"
+      <BaseUnderlinedInput
+        class="input-div"
+        name="userName"
+        :placeholder="$t('kyc_screen.name_placeholder')"
+        :text="$t('kyc_screen.name_label')"
+        :width="23.75"
       />
-    </div>
+      <div class="user-id-div input-div">
+        <BaseScrollableSelectBox
+          active-color="#DDE1FB"
+          :bg-color="backgroundColor"
+          :border-color="borderColor"
+          hover-color="#DDE1FB"
+          :options="idTypeList"
+          :text="$t('kyc_screen.id_type_label')"
+        />
+        <BaseUnderlinedInput
+          class="input-user-id"
+          name="userName"
+          :placeholder="$t('kyc_screen.id_number_placeholder')"
+          :text="$t('kyc_screen.id_number_label')"
+        />
+      </div>
+      <div class="actions-div">
+        <BaseRoundButton
+          class="confirm-button btn-primary btn-md btn-bold"
+          icon="arrow-right"
+          :text="$t('kyc_screen.confirm')"
+        />
+      </div>
+    </Form>
   </BaseSettingFrame>
 </template>
 
@@ -74,6 +75,10 @@ export default {
 </script>
 
 <style scoped>
+.kyc-form {
+  max-width: 32.5rem;
+}
+
 .user-id-div {
   display: flex;
 }
@@ -90,7 +95,11 @@ export default {
   margin-top: 3.75rem;
 }
 
-@media (max-width: 30em) {
+.confirm-button {
+  min-width: 0;
+}
+
+@media (max-width: 38em) {
   .user-id-div {
     display: inline-block;
   }
@@ -99,9 +108,12 @@ export default {
     margin-left: 0;
     margin-top: 2.5rem;
   }
+}
 
+@media (max-width: 30em) {
   .confirm-button {
-    width: 100%;
+    min-width: 100% !important;
   }
 }
+
 </style>

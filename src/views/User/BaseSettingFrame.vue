@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <router-link to="/">
+    <router-link to="/account-setting">
       <img
         class="back-btn"
         src="@svg/arrow-back.svg"
@@ -22,7 +22,6 @@ export default {
 .container {
   display: flex;
   flex-direction: column;
-  max-width: 50rem;
 }
 
 .title {
