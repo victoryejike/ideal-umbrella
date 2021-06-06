@@ -1,8 +1,7 @@
 <template>
   <div class="container">
-    <form
+    <Form
       class="forgot-password-form"
-      @submit.prevent
     >
       <h1 class="forgot-password-text">
         {{ $t("forgot_password.forgot_password") }}
@@ -12,14 +11,24 @@
         :width="10.6"
       />
       <BaseUnderlinedInput
+        v-if="isEmail"
         class="input-field"
+        name="email"
+        :placeholder="$t('register_screen.email_placeholder')"
+        rules="required|email"
+        :text="$t('register_screen.email_label')"
+      />
+      <BaseUnderlinedInput
+        v-if="!isEmail"
+        class="input-field"
+        name="phone"
         :placeholder="$t('register_screen.phone_placeholder')"
         :text="$t('forgot_password.phone')"
         type="phone"
       />
       <BaseUnderlinedInput
         class="input-field"
-        name="verification-code"
+        name="verificationCode"
         :placeholder="$t('register_screen.verification_code__placehoder')"
         :text="$t('register_screen.verification_code_label')"
       >
@@ -44,7 +53,7 @@
           {{ $t("forgot_password.login") }}
         </router-link>
       </div>
-    </form>
+    </Form>
   </div>
 </template>
 
@@ -54,8 +63,16 @@ export default {
   name: 'ForgotPassword',
   data() {
     return {
+      isEmail: true,
       forgotPasswordTab: [
-        this.$t('tab_titles.email'), this.$t('tab_titles.phone'),
+        {
+          name: this.$t('tab_titles.email'),
+          handler: () => { this.isEmail = true; },
+        },
+        {
+          name: this.$t('tab_titles.phone'),
+          handler: () => { this.isEmail = false; },
+        },
       ],
     };
   },
