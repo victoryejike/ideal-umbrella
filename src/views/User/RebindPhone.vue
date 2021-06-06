@@ -12,9 +12,8 @@
       name="verification-code"
       :placeholder="$t('rabind_phone_screen.phone_verfication_placehoder')"
       :text="$t('rabind_phone_screen.phone_verfication')"
-      type="with-button"
     >
-      <template #button>
+      <template #element>
         <BaseRoundButton
           class="btn-outline btn-sm"
           :text="$t('register_screen.send_code')"
@@ -35,9 +34,8 @@
       name="verification-code"
       :placeholder="$t('rabind_phone_screen.email_verfication_placehoder')"
       :text="$t('rabind_phone_screen.email_verfication_label')"
-      type="with-button"
     >
-      <template #button>
+      <template #element>
         <BaseRoundButton
           class="btn-outline btn-sm"
           :text="$t('register_screen.send_code')"
@@ -58,9 +56,8 @@
       name="verification-code"
       :placeholder="$t('rabind_phone_screen.phone_verfication_placehoder')"
       :text="$t('rabind_phone_screen.phone_verfication')"
-      type="with-button"
     >
-      <template #button>
+      <template #element>
         <BaseRoundButton
           class="btn-outline btn-sm"
           :text="$t('register_screen.send_code')"
@@ -77,7 +74,7 @@
 
       <router-link
         class="cancel-link"
-        to="/"
+        to="/account-setting"
       >
         {{ $t("reset_password_screen.cancel") }}
       </router-link>

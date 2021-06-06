@@ -1,6 +1,7 @@
 <template>
   <div
     class="input-group"
+    :style="{maxWidth: `${width}rem`}"
   >
     <div
       v-if="text"
@@ -46,27 +47,6 @@
           width="16"
           @click="toggleEye"
         >
-      </template>
-      <template v-else-if="type === 'with-button'">
-        <Field
-          v-model="inputValue"
-          v-bind="$attrs"
-          class="input-box"
-          :name="name"
-          :placeholder="placeholder"
-          :rules="rules"
-          :type="type"
-          :validate-on-change="false"
-          @change="$emit('input', $event.target.value)"
-          @focus="isFocus = true"
-          @focusout="isFocus = false"
-        />
-        <div
-          v-if="$slots.button"
-          class="input-group-button"
-        >
-          <slot name="button" />
-        </div>
       </template>
       <template v-else-if="type === 'phone'">
         <img
@@ -124,6 +104,12 @@
           @keypress="type === 'number' ? isNumber($event) : null"
         />
       </template>
+      <div
+        v-if="$slots.element && type !== 'password'"
+        class="input-group-button"
+      >
+        <slot name="element" />
+      </div>
     </div>
     <div
       class="input-line"
@@ -152,6 +138,7 @@ export default {
     text: { type: String, required: false, default: null },
     type: { type: String, required: false, default: 'text' },
     value: { type: String, required: false, default: '' },
+    width: { type: Number, required: false, default: null },
   },
   emits: ['input'],
   data() {
@@ -160,6 +147,9 @@ export default {
       isDisplay: false,
       isFocus: false,
     };
+  },
+  computed: {
+
   },
   methods: {
     isInteger(e) {
@@ -213,6 +203,7 @@ export default {
 .inline-block {
   align-items: baseline;
   display: inline-flex;
+  margin-bottom: 0.2rem;
   width: 100%;
 }
 

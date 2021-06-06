@@ -22,9 +22,8 @@
         name="verification-code"
         :placeholder="$t('register_screen.verification_code__placehoder')"
         :text="$t('register_screen.verification_code_label')"
-        type="with-button"
       >
-        <template #button>
+        <template #element>
           <BaseRoundButton
             class="btn-outline btn-sm"
             :text="$t('register_screen.send_code')"
