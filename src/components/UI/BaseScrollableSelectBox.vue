@@ -1,7 +1,7 @@
 <template>
   <div
     class="selector-group"
-    :style="{width:(width + 4) + 'rem'}"
+    :style="{width: width + 'rem'}"
   >
     <span
       v-if="text"
@@ -65,7 +65,7 @@ export default {
     options: { type: [Array, Object], required: true },
     text: { type: String, required: false, default: null },
     value: { type: Number, required: false, default: 0 },
-    width: { type: Number, required: false, default: 10 },
+    width: { type: Number, required: false, default: 14 },
   },
   emits: ['selected'],
   data() {
@@ -83,7 +83,7 @@ export default {
         '--bg-color': this.bgColor,
         '--border-color': this.borderColor,
         '--hover-color': this.hoverColor,
-        '--width': `${this.width}rem`,
+        '--width': `${this.width - 2.4}rem`,
       };
     },
   },
@@ -120,7 +120,6 @@ export default {
 .selector-group {
   display: flex;
   flex-direction: column;
-  width: var(--width);
 }
 
 .selector-root,

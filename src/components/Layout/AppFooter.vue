@@ -11,7 +11,6 @@
           ref="language-selectbox"
           class="select-language"
           :options="languageList"
-          :width="14"
         />
       </div>
 
@@ -168,6 +167,7 @@ footer {
 
 .logo-language-container {
   margin-bottom: 4rem;
+  margin-right: 4rem;
 }
 
 .links-group-container {
@@ -199,6 +199,7 @@ footer {
 .social-media {
   align-items: center;
   display: flex;
+  margin-right: -2.5rem;
   margin-top: 2.5rem;
 }
 

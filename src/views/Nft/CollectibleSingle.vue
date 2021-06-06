@@ -24,21 +24,39 @@
           :width="10.6"
         />
       </div>
-
-      <Collectible
+      <BaseUnderlinedInput
         class="input-field"
         name="amount"
         :placeholder="$t('single_collectible.amount_placeholder')"
         :text="$t('single_collectible.amount_label')"
-        type="amount"
-      />
-      <Collectible
+      >
+        <template #element>
+          <BaseScrollableSelectBox
+            active-color="#DDE1FB"
+            bg-color="#E5E5E5"
+            border-color="none"
+            hover-color="#DDE1FB"
+            :options="coinList"
+          />
+        </template>
+      </BaseUnderlinedInput>
+
+      <BaseUnderlinedInput
         class="input-field"
         name="receivedAmount"
         :placeholder="$t('single_collectible.received_amount_placeholder')"
         :text="$t('single_collectible.received_amount_label')"
-        type="amount"
-      />
+      >
+        <template #element>
+          <BaseScrollableSelectBox
+            active-color="#DDE1FB"
+            bg-color="#E5E5E5"
+            border-color="none"
+            hover-color="#DDE1FB"
+            :options="coinList"
+          />
+        </template>
+      </BaseUnderlinedInput>
 
       <div>
         <div class="collection-text label">
@@ -51,17 +69,16 @@
           class="input-div"
           hover-color="#DDE1FB"
           :options="collectibleList"
-          :width="14"
         />
       </div>
 
-      <Collectible
+      <BaseUnderlinedInput
         class="input-field"
         name="title"
         :placeholder="$t('single_collectible.title_placeholder')"
         :text="$t('single_collectible.title_label')"
       />
-      <Collectible
+      <BaseUnderlinedInput
         class="input-field"
         name="description"
         :placeholder="$t('single_collectible.discription_placeholder')"
@@ -75,7 +92,6 @@
         hover-color="#DDE1FB"
         :options="royaltiesList"
         :text="$t('single_collectible.royalties_label')"
-        :width="14"
       />
       <div>
         <BaseRoundButton
@@ -90,25 +106,28 @@
 <script>
 
 import BaseFrame from './BaseFrame.vue';
-import Collectible from '../../components/Nft/Collectible.vue';
 import UploadCard from '../../components/Nft/UploadCard.vue';
 
 export default {
-  name: 'NFT',
+  name: 'CollectibleSingle',
   components: {
     BaseFrame,
-    Collectible,
     UploadCard,
   },
   data() {
     return {
+      coinList: [
+        { name: 'ETH' },
+        { name: 'HT' },
+        { name: 'FC' },
+      ],
+      collectibleList: [
+        { name: 'ERC-721' },
+      ],
       tabTitle: [
         this.$t('single_collectible.tab.fixed_price'),
         this.$t('single_collectible.tab.timed_auction'),
         this.$t('single_collectible.tab.unlimited_auction'),
-      ],
-      collectibleList: [
-        { name: 'ERC-721' },
       ],
       royaltiesList: ['10 %', '20 %', '30 %'],
     };
