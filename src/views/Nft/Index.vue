@@ -31,15 +31,15 @@ export default {
   display: flex;
 }
 
-@media (max-width: 686px) {
+@media (max-width: 42.875em) {
   .flex {
     display: block;
   }
 
   .nft-card {
-    height: 300px;
-    margin: 30px auto;
-    width: 220px;
+    height: 18.75rem;
+    margin: 1.875rem auto;
+    width: 13.75rem;
   }
 }
 </style>

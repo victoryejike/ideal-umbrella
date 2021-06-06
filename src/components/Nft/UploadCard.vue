@@ -5,7 +5,7 @@
   <div class="upload-box">
     {{ $t('single_collectible.file_type_text') }}
     <BaseRoundButton
-      class="upload-button btn-primary btn-md"
+      class="upload-button btn-primary btn-md btn-bold"
       :text="$t('single_collectible.upload_button_text')"
     />
   </div>
@@ -21,7 +21,6 @@ export default {
 <style scoped>
 .upload-box {
   align-items: center;
-  backdrop-filter: blur(4px);
   background: rgba(255, 255, 255, 0.25);
   border: 0.0625rem dashed rgba(0, 0, 0, 0.25);
   border-radius: 1rem;
@@ -29,8 +28,6 @@ export default {
   color: #808080;
   display: flex;
   flex-direction: column;
-  font-size: 1rem;
-  font-style: normal;
   font-weight: bold;
   height: 11.25rem;
   line-height: 150%;
@@ -41,7 +38,7 @@ export default {
 }
 
 .upload-button {
-  margin-top: 64.5px;
+  margin-top: 4rem;
 }
 
 .label {

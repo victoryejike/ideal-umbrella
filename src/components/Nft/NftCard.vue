@@ -51,23 +51,23 @@ export default {
 <style scoped>
 .nft-card {
   background: rgba(255, 255, 255, 0.25);
-  border-radius: 23px;
-  margin-right: 30px;
-  margin-top: 30px;
-  padding: 20px;
-  width: 250px;
+  border-radius: 1.4375rem;
+  margin-right: 1.875rem;
+  margin-top: 1.875rem;
+  padding: 1.25rem;
+  width: 15.625rem;
 }
 
 .symbol {
-  padding: 45px;
+  padding: 2.8125rem;
 }
 
 .bg-symbol {
-  background-image: url(../../assets/svg/nft-bg.svg);
-  border-radius: 16px;
-  height: 100px;
+  background-image: url('~@svg/nft-bg.svg');
+  border-radius: 1rem;
+  height: 6.25rem;
   margin: auto;
-  width: 100px;
+  width: 6.25rem;
 }
 
 .multiple-section {
@@ -79,25 +79,25 @@ export default {
 }
 
 .one {
-  left: 60px;
-  top: 100px;
+  left: 3.75rem;
+  top: 6.25rem;
   z-index: 2;
 }
 
 .two {
-  left: 100px;
-  top: 60px;
+  left: 6.25rem;
+  top: 3.75rem;
   z-index: 0;
 }
 
 .three {
-  left: 82px;
-  top: 78px;
+  left: 5.125rem;
+  top: 4.875rem;
   z-index: 0;
 }
 
 .type {
-  font-size: 20px;
+  font-size: 1.25rem;
   font-variant-caps: all-petite-caps;
   text-align: center;
 }
