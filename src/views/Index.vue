@@ -165,9 +165,12 @@ export default {
   },
   mounted() {
     // Calculate the grid template width
-    Object.keys(this.setting).forEach((key) => {
-      this.setting[key] = `repeat(auto-fit, ${this.getWidth(this.setting[key])}rem)`;
-    });
+    // setTimeout 0 is to fix the unexpected behaviour (incorrect width) in firefox
+    setTimeout(() => {
+      Object.keys(this.setting).forEach((key) => {
+        this.setting[key] = `repeat(auto-fit, ${this.getWidth(this.setting[key])}rem)`;
+      });
+    }, 0);
   },
   methods: {
     getWidth(className) {
