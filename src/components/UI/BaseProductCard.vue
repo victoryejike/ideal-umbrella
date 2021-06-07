@@ -1,15 +1,14 @@
 <template>
   <div
     class="card-container"
-    :style="{background: bgColor}"
+    :style="{background: bgColor, padding: padding}"
   >
     <div
       class="card-inner-div"
-      :style="{padding:(bgColor == null) ? null : '1.25rem 1.875rem'}"
+      :style="{width: `${size}px`}"
     >
       <div
         class="author"
-        :class="(abstractLength <= MINIMUM_LENGTH) ? 'center' : null"
       >
         <img
           class="avatar"
@@ -19,10 +18,9 @@
           width="30"
         >
         <span
-          v-if="abstractedAuthorName = textAbstract(author, abstractLength)"
-          class="author-name"
+          class="abstract-text author-name"
         >
-          {{ abstractedAuthorName }}
+          {{ author }}
         </span>
         <img
           v-if="verified"
@@ -39,16 +37,16 @@
         :src="image"
         :width="size"
       >
-      <div class="description">
+      <div
+        class="description"
+      >
         <span
-          v-if="abstractedProductName = textAbstract(name, abstractLength)"
-          class="product-name"
+          class="abstract-text product-name"
         >
-          {{ abstractedProductName }}
+          {{ name }}
         </span>
         <div
           class="coins-and-price-div"
-          :class="(abstractLength <= MINIMUM_LENGTH) ? 'center' : null"
         >
           <img
             class="coins-icon"
@@ -79,19 +77,8 @@ export default {
     name: { type: String, required: true },
     price: { type: Number, required: true },
     size: { type: Number, required: false, default: 220 },
+    padding: { type: String, required: false, default: null },
     verified: { type: Boolean, required: false, default: false },
-  },
-  computed: {
-    abstractLength() {
-      /*
-       * Linear Regression (y = ax + b)
-       * Here not using text-overflow because we cant fixed width of the author + product name
-      */
-      return Math.ceil(this.size * 0.1537 - 13.05);
-    },
-  },
-  created() {
-    this.MINIMUM_LENGTH = 5;
   },
   methods: {
     handleAvatarError(event) {
@@ -101,10 +88,6 @@ export default {
     handleImageError(event) {
       const { target } = event;
       target.src = NoImage;
-    },
-    textAbstract(text, maxLength) {
-      if (maxLength <= this.MINIMUM_LENGTH) { return null; }
-      return (text.length > maxLength) ? `${text.substring(0, maxLength)}...` : text;
     },
   },
 };
@@ -135,6 +118,8 @@ export default {
 .description {
   align-items: center;
   display: flex;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .avatar {
@@ -143,8 +128,17 @@ export default {
   margin-right: 0.625rem;
 }
 
+.abstract-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .author-name {
   margin-right: 0.625rem;
+}
+
+.product-name {
+  margin-right: 0.3rem;
 }
 
 .product-image {
@@ -162,11 +156,5 @@ export default {
 .price {
   color: #6374c3;
   margin-left: 0.375rem;
-}
-
-/* If the length of author name or product name lower then MINIMUM_LENGTH, center the div */
-
-.center {
-  margin: auto auto;
 }
 </style>

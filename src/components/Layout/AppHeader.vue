@@ -25,19 +25,18 @@
         url="/register"
       />
     </div>
-    <img
-      class="mobile-menu"
-      height="20"
-      src="@svg/mobile-menu.svg"
-      width="20"
-    >
+    <MobileMenuButton
+      class="mobile-menu-btn"
+    />
   </header>
 </template>
 
 <script>
+import MobileMenuButton from './MobileMenuButton.vue';
 
 export default {
   name: 'AppHeader',
+  components: { MobileMenuButton },
   data() {
     return {
       links: [
@@ -77,19 +76,15 @@ header {
 .menu {
   align-items: center;
   display: flex;
-  left: -9999rem;
   opacity: 100;
   position: inherit;
-  top: -9999rem;
-  transition: opacity 1s;
 }
 
-.mobile-menu {
+.mobile-menu-btn {
   left: -9999rem;
   opacity: 0;
   position: absolute;
   top: -9999rem;
-  transition: opacity 1s;
 }
 
 .link {
@@ -109,15 +104,15 @@ header {
 
 @media (max-width: 54em) {
   .menu {
+    left: -9999rem;
     opacity: 0;
     position: absolute;
-    transition: opacity 1s;
+    top: -9999rem;
   }
 
-  .mobile-menu {
+  .mobile-menu-btn {
     opacity: 100;
     position: inherit;
-    transition: opacity 1s;
   }
 }
 </style>

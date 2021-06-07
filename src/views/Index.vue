@@ -1,8 +1,14 @@
 <template>
   <div class="container">
     <div
-      class="banner"
+      class="banner-container"
     >
+      <img
+        class="banner-bg"
+        height="440"
+        src="@img/index-bg.png"
+        width="965"
+      >
       <img
         class="index-hero"
         height="390"
@@ -13,14 +19,19 @@
         <h1 class="banner-title">
           {{ $t('index_screen.banner_text') }}
         </h1>
-        <SearchBar :width="36.25" />
+        <SearchBar
+          :width="36.25"
+        />
+        <BaseRoundButton
+          class="mobile-search-btn btn-primary btn-lg btn-bold"
+          :text="$t('components.search')"
+        />
       </div>
     </div>
     <IndexSection :title="$t('index_screen.title.popular')">
       <template #content>
         <div
-          class="gridbox card-gridbox"
-          :style="{gridTemplateColumns: setting.popularSection}"
+          class="popular-box"
         >
           <BaseProductCard
             v-for="(item, index) in popularList"
@@ -30,7 +41,9 @@
             class="popular-product-card"
             :image="item.image"
             :name="item.name"
+            :padding="popularSection.padding"
             :price="item.price"
+            :size="popularSection.size"
             :verified="item.verified"
           />
         </div>
@@ -46,7 +59,7 @@
       <template #content>
         <div
           class="gridbox block-gridbox"
-          :style="{gridTemplateColumns: setting.sellerSection}"
+          :style="{gridTemplateColumns: gridSetting.sellerSection.templateSize}"
         >
           <AuthorBlock
             v-for="(item, index) in topSellerList"
@@ -58,6 +71,10 @@
             :verified="item.verified"
           />
         </div>
+        <BaseRoundButton
+          class="load-more-btn btn-outline-primary btn-xl"
+          :text="$t('index_screen.more')"
+        />
       </template>
     </IndexSection>
     <IndexSection :title="$t('index_screen.title.discover')">
@@ -72,15 +89,15 @@
           <BaseRoundButton
             v-for="(item, index) in filterBtn"
             :key="index"
-            class="filter-btn btn-outline-secondary btn-lg btn-bold"
-            :class="{'filter-btn-active': item.isActive}"
+            class="filter-btn btn-outline-secondary btn-bold"
+            :class="[filterSize, {'filter-btn-active': item.isActive}]"
             :text="item.name"
             @click="toogleFilterBtn(index)"
           />
         </div>
         <div
           class="gridbox card-gridbox"
-          :style="{gridTemplateColumns: setting.discoverSection}"
+          :style="{gridTemplateColumns: gridSetting.discoverSection.templateSize}"
         >
           <BaseProductCard
             v-for="(item, index) in discoverList"
@@ -92,16 +109,16 @@
             :image="item.image"
             :name="item.name"
             :price="item.price"
-            :size="190"
+            :size="gridSetting.discoverSection.size"
             :verified="item.verified"
           />
         </div>
+        <BaseRoundButton
+          class="load-more-btn btn-outline-primary btn-xl"
+          :text="$t('index_screen.more')"
+        />
       </template>
     </IndexSection>
-    <BaseRoundButton
-      class="load-more-btn btn-outline-primary btn-xl"
-      :text="$t('index_screen.more')"
-    />
   </div>
 </template>
 
@@ -151,30 +168,88 @@ export default {
       filterBtn: [
         { name: '🎨 Art', isActive: true },
         { name: '🎵 Music', isActive: false },
-        { name: '📸 Photography', isActive: false },
         { name: '⚽ Sports', isActive: false },
+        { name: '📸 Photography', isActive: false },
         { name: '💎 Collectibles', isActive: false },
       ],
       currActiveIndex: 0,
-      setting: {
-        popularSection: 'popular-product-card',
-        sellerSection: 'seller-block',
-        discoverSection: 'discover-product-card',
+      filterSize: 'btn-lg',
+      popularSection: {
+        size: 220,
+        padding: '1.25rem 1.875rem',
+      },
+      gridSetting: {
+        sellerSection: {
+          name: 'seller-block',
+          templateSize: null,
+          size: null,
+          offset: 0,
+          padding: null,
+        },
+        discoverSection: {
+          name: 'discover-product-card > div > img',
+          templateSize: null,
+          size: 190,
+          offset: 0,
+          padding: null,
+        },
       },
     };
   },
   mounted() {
-    // Calculate the grid template width
-    // setTimeout 0 is to fix the unexpected behaviour (incorrect width) in firefox
-    setTimeout(() => {
-      Object.keys(this.setting).forEach((key) => {
-        this.setting[key] = `repeat(auto-fit, ${this.getWidth(this.setting[key])}rem)`;
-      });
-    }, 0);
+    this.MOBILE_SIZE = 1000;
+    if (window.innerWidth <= this.MOBILE_SIZE) {
+      this.mobileResponsive();
+      window.addEventListener('resize', this.pcResponsive);
+    } else {
+      this.pcResponsive();
+      window.addEventListener('resize', this.mobileResponsive);
+    }
   },
   methods: {
+    calcGridTemplateSize() {
+      const setting = this.gridSetting;
+      Object.keys(setting).forEach((key) => {
+        setting[key].templateSize = `repeat(auto-fit, ${this.getWidth(setting[key].name) + setting[key].offset}rem)`;
+      });
+    },
+    mobileResponsive() {
+      if (window.innerWidth <= this.MOBILE_SIZE) {
+        window.removeEventListener('resize', window);
+        window.addEventListener('resize', this.pcResponsive);
+
+        this.popularSection = {
+          ...this.popularSection,
+          padding: '1rem 1.25rem',
+          size: 180,
+        };
+        this.gridSetting.discoverSection.size = 140;
+        this.filterSize = 'btn-md-2';
+
+        setTimeout(() => {
+          this.calcGridTemplateSize();
+        }, 400);
+      }
+    },
+    pcResponsive() {
+      if (window.innerWidth > this.MOBILE_SIZE) {
+        window.removeEventListener('resize', window);
+        window.addEventListener('resize', this.mobileResponsive);
+
+        this.popularSection = {
+          ...this.popularSection,
+          padding: '1.25rem 1.875rem',
+          size: 220,
+        };
+        this.gridSetting.discoverSection.size = 190;
+        this.filterSize = 'btn-lg';
+        this.calcGridTemplateSize();
+      }
+    },
     getWidth(className) {
-      return document.querySelector(`.${className}`).clientWidth / 16;
+      const dom = document.querySelector(`.${className}`);
+      const width = dom.clientWidth || dom.width;
+      return width / 16;
     },
     toogleFilterBtn(index) {
       this.filterBtn[this.currActiveIndex].isActive = false;
@@ -189,20 +264,27 @@ export default {
 .container {
   display: flex;
   flex-direction: column;
+  overflow-anchor: none;
 }
 
-.banner {
-  background-image: url('~@img/index-bg.png');
-  background-repeat: no-repeat;
+.banner-container {
   display: flex;
   height: 27.5rem;
-  margin: auto auto;
   margin-bottom: 2rem;
 }
 
+.banner-bg {
+  left: 0;
+  margin-left: auto;
+  margin-right: auto;
+  position: absolute;
+  right: 0;
+  z-index: -100;
+}
+
 .banner-title-and-searchbar {
-  margin-left: 6.75rem;
-  margin-top: 3rem;
+  margin-left: 32rem;
+  margin-top: 2.5rem;
 }
 
 .banner-title {
@@ -212,13 +294,33 @@ export default {
 }
 
 .index-hero {
-  margin-left: 1rem;
+  margin-left: 7.5rem;
   margin-top: -1rem;
+  opacity: 100;
+  position: absolute;
+}
+
+.mobile-search-btn {
+  margin-top: 1.25rem;
+  opacity: 0;
+  width: 100%;
+}
+
+.popular-box {
+  display: flex;
+  margin-right: -2rem;
+  overflow-x: scroll;
+  scrollbar-width: none;
+}
+
+.popular-product-card {
+  margin-right: 2rem;
 }
 
 .gridbox {
   display: grid;
   justify-content: space-between;
+  overflow-y: hidden;
 }
 
 .card-gridbox {
@@ -233,10 +335,12 @@ export default {
 
 .filter {
   display: flex;
-  margin-bottom: 4.3rem;
+  flex-wrap: wrap;
+  margin-bottom: 3.5rem;
 }
 
 .filter-btn {
+  margin-bottom: 0.6rem;
   margin-right: 1.2rem;
 }
 
@@ -248,5 +352,82 @@ export default {
 
 .load-more-btn {
   margin: auto auto;
+  margin-top: 3.5rem;
+}
+
+@media (max-width: 90em) {
+  .banner-container {
+    justify-content: center;
+  }
+
+  .banner-bg {
+    background-image: url('~@img/index-hero.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    max-width: 90%;
+    opacity: 0.1;
+  }
+
+  .index-hero {
+    left: -9999rem;
+    opacity: 0;
+    position: absolute;
+    top: -9999rem;
+  }
+
+  .banner-title-and-searchbar {
+    margin-bottom: auto;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: auto;
+  }
+
+  .banner-title {
+    text-align: center;
+  }
+}
+
+@media (max-width: 62.5em) {
+  .card-gridbox {
+    grid-row-gap: 3rem;
+    max-height: 48rem;
+  }
+
+  .block-gridbox {
+    grid-row-gap: 2.5rem;
+    max-height: 23.5rem;
+  }
+}
+
+@media (max-width: 54em) {
+  .filter {
+    margin-right: -0.6rem;
+  }
+
+  .filter-btn {
+    margin-right: 0.6rem;
+  }
+}
+
+@media (max-width: 34em) {
+  .tabs {
+    width: 100% !important;
+  }
+
+  .fixed {
+    width: 100% !important;
+  }
+}
+
+@media (max-width: 40em) {
+  .banner-title {
+    font-size: 8.5vw;
+    margin-bottom: 6.5vw;
+  }
+
+  .mobile-search-btn {
+    opacity: 100;
+    position: inherit;
+  }
 }
 </style>

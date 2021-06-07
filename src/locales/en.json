@@ -1,4 +1,30 @@
 {
+  "collectible": {
+    "amount_label": "Amount",
+    "amount_placeholder": "Enter price for one piece",
+    "choose_collection_label": "Choose Collection",
+    "create_button_text": "Create",
+    "discription_label": "Description",
+    "discription_placeholder": "e.g. “After purchasing you’ll be able to get the real T-Shirt”",
+    "file_type_text": "PNG, GIF, WEBP, MP4 or MP3. Max 100mb.",
+    "number_of_copies_label": "Number of copies",
+    "number_of_copies_placeholder": "E.g. 10“ ",
+    "put_on_marketplace": "Put on marketplace",
+    "received_amount_label": "Received Amount (Service fee: 2.5%)",
+    "received_amount_placeholder": "Enter price for one piece",
+    "royalties_label": "Royalties",
+    "tab": {
+      "fixed_price": "FIXED PRICE",
+      "timed_auction": "TIMED AUCTION",
+      "unlimited_auction": "UNLIMITED AUCTION"
+    },
+    "title": "Create Single Collectible",
+    "title_label": "Title",
+    "title_multiple": "Create Multiple Collectible",
+    "title_placeholder": "e.g. “Redeemable Lady Gaga T-Shirt”",
+    "upload_button_text": "UPLOAD",
+    "upload_file_label": "Upload File"
+  },
   "components": {
     "country_code": "Country Code",
     "search": "Search",
@@ -49,8 +75,8 @@
     "banner_text": "NFT Marketplace",
     "discover_tab": {
       "cheap": "CHEAPEST",
-      "high": "HIGHEST PRICE",
-      "recent": "RECENTLY ADDED"
+      "high": "HIGHEST",
+      "recent": "LATEST"
     },
     "more": "More",
     "seller_tab": {
@@ -147,32 +173,6 @@
     "original_password_placehoder": "Enter current password",
     "reset": "Reset",
     "reset_password": "Reset Password"
-  },
-  "collectible": {
-    "amount_label": "Amount",
-    "amount_placeholder": "Enter price for one piece",
-    "choose_collection_label": "Choose Collection",
-    "create_button_text": "Create",
-    "discription_label": "Description",
-    "discription_placeholder": "e.g. “After purchasing you’ll be able to get the real T-Shirt”",
-    "file_type_text": "PNG, GIF, WEBP, MP4 or MP3. Max 100mb.",
-    "put_on_marketplace": "Put on marketplace",
-    "received_amount_label": "Received Amount (Service fee: 2.5%)",
-    "received_amount_placeholder": "Enter price for one piece",
-    "royalties_label": "Royalties",
-    "tab": {
-      "fixed_price": "FIXED PRICE",
-      "timed_auction": "TIMED AUCTION",
-      "unlimited_auction": "UNLIMITED AUCTION"
-    },
-    "title": "Create Single Collectible",
-    "title_multiple": "Create Multiple Collectible",
-    "title_label": "Title",
-    "title_placeholder": "e.g. “Redeemable Lady Gaga T-Shirt”",
-    "upload_button_text": "UPLOAD",
-    "upload_file_label": "Upload File",
-    "number_of_copies_label": "Number of copies",
-    "number_of_copies_placeholder": "E.g. 10“ "
   },
   "tab_titles": {
     "email": "EMAIL",

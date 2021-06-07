@@ -1,29 +1,39 @@
 <template>
-  <div id="wrapper">
-    <AppHeader id="header" />
-    <div id="content">
-      <router-view v-slot="{ Component }">
-        <Transition
-          mode="out-in"
-          name="fade"
-        >
-          <Component :is="Component" />
-        </Transition>
-      </router-view>
+  <div
+    id="root"
+    :class="{'scroll-lock':$store.state.isMenuOpen}"
+  >
+    <AppMobileMenu id="menu" />
+    <div
+      id="wrapper"
+    >
+      <AppHeader id="header" />
+      <div id="content">
+        <router-view v-slot="{ Component }">
+          <Transition
+            mode="out-in"
+            name="fade"
+          >
+            <Component :is="Component" />
+          </Transition>
+        </router-view>
+      </div>
     </div>
+    <AppFooter id="footer" />
   </div>
-  <AppFooter id="footer" />
 </template>
 
 <script>
 import AppHeader from '@/components/Layout/AppHeader.vue';
 import AppFooter from '@/components/Layout/AppFooter.vue';
+import AppMobileMenu from '@/components/Layout/AppMobileMenu.vue';
 
 export default {
   name: 'App',
   components: {
     AppFooter,
     AppHeader,
+    AppMobileMenu,
   },
 };
 </script>
@@ -81,6 +91,11 @@ a {
 .fade-enter-from,
 .fade-leave-to {
   opacity: 0;
+}
+
+.scroll-lock {
+  height: 90vh;
+  overflow: hidden hidden;
 }
 
 /* The reason using 70em is to fit the footer UI */

@@ -1,6 +1,6 @@
 <template>
   <div
-    class="container"
+    class="searchbar-container"
     :style="{width: `${width}rem`}"
   >
     <div class="padding">
@@ -29,7 +29,7 @@ export default {
 </script>
 
 <style scoped>
-.container {
+.searchbar-container {
   background-color: #fff;
   border-radius: 2rem;
 }
@@ -49,15 +49,33 @@ export default {
   font-size: 1rem;
   margin: 1rem 1rem;
   outline: 0;
+  width: 100%;
 }
 
 .search-input::placeholder {
   color: #c4c4c4;
   font-weight: bold;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .search-btn {
   margin-left: auto;
+  opacity: 100;
+  position: inherit;
+}
+
+@media (max-width: 40em) {
+  .search-btn {
+    left: -9999rem;
+    opacity: 0;
+    position: absolute;
+    top: -9999rem;
+  }
+
+  .searchbar-container {
+    width: 80vw !important;
+  }
 }
 
 </style>

@@ -104,6 +104,10 @@ export default {
   padding: 0.75rem 1.75rem;
 }
 
+.btn-md-2 {
+  padding: 0.6875rem 1.25rem;
+}
+
 .btn-md {
   padding: 0.45rem 1.75rem;
 }
