@@ -148,7 +148,7 @@
     "reset": "Reset",
     "reset_password": "Reset Password"
   },
-  "single_collectible": {
+  "collectible": {
     "amount_label": "Amount",
     "amount_placeholder": "Enter price for one piece",
     "choose_collection_label": "Choose Collection",
@@ -166,10 +166,13 @@
       "unlimited_auction": "UNLIMITED AUCTION"
     },
     "title": "Create Single Collectible",
+    "title_multiple": "Create Single Collectible",
     "title_label": "Title",
     "title_placeholder": "e.g. “Redeemable Lady Gaga T-Shirt”",
     "upload_button_text": "UPLOAD",
-    "upload_file_label": "Upload File"
+    "upload_file_label": "Upload File",
+    "number_of_copies_label": "Number of copies",
+    "number_of_copies_placeholder": "E.g. 10“ "
   },
   "tab_titles": {
     "email": "EMAIL",

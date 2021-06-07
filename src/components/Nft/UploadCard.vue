@@ -3,10 +3,10 @@
     {{ text }}
   </div>
   <div class="upload-box">
-    {{ $t('single_collectible.file_type_text') }}
+    {{ $t('collectible.file_type_text') }}
     <BaseRoundButton
       class="upload-button btn-primary btn-md btn-bold"
-      :text="$t('single_collectible.upload_button_text')"
+      :text="$t('collectible.upload_button_text')"
     />
   </div>
 </template>

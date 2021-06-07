@@ -1,14 +1,14 @@
 <template>
   <div class="single-collectible-main">
     <BaseFrame
-      :title="$t('single_collectible.title')"
+      :title="$t('collectible.title')"
     >
       <UploadCard
-        :text="$t('single_collectible.upload_file_label')"
+        :text="$t('collectible.upload_file_label')"
       />
       <div class="input-div">
         <div class="toggle-div label">
-          <span>{{ $t('single_collectible.put_on_marketplace') }}</span>
+          <span>{{ $t('collectible.put_on_marketplace') }}</span>
 
           <label class="switch">
             <input
@@ -27,8 +27,8 @@
       <BaseUnderlinedInput
         class="input-field"
         name="amount"
-        :placeholder="$t('single_collectible.amount_placeholder')"
-        :text="$t('single_collectible.amount_label')"
+        :placeholder="$t('collectible.amount_placeholder')"
+        :text="$t('collectible.amount_label')"
       >
         <template #element>
           <BaseScrollableSelectBox
@@ -44,8 +44,8 @@
       <BaseUnderlinedInput
         class="input-field"
         name="receivedAmount"
-        :placeholder="$t('single_collectible.received_amount_placeholder')"
-        :text="$t('single_collectible.received_amount_label')"
+        :placeholder="$t('collectible.received_amount_placeholder')"
+        :text="$t('collectible.received_amount_label')"
       >
         <template #element>
           <BaseScrollableSelectBox
@@ -60,7 +60,7 @@
 
       <div>
         <div class="collection-text label">
-          {{ $t('single_collectible.choose_collection_label') }}
+          {{ $t('collectible.choose_collection_label') }}
         </div>
         <BaseScrollableSelectBox
           active-color="#DDE1FB"
@@ -75,14 +75,14 @@
       <BaseUnderlinedInput
         class="input-field"
         name="title"
-        :placeholder="$t('single_collectible.title_placeholder')"
-        :text="$t('single_collectible.title_label')"
+        :placeholder="$t('collectible.title_placeholder')"
+        :text="$t('collectible.title_label')"
       />
       <BaseUnderlinedInput
         class="input-field"
         name="description"
-        :placeholder="$t('single_collectible.discription_placeholder')"
-        :text="$t('single_collectible.discription_label')"
+        :placeholder="$t('collectible.discription_placeholder')"
+        :text="$t('collectible.discription_label')"
       />
       <BaseScrollableSelectBox
         active-color="#DDE1FB"
@@ -91,13 +91,13 @@
         class="input-div label"
         hover-color="#DDE1FB"
         :options="royaltiesList"
-        :text="$t('single_collectible.royalties_label')"
+        :text="$t('collectible.royalties_label')"
       />
       <div>
         <BaseRoundButton
           class="btn-primary btn-md btn-bold"
           icon="arrow-right"
-          :text="$t('single_collectible.create_button_text')"
+          :text="$t('collectible.create_button_text')"
         />
       </div>
     </BaseFrame>
@@ -125,9 +125,9 @@ export default {
         { name: 'ERC-721' },
       ],
       tabTitle: [
-        this.$t('single_collectible.tab.fixed_price'),
-        this.$t('single_collectible.tab.timed_auction'),
-        this.$t('single_collectible.tab.unlimited_auction'),
+        this.$t('collectible.tab.fixed_price'),
+        this.$t('collectible.tab.timed_auction'),
+        this.$t('collectible.tab.unlimited_auction'),
       ],
       royaltiesList: ['10 %', '20 %', '30 %'],
     };
