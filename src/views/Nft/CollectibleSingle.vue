@@ -14,17 +14,20 @@
             <input
               checked
               type="checkbox"
+              @click="toggleSwitch"
             >
             <span class="slider round" />
           </label>
         </div>
         <BaseNavigationTab
+          v-if="selectedSwitch"
           class="tabs"
           :list="tabTitle"
           :width="10.6"
         />
       </div>
       <BaseUnderlinedInput
+        v-if="selectedSwitch"
         class="input-field"
         name="amount"
         :placeholder="$t('collectible.amount_placeholder')"
@@ -32,6 +35,7 @@
       >
         <template #element>
           <BaseScrollableSelectBox
+            v-if="selectedSwitch"
             active-color="#DDE1FB"
             bg-color="#E5E5E5"
             border-color="none"
@@ -42,6 +46,7 @@
       </BaseUnderlinedInput>
 
       <BaseUnderlinedInput
+        v-if="selectedSwitch"
         class="input-field"
         name="receivedAmount"
         :placeholder="$t('collectible.received_amount_placeholder')"
@@ -49,6 +54,7 @@
       >
         <template #element>
           <BaseScrollableSelectBox
+            v-if="selectedSwitch"
             active-color="#DDE1FB"
             bg-color="#E5E5E5"
             border-color="none"
@@ -57,21 +63,15 @@
           />
         </template>
       </BaseUnderlinedInput>
-
-      <div>
-        <div class="collection-text label">
-          {{ $t('collectible.choose_collection_label') }}
-        </div>
-        <BaseScrollableSelectBox
-          active-color="#DDE1FB"
-          bg-color="#E5E5E5"
-          border-color="none"
-          class="input-div"
-          hover-color="#DDE1FB"
-          :options="collectibleList"
-        />
-      </div>
-
+      <BaseScrollableSelectBox
+        active-color="#DDE1FB"
+        bg-color="#E5E5E5"
+        border-color="none"
+        class="input-div label"
+        hover-color="#DDE1FB"
+        :options="collectibleList"
+        :text="$t('collectible.choose_collection_label')"
+      />
       <BaseUnderlinedInput
         class="input-field"
         name="title"
@@ -116,6 +116,7 @@ export default {
   },
   data() {
     return {
+      selectedSwitch: true,
       coinList: [
         { name: 'ETH' },
         { name: 'HT' },
@@ -131,6 +132,11 @@ export default {
       ],
       royaltiesList: ['10 %', '20 %', '30 %'],
     };
+  },
+  methods: {
+    toggleSwitch() {
+      this.selectedSwitch = !this.selectedSwitch;
+    },
   },
 };
 
