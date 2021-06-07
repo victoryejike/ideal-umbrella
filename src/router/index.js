@@ -61,6 +61,11 @@ const routes = [
     name: 'CollectibleMultiple',
     component: () => import('@view/Nft/CollectibleMultiple.vue'),
   },
+  {
+    path: '/connect-wallet',
+    name: 'ConnectWallet',
+    component: () => import('@view/Wallet/Connect.vue'),
+  },
 ];
 
 const router = createRouter({
