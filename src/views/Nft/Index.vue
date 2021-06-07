@@ -11,6 +11,7 @@
       />
       <NftCard
         type="multiple"
+        url="/nft/multiple"
       />
     </div>
   </BaseFrame>
