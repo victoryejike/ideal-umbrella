@@ -221,5 +221,19 @@
   "connect_wallet": {
     "description": "Connect with one of available wallet providers or create a new wallet.",
     "title": "Connect your Wallet"
+  },
+  "nft_details": {
+    "token_text": "Everydays - The First 5000 Days",
+    "creator": "Creator",
+    "highest_bid":"Highest Bid",
+    "description":"Description",
+    "content":"Symbiotic refers to a failed lab experiment, a reaction of two different organisms. Symbiotic refers to a failed lab experiment, a reaction of ...",
+ "read_more":"Read more",
+ "tabs": {
+  "bids": "BIDS",
+  "details": "DETAILS",
+  "history": "HISTORY"
+}
   }
+
 }

@@ -5,6 +5,11 @@
     type="button"
     @click="timeDelay(); forwardURL(); submit ? onSubmit() : null"
   >
+    <div
+      v-if="$slots.icon "
+    >
+      <slot name="icon" />
+    </div>
     <span class="btn-text">
       {{ text }}
     </span>
@@ -138,4 +143,5 @@ export default {
   border-radius: 0.5rem;
   color: #ff3a31;
 }
+
 </style>
