@@ -67,6 +67,11 @@ const routes = [
     component: () => import('@view/Wallet/Connect.vue'),
   },
   {
+    path: '/wallet',
+    name: 'Wallet',
+    component: () => import('@view/Wallet/Index.vue'),
+  },
+  {
     path: '/token-details',
     name: 'TokenDetails',
     component: () => import('@view/Nft/TokenDetails.vue'),

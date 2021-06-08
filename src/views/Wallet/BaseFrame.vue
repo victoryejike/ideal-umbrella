@@ -1,16 +1,22 @@
 <template>
   <div class="container">
     <router-link
-      :class="{'hide': $route.name == 'NFT'}"
-      to="/nft"
+      :class="{'hide': $route.name == 'ConnectWallet'}"
+      to="/connect-wallet"
     >
       <img
         class="back-btn"
         src="@svg/arrow-back.svg"
       >
     </router-link>
-    <span class="title">{{ title }}</span>
-    <p class="description">
+    <span
+      v-if=" $route.name == 'ConnectWallet'"
+      class="title"
+    >{{ title }}</span>
+    <p
+      v-if=" $route.name == 'ConnectWallet'"
+      class="description"
+    >
       {{ description }}
     </p>
     <slot />
@@ -28,7 +34,7 @@ export default {
 .container {
   display: flex;
   flex-direction: column;
-  max-width: 50rem;
+  max-width: 100rem;
 }
 
 .hide {
