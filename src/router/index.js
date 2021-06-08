@@ -66,6 +66,11 @@ const routes = [
     name: 'ConnectWallet',
     component: () => import('@view/Wallet/Connect.vue'),
   },
+  {
+    path: '/token-details',
+    name: 'TokenDetails',
+    component: () => import('@view/Nft/TokenDetails.vue'),
+  },
 ];
 
 const router = createRouter({
