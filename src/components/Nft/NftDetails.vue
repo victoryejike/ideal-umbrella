@@ -23,8 +23,8 @@
     </div>
     <div class="display-token-details">
       <div class="user-details">
-        <div>
-          <label>Creater</label>
+        <div class="details-section">
+          <label> {{ $t('nft_details.creator') }}</label>
           <div>
             <img
               class="button-icon"
@@ -32,9 +32,22 @@
             >
           </div>
         </div>
-        <div><label> Highest Bid</label></div>
+        <div class="details-section highest-bid-div">
+          <label>{{ $t('nft_details.highest_bid') }}</label>
+          <div class="highest-bid-details">
+            <img
+              class="coins-icon"
+              height="20"
+              src="@svg/ht.svg"
+              width="20"
+            >
+            <span class="coin">0.15 ETH</span>
+            <span class="coin-value">($479.45)</span>
+          </div>
+        </div>
       </div>
-      <div class="token-content">
+
+      <div class="token-content details-section">
         <label> {{ $t('nft_details.description') }}</label>
         <div class="token-description">
           {{ $t('nft_details.content') }}
@@ -47,7 +60,7 @@
       <BaseNavigationTab
         class="tabs"
         :list="tabTitleList"
-        :width="10.6"
+        :width="9.3"
       />
 
       <div
@@ -57,10 +70,16 @@
       >
         <div class="bids-inner-div">
           <div>
-            <div>{{ item.author }}</div>
-            <div>{{ item.timestamp }}</div>
+            <div class="author">
+              {{ item.author }}
+            </div>
+            <div class="date-time">
+              {{ item.timestamp }}
+            </div>
           </div>
-          <div>{{ item.bidPrice }}</div>
+          <div class="price">
+            {{ item.bidPrice }}
+          </div>
         </div>
         <div
           class="input-line"
@@ -137,6 +156,7 @@ export default {
 }
 
 .button-icon {
+  border-radius: 50%;
   padding-right: 0.375rem;
 }
 
@@ -151,6 +171,20 @@ export default {
   justify-content: space-between;
 }
 
+.details-section {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  color: rgba(0, 0, 0, 0.75);
+  margin-bottom: 1.25rem;
+}
+
+.highest-bid-div {
+  margin-right: 3.75rem;
+}
+
 .token-content {
   margin-top: 1.875rem;
 }
@@ -161,6 +195,10 @@ export default {
 }
 
 .token-description {
+  color: #808080;
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.125rem;
   margin-bottom: 0.625rem;
 }
 
@@ -177,5 +215,55 @@ export default {
   border-bottom: 0.0625rem solid rgba(0, 0, 0, 0.25);
   transition: border-bottom 0.3s ease-in-out;
   width: 100%;
+}
+
+.highest-bid-details {
+  align-items: center;
+  display: flex;
+}
+
+.coin {
+  color: #6374c3;
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 100%;
+  margin-left: 0.375rem;
+}
+
+.coin-value {
+  color: rgba(0, 0, 0, 0.25);
+  font-family: "Inter", sans-serif;
+  font-size: 1rem;
+  letter-spacing: 0.01em;
+  line-height: 1.75rem;
+}
+
+.read-more {
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.125rem;
+}
+
+.author {
+  color: #000;
+  font-size: 0.875rem;
+  font-weight: bold;
+  line-height: 100%;
+}
+
+.date-time {
+  color: #808080;
+  font-size: 0.75rem;
+  font-weight: bold;
+  line-height: 100%;
+  margin-bottom: 1.4063em;
+  margin-top: 0.5em;
+}
+
+.price {
+  color: #6374c3;
+  font-size: 0.875rem;
+  font-weight: bold;
+  line-height: 100%;
 }
 </style>
