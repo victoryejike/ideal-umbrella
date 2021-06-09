@@ -5,7 +5,7 @@
   >
     <div
       class="card-inner-div"
-      :style="{width: `${size}px`}"
+      :style="{width: `${size / 16}rem`}"
     >
       <div
         class="author"

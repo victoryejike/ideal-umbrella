@@ -30,6 +30,10 @@
     "search": "Search",
     "search_placeholder": "Search by creator, collectible or collection"
   },
+  "connect_wallet": {
+    "description": "Connect with one of available wallet providers or create a new wallet.",
+    "title": "Connect your Wallet"
+  },
   "default": "Default Template",
   "footer": {
     "fanschain": {
@@ -110,10 +114,50 @@
     "username_placeholder": "Enter your email address or phone number",
     "username_text": "Email Address or Phone Number"
   },
+  "menu": {
+    "discovery": "Discovery",
+    "fanschain": {
+      "community": "Community",
+      "exchange": "Exchange",
+      "fto": "Fan Token Offering",
+      "title": "Fanschain"
+    },
+    "how_it_works": "How it works",
+    "login": "Login",
+    "nft": {
+      "create": "Create NFT",
+      "title": "My NFT",
+      "wallet": "Wallet"
+    },
+    "register": "Register"
+  },
+  "nft_details": {
+    "buy_now": "Buy Now",
+    "content": "Symbiotic refers to a failed lab experiment, a reaction of two different organisms. Symbiotic refers to a failed lab experiment, a reaction of ...",
+    "creator": "Creator",
+    "description": "Description",
+    "highest_bid": "Highest Bid",
+    "place_bid": "Place Bid",
+    "read_more": "Read more",
+    "tabs": {
+      "bids": "BIDS",
+      "details": "DETAILS",
+      "history": "HISTORY"
+    },
+    "token_text": "Everydays - The First 5000 Days"
+  },
   "nft_index": {
     "button_text": "Timed Auctions",
     "description": "Choose Single if you want your collectible to be one of a kind or Multiple if you want to sell one collectible multiple times. We do not own your private keys and cannot access your funds without your confirmation",
     "title": "Create Collectible"
+  },
+  "profile": {
+    "created": "Created",
+    "edit_profile": "Edit Profile",
+    "onsale": "ON SALES",
+    "owned": "OWNED",
+    "share": "Share",
+    "username": "Chris Torres"
   },
   "rabind_email_screen": {
     "cancel": "Cancel",
@@ -217,32 +261,5 @@
     "required_msg": "Field cannot be empty.",
     "sms_msg": "The code should be a 6 digit number.",
     "username_msg": "Invalid username, it should be an email address or a phone number."
-  },
-  "connect_wallet": {
-    "description": "Connect with one of available wallet providers or create a new wallet.",
-    "title": "Connect your Wallet"
-  },
-  "nft_details": {
-    "token_text": "Everydays - The First 5000 Days",
-    "creator": "Creator",
-    "highest_bid":"Highest Bid",
-    "description":"Description",
-    "content":"Symbiotic refers to a failed lab experiment, a reaction of two different organisms. Symbiotic refers to a failed lab experiment, a reaction of ...",
- "read_more":"Read more",
- "tabs": {
-  "bids": "BIDS",
-  "details": "DETAILS",
-  "history": "HISTORY"
-},
-"buy_now":"Buy Now",
-"place_bid":"Place Bid"
-  },
-  "profile": {
-    "username": "Chris Torres",
-    "edit_profile": "Edit Profile",
-    "share": "Share",
-    "onsale": "ON SALES",
-    "owned": "OWNED",
-    "created": "Created"
   }
 }

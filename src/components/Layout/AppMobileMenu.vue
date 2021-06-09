@@ -67,27 +67,27 @@ export default {
   data() {
     return {
       menuItemList: [
-        { name: 'Discovery', url: '/login' },
+        { name: this.$t('menu.discovery'), url: '/login' },
         {
-          name: 'My NFT',
+          name: this.$t('menu.nft.title'),
           url: null,
           child: [
-            { name: 'Create NFT', url: '/nft' },
-            { name: 'Wallet', url: '/wallet' },
+            { name: this.$t('menu.nft.create'), url: '/nft' },
+            { name: this.$t('menu.nft.wallet'), url: '/wallet' },
           ],
         },
-        { name: 'How it works', url: '/' },
+        { name: this.$t('menu.how_it_works'), url: '/' },
         {
-          name: 'Fanschain',
+          name: this.$t('menu.fanschain.title'),
           url: null,
           child: [
-            { name: 'Exchange', url: '/' },
-            { name: 'Fan Token Offering', url: '/' },
-            { name: 'Community', url: '/' },
+            { name: this.$t('menu.fanschain.exchange'), url: '/' },
+            { name: this.$t('menu.fanschain.fto'), url: '/' },
+            { name: this.$t('menu.fanschain.community'), url: '/' },
           ],
         },
-        { name: 'Login', url: '/login' },
-        { name: 'Register', url: '/register' },
+        { name: this.$t('menu.login'), url: '/login' },
+        { name: this.$t('menu.register'), url: '/register' },
       ],
     };
   },
@@ -166,7 +166,7 @@ export default {
 }
 
 .menu-btn {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+  border-bottom: 0.1rem solid rgba(255, 255, 255, 0.25);
   display: flex;
   flex-direction: column;
   font-size: 1.1rem;
