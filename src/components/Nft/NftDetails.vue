@@ -90,6 +90,7 @@ export default {
           // handler: () => { this.isEmail = false; },
         },
       ],
+      // Todo: fetch api
       bidsList: [
         {
           author: 'CryptoPunks',
@@ -132,38 +133,39 @@ export default {
 }
 
 .token-image {
-  margin-top: 20px;
+  margin-top: 1.25rem;
 }
 
 .button-icon {
-  padding-right: 6px;
+  padding-right: 0.375rem;
 }
 
 .display-token-details {
-  margin-left: 100px;
+  font-size: 0.875rem;
+  margin-left: 6.25rem;
 }
 
 .user-details {
   display: flex;
-  height: 85px;
+  height: 5.3125rem;
   justify-content: space-between;
 }
 
 .token-content {
-  margin-top: 30px;
+  margin-top: 1.875rem;
 }
 
 .tabs {
-  margin-bottom: 47px;
-  margin-top: 39px;
+  margin-bottom: 2.9375rem;
+  margin-top: 2.4375rem;
 }
 
 .token-description {
-  margin-bottom: 10px;
+  margin-bottom: 0.625rem;
 }
 
 .bids-main-div {
-  margin-bottom: 23.5px;
+  margin-bottom: 1.4688rem;
 }
 
 .bids-inner-div {
@@ -172,7 +174,7 @@ export default {
 }
 
 .input-line {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+  border-bottom: 0.0625rem solid rgba(0, 0, 0, 0.25);
   transition: border-bottom 0.3s ease-in-out;
   width: 100%;
 }
