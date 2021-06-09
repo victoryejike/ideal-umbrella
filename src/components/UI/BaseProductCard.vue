@@ -123,18 +123,20 @@ export default {
 }
 
 .avatar {
-  background: #fff;
   border-radius: 1rem;
-  margin-right: 0.625rem;
 }
 
 .abstract-text {
+  flex-grow: 1;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .author-name {
-  margin-right: 0.625rem;
+  margin: 0 0.625rem;
+
+  /* Safari Bug?  */
+  width: 0;
 }
 
 .product-name {

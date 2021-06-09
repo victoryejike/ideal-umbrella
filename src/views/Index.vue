@@ -308,7 +308,7 @@ export default {
 
 .popular-box {
   display: flex;
-  margin-right: -2rem;
+  margin-right: -2.4rem;
   overflow-x: scroll;
   scrollbar-width: none;
 }
@@ -384,6 +384,12 @@ export default {
 
   .banner-title {
     text-align: center;
+  }
+}
+
+@media (max-width: 70em) {
+  .popular-box {
+    margin-right: 0;
   }
 }
 
