@@ -13,7 +13,7 @@
       :class="{'top': btn == 'false'}"
     >
       <img
-        src="../../assets/svg/huobi.svg"
+        :src="img"
       >
     </div>
     <div

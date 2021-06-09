@@ -7,20 +7,20 @@
       <ConnectCard
         btn="true"
         btntext="Recommended"
-        img="../../assets/svg/huobi.svg"
+        :img="huobi"
         text="Connect via app on your phone"
         type="HUOBI WALLET"
       />
       <ConnectCard
         btn="true"
         btntext="Most popular"
-        img="../../assets/svg/metamask_Fox 1.svg"
+        :img="metaMask"
         text="One of the most secure wallets with great flexibility"
         type="METAMASK"
       />
       <ConnectCard
         btn="false"
-        img="../../assets/svg/coinbase.svg"
+        :img="coinbase"
         text="Connect via app on your phone"
         type="COINBASE"
       />
@@ -28,12 +28,23 @@
   </BaseFrame>
 </template>
 <script>
+
 import BaseFrame from './BaseFrame.vue';
 import ConnectCard from '../../components/Wallet/ConnectCard.vue';
+import Huobi from '../../assets/svg/huobi.svg';
+import MetaMask from '../../assets/svg/metamask_Fox 1.svg';
+import coinBase from '../../assets/svg/coinbase.svg';
 
 export default {
   name: 'NFT',
   components: { BaseFrame, ConnectCard },
+  data() {
+    return {
+      huobi: Huobi,
+      metaMask: MetaMask,
+      coinbase: coinBase,
+    };
+  },
 };
 
 </script>
