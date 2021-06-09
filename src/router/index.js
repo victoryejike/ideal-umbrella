@@ -76,6 +76,11 @@ const routes = [
     name: 'TokenDetails',
     component: () => import('@view/Nft/TokenDetails.vue'),
   },
+  {
+    path: '/profile',
+    name: 'Profile',
+    component: () => import('@view/MyNft/Profile.vue'),
+  },
 ];
 
 const router = createRouter({

@@ -236,6 +236,13 @@
 },
 "buy_now":"Buy Now",
 "place_bid":"Place Bid"
+  },
+  "profile": {
+    "username": "Chris Torres",
+    "edit_profile": "Edit Profile",
+    "share": "Share",
+    "onsale": "ON SALES",
+    "owned": "OWNED",
+    "created": "Created"
   }
-
 }

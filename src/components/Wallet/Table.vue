@@ -33,6 +33,78 @@
           <a class="color-dark">Trade</a>
         </td>
       </tr>
+      <tr>
+        <td class="flex">
+          <div class="coin-icon">
+            <img src="@svg/dogecoin.svg">
+          </div>
+          <div class="coin-name">
+            <b class="color-light">Doge</b>
+            <br>
+            <span>DogeCoin</span>
+          </div>
+        </td>
+        <td class="color-light">
+          0.112300
+        </td>
+        <td class="color-light">
+          $6750
+        </td>
+        <td class="color-light">
+          ≈ 6500.00
+        </td>
+        <td>
+          <a class="color-dark">Trade</a>
+        </td>
+      </tr>
+      <tr>
+        <td class="flex">
+          <div class="coin-icon">
+            <img src="@svg/ethereum.svg">
+          </div>
+          <div class="coin-name">
+            <b class="color-light">ETH</b>
+            <br>
+            <span>Ethereum</span>
+          </div>
+        </td>
+        <td class="color-light">
+          0.112300
+        </td>
+        <td class="color-light">
+          $6750
+        </td>
+        <td class="color-light">
+          ≈ 6500.00
+        </td>
+        <td>
+          <a class="color-dark">Trade</a>
+        </td>
+      </tr>
+      <tr>
+        <td class="flex">
+          <div class="coin-icon">
+            <img src="@svg/litecoin.svg">
+          </div>
+          <div class="coin-name">
+            <b class="color-light">Lite</b>
+            <br>
+            <span>Litecoin</span>
+          </div>
+        </td>
+        <td class="color-light">
+          0.112300
+        </td>
+        <td class="color-light">
+          $6750
+        </td>
+        <td class="color-light">
+          ≈ 6500.00
+        </td>
+        <td>
+          <a class="color-dark">Trade</a>
+        </td>
+      </tr>
     </table>
   </div>
 </template>
