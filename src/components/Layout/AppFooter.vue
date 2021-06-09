@@ -38,36 +38,16 @@
         </div>
       </div>
     </div>
-    <div class="copyright-and-social-div">
-      <div class="copyright-text">
-        ©2021 Naffiti by Huobi. All rights reserved
-      </div>
-      <div class="social-media">
-        <a
-          v-for="(item, index) in socialMediaList"
-          :key="index"
-          :href="item.url"
-        >
-          <img
-            class="social-media-icons"
-            height="20"
-            :src="item.icon"
-            width="24"
-          >
-        </a>
-      </div>
-    </div>
+    <SocialAndCopyRightBlock />
   </footer>
 </template>
 
 <script>
-import Facebook from '@svg/facebook.svg';
-import Instagram from '@svg/instagram.svg';
-import Youtube from '@svg/youtube.svg';
-import Twitter from '@svg/twitter.svg';
+import SocialAndCopyRightBlock from './SocialAndCopyRightBlock.vue';
 
 export default {
   name: 'AppFooter',
+  components: { SocialAndCopyRightBlock },
   data() {
     return {
       languageList: ['English', '中文', '日本語', '한국어'],
@@ -97,24 +77,6 @@ export default {
             { name: this.$t('footer.legal.privacy_policy'), url: '/' },
             { name: this.$t('footer.legal.trading_policy'), url: '/' },
           ],
-        },
-      ],
-      socialMediaList: [
-        {
-          icon: Facebook,
-          url: '',
-        },
-        {
-          icon: Instagram,
-          url: '',
-        },
-        {
-          icon: Youtube,
-          url: '',
-        },
-        {
-          icon: Twitter,
-          url: '',
         },
       ],
     };
@@ -150,19 +112,8 @@ footer {
   justify-content: space-between;
 }
 
-.copyright-and-social-div {
-  display: inline-flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-}
-
 .select-language {
   margin-top: 4rem;
-}
-
-.copyright-text {
-  margin-right: 1rem;
-  margin-top: 0;
 }
 
 .logo-language-container {
@@ -196,17 +147,6 @@ footer {
   color: #c4c4c4;
 }
 
-.social-media {
-  align-items: center;
-  display: flex;
-  margin-right: -2.5rem;
-  margin-top: 0;
-}
-
-.social-media-icons {
-  margin-right: 2.5rem;
-}
-
 /* Here using 65 instead of 70 is to prevent links-group flickering when footer padding changed */
 
 @media (max-width: 65em) {
@@ -222,14 +162,6 @@ footer {
 @media (max-width: 70em) {
   .links-group {
     width: 10.5rem;
-  }
-
-  .social-media {
-    margin-top: 2.5rem;
-  }
-
-  .copyright-text {
-    margin-top: 2.5rem;
   }
 }
 

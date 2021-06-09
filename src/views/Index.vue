@@ -198,13 +198,8 @@ export default {
   },
   mounted() {
     this.MOBILE_SIZE = 1000;
-    if (window.innerWidth <= this.MOBILE_SIZE) {
-      this.mobileResponsive();
-      window.addEventListener('resize', this.pcResponsive);
-    } else {
-      this.pcResponsive();
-      window.addEventListener('resize', this.mobileResponsive);
-    }
+    this.mobileResponsive();
+    this.pcResponsive();
   },
   methods: {
     calcGridTemplateSize() {
@@ -225,10 +220,7 @@ export default {
         };
         this.gridSetting.discoverSection.size = 140;
         this.filterSize = 'btn-md-2';
-
-        setTimeout(() => {
-          this.calcGridTemplateSize();
-        }, 400);
+        this.calcGridTemplateSize();
       }
     },
     pcResponsive() {
@@ -377,8 +369,8 @@ export default {
 
   .banner-title-and-searchbar {
     margin-bottom: auto;
-    margin-left: 0;
-    margin-right: 0;
+    margin-left: auto;
+    margin-right: auto;
     margin-top: auto;
   }
 

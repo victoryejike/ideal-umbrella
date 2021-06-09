@@ -23,15 +23,35 @@
             :key="index"
             :ref="`menu-${index}`"
             class="menu-btn"
-            @click="handleClick(index)"
           >
-            <span class="menu-title">{{ item.name }}</span>
-            <i
+            <div
+              class="menu-title-container"
+              @click="handleClick(index)"
+            >
+              <div class="menu-title">
+                {{ item.name }}
+              </div>
+              <div
+                v-if="item.child"
+                class="arrow"
+              />
+            </div>
+            <div
               v-if="item.child"
-              class="arrow"
-            />
+              class="child-menu-root"
+            >
+              <div
+                v-for="(childItem, index2) in item.child"
+                :key="index * 1000 + index2"
+                class="child-menu-btn"
+                @click="handleClick(index * 1000 + index2)"
+              >
+                <span class="child-menu-title">{{ childItem.name }}</span>
+              </div>
+            </div>
           </div>
         </div>
+        <SocialAndCopyRightBlock class="menu-footer" />
       </div>
     </Transition>
   </div>
@@ -39,33 +59,59 @@
 
 <script>
 import MobileMenuButton from './MobileMenuButton.vue';
+import SocialAndCopyRightBlock from './SocialAndCopyRightBlock.vue';
 
 export default {
   name: 'AppMobileMenu',
-  components: { MobileMenuButton },
+  components: { MobileMenuButton, SocialAndCopyRightBlock },
   data() {
     return {
       menuItemList: [
-        { name: 'Discovery', url: '' },
-        { name: 'My NFT', url: null, child: [] },
-        { name: 'How it works', url: '' },
-        { name: 'Fanschain', url: null, child: [] },
-        { name: 'Login', url: '' },
-        { name: 'Register', url: '' },
+        { name: 'Discovery', url: '/login' },
+        {
+          name: 'My NFT',
+          url: null,
+          child: [
+            { name: 'Create NFT', url: '/nft' },
+            { name: 'Wallet', url: '/wallet' },
+          ],
+        },
+        { name: 'How it works', url: '/' },
+        {
+          name: 'Fanschain',
+          url: null,
+          child: [
+            { name: 'Exchange', url: '/' },
+            { name: 'Fan Token Offering', url: '/' },
+            { name: 'Community', url: '/' },
+          ],
+        },
+        { name: 'Login', url: '/login' },
+        { name: 'Register', url: '/register' },
       ],
     };
   },
   methods: {
     handleClick(index) {
+      // Which mean child button
+      if (index >= 1000) {
+        const parentIndex = (index / 1000).toFixed(0);
+        const childIndex = index % 1000;
+        this.$router.push(this.menuItemList[parentIndex].child[childIndex].url);
+        this.$store.commit('toggleMenu');
+        return;
+      }
+
       if (this.menuItemList[index].child) {
-        const { classList } = this.$refs[`menu-${index}`];
-        if (classList.contains('open')) {
-          classList.remove('open');
+        const rootClass = this.$refs[`menu-${index}`].classList;
+        if (rootClass.contains('open')) {
+          rootClass.remove('open');
         } else {
-          classList.add('open');
+          rootClass.add('open');
         }
       } else {
         this.$router.push(this.menuItemList[index].url);
+        this.$store.commit('toggleMenu');
       }
     },
   },
@@ -95,9 +141,9 @@ export default {
 .sidebar-panel {
   background-color: #2c43ad;
   height: 100vh;
-  overflow-y: auto;
+  overflow-y: scroll;
   padding: 3rem 0 2rem 0;
-  position: fixed;
+  position: absolute;
   width: 24rem;
   z-index: 999;
 }
@@ -108,6 +154,12 @@ export default {
   padding: 0 1.875rem;
 }
 
+.menu-title-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
 .menu-content {
   color: #fff;
   margin-top: 3.3rem;
@@ -115,16 +167,42 @@ export default {
 
 .menu-btn {
   border-bottom: 1px solid rgba(255, 255, 255, 0.25);
-  cursor: pointer;
   display: flex;
+  flex-direction: column;
   font-size: 1.1rem;
   font-weight: bold;
   justify-content: space-between;
-  padding: 1.5rem 1.875rem 1.5rem 1.875rem;
+  max-height: 1.375rem;
+  overflow: hidden;
+  padding: 1.5rem 1.875rem;
   position: relative;
 }
 
+.menu-title {
+  cursor: pointer;
+}
+
+.child-menu-root {
+  padding: 1rem 0.625rem 0 0.625rem;
+}
+
+.child-menu-btn {
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 1rem 0;
+}
+
+.menu-footer {
+  color: #c4c4c4;
+  margin-left: 1.875rem;
+  margin-top: 2rem;
+}
+
+/* Arrow CSS */
+
 .arrow {
+  cursor: pointer;
   height: 1rem;
   margin-bottom: auto;
   margin-top: auto;
@@ -151,6 +229,10 @@ export default {
 .arrow::after {
   left: 0.25rem;
   transform: rotate(45deg);
+}
+
+.open {
+  max-height: 15rem;
 }
 
 .open .arrow::before {

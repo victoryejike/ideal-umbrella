@@ -28,8 +28,7 @@ export default {
   display: fixed;
   height: 2rem;
   position: relative;
-
-  /* transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1); */
+  transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
   width: 2rem;
   z-index: 10;
 }
@@ -41,11 +40,10 @@ export default {
   left: 0.375rem;
   position: absolute;
   top: 0.9rem;
-
-  /* transition:
+  transition:
     transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1),
     opacity 0.3s cubic-bezier(0.165, 0.84, 0.44, 1),
-    background-color 0.6s cubic-bezier(0.165, 0.84, 0.44, 1); */
+    background-color 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
   width: 1rem;
 }
 

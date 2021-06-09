@@ -1,9 +1,9 @@
 <template>
+  <AppMobileMenu id="menu" />
   <div
     id="root"
     :class="{'scroll-lock':$store.state.isMenuOpen}"
   >
-    <AppMobileMenu id="menu" />
     <div
       id="wrapper"
     >
@@ -94,7 +94,7 @@ a {
 }
 
 .scroll-lock {
-  height: 90vh;
+  height: 100vh;
   overflow: hidden hidden;
 }
 
