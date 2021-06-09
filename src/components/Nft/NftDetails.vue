@@ -1,11 +1,11 @@
 <template>
   <div class="token-details">
     <div class="display-token-image">
-      <div class="token-text">
-        <span>   {{ $t('nft_details.token_text') }}</span>
+      <div class="token-text-div">
+        <span class="token-text">   {{ $t('nft_details.token_text') }}</span>
 
         <BaseRoundButton
-          class="btn-outline-primary btn-sm"
+          class="btn-outline-secondary button"
           text="Art"
         >
           <template #icon>
@@ -25,14 +25,22 @@
       <div class="user-details">
         <div class="details-section">
           <label> {{ $t('nft_details.creator') }}</label>
-          <div>
+          <div class="creater-details">
             <img
-              class="button-icon"
+              class="creater-image"
               src="@img/creater_image.png"
+            >
+            <span class="creater-name">{{ creater.name }}</span>
+            <img
+              v-if="creater.verified"
+              class="tick-icon"
+              height="16"
+              src="@svg/tick.svg"
+              width="16"
             >
           </div>
         </div>
-        <div class="details-section highest-bid-div">
+        <div class="details-section">
           <label>{{ $t('nft_details.highest_bid') }}</label>
           <div class="highest-bid-details">
             <img
@@ -60,7 +68,7 @@
       <BaseNavigationTab
         class="tabs"
         :list="tabTitleList"
-        :width="9.3"
+        :width="10"
       />
 
       <div
@@ -86,6 +94,19 @@
           :class="{focus:isFocus}"
         />
       </div>
+      <div class="actions">
+        <BaseRoundButton
+          class="buy-button btn-primary btn-md btn-bold"
+          icon="arrow-right"
+          :submit="true"
+          :text="$t('nft_details.buy_now')"
+        />
+        <BaseRoundButton
+          class="bid-button btn-outline-primary btn-xl"
+          :submit="true"
+          :text="$t('nft_details.place_bid')"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -109,6 +130,10 @@ export default {
           // handler: () => { this.isEmail = false; },
         },
       ],
+      creater: {
+        name: 'Beeple',
+        verified: true,
+      },
       // Todo: fetch api
       bidsList: [
         {
@@ -116,24 +141,28 @@ export default {
           bidPrice: '0.15 ETH',
           verified: true,
           timestamp: '6/3/2021, 7:09 PM',
+
         },
         {
           author: 'Metaverse',
           bidPrice: '0.14 ETH',
           verified: true,
           timestamp: '6/3/2021, 5:28 PM',
+
         },
         {
           author: 'CryptoPunks',
           bidPrice: '0.13 ETH',
           verified: true,
           timestamp: '2/3/2021, 2:09 AM',
+
         },
         {
           author: 'Metaverse',
           bidPrice: '0.14 ETH',
           verified: true,
           timestamp: '6/3/2021, 5:28 PM',
+
         },
       ],
     };
@@ -146,18 +175,35 @@ export default {
   display: flex;
 }
 
-.token-text {
+.token-text-div {
   display: flex;
   justify-content: space-between;
+}
+
+.token-text {
+  font-size: 1.625em;
+  font-weight: bold;
+  line-height: 150%;
 }
 
 .token-image {
   margin-top: 1.25rem;
 }
 
+.button {
+  font-size: 0.9375em;
+  font-weight: bold;
+  line-height: 150%;
+  padding: 0.3rem 1.75rem;
+}
+
 .button-icon {
+  margin-right: 0.375em;
+  margin-top: 0.1875em;
+}
+
+.creater-image {
   border-radius: 50%;
-  padding-right: 0.375rem;
 }
 
 .display-token-details {
@@ -179,10 +225,6 @@ export default {
 label {
   color: rgba(0, 0, 0, 0.75);
   margin-bottom: 1.25rem;
-}
-
-.highest-bid-div {
-  margin-right: 3.75rem;
 }
 
 .token-content {
@@ -236,6 +278,7 @@ label {
   font-size: 1rem;
   letter-spacing: 0.01em;
   line-height: 1.75rem;
+  margin-left: 10px;
 }
 
 .read-more {
@@ -265,5 +308,26 @@ label {
   font-size: 0.875rem;
   font-weight: bold;
   line-height: 100%;
+}
+
+.actions {
+  display: flex;
+}
+
+.bid-button {
+  margin-left: 1.25em;
+}
+
+.creater-details {
+  align-items: center;
+  display: flex;
+}
+
+.creater-name {
+  font-size: 1.125em;
+  font-weight: bold;
+  line-height: 100%;
+  margin-left: 0.5em;
+  margin-right: 0.5em;
 }
 </style>

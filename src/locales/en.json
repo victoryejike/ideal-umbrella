@@ -233,7 +233,9 @@
   "bids": "BIDS",
   "details": "DETAILS",
   "history": "HISTORY"
-}
+},
+"buy_now":"Buy Now",
+"place_bid":"Place Bid"
   }
 
 }
