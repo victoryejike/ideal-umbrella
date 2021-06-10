@@ -1,13 +1,13 @@
 <template>
   <div class="sidebar">
     <div
-      v-if="$store.state.isMenuOpen"
+      v-if="$store.state.style.isMenuOpen"
       class="sidebar-backdrop"
-      @click="$store.commit('toggleMenu')"
+      @click="$store.dispatch('style/toggleMenu')"
     />
     <Transition name="slide">
       <div
-        v-if="$store.state.isMenuOpen"
+        v-if="$store.state.style.isMenuOpen"
         class="sidebar-panel"
       >
         <div class="menu-header">
@@ -105,7 +105,7 @@ export default {
         this.$router.push(this.menuItemList[index].url);
       }
 
-      this.$store.commit('toggleMenu');
+      this.$store.dispatch('style/toggleMenu');
       return true;
     },
   },
