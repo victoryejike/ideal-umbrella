@@ -5,7 +5,7 @@
   >
     <div class="flex">
       <NftCard
-        btn="true"
+        :btn="true"
         type="single"
         url="/nft/single"
       />

@@ -26,7 +26,10 @@
 <script>
 export default {
   name: 'UserBaseSettingFrame',
-  props: { title: { type: String, required: true }, description: { type: String, required: false, default: '' } },
+  props: {
+    title: { type: String, required: false, default: null },
+    description: { type: String, required: false, default: '' },
+  },
 };
 </script>
 

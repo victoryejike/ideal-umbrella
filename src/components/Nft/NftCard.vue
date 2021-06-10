@@ -3,12 +3,12 @@
     class="nft-card"
     @click="forwardURL"
   >
-    <div v-if="btn === 'true'">
-      <BaseRoundButton
-        class="btn-outline-primary btn-sm"
-        :text="$t('nft_index.button_text')"
-      />
-    </div>
+    <BaseRoundButton
+      v-if="btn"
+      class="btn-outline-primary btn-sm"
+      :text="$t('nft_index.button_text')"
+    />
+
     <div
       v-if="type === 'single'"
       class="symbol"
@@ -35,7 +35,7 @@
 export default {
   name: 'NFTCard',
   props: {
-    btn: { type: String, required: true },
+    btn: { type: Boolean, required: false, default: false },
     type: { type: String, required: true },
     url: { type: String, required: false, default: null },
   },

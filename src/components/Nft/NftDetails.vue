@@ -91,19 +91,16 @@
         </div>
         <div
           class="input-line"
-          :class="{focus:isFocus}"
         />
       </div>
       <div class="actions">
         <BaseRoundButton
           class="buy-button btn-primary btn-md btn-bold"
           icon="arrow-right"
-          :submit="true"
           :text="$t('nft_details.buy_now')"
         />
         <BaseRoundButton
           class="bid-button btn-outline-primary btn-xl"
-          :submit="true"
           :text="$t('nft_details.place_bid')"
         />
       </div>
