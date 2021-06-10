@@ -58,7 +58,7 @@
       </template>
       <template #content>
         <div
-          class="gridbox block-gridbox"
+          class="gridbox seller-gridbox"
           :style="{gridTemplateColumns: gridSetting.sellerSection.templateSize}"
         >
           <AuthorBlock
@@ -85,7 +85,7 @@
         />
       </template>
       <template #content>
-        <div class="filter">
+        <div class="filter-container">
           <BaseRoundButton
             v-for="(item, index) in filterBtn"
             :key="index"
@@ -96,7 +96,7 @@
           />
         </div>
         <div
-          class="gridbox card-gridbox"
+          class="gridbox discover-gridbox"
           :style="{gridTemplateColumns: gridSetting.discoverSection.templateSize}"
         >
           <BaseProductCard
@@ -172,7 +172,7 @@ export default {
         { name: '📸 Photography', isActive: false },
         { name: '💎 Collectibles', isActive: false },
       ],
-      currActiveIndex: 0,
+      activeFilterIndex: 0,
       filterSize: 'btn-lg',
       popularSection: {
         size: 220,
@@ -182,22 +182,27 @@ export default {
         sellerSection: {
           name: 'seller-block',
           templateSize: null,
-          size: null,
-          offset: 0,
-          padding: null,
         },
         discoverSection: {
           name: 'discover-product-card > div > img',
           templateSize: null,
           size: 190,
-          offset: 0,
           padding: null,
         },
       },
     };
   },
   mounted() {
-    this.MOBILE_SIZE = 1000;
+    /*
+      This is a px value like media query, if the width lower then this value,
+      ProductCard will be responsive
+    */
+    this.MAX_WIDTH = 1000;
+
+    /*
+      Two function will be run to check the value of current width after mounted,
+      should have a better code version I guess, just a temporarily implementation
+    */
     this.mobileResponsive();
     this.pcResponsive();
   },
@@ -205,11 +210,11 @@ export default {
     calcGridTemplateSize() {
       const setting = this.gridSetting;
       Object.keys(setting).forEach((key) => {
-        setting[key].templateSize = `repeat(auto-fit, ${this.getWidth(setting[key].name) + setting[key].offset}rem)`;
+        setting[key].templateSize = `repeat(auto-fit, ${this.getWidth(setting[key].name)}rem)`;
       });
     },
     mobileResponsive() {
-      if (window.innerWidth <= this.MOBILE_SIZE) {
+      if (window.innerWidth <= this.MAX_WIDTH) {
         window.removeEventListener('resize', window);
         window.addEventListener('resize', this.pcResponsive);
 
@@ -224,7 +229,7 @@ export default {
       }
     },
     pcResponsive() {
-      if (window.innerWidth > this.MOBILE_SIZE) {
+      if (window.innerWidth > this.MAX_WIDTH) {
         window.removeEventListener('resize', window);
         window.addEventListener('resize', this.mobileResponsive);
 
@@ -244,9 +249,9 @@ export default {
       return width / 16;
     },
     toogleFilterBtn(index) {
-      this.filterBtn[this.currActiveIndex].isActive = false;
+      this.filterBtn[this.activeFilterIndex].isActive = false;
       this.filterBtn[index].isActive = true;
-      this.currActiveIndex = index;
+      this.activeFilterIndex = index;
     },
   },
 };
@@ -254,8 +259,6 @@ export default {
 
 <style scoped>
 .container {
-  display: flex;
-  flex-direction: column;
   overflow-anchor: none;
 }
 
@@ -319,17 +322,17 @@ export default {
   overflow-y: hidden;
 }
 
-.card-gridbox {
+.discover-gridbox {
   grid-gap: 1.25rem;
   grid-row-gap: 5rem;
 }
 
-.block-gridbox {
+.seller-gridbox {
   grid-gap: 4rem;
   grid-row-gap: 3rem;
 }
 
-.filter {
+.filter-container {
   display: flex;
   flex-wrap: wrap;
   margin-bottom: 3.5rem;
@@ -372,10 +375,7 @@ export default {
   }
 
   .banner-title-and-searchbar {
-    margin-bottom: auto;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: auto;
+    margin: auto auto auto auto;
   }
 
   .banner-title {
@@ -390,19 +390,19 @@ export default {
 }
 
 @media (max-width: 62.5em) {
-  .card-gridbox {
+  .discover-gridbox {
     grid-row-gap: 3rem;
     max-height: 48.5rem;
   }
 
-  .block-gridbox {
+  .seller-gridbox {
     grid-row-gap: 2.5rem;
     max-height: 23.5rem;
   }
 }
 
 @media (max-width: 54em) {
-  .filter {
+  .filter-container {
     margin-right: -0.6rem;
   }
 

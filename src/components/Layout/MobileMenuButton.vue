@@ -30,7 +30,6 @@ export default {
   position: relative;
   transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
   width: 2rem;
-  z-index: 10;
 }
 
 .btn-line {

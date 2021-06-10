@@ -1,5 +1,5 @@
 <template>
-  <div class="copyright-and-social-div">
+  <div class="social-and-copyright-root">
     <div class="copyright-text">
       ©2021 Naffiti by Huobi. All rights reserved
     </div>
@@ -54,7 +54,7 @@ export default {
 </script>
 
 <style scoped>
-.copyright-and-social-div {
+.social-and-copyright-root {
   display: inline-flex;
   flex-wrap: wrap;
   justify-content: space-between;

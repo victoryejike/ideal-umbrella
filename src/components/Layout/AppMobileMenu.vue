@@ -22,18 +22,18 @@
             v-for="(item, index) in menuItemList"
             :key="index"
             :ref="`menu-${index}`"
-            class="menu-btn"
+            class="parent-menu-root"
           >
             <div
-              class="menu-title-container"
+              class="parent-menu-btn"
               @click="handleClick(index)"
             >
-              <div class="menu-title">
+              <div class="parent-menu-btn-title">
                 {{ item.name }}
               </div>
               <div
                 v-if="item.child"
-                class="arrow"
+                class="menu-btn-arrow"
               />
             </div>
             <div
@@ -46,7 +46,7 @@
                 class="child-menu-btn"
                 @click="handleClick(index * 1000 + index2)"
               >
-                <span class="child-menu-title">{{ childItem.name }}</span>
+                <span class="child-menu-btn-title">{{ childItem.name }}</span>
               </div>
             </div>
           </div>
@@ -67,7 +67,7 @@ export default {
   data() {
     return {
       menuItemList: [
-        { name: this.$t('menu.discovery'), url: '/login' },
+        { name: this.$t('menu.discovery'), url: '/' },
         {
           name: this.$t('menu.nft.title'),
           url: null,
@@ -98,21 +98,15 @@ export default {
         const parentIndex = (index / 1000).toFixed(0);
         const childIndex = index % 1000;
         this.$router.push(this.menuItemList[parentIndex].child[childIndex].url);
-        this.$store.commit('toggleMenu');
-        return;
+      } else if (this.menuItemList[index].child) { // Which mean the parent button has dropdown menu
+        const rootClass = this.$refs[`menu-${index}`].classList;
+        return rootClass.contains('open') ? rootClass.remove('open') : rootClass.add('open');
+      } else { // Which mean the parent button without dropdown menu
+        this.$router.push(this.menuItemList[index].url);
       }
 
-      if (this.menuItemList[index].child) {
-        const rootClass = this.$refs[`menu-${index}`].classList;
-        if (rootClass.contains('open')) {
-          rootClass.remove('open');
-        } else {
-          rootClass.add('open');
-        }
-      } else {
-        this.$router.push(this.menuItemList[index].url);
-        this.$store.commit('toggleMenu');
-      }
+      this.$store.commit('toggleMenu');
+      return true;
     },
   },
 };
@@ -132,7 +126,6 @@ export default {
 
 .sidebar-backdrop {
   background-color: rgba(0, 0, 0, 0.5);
-  cursor: pointer;
   height: 100vh;
   position: fixed;
   width: 100vw;
@@ -154,32 +147,32 @@ export default {
   padding: 0 1.875rem;
 }
 
-.menu-title-container {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-}
-
 .menu-content {
   color: #fff;
   margin-top: 3.3rem;
 }
 
-.menu-btn {
+.menu-footer {
+  color: #c4c4c4;
+  margin-left: 1.875rem;
+  margin-top: 2rem;
+}
+
+/* Menu Button CSS */
+.parent-menu-root {
   border-bottom: 0.1rem solid rgba(255, 255, 255, 0.25);
-  display: flex;
-  flex-direction: column;
-  font-size: 1.1rem;
-  font-weight: bold;
-  justify-content: space-between;
   max-height: 1.375rem;
   overflow: hidden;
   padding: 1.5rem 1.875rem;
-  position: relative;
 }
 
-.menu-title {
+.parent-menu-btn {
+  align-items: center;
   cursor: pointer;
+  display: flex;
+  font-size: 1.1rem;
+  font-weight: bold;
+  justify-content: space-between;
 }
 
 .child-menu-root {
@@ -193,25 +186,16 @@ export default {
   padding: 1rem 0;
 }
 
-.menu-footer {
-  color: #c4c4c4;
-  margin-left: 1.875rem;
-  margin-top: 2rem;
-}
-
 /* Arrow CSS */
 
-.arrow {
-  cursor: pointer;
+.menu-btn-arrow {
   height: 1rem;
-  margin-bottom: auto;
-  margin-top: auto;
   position: relative;
   width: 1rem;
 }
 
-.arrow::before,
-.arrow::after {
+.menu-btn-arrow::before,
+.menu-btn-arrow::after {
   background-color: #fff;
   border-radius: 1.4rem;
   content: "";
@@ -221,13 +205,13 @@ export default {
   width: 0.25rem;
 }
 
-.arrow::before {
+.menu-btn-arrow::before {
   left: -0.25rem;
   transform: rotate(-45deg);
 }
 
-.arrow::after {
-  left: 0.25rem;
+.menu-btn-arrow::after {
+  left: 0.3rem;
   transform: rotate(45deg);
 }
 
@@ -235,13 +219,13 @@ export default {
   max-height: 15rem;
 }
 
-.open .arrow::before {
+.open .menu-btn-arrow::before {
   left: -0.25rem;
   transform: rotate(45deg);
 }
 
-.open .arrow::after {
-  left: 0.25rem;
+.open .menu-btn-arrow::after {
+  left: 0.3rem;
   transform: rotate(-45deg);
 }
 </style>
