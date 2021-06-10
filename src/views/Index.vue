@@ -240,7 +240,7 @@ export default {
         };
         this.gridSetting.discoverSection.size = 190;
         this.filterSize = 'btn-lg';
-        this.calcGridTemplateSize();
+        setTimeout(() => { this.calcGridTemplateSize(); }, 500);
       }
     },
     getWidth(className) {
@@ -308,6 +308,10 @@ export default {
   scrollbar-width: none;
 }
 
+.popular-box::-webkit-scrollbar {
+  width: 0;
+}
+
 .popular-product-card {
   margin-right: 2rem;
 }
@@ -319,6 +323,7 @@ export default {
 .gridbox {
   display: grid;
   justify-content: space-between;
+  overflow-x: hidden;
   overflow-y: hidden;
 }
 
