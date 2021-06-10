@@ -225,7 +225,7 @@ export default {
         };
         this.gridSetting.discoverSection.size = 140;
         this.filterSize = 'btn-md-2';
-        this.calcGridTemplateSize();
+        setTimeout(() => { this.calcGridTemplateSize(); }, 400);
       }
     },
     pcResponsive() {
@@ -240,7 +240,7 @@ export default {
         };
         this.gridSetting.discoverSection.size = 190;
         this.filterSize = 'btn-lg';
-        setTimeout(() => { this.calcGridTemplateSize(); }, 500);
+        setTimeout(() => { this.calcGridTemplateSize(); }, 400);
       }
     },
     getWidth(className) {
