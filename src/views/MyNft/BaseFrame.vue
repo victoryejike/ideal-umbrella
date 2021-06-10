@@ -68,6 +68,10 @@ export default {
     width: 0.8rem;
   }
 
+  .username h3 {
+    font-size: 2rem;
+  }
+
   .profile-actions {
     display: block ruby;
   }

@@ -261,5 +261,12 @@
     "required_msg": "Field cannot be empty.",
     "sms_msg": "The code should be a 6 digit number.",
     "username_msg": "Invalid username, it should be an email address or a phone number."
+  },
+  "created": {
+    "no_item":{
+      "found": "No items found",
+      "text": "Do you want to create one to sell now?",
+      "btn": "Create"
+    }
   }
 }

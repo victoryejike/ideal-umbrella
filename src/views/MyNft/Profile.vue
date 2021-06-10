@@ -5,43 +5,40 @@
       :list="profileOption"
       :width="10.6"
     />
-    <div
-      class="gridbox card-gridbox m-3"
-      style="grid-template-columns: repeat(auto-fit, 11.875rem);"
-    >
-      <BaseProductCard
-        v-for="(item, index) in discoverList"
-        :key="index"
-        :author="item.author"
-        :avatar="item.avatar"
-        :bg-color="null"
-        class="discover-product-card"
-        :image="item.image"
-        :name="item.name"
-        :price="item.price"
-        :size="190"
-        :verified="item.verified"
-      />
-    </div>
+    <OnSale v-show="visibleSale" />
+    <Created v-show="visibleCreated" />
   </div>
 </template>
 <script>
 import BaseFrame from './BaseFrame.vue';
+import OnSale from '../../components/MyNft/OnSale.vue';
+import Created from '../../components/MyNft/Created.vue';
 
 export default {
   name: 'Profile',
-  components: { BaseFrame },
+  components: { BaseFrame, OnSale, Created },
   data() {
     return {
+      visibleSale: true,
+      visibleCreated: false,
       profileOption: [
         {
           name: this.$t('profile.onsale'),
+          handler: () => {
+            this.visibleSale = true;
+            this.visibleCreated = false;
+          },
         },
         {
           name: this.$t('profile.owned'),
+          handler: () => { console.log('owned'); },
         },
         {
           name: this.$t('profile.created'),
+          handler: () => {
+            this.visibleSale = false;
+            this.visibleCreated = true;
+          },
         },
       ],
       discoverList: Array(5).fill({
