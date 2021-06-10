@@ -53,6 +53,7 @@
           class="input-group-icon"
           height="20"
           src="@svg/phone.svg"
+          style="filter: saturate(100%) brightness(0); opacity: 0.5;"
           width="12"
         >
         <!-- TODO: Better UI -->

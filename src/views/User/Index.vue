@@ -5,6 +5,7 @@
         <img
           class="phone"
           src="@svg/phone.svg"
+          style="filter: saturate(100%) brightness(0);"
           width="15"
         >
         <span>{{ phone }}</span>

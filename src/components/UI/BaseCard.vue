@@ -20,12 +20,12 @@
         <img
           v-else-if="icon === 'mail'"
           class="card-header-icon"
-          src="@svg/mail-blue.svg"
+          src="@svg/mail.svg"
         >
         <img
           v-else-if="icon === 'phone'"
           class="card-header-icon"
-          src="@svg/phone-blue.svg"
+          src="@svg/phone.svg"
         >
       </div>
       <div class="card-body">
