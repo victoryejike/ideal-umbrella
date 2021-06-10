@@ -309,6 +309,10 @@ export default {
   margin-right: 2rem;
 }
 
+.discover-product-card {
+  margin-top: 0.3rem;
+}
+
 .gridbox {
   display: grid;
   justify-content: space-between;
@@ -388,7 +392,7 @@ export default {
 @media (max-width: 62.5em) {
   .card-gridbox {
     grid-row-gap: 3rem;
-    max-height: 48rem;
+    max-height: 48.5rem;
   }
 
   .block-gridbox {

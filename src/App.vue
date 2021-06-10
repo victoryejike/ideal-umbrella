@@ -80,6 +80,7 @@ a {
 
 #footer {
   min-height: 10vh;
+  overflow: hidden;
   padding: 5rem 8rem;
 }
 
