@@ -79,21 +79,18 @@ export default {
 }
 
 .one {
-  left: 3.75rem;
-  top: 6.25rem;
-  z-index: 2;
+  left: 6.25rem;
+  top: 3.75rem;
 }
 
 .two {
-  left: 6.25rem;
-  top: 3.75rem;
-  z-index: 0;
+  left: 5.125rem;
+  top: 4.875rem;
 }
 
 .three {
-  left: 5.125rem;
-  top: 4.875rem;
-  z-index: 0;
+  left: 3.75rem;
+  top: 6.25rem;
 }
 
 .type {

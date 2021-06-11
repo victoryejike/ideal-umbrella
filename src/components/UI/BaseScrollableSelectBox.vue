@@ -159,7 +159,7 @@ export default {
   overflow-y: scroll;
   position: absolute;
   scrollbar-width: none;
-  z-index: 1000;
+  z-index: 1;
 }
 
 .selector-menu::-webkit-scrollbar {

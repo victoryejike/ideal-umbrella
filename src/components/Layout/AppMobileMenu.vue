@@ -129,6 +129,7 @@ export default {
   height: 100vh;
   position: fixed;
   width: 100vw;
+  z-index: 999;
 }
 
 .sidebar-panel {

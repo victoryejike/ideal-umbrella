@@ -274,7 +274,7 @@ export default {
   margin-right: auto;
   position: absolute;
   right: 0;
-  z-index: -100;
+  z-index: -1;
 }
 
 .banner-title-and-searchbar {
