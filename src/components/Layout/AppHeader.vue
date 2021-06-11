@@ -76,7 +76,7 @@ header {
 .menu {
   align-items: center;
   display: flex;
-  opacity: 100;
+  opacity: 1;
   position: inherit;
 }
 
@@ -111,7 +111,7 @@ header {
   }
 
   .mobile-menu-btn {
-    opacity: 100;
+    opacity: 1;
     position: inherit;
   }
 }

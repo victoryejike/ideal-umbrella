@@ -61,7 +61,7 @@ export default {
 
 .search-btn {
   margin-left: auto;
-  opacity: 100;
+  opacity: 1;
   position: inherit;
 }
 

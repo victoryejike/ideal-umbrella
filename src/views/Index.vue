@@ -278,21 +278,25 @@ export default {
 }
 
 .banner-title-and-searchbar {
-  margin-left: 32rem;
+  left: 50%;
   margin-top: 2.5rem;
+  position: absolute;
+  transform: translateX(-13.5%);
 }
 
 .banner-title {
   font-size: 3.6rem;
   font-weight: 800;
   margin-bottom: 4rem;
+  text-align: center;
+  white-space: nowrap;
+  width: 0;
 }
 
 .index-hero {
   margin-left: 7.5rem;
   margin-top: -1rem;
-  opacity: 100;
-  position: absolute;
+  opacity: 1;
 }
 
 .mobile-search-btn {
@@ -360,31 +364,23 @@ export default {
 }
 
 @media (max-width: 90em) {
-  .banner-container {
-    justify-content: center;
-  }
-
   .banner-bg {
-    background-image: url('~@img/index-hero.png');
-    background-position: center;
-    background-repeat: no-repeat;
     max-width: 90%;
     opacity: 0.1;
   }
 
   .index-hero {
-    left: -9999rem;
-    opacity: 0;
-    position: absolute;
-    top: -9999rem;
+    margin-left: 50%;
+    opacity: 0.1;
+    transform: translateX(-50%);
   }
 
   .banner-title-and-searchbar {
-    margin: auto auto auto auto;
+    transform: translate(-50%);
   }
 
   .banner-title {
-    text-align: center;
+    width: 100%;
   }
 }
 
@@ -416,16 +412,6 @@ export default {
   }
 }
 
-@media (max-width: 34em) {
-  .tabs {
-    width: 100% !important;
-  }
-
-  .fixed {
-    width: 100% !important;
-  }
-}
-
 @media (max-width: 40em) {
   .banner-title {
     font-size: 8.5vw;
@@ -433,8 +419,18 @@ export default {
   }
 
   .mobile-search-btn {
-    opacity: 100;
+    opacity: 1;
     position: inherit;
+  }
+}
+
+@media (max-width: 34em) {
+  .tabs {
+    width: 100% !important;
+  }
+
+  .fixed {
+    width: 100% !important;
   }
 }
 </style>
