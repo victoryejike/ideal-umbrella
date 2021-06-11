@@ -73,6 +73,7 @@
 
       <div
         v-for="(item, index) in bidsList"
+        v-show="showBids"
         :key="index"
         class="bids-main-div"
       >
@@ -80,6 +81,13 @@
           <div>
             <div class="author">
               {{ item.author }}
+              <img
+                v-if="creater.verified"
+                class="tick-icon"
+                height="16"
+                src="@svg/tick.svg"
+                width="16"
+              >
             </div>
             <div class="date-time">
               {{ item.timestamp }}
@@ -93,6 +101,23 @@
           class="input-line"
         />
       </div>
+      <DetailsTab
+        v-if="showDetails"
+        :text="$t('nft_details.contact_details')"
+        :value="nftDetails.contactDetails"
+      />
+      <DetailsTab
+        v-if="showDetails"
+        :id="nftDetails.tokenId"
+        :text="$t('nft_details.token_id')"
+      />
+      <DetailsTab
+        v-if="showDetails"
+        :id="nftDetails.blockchain"
+        :text="$t('nft_details.blockchain')"
+      />
+
+      <HistoryTab v-if="showHistory" />
       <div class="actions">
         <BaseRoundButton
           class="buy-button btn-primary btn-md btn-bold"
@@ -108,23 +133,41 @@
   </div>
 </template>
 <script>
+import DetailsTab from './DetailsTab.vue';
+import HistoryTab from './HistoryTab.vue';
 
 export default {
-  name: 'Register',
+  components: { DetailsTab, HistoryTab },
   data() {
     return {
+      showBids: true,
+      showDetails: false,
+      showHistory: false,
+
       tabTitleList: [
         {
           name: this.$t('nft_details.tabs.bids'),
-          // handler: () => { this.isEmail = true; },
+          handler: () => {
+            this.showBids = true;
+            this.showDetails = false;
+            this.showHistory = false;
+          },
         },
         {
           name: this.$t('nft_details.tabs.details'),
-          // handler: () => { this.isEmail = false; },
+          handler: () => {
+            this.showBids = false;
+            this.showDetails = true;
+            this.showHistory = false;
+          },
         },
         {
           name: this.$t('nft_details.tabs.history'),
-          // handler: () => { this.isEmail = false; },
+          handler: () => {
+            this.showBids = false;
+            this.showDetails = false;
+            this.showHistory = true;
+          },
         },
       ],
       creater: {
@@ -162,6 +205,11 @@ export default {
 
         },
       ],
+      nftDetails: {
+        contactDetails: '0x3bdb...6d4a',
+        tokenId: 28473,
+        blockchain: 'Ethereum',
+      },
     };
   },
 
