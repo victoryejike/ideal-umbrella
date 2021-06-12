@@ -1,10 +1,14 @@
 const initialState = () => ({
   username: process.env.NODE_ENV === 'development' ? true : null,
+  avatarURL: null,
 });
 
 const getters = {
   loggedIn(state) {
     return !!state.username;
+  },
+  avatar(state) {
+    return state.avatarURL;
   },
 };
 

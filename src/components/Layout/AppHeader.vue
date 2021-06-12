@@ -8,23 +8,56 @@
         width="102"
       >
     </router-link>
-    <div class="menu">
-      <router-link
-        v-for="(item, index) in links"
-        :key="index"
-        class="link"
-        :to="item.url"
-      >
-        {{ item.name }}
-      </router-link>
-      <hr class="vl">
-      <BaseRoundButton
-        class="btn-primary btn-lg btn-bold"
-        :text="$t('header.register')"
-        type="secondary"
-        url="/register"
-      />
-    </div>
+    <template v-if="$store.getters['auth/loggedIn']">
+      <div class="menu">
+        <router-link
+          v-for="(item, index) in privateLinks"
+          :key="index"
+          class="link"
+          :to="item.url"
+        >
+          {{ item.name }}
+        </router-link>
+        <BaseRoundButton
+          class="create-btn btn-secondary btn-lg btn-bold"
+          :text="$t('header.create')"
+          url="/nft"
+        />
+        <router-link
+          class="link"
+          to="/wallet"
+        >
+          {{ $t('header.wallet') }}
+        </router-link>
+        <img
+          class="avatar"
+          height="40"
+          :onerror="$global.handleAvatarError"
+          :src="getAvatarURL()"
+          width="40"
+          @click="$router.push('profile')"
+        >
+      </div>
+    </template>
+
+    <template v-else>
+      <div class="menu">
+        <router-link
+          v-for="(item, index) in publicLinks"
+          :key="index"
+          class="link"
+          :to="item.url"
+        >
+          {{ item.name }}
+        </router-link>
+        <hr class="vl">
+        <BaseRoundButton
+          class="btn-secondary btn-lg btn-bold"
+          :text="$t('header.register')"
+          url="/register"
+        />
+      </div>
+    </template>
     <MobileMenuButton
       class="mobile-menu-btn"
     />
@@ -32,6 +65,7 @@
 </template>
 
 <script>
+import DefaultAvatar from '@img/default-avatar.png';
 import MobileMenuButton from './MobileMenuButton.vue';
 
 export default {
@@ -39,7 +73,7 @@ export default {
   components: { MobileMenuButton },
   data() {
     return {
-      links: [
+      publicLinks: [
         {
           name: this.$t('header.discover'),
           url: '/',
@@ -62,6 +96,18 @@ export default {
         },
       ],
     };
+  },
+  computed: {
+    privateLinks() {
+      const privateLinks = this.publicLinks.slice(0);
+      privateLinks.pop();
+      return privateLinks;
+    },
+  },
+  methods: {
+    getAvatarURL() {
+      return this.$store.getters['auth/avatar'] || DefaultAvatar;
+    },
   },
 };
 </script>
@@ -102,7 +148,17 @@ header {
   opacity: 0.3;
 }
 
-@media (max-width: 54em) {
+.create-btn {
+  margin-left: 2.5rem;
+}
+
+.avatar {
+  border-radius: 50%;
+  cursor: pointer;
+  margin-left: 2.5rem;
+}
+
+@media (max-width: 58em) {
   .menu {
     left: -9999rem;
     opacity: 0;

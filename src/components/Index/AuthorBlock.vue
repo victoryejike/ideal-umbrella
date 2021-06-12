@@ -3,7 +3,7 @@
     <img
       class="avatar"
       height="60"
-      :onerror="handleAvatarError"
+      :onerror="$global.handleAvatarError"
       :src="avatar"
       width="60"
     >
@@ -53,7 +53,7 @@ export default {
 
 .avatar {
   border: 0.125rem solid #fff;
-  border-radius: 2rem;
+  border-radius: 50%;
   cursor: pointer;
 }
 
