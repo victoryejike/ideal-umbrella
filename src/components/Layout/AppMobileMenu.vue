@@ -134,12 +134,18 @@ export default {
 
 .sidebar-panel {
   background-color: #2c43ad;
+  border-right: rgba(255, 255, 255, 0.25) 0.1rem solid;
   height: 100vh;
   overflow-y: scroll;
   padding: 3rem 0 2rem 0;
   position: absolute;
+  scrollbar-width: none;
   width: 24rem;
   z-index: 999;
+}
+
+.sidebar-panel::-webkit-scrollbar {
+  width: 0;
 }
 
 .menu-header {

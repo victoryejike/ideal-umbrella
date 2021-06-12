@@ -1,15 +1,19 @@
 const initialState = () => ({
-  username: null,
-  icon: null,
-  apiToken: null,
+  username: process.env.NODE_ENV === 'development' ? true : null,
 });
 
 const getters = {
-
+  loggedIn(state) {
+    return !!state.username;
+  },
 };
 
 const actions = {
-
+  validate({ commit, state }) {
+    if (process.env.NODE_ENV === 'development') return true;
+    // TODO: CAll API to validate
+    return false;
+  },
 };
 
 const mutations = {
