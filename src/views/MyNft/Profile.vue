@@ -1,12 +1,14 @@
 <template>
-  <BaseFrame />
-  <div class="section">
-    <BaseNavigationTab
-      :list="profileOption"
-      :width="10.6"
-    />
-    <OnSale v-show="visibleSale" />
-    <Created v-show="visibleCreated" />
+  <div>
+    <BaseFrame />
+    <div class="section">
+      <BaseNavigationTab
+        :list="profileOption"
+        :width="10.6"
+      />
+      <OnSale v-show="visibleSale" />
+      <Created v-show="visibleCreated" />
+    </div>
   </div>
 </template>
 <script>
