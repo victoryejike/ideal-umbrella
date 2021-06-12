@@ -5,9 +5,11 @@ import router from './router';
 import store from './store';
 
 import i18n from './utils/i18n';
+import global from './utils/global';
 import './utils/validator';
 
-const app = createApp(App).use(i18n).use(store).use(router);
+const app = createApp(App).use(i18n).use(store).use(router)
+  .use(global);
 
 // Automatically register all base components in the UI directory
 
