@@ -54,6 +54,11 @@ const privateRoute = [
     name: 'Profile',
     component: () => import('@view/MyNft/Profile.vue'),
   },
+  {
+    path: '/edit-profile',
+    name: 'EditProfile',
+    component: () => import('@view/MyNft/EditProfile.vue'),
+  },
 ];
 
 Object.keys(privateRoute).forEach((key) => {
