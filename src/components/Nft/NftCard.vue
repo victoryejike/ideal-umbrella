@@ -5,7 +5,7 @@
   >
     <BaseRoundButton
       v-if="btn"
-      class="btn-outline-primary btn-sm"
+      class="time-btn btn-outline-primary btn-sm"
       :text="$t('nft_index.button_text')"
     />
 
@@ -13,21 +13,27 @@
       v-if="type === 'single'"
       class="symbol"
     >
-      <div class="bg-symbol" />
+      <img
+        height="100"
+        src="@img/nft-card-single.png"
+        style="border-radius: 1rem;"
+        width="100"
+      >
     </div>
     <div
       v-if="type === 'multiple'"
-      class="multiple-section"
+      class="symbol"
     >
-      <div class="bg-symbol multiple one" />
-      <div class="bg-symbol multiple two" />
-      <div class="bg-symbol multiple three" />
+      <img
+        height="140"
+        src="@img/nft-card-multi.png"
+        width="140"
+      >
     </div>
     <div
       class="type"
-      :class="{'relative': type === 'multiple'}"
     >
-      <h5>{{ type }}</h5>
+      {{ type }}
     </div>
   </div>
 </template>
@@ -58,49 +64,24 @@ export default {
   width: 15.625rem;
 }
 
+.time-btn {
+  position: absolute;
+}
+
 .symbol {
+  align-items: center;
+  display: flex;
+  height: 8.75rem;
+  justify-content: center;
+  margin-top: 1rem;
   padding: 2.8125rem;
-}
-
-.bg-symbol {
-  background-image: url('~@img/nft-card-single.png');
-  border-radius: 1rem;
-  height: 6.25rem;
-  margin: auto;
-  width: 6.25rem;
-}
-
-.multiple-section {
-  position: absolute;
-}
-
-.multiple {
-  position: absolute;
-}
-
-.one {
-  left: 6.25rem;
-  top: 3.75rem;
-}
-
-.two {
-  left: 5.125rem;
-  top: 4.875rem;
-}
-
-.three {
-  left: 3.75rem;
-  top: 6.25rem;
 }
 
 .type {
   font-size: 1.25rem;
   font-variant-caps: all-petite-caps;
+  font-weight: bold;
+  margin-bottom: 1.9rem;
   text-align: center;
-}
-
-.relative {
-  position: relative;
-  top: 80%;
 }
 </style>
