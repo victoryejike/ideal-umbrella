@@ -311,7 +311,7 @@ label {
 
 .coin {
   color: #6374c3;
-  font-size: 18px;
+  font-size: 1.1rem;
   font-weight: bold;
   line-height: 100%;
   margin-left: 0.375rem;
@@ -323,7 +323,7 @@ label {
   font-size: 1rem;
   letter-spacing: 0.01em;
   line-height: 1.75rem;
-  margin-left: 10px;
+  margin-left: 0.625rem;
 }
 
 .read-more {

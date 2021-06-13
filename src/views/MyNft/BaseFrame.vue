@@ -40,7 +40,7 @@ export default {
 <style scoped>
   .top {
     background-image: url("~@svg/profile-bg.svg");
-    border-radius: 10px;
+    border-radius: 0.625rem;
     padding: 5rem;
   }
 
@@ -50,10 +50,10 @@ export default {
   }
 
   .profile {
-    border: 3px solid #fff;
-    border-radius: 360px;
-    height: 100px;
-    width: 100px;
+    border: 0.1875rem solid #fff;
+    border-radius: 22.5rem;
+    height: 6.25rem;
+    width: 6.25rem;
   }
 
   .profile-details {
@@ -63,7 +63,7 @@ export default {
 
   .verified {
     background: #2c43ad;
-    border-radius: 360px;
+    border-radius: 22.5rem;
     height: 0.8rem;
     width: 0.8rem;
   }
@@ -77,9 +77,9 @@ export default {
   }
 
   .action {
-    font-size: 12px;
+    font-size: 0.75rem;
     font-weight: 600;
-    margin: 5px;
+    margin: 0.3125rem;
   }
 
   .p1 {
