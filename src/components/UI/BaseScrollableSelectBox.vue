@@ -156,7 +156,7 @@ export default {
 .selector-menu {
   border-bottom: 0.1rem solid var(--border-color);
   max-height: 10.4rem;
-  overflow-y: scroll;
+  overflow: scroll;
   position: absolute;
   scrollbar-width: none;
   z-index: 1;

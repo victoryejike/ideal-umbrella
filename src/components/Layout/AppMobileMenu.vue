@@ -29,6 +29,14 @@
               @click="handleClick(index)"
             >
               <div class="parent-menu-btn-title">
+                <img
+                  v-if="item.avatar"
+                  class="menu-avatar"
+                  height="30"
+                  :onerror="$global.handleAvatarError"
+                  :src="item.avatar"
+                  width="30"
+                >
                 {{ item.name }}
               </div>
               <div
@@ -58,6 +66,7 @@
 </template>
 
 <script>
+import DefaultAvatar from '@img/default-avatar.png';
 import MobileMenuButton from './MobileMenuButton.vue';
 import SocialAndCopyRightBlock from './SocialAndCopyRightBlock.vue';
 
@@ -66,11 +75,10 @@ export default {
   components: { MobileMenuButton, SocialAndCopyRightBlock },
   data() {
     return {
-      menuItemList: [
+      baseList: [
         { name: this.$t('menu.discovery'), url: '/' },
         {
           name: this.$t('menu.nft.title'),
-          url: null,
           child: [
             { name: this.$t('menu.nft.create'), url: '/nft' },
             { name: this.$t('menu.nft.wallet'), url: '/wallet' },
@@ -79,17 +87,36 @@ export default {
         { name: this.$t('menu.how_it_works'), url: '/' },
         {
           name: this.$t('menu.fanschain.title'),
-          url: null,
           child: [
             { name: this.$t('menu.fanschain.exchange'), url: '/' },
             { name: this.$t('menu.fanschain.fto'), url: '/' },
             { name: this.$t('menu.fanschain.community'), url: '/' },
           ],
         },
-        { name: this.$t('menu.login'), url: '/login' },
-        { name: this.$t('menu.register'), url: '/register' },
       ],
     };
+  },
+  computed: {
+    unLoginList() {
+      return [...this.baseList,
+        { name: this.$t('menu.login'), url: '/login' },
+        { name: this.$t('menu.register'), url: '/register' },
+      ];
+    },
+    loggedInList() {
+      return [...this.baseList, {
+        name: this.$store.getters['auth/username'],
+        avatar: this.$store.getters['auth/avatar'] || DefaultAvatar,
+        child: [
+          { name: this.$t('menu.profile.edit_profile'), url: '/profile' },
+          { name: this.$t('menu.profile.setting'), url: '/account-setting' },
+          { name: this.$t('menu.profile.logout'), url: '/' },
+        ],
+      }];
+    },
+    menuItemList() {
+      return this.$store.getters['auth/loggedIn'] ? this.loggedInList : this.unLoginList;
+    },
   },
   methods: {
     handleClick(index) {
@@ -98,10 +125,14 @@ export default {
         const parentIndex = (index / 1000).toFixed(0);
         const childIndex = index % 1000;
         this.$router.push(this.menuItemList[parentIndex].child[childIndex].url);
-      } else if (this.menuItemList[index].child) { // Which mean the parent button has dropdown menu
+      } else if (this.menuItemList[index].child) {
+        // Which mean the parent button has dropdown menu
+
         const rootClass = this.$refs[`menu-${index}`].classList;
         return rootClass.contains('open') ? rootClass.remove('open') : rootClass.add('open');
-      } else { // Which mean the parent button without dropdown menu
+      } else {
+        // Which mean the parent button without dropdown menu
+
         this.$router.push(this.menuItemList[index].url);
       }
 
@@ -136,7 +167,7 @@ export default {
   background-color: #2c43ad;
   border-right: rgba(255, 255, 255, 0.25) 0.1rem solid;
   height: 100vh;
-  overflow-y: scroll;
+  overflow: scroll;
   padding: 3rem 0 2rem 0;
   position: absolute;
   scrollbar-width: none;
@@ -157,6 +188,12 @@ export default {
 .menu-content {
   color: #fff;
   margin-top: 3.3rem;
+}
+
+.menu-avatar {
+  border: 0.1rem solid #fff;
+  border-radius: 50%;
+  margin-right: 0.625rem;
 }
 
 .menu-footer {
@@ -180,6 +217,11 @@ export default {
   font-size: 1.1rem;
   font-weight: bold;
   justify-content: space-between;
+}
+
+.parent-menu-btn-title {
+  align-items: center;
+  display: flex;
 }
 
 .child-menu-root {

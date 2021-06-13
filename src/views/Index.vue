@@ -307,12 +307,7 @@ export default {
 .popular-box {
   display: flex;
   margin-right: -2.4rem;
-  overflow-x: scroll;
-  scrollbar-width: none;
-}
-
-.popular-box::-webkit-scrollbar {
-  width: 0;
+  overflow: hidden;
 }
 
 .popular-product-card {
@@ -326,8 +321,7 @@ export default {
 .gridbox {
   display: grid;
   justify-content: space-between;
-  overflow-x: hidden;
-  overflow-y: hidden;
+  overflow: hidden hidden;
 }
 
 .discover-gridbox {
@@ -363,6 +357,10 @@ export default {
 }
 
 @media (max-width: 90em) {
+  .popular-box {
+    overflow: scroll;
+  }
+
   .banner-bg {
     max-width: 90%;
     opacity: 0.1;

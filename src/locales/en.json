@@ -137,6 +137,11 @@
       "title": "My NFT",
       "wallet": "Wallet"
     },
+    "profile": {
+      "edit_profile": "Edit Profile",
+      "logout": "Logout",
+      "setting": "Account Setting"
+    },
     "register": "Register"
   },
   "nft_details": {

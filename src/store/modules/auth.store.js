@@ -7,6 +7,9 @@ const getters = {
   loggedIn(state) {
     return !!state.username;
   },
+  username(state) {
+    return state.username;
+  },
   avatar(state) {
     return state.avatarURL;
   },
