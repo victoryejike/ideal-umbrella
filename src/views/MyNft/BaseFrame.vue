@@ -73,7 +73,8 @@ export default {
   }
 
   .profile-actions {
-    display: block ruby;
+    display: flex;
+    justify-content: center;
   }
 
   .action {
