@@ -63,7 +63,7 @@ export default {
 }
 
 .bg-symbol {
-  background-image: url('~@svg/nft-bg.svg');
+  background-image: url('~@img/nft-card-single.png');
   border-radius: 1rem;
   height: 6.25rem;
   margin: auto;

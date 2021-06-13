@@ -4,7 +4,8 @@
     <div class="profile-img">
       <img
         class="profile"
-        src="@svg/profile-sample.svg"
+        :onerror="$global.handleAvatarError"
+        src="@img/default-avatar.png"
       >
     </div>
     <div class="profile-details">
@@ -39,7 +40,7 @@ export default {
 
 <style scoped>
   .top {
-    background-image: url("~@svg/profile-bg.svg");
+    background-image: url("~@img/profile-bg.png");
     border-radius: 0.625rem;
     padding: 5rem;
   }

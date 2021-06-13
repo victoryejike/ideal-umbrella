@@ -10,8 +10,7 @@
         >
           <template #icon>
             <img
-              class="button-icon"
-              src="@svg/art.svg"
+              src="@img/art.png"
             >
           </template>
         </BaseRoundButton>
@@ -28,7 +27,7 @@
           <div class="creater-details">
             <img
               class="creater-image"
-              src="@img/creater_image.png"
+              src="@img/default-avatar.png"
             >
             <span class="creater-name">{{ creater.name }}</span>
             <img
@@ -240,11 +239,6 @@ export default {
   font-weight: bold;
   line-height: 150%;
   padding: 0.3rem 1.75rem;
-}
-
-.button-icon {
-  margin-right: 0.375em;
-  margin-top: 0.1875em;
 }
 
 .creater-image {

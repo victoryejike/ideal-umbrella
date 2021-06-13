@@ -30,7 +30,7 @@
 <script>
 
 import Huobi from '@svg/huobi.svg';
-import MetaMask from '@svg/metamask.svg';
+import MetaMask from '@img/metamask.png';
 import coinBase from '@svg/coinbase.svg';
 import ConnectCard from '@/components/Wallet/ConnectCard.vue';
 import BaseFrame from './BaseFrame.vue';

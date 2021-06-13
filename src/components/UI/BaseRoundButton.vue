@@ -5,9 +5,7 @@
     type="button"
     @click="timeDelay(); forwardURL(); submit ? onSubmit() : null"
   >
-    <div
-      v-if="$slots.icon "
-    >
+    <div class="btn-left-icon">
       <slot name="icon" />
     </div>
     <span class="btn-text">
@@ -15,7 +13,7 @@
     </span>
     <img
       v-if="icon === 'arrow-right'"
-      class="btn-icon"
+      class="btn-right-icon"
       height="32"
       src="@svg/arrow-right.svg"
       width="32"
@@ -80,7 +78,13 @@ export default {
   transition: all 0.5s, filter 0s, transform 0s;
 }
 
-.btn-icon {
+.btn-left-icon {
+  align-items: center;
+  display: flex;
+  margin-right: 0.375rem;
+}
+
+.btn-right-icon {
   height: 2rem;
   margin-left: 1.25rem;
   width: 2rem;
