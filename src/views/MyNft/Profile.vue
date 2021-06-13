@@ -12,9 +12,9 @@
   </div>
 </template>
 <script>
+import OnSale from '@/components/MyNft/OnSale.vue';
+import Created from '@/components/MyNft/Created.vue';
 import BaseFrame from './BaseFrame.vue';
-import OnSale from '../../components/MyNft/OnSale.vue';
-import Created from '../../components/MyNft/Created.vue';
 
 export default {
   name: 'Profile',

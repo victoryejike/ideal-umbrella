@@ -46,7 +46,7 @@ export default {
 }
 
 body {
-  background: url('./assets/image/background.png') no-repeat center center fixed;
+  background: url('~@img/background.png') no-repeat center center fixed;
   background-size: cover;
   box-sizing: border-box;
   color: #000;

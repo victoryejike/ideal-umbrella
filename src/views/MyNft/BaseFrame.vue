@@ -4,7 +4,7 @@
     <div class="profile-img">
       <img
         class="profile"
-        src="../../assets/svg/profile-sample.svg"
+        src="@svg/profile-sample.svg"
       >
     </div>
     <div class="profile-details">
@@ -12,7 +12,7 @@
         <h3>
           Chris Torres
           <img
-            src="../../assets/svg/check.svg"
+            src="@svg/tick.svg"
             width="12"
           >
         </h3>
@@ -39,7 +39,7 @@ export default {
 
 <style scoped>
   .top {
-    background-image: url("../../assets/svg/profile-bg.svg");
+    background-image: url("~@svg/profile-bg.svg");
     border-radius: 10px;
     padding: 5rem;
   }
@@ -62,7 +62,7 @@ export default {
   }
 
   .verified {
-    background: #2C43AD;
+    background: #2c43ad;
     border-radius: 360px;
     height: 0.8rem;
     width: 0.8rem;

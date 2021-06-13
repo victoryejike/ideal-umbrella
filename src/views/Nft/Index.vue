@@ -17,8 +17,8 @@
   </BaseFrame>
 </template>
 <script>
+import NftCard from '@/components/Nft/NftCard.vue';
 import BaseFrame from './BaseFrame.vue';
-import NftCard from '../../components/Nft/NftCard.vue';
 
 export default {
   name: 'NFT',

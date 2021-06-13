@@ -105,8 +105,8 @@
 </template>
 <script>
 
+import UploadCard from '@/components/Nft/UploadCard.vue';
 import BaseFrame from './BaseFrame.vue';
-import UploadCard from '../../components/Nft/UploadCard.vue';
 
 export default {
   name: 'CollectibleSingle',
