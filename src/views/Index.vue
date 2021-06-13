@@ -35,6 +35,7 @@
         >
           <BaseProductCard
             v-for="(item, index) in popularList"
+            :id="item.id"
             :key="index"
             :author="item.author"
             :avatar="item.avatar"
@@ -101,6 +102,7 @@
         >
           <BaseProductCard
             v-for="(item, index) in discoverList"
+            :id="item.id"
             :key="index"
             :author="item.author"
             :avatar="item.avatar"
@@ -134,6 +136,7 @@ export default {
     // TODO: Fake data to real data
     return {
       popularList: Array(4).fill({
+        id: 'V9pCCtpYT2fKHeXQjzwhCxXPTuyQEPID6oEJ',
         avatar: 'avatar.png',
         author: 'Otha Davis III - Abstract Test Display',
         image: 'image.png',
@@ -148,6 +151,7 @@ export default {
         verified: true,
       }),
       discoverList: Array(10).fill({
+        id: 'V3isglWtYb5qIy24QbTJeoJjuV35fEDd0RoL',
         avatar: 'avatar.png',
         author: 'Otha Davis III',
         image: 'image.png',
@@ -306,12 +310,11 @@ export default {
 
 .popular-box {
   display: flex;
-  margin-right: -2.4rem;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 .popular-product-card {
-  margin-right: 2rem;
+  margin-right: 1.25rem;
 }
 
 .discover-product-card {
@@ -358,7 +361,7 @@ export default {
 
 @media (max-width: 90em) {
   .popular-box {
-    overflow: scroll;
+    overflow-x: scroll;
   }
 
   .banner-bg {

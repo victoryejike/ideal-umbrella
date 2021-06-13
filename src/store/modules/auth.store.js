@@ -1,5 +1,5 @@
 const initialState = () => ({
-  username: process.env.NODE_ENV === 'development' ? true : null,
+  username: process.env.NODE_ENV === 'development' ? 'Tester' : null,
   avatarURL: null,
 });
 

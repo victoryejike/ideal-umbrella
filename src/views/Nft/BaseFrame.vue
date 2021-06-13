@@ -47,6 +47,7 @@ export default {
   font-size: 1.2rem;
   font-weight: 600;
   margin-top: 1.99rem;
+  white-space: normal;
 }
 
 @media (max-width: 30em) {

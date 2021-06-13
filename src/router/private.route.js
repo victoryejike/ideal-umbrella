@@ -40,11 +40,6 @@ const privateRoute = [
     component: () => import('@view/Nft/CollectibleMultiple.vue'),
   },
   {
-    path: '/token-details',
-    name: 'TokenDetails',
-    component: () => import('@view/Nft/TokenDetails.vue'),
-  },
-  {
     path: '/connect-wallet',
     name: 'ConnectWallet',
     component: () => import('@view/Wallet/Connect.vue'),

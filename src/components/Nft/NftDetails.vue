@@ -281,6 +281,7 @@ label {
   font-weight: 600;
   line-height: 1.125rem;
   margin-bottom: 0.625rem;
+  white-space: normal;
 }
 
 .bids-main-div {

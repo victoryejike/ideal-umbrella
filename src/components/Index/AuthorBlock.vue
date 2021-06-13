@@ -36,12 +36,6 @@ export default {
     totalCoin: { type: Number, required: true },
     verified: { type: Boolean, required: false, default: false },
   },
-  methods: {
-    handleAvatarError(event) {
-      const { target } = event;
-      target.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==';
-    },
-  },
 };
 </script>
 

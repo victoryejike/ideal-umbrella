@@ -102,6 +102,7 @@ export default {
   -webkit-line-clamp: 3;
   margin-top: 0.625rem;
   overflow: hidden;
+  white-space: normal;
   width: 92%;
 }
 

@@ -19,6 +19,11 @@ const publicRoute = [
     name: 'ForgotPassword',
     component: () => import('@view/ForgotPassword.vue'),
   },
+  {
+    path: '/token-details/:id',
+    name: 'TokenDetails',
+    component: () => import('@view/Nft/TokenDetails.vue'),
+  },
 ];
 
 export default publicRoute;

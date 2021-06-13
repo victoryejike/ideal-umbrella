@@ -5,6 +5,7 @@
   >
     <BaseProductCard
       v-for="(item, index) in discoverList"
+      :id="item.id"
       :key="index"
       :author="item.author"
       :avatar="item.avatar"
@@ -25,6 +26,7 @@ export default {
   data() {
     return {
       discoverList: Array(5).fill({
+        id: 'V9pCCtpYT2fKHeXQjzwhCxXPTuyQEPID6oEJ',
         avatar: 'avatar.png',
         author: 'Otha Davis III',
         image: 'image.png',

@@ -2,6 +2,7 @@
   <div
     class="card-container"
     :style="{background: bgColor, padding: padding}"
+    @click="$router.push({name: 'TokenDetails', params: {id: id}})"
   >
     <div
       class="card-inner-div"
@@ -13,7 +14,7 @@
         <img
           class="avatar"
           height="30"
-          :onerror="handleAvatarError"
+          :onerror="$global.handleAvatarError"
           :src="avatar"
           width="30"
         >
@@ -73,18 +74,15 @@ export default {
     author: { type: String, required: true },
     avatar: { type: String, required: true },
     bgColor: { type: String, required: false, default: 'rgba(255, 255, 255, 0.25)' },
+    id: { type: String, required: true },
     image: { type: String, required: true },
     name: { type: String, required: true },
+    padding: { type: String, required: false, default: null },
     price: { type: Number, required: true },
     size: { type: Number, required: false, default: 220 },
-    padding: { type: String, required: false, default: null },
     verified: { type: Boolean, required: false, default: false },
   },
   methods: {
-    handleAvatarError(event) {
-      const { target } = event;
-      target.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==';
-    },
     handleImageError(event) {
       const { target } = event;
       target.src = NoImage;
