@@ -167,7 +167,6 @@ export default {
 
 .agree-text {
   align-items: center;
-  color: rgba(0, 0, 0, 0.75);
   display: inline-block;
   font-size: 0.875rem;
   font-weight: 600;
@@ -189,7 +188,6 @@ export default {
 
 .login-div {
   align-items: center;
-  color: rgba(0, 0, 0, 0.75);
   display: flex;
   font-size: 0.875rem;
   font-weight: 600;

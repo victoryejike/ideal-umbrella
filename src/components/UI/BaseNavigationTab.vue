@@ -71,7 +71,6 @@ export default {
   border-width: 0;
   color: rgba(44, 67, 173, 0.5);
   overflow: hidden;
-  text-overflow: ellipsis;
   transition: all 0.5s, background-color 0s, color 0s;
 }
 
@@ -83,7 +82,6 @@ export default {
   font-size: 0.875rem;
   font-weight: bold;
   padding: 0 0.5rem;
-  white-space: nowrap;
 }
 
 .active {

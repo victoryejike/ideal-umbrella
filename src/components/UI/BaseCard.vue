@@ -79,9 +79,7 @@ export default {
 .card-header-title {
   font-weight: bold;
   overflow: hidden;
-  text-overflow: ellipsis;
   text-transform: uppercase;
-  white-space: nowrap;
   width: 92%;
 }
 

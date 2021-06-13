@@ -90,10 +90,6 @@ export default {
   width: 2rem;
 }
 
-.btn-text {
-  white-space: nowrap;
-}
-
 .btn-bold {
   font-weight: bold;
 }

@@ -44,7 +44,6 @@ export default {
 .search-input {
   background-color: transparent;
   border: 0;
-  color: #000;
   flex-grow: 1;
   font-size: 1rem;
   margin: 1rem 1rem;
@@ -56,7 +55,6 @@ export default {
   color: #c4c4c4;
   font-weight: bold;
   overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .search-btn {

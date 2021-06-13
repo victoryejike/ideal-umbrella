@@ -119,7 +119,6 @@ export default {
   align-items: center;
   display: flex;
   overflow: hidden;
-  white-space: nowrap;
 }
 
 .avatar {
@@ -129,7 +128,6 @@ export default {
 .abstract-text {
   flex-grow: 1;
   overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .author-name {

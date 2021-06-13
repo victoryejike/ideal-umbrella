@@ -182,12 +182,9 @@ export default {
 }
 
 .input-group-text {
-  color: rgba(0, 0, 0, 0.75);
   font-size: 0.9rem;
   margin-bottom: 1.2rem;
   overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
 .input-group-icon {
@@ -198,7 +195,6 @@ export default {
 
 .input-group-button {
   align-self: center;
-  white-space: nowrap;
 }
 
 .inline-block {
@@ -211,7 +207,6 @@ export default {
 .input-box {
   background-color: transparent;
   border: 0;
-  color: #000;
   flex-grow: 1;
   font-size: 1rem;
   height: 2.5rem;
@@ -224,7 +219,6 @@ export default {
   color: rgba(0, 0, 0, 0.25);
   font-family: "Inter", sans-serif;
   overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .input-line {

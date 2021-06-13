@@ -327,7 +327,6 @@ label {
 }
 
 .author {
-  color: #000;
   font-size: 0.875rem;
   font-weight: bold;
   line-height: 100%;

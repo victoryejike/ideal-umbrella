@@ -72,8 +72,6 @@ export default {
 
 .author-name {
   overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
   width: 8rem;
 }
 

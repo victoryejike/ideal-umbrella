@@ -36,7 +36,6 @@ export default {
 }
 
 .title {
-  color: #000;
   font-size: 2rem;
   font-style: normal;
   font-weight: bold;
