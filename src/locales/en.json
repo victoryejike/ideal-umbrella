@@ -160,7 +160,19 @@
       "history": "HISTORY"
     },
     "token_id": "Token ID",
-    "token_text": "Everydays - The First 5000 Days"
+    "token_text": "Everydays - The First 5000 Days",
+    "bid": {
+      "bid-content":"You are about to place a bid for",
+      "user_bid_label": "Your bid",
+      "user_bid_placeholder": "Enter bid",
+      "quantity_label": "Quantity",
+      "user_bidding_balance": "Your bidding balance",
+    "user_balance": "Your balance",
+    "service_fee": "Service fee",
+    "total_bid_amount": "Total bid amount"
+    
+    }
+
   },
   "nft_index": {
     "button_text": "Timed Auctions",
