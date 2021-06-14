@@ -124,10 +124,32 @@
           icon="arrow-right"
           :text="$t('nft_details.buy_now')"
         />
-        <BaseRoundButton
-          class="bid-button btn-outline-primary btn-xl"
-          :text="$t('nft_details.place_bid')"
-        />
+        <div>
+          <BaseRoundButton
+            class="bid-button btn-outline-primary btn-xl"
+            :text="$t('nft_details.place_bid')"
+            @click="showModal"
+          />
+          <BaseModal
+            v-show="isModalVisible"
+            @close="closeModal"
+          >
+            <template #header>
+              Place a bid
+            </template>
+
+            <template #body>
+              <BidModal />
+            </template>
+            <template #footer>
+              <BaseRoundButton
+                class="buy-button btn-primary btn-md btn-bold"
+                icon="arrow-right"
+                :text="$t('nft_details.place_bid')"
+              />
+            </template>
+          </BaseModal>
+        </div>
       </div>
     </div>
   </div>
@@ -135,14 +157,16 @@
 <script>
 import DetailsTab from './DetailsTab.vue';
 import HistoryTab from './HistoryTab.vue';
+import BidModal from './BidModal.vue';
 
 export default {
-  components: { DetailsTab, HistoryTab },
+  components: { DetailsTab, HistoryTab, BidModal },
   data() {
     return {
       showBids: true,
       showDetails: false,
       showHistory: false,
+      isModalVisible: false,
 
       tabTitleList: [
         {
@@ -212,7 +236,15 @@ export default {
       },
     };
   },
-
+  methods: {
+    showModal() {
+      this.isModalVisible = true;
+      console.log('in modal fn');
+    },
+    closeModal() {
+      this.isModalVisible = false;
+    },
+  },
 };
 </script>
 <style scoped>
