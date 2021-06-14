@@ -34,7 +34,13 @@
             <BaseRoundButton
               class="btn-outline-primary btn-sm"
               :text="$t('edit_profile.choose_file')"
+              @click="selectProfile"
             />
+            <input
+              id="select-profile"
+              accept="image/*"
+              type="file"
+            >
           </div>
         </div>
       </div>
@@ -65,9 +71,17 @@
       <BaseRoundButton
         class="send-btn btn-primary btn-md btn-bold"
         icon="arrow-right"
+        style="margin-bottom: 2rem;"
         :submit="true"
         :text="$t('edit_profile.update_btn')"
       />
+      <div class="verified">
+        <router-link
+          to="/"
+        >
+          {{ $t("edit_profile.need_verified_account") }}
+        </router-link>
+      </div>
     </Form>
   </div>
 </template>
@@ -94,6 +108,9 @@ export default {
   methods: {
     onSubmit(data) {
       // call API...
+    },
+    selectProfile() {
+      document.getElementById('select-profile').click();
     },
   },
 };
@@ -137,6 +154,10 @@ export default {
   margin-top: 2.5rem;
 }
 
+.verified {
+  margin-bottom: 2rem;
+}
+
 .flex {
   display: flex;
 }
@@ -158,6 +179,10 @@ export default {
 .recommend p {
   color: rgba(0, 0, 0, 0.25);
   font-size: 0.9rem;
+}
+
+.recommend input {
+  display: none;
 }
 
 @media (max-width: 30em) {
