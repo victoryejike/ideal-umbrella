@@ -65,9 +65,17 @@
       <BaseRoundButton
         class="send-btn btn-primary btn-md btn-bold"
         icon="arrow-right"
+        style="margin-bottom: 2rem;"
         :submit="true"
         :text="$t('edit_profile.update_btn')"
       />
+      <div class="verified">
+        <router-link
+          to="/"
+        >
+          {{ $t("edit_profile.need_verified_account") }}
+        </router-link>
+      </div>
     </Form>
   </div>
 </template>
@@ -135,6 +143,10 @@ export default {
 
 .input-field {
   margin-top: 2.5rem;
+}
+
+.verified {
+  margin-bottom: 2rem;
 }
 
 .flex {
