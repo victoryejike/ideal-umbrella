@@ -26,7 +26,7 @@
           <div class="profile-img">
             <img
               class="profile"
-              src="../../assets/svg/profile-sample.svg"
+              src="../../assets/image/profile-bg.png"
             >
           </div>
           <div class="recommend">
