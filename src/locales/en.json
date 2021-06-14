@@ -187,6 +187,22 @@
     "share": "Share",
     "username": "Chris Torres"
   },
+  "edit_profile": {
+    "avatar": "Avatar",
+    "choose_file":"Choose File",
+    "recommend": "We recommend an image of at least 400x400. Gifs work too.",
+    "edit_profile": "EDIT PROFILE",
+    "account": "ACCOUNT",
+    "display_name": "Display Name",
+    "display_name_placeholder": "Enter your display name",
+    "bio": "Bio",
+    "bio_placeholder": "Tell about yourself in a few words",
+    "portfolio": "Personal site or portfolio",
+    "portfolio_placeholder": "https://",
+    "email": "E-Mail",
+    "email_placeholder": "Your E-mail for marketplace notifications",
+    "update_btn": "Update"
+  },
   "rabind_email_screen": {
     "cancel": "Cancel",
     "confirm": "Confirm",
