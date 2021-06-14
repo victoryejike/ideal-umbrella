@@ -29,11 +29,11 @@
 </template>
 <script>
 
+import Huobi from '@svg/huobi.svg';
+import MetaMask from '@img/metamask.png';
+import coinBase from '@svg/coinbase.svg';
+import ConnectCard from '@/components/Wallet/ConnectCard.vue';
 import BaseFrame from './BaseFrame.vue';
-import ConnectCard from '../../components/Wallet/ConnectCard.vue';
-import Huobi from '../../assets/svg/huobi.svg';
-import MetaMask from '../../assets/svg/metamask_Fox 1.svg';
-import coinBase from '../../assets/svg/coinbase.svg';
 
 export default {
   name: 'NFT',

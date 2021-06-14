@@ -20,12 +20,12 @@
         <img
           v-else-if="icon === 'mail'"
           class="card-header-icon"
-          src="@svg/mail-blue.svg"
+          src="@svg/mail.svg"
         >
         <img
           v-else-if="icon === 'phone'"
           class="card-header-icon"
-          src="@svg/phone-blue.svg"
+          src="@svg/phone.svg"
         >
       </div>
       <div class="card-body">
@@ -79,9 +79,7 @@ export default {
 .card-header-title {
   font-weight: bold;
   overflow: hidden;
-  text-overflow: ellipsis;
   text-transform: uppercase;
-  white-space: nowrap;
   width: 92%;
 }
 
@@ -104,6 +102,7 @@ export default {
   -webkit-line-clamp: 3;
   margin-top: 0.625rem;
   overflow: hidden;
+  white-space: normal;
   width: 92%;
 }
 

@@ -20,7 +20,9 @@
       class="type"
     >
       <h5>{{ type }}</h5>
-      <p>{{ text }}</p>
+      <p class="text">
+        {{ text }}
+      </p>
     </div>
   </div>
 </template>
@@ -49,6 +51,7 @@ export default {
 }
 
 .img-container {
+  height: 6rem;
   padding: 2rem;
   text-align: center;
 }
@@ -66,6 +69,10 @@ export default {
 .type p {
   color: #808080;
   font-size: 0.7rem;
+}
+
+.text {
+  white-space: normal;
 }
 
 .relative {

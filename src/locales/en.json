@@ -34,6 +34,13 @@
     "description": "Connect with one of available wallet providers or create a new wallet.",
     "title": "Connect your Wallet"
   },
+  "created": {
+    "no_item": {
+      "btn": "Create",
+      "found": "No items found",
+      "text": "Do you want to create one to sell now?"
+    }
+  },
   "default": "Default Template",
   "footer": {
     "fanschain": {
@@ -67,6 +74,7 @@
     "sms_code": "SMS Code"
   },
   "header": {
+    "create": "Create",
     "discover": "Discover",
     "fanschain": "Fanschain",
     "how_it_works": "How it works",
@@ -129,10 +137,17 @@
       "title": "My NFT",
       "wallet": "Wallet"
     },
+    "profile": {
+      "edit_profile": "Edit Profile",
+      "logout": "Logout",
+      "setting": "Account Setting"
+    },
     "register": "Register"
   },
   "nft_details": {
+    "blockchain": "Blockchain",
     "buy_now": "Buy Now",
+    "contact_details": "Contact Details",
     "content": "Symbiotic refers to a failed lab experiment, a reaction of two different organisms. Symbiotic refers to a failed lab experiment, a reaction of ...",
     "creator": "Creator",
     "description": "Description",
@@ -144,10 +159,8 @@
       "details": "DETAILS",
       "history": "HISTORY"
     },
-    "token_text": "Everydays - The First 5000 Days",
-    "contact_details":"Contact Details",
-    "token_id":"Token ID",
-    "blockchain":"Blockchain"
+    "token_id": "Token ID",
+    "token_text": "Everydays - The First 5000 Days"
   },
   "nft_index": {
     "button_text": "Timed Auctions",
@@ -264,12 +277,5 @@
     "required_msg": "Field cannot be empty.",
     "sms_msg": "The code should be a 6 digit number.",
     "username_msg": "Invalid username, it should be an email address or a phone number."
-  },
-  "created": {
-    "no_item":{
-      "found": "No items found",
-      "text": "Do you want to create one to sell now?",
-      "btn": "Create"
-    }
   }
 }

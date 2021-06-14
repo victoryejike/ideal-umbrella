@@ -1,12 +1,10 @@
 <template>
   <div
     class="menu-3line-btn"
-    :class="{ 'active' : active }"
-    @click="$store.commit('toggleMenu')"
+    :class="{ active: active }"
+    @click="$store.dispatch('style/toggleMenu')"
   >
-    <div
-      class="btn-root"
-    >
+    <div class="btn-root">
       <span class="btn-line btn-line-1" />
       <span class="btn-line btn-line-2" />
       <span class="btn-line btn-line-3" />

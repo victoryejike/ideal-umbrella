@@ -86,7 +86,6 @@ export default {
 }
 
 .register-div {
-  color: rgba(0, 0, 0, 0.75);
   margin-top: 2rem;
 }
 

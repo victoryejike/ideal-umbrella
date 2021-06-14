@@ -10,8 +10,7 @@
         >
           <template #icon>
             <img
-              class="button-icon"
-              src="@svg/art.svg"
+              src="@img/art.png"
             >
           </template>
         </BaseRoundButton>
@@ -28,7 +27,7 @@
           <div class="creater-details">
             <img
               class="creater-image"
-              src="@img/creater_image.png"
+              src="@img/default-avatar.png"
             >
             <span class="creater-name">{{ creater.name }}</span>
             <img
@@ -274,11 +273,6 @@ export default {
   padding: 0.3rem 1.75rem;
 }
 
-.button-icon {
-  margin-right: 0.375em;
-  margin-top: 0.1875em;
-}
-
 .creater-image {
   border-radius: 50%;
 }
@@ -319,6 +313,7 @@ label {
   font-weight: 600;
   line-height: 1.125rem;
   margin-bottom: 0.625rem;
+  white-space: normal;
 }
 
 .bids-main-div {
@@ -343,7 +338,7 @@ label {
 
 .coin {
   color: #6374c3;
-  font-size: 18px;
+  font-size: 1.1rem;
   font-weight: bold;
   line-height: 100%;
   margin-left: 0.375rem;
@@ -355,7 +350,7 @@ label {
   font-size: 1rem;
   letter-spacing: 0.01em;
   line-height: 1.75rem;
-  margin-left: 10px;
+  margin-left: 0.625rem;
 }
 
 .read-more {
@@ -365,7 +360,6 @@ label {
 }
 
 .author {
-  color: #000;
   font-size: 0.875rem;
   font-weight: bold;
   line-height: 100%;

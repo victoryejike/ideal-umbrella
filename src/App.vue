@@ -2,7 +2,7 @@
   <AppMobileMenu id="menu" />
   <div
     id="root"
-    :class="{'scroll-lock':$store.state.isMenuOpen}"
+    :class="{'scroll-lock':$store.state.style.isMenuOpen}"
   >
     <div
       id="wrapper"
@@ -38,18 +38,21 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
+@import "@/assets/scss/variables";
 @import url('https://fonts.googleapis.com/css2?family=Mulish:wght@500;600;700;800&display=swap');
 
 * {
+  text-overflow: ellipsis;
   transition: all 0.5s;
+  white-space: nowrap;
 }
 
 body {
-  background: url('./assets/image/background.png') no-repeat center center fixed;
+  background: url('~@img/background.png') no-repeat center center fixed;
   background-size: cover;
   box-sizing: border-box;
-  color: #000;
+  color: $base-text-color;
   font-family: 'Mulish', sans-serif;
   margin: 0;
 }
@@ -57,7 +60,6 @@ body {
 a {
   color: #2c43ad;
   text-decoration: none;
-  white-space: nowrap;
 }
 
 #wrapper {

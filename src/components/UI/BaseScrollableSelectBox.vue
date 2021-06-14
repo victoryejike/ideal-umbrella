@@ -156,10 +156,10 @@ export default {
 .selector-menu {
   border-bottom: 0.1rem solid var(--border-color);
   max-height: 10.4rem;
-  overflow-y: scroll;
+  overflow: scroll;
   position: absolute;
   scrollbar-width: none;
-  z-index: 1000;
+  z-index: 1;
 }
 
 .selector-menu::-webkit-scrollbar {
@@ -174,8 +174,6 @@ export default {
 .options-text {
   flex-grow: 1;
   overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
 .active {

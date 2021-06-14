@@ -4,7 +4,8 @@
     <div class="profile-img">
       <img
         class="profile"
-        src="../../assets/svg/profile-sample.svg"
+        :onerror="$global.handleAvatarError"
+        src="@img/default-avatar.png"
       >
     </div>
     <div class="profile-details">
@@ -12,7 +13,7 @@
         <h3>
           Chris Torres
           <img
-            src="../../assets/svg/check.svg"
+            src="@svg/tick.svg"
             width="12"
           >
         </h3>
@@ -39,8 +40,8 @@ export default {
 
 <style scoped>
   .top {
-    background-image: url("../../assets/svg/profile-bg.svg");
-    border-radius: 10px;
+    background-image: url("~@img/profile-bg.png");
+    border-radius: 0.625rem;
     padding: 5rem;
   }
 
@@ -50,10 +51,10 @@ export default {
   }
 
   .profile {
-    border: 3px solid #fff;
-    border-radius: 360px;
-    height: 100px;
-    width: 100px;
+    border: 0.1875rem solid #fff;
+    border-radius: 22.5rem;
+    height: 6.25rem;
+    width: 6.25rem;
   }
 
   .profile-details {
@@ -62,8 +63,8 @@ export default {
   }
 
   .verified {
-    background: #2C43AD;
-    border-radius: 360px;
+    background: #2c43ad;
+    border-radius: 22.5rem;
     height: 0.8rem;
     width: 0.8rem;
   }
@@ -73,13 +74,14 @@ export default {
   }
 
   .profile-actions {
-    display: block ruby;
+    display: flex;
+    justify-content: center;
   }
 
   .action {
-    font-size: 12px;
+    font-size: 0.75rem;
     font-weight: 600;
-    margin: 5px;
+    margin: 0.3125rem;
   }
 
   .p1 {

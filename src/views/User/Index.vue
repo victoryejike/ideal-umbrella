@@ -5,6 +5,7 @@
         <img
           class="phone"
           src="@svg/phone.svg"
+          style="filter: saturate(100%) brightness(0);"
           width="15"
         >
         <span>{{ phone }}</span>
@@ -118,7 +119,6 @@ export default {
   font-size: 2rem;
   font-weight: bold;
   line-height: 150%;
-  white-space: nowrap;
 }
 
 .ver-btn {

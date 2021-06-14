@@ -64,7 +64,7 @@ export default {
   align-items: center;
   display: flex;
   margin-right: -2.5rem;
-  margin-top: 0;
+  margin-top: 2.5rem;
 }
 
 .social-media-icons {
@@ -73,16 +73,6 @@ export default {
 
 .copyright-text {
   margin-right: 1rem;
-  margin-top: 0;
-}
-
-@media (max-width: 70em) {
-  .social-media {
-    margin-top: 2.5rem;
-  }
-
-  .copyright-text {
-    margin-top: 2.5rem;
-  }
+  margin-top: 2.5rem;
 }
 </style>

@@ -136,37 +136,37 @@ export default {
 }
 
 .color-dark {
-  color:#91A2FA;
+  color: #91a2fa;
 }
 
 .coin-name span {
   color: #808080;
-  font-size: 11px;
-  margin-left: 17px;
+  font-size: 0.6875rem;
+  margin-left: 1.0625rem;
 }
 
 .coin-name b {
   color: #808080;
-  margin-left: 17px;
+  margin-left: 1.0625rem;
 }
 
 .wallet-table {
-  margin: 30px auto;
+  margin: 1.875rem auto;
   width: 100%;
 }
 
 th,
 td {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+  border-bottom: 0.0625rem solid rgba(0, 0, 0, 0.25);
   color: #808080;
-  font-size: 14px;
-  padding: 15px;
-  padding-bottom: 20px;
+  font-size: 0.875rem;
+  padding: 0.9375rem;
+  padding-bottom: 1.25rem;
   text-align: left;
 }
 
 td a {
-  font-size: 12px;
-  padding: 10px;
+  font-size: 0.75rem;
+  padding: 0.625rem;
 }
 </style>

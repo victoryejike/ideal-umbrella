@@ -53,6 +53,7 @@
           class="input-group-icon"
           height="20"
           src="@svg/phone.svg"
+          style="filter: saturate(100%) brightness(0); opacity: 0.5;"
           width="12"
         >
         <!-- TODO: Better UI -->
@@ -181,12 +182,9 @@ export default {
 }
 
 .input-group-text {
-  color: rgba(0, 0, 0, 0.75);
   font-size: 0.9rem;
   margin-bottom: 1.2rem;
   overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
 .input-group-icon {
@@ -197,7 +195,6 @@ export default {
 
 .input-group-button {
   align-self: center;
-  white-space: nowrap;
 }
 
 .inline-block {
@@ -210,7 +207,6 @@ export default {
 .input-box {
   background-color: transparent;
   border: 0;
-  color: #000;
   flex-grow: 1;
   font-size: 1rem;
   height: 2.5rem;
@@ -223,17 +219,16 @@ export default {
   color: rgba(0, 0, 0, 0.25);
   font-family: "Inter", sans-serif;
   overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .input-line {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+  border-bottom: 0.05rem solid rgba(0, 0, 0, 0.25);
   transition: border-bottom 0.3s ease-in-out;
   width: 100%;
 }
 
 .focus {
-  border-bottom: 1px solid rgba(1, 1, 1, 1);
+  border-bottom: 0.05rem solid rgba(1, 1, 1, 1);
   transition: border-bottom 0.3s ease-in-out;
 }
 

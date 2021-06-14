@@ -4,8 +4,8 @@
   </BaseFrame>
 </template>
 <script>
+import Table from '@/components/Wallet/Table.vue';
 import BaseFrame from './BaseFrame.vue';
-import Table from '../../components/Wallet/Table.vue';
 
 export default {
   name: 'NFT',

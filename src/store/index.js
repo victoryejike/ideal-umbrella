@@ -1,23 +1,18 @@
-import { createStore } from 'vuex';
+import { createStore, createLogger } from 'vuex';
+import modules from './modules/_index';
+
+const debug = process.env.NODE_ENV === 'development';
 
 export default createStore({
-  state: {
-    isMenuOpen: false,
-    gappingTime: false,
-  },
+  modules,
   actions: {
-  },
-  modules: {
-  },
-  mutations: {
-    toggleMenu(state) {
-      if (!this.gappingTime) {
-        this.gappingTime = true;
-        state.isMenuOpen = !state.isMenuOpen;
-        setTimeout(() => {
-          this.gappingTime = false;
-        }, 700);
-      }
+    reset({ commit }) {
+      // resets state of all the modules
+      Object.keys(modules).forEach((moduleName) => {
+        commit(`${moduleName}/RESET`);
+      });
     },
   },
+  strict: debug,
+  plugins: debug ? [createLogger()] : [],
 });

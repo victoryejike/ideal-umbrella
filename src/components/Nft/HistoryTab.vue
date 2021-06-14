@@ -5,7 +5,7 @@
     class="history-main-div"
   >
     <div class="history-inner-div">
-      <div class="">
+      <div class="history-action">
         {{ history.action }}
         <span v-if="history.action=='Listed'">for</span>
       </div>
@@ -82,7 +82,6 @@ export default {
 </script>
 <style scoped>
 .history-main-div {
-  color: #808080;
   font-size: 0.875rem;
   font-style: normal;
   font-weight: bold;
@@ -95,18 +94,22 @@ export default {
   margin-bottom: 0.25rem;
 }
 
+.history-action {
+  color: #808080;
+}
+
 .price {
   color: #6374c3;
   margin-left: 0.375rem;
 }
 
 .date-time {
+  color: #808080;
   font-size: 0.75rem;
   margin-bottom: 1.4063rem;
 }
 
 .author {
-  color: #000;
   margin-left: 0.375rem;
 }
 

@@ -1,86 +1,11 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
+import store from '@/store';
+import publicRoute from './public.route';
+import privateRoute from './private.route';
 
 const routes = [
-  {
-    path: '/',
-    name: 'Index',
-    component: () => import('@view/Index.vue'),
-  },
-  {
-    path: '/login',
-    name: 'Login',
-    component: () => import('@view/Login.vue'),
-  },
-  {
-    path: '/register',
-    name: 'Register',
-    component: () => import('@view/Register.vue'),
-  },
-  {
-    path: '/forgot-password',
-    name: 'ForgotPassword',
-    component: () => import('@view/ForgotPassword.vue'),
-  },
-  {
-    path: '/account-setting',
-    name: 'AccountSetting',
-    component: () => import('@view/User/Index.vue'),
-  },
-  {
-    path: '/account-setting/reset-password',
-    name: 'ResetPassword',
-    component: () => import('@view/User/ResetPassword.vue'),
-  },
-  {
-    path: '/account-setting/id-verification',
-    name: 'IdentityVerification',
-    component: () => import('@view/User/Kyc.vue'),
-  },
-  {
-    path: '/account-setting/rebind-phone',
-    name: 'RebindPhone',
-    component: () => import('@view/User/RebindPhone.vue'),
-  },
-  {
-    path: '/account-setting/rebind-email',
-    name: 'RebindEmail',
-    component: () => import('@view/User/RebindEmail.vue'),
-  },
-  {
-    path: '/nft',
-    name: 'NFT',
-    component: () => import('@view/Nft/Index.vue'),
-  },
-  {
-    path: '/nft/single',
-    name: 'CollectibleSingle',
-    component: () => import('@view/Nft/CollectibleSingle.vue'),
-  },
-  {
-    path: '/nft/multiple',
-    name: 'CollectibleMultiple',
-    component: () => import('@view/Nft/CollectibleMultiple.vue'),
-  },
-  {
-    path: '/connect-wallet',
-    name: 'ConnectWallet',
-    component: () => import('@view/Wallet/Connect.vue'),
-  },
-  {
-    path: '/wallet',
-    name: 'Wallet',
-    component: () => import('@view/Wallet/Index.vue'),
-  },
-  {
-    path: '/token-details',
-    name: 'TokenDetails',
-    component: () => import('@view/Nft/TokenDetails.vue'),
-  },
-  {
-    path: '/profile',
-    name: 'Profile',
-    component: () => import('@view/MyNft/Profile.vue'),
-  },
+  ...publicRoute,
+  ...privateRoute,
 ];
 
 const router = createRouter({
@@ -114,6 +39,20 @@ router.beforeEach((to, from, next) => {
    */
   smoothlyScroll(0, 250);
   next();
+});
+
+router.beforeEach((to, from, next) => {
+  const requiresAuth = to.matched.some((route) => route.meta.requiresAuth);
+
+  // Auth isn't required for the route, just continue.
+  if (!requiresAuth) return next();
+
+  if (store.getters['auth/loggedIn']) {
+    return store.dispatch('auth/validate').then((validUser) => (validUser ? next() : next({ name: 'Login', query: { redirectFrom: to.fullPath } })));
+  }
+
+  // Auth is required and the user is NOT currently logged in
+  return next({ name: 'Login', query: { redirectFrom: to.fullPath } });
 });
 
 export default router;

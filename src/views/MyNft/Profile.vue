@@ -1,18 +1,20 @@
 <template>
-  <BaseFrame />
-  <div class="section">
-    <BaseNavigationTab
-      :list="profileOption"
-      :width="10.6"
-    />
-    <OnSale v-show="visibleSale" />
-    <Created v-show="visibleCreated" />
+  <div>
+    <BaseFrame />
+    <div class="section">
+      <BaseNavigationTab
+        :list="profileOption"
+        :width="10.6"
+      />
+      <OnSale v-show="visibleSale" />
+      <Created v-show="visibleCreated" />
+    </div>
   </div>
 </template>
 <script>
+import OnSale from '@/components/MyNft/OnSale.vue';
+import Created from '@/components/MyNft/Created.vue';
 import BaseFrame from './BaseFrame.vue';
-import OnSale from '../../components/MyNft/OnSale.vue';
-import Created from '../../components/MyNft/Created.vue';
 
 export default {
   name: 'Profile',

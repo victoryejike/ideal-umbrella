@@ -3,7 +3,7 @@
     <img
       class="avatar"
       height="60"
-      :onerror="handleAvatarError"
+      :onerror="$global.handleAvatarError"
       :src="avatar"
       width="60"
     >
@@ -36,12 +36,6 @@ export default {
     totalCoin: { type: Number, required: true },
     verified: { type: Boolean, required: false, default: false },
   },
-  methods: {
-    handleAvatarError(event) {
-      const { target } = event;
-      target.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==';
-    },
-  },
 };
 </script>
 
@@ -53,7 +47,7 @@ export default {
 
 .avatar {
   border: 0.125rem solid #fff;
-  border-radius: 2rem;
+  border-radius: 50%;
   cursor: pointer;
 }
 
@@ -72,8 +66,6 @@ export default {
 
 .author-name {
   overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
   width: 8rem;
 }
 
