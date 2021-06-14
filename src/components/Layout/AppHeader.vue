@@ -35,8 +35,12 @@
           :onerror="$global.handleAvatarError"
           :src="getAvatarURL()"
           width="40"
-          @click="$router.push('profile')"
+          @click="$refs.avatarMenu.toogle"
         >
+        <BaseMenu
+          ref="avatarMenu"
+          :list="menuList"
+        />
       </div>
     </template>
 
@@ -94,6 +98,11 @@ export default {
           name: this.$t('header.login'),
           url: '/login',
         },
+      ],
+      menuList: [
+        { name: this.$t('header.edit_profile'), url: '/edit-profile' },
+        { name: this.$t('header.setting'), url: '/account-setting' },
+        { name: this.$t('header.logout'), url: '' },
       ],
     };
   },

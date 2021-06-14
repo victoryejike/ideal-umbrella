@@ -81,7 +81,10 @@
     "login": "Login",
     "my_nft": "My NFT",
     "register": "Register",
-    "wallet": "Wallet"
+    "wallet": "Wallet",
+    "edit_profile":"Edit Profile",
+    "setting": "Account Setting",
+    "logout": "Logout"
   },
   "index_screen": {
     "banner_text": "NFT Marketplace",
