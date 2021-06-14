@@ -34,7 +34,13 @@
             <BaseRoundButton
               class="btn-outline-primary btn-sm"
               :text="$t('edit_profile.choose_file')"
+              @click="selectProfile"
             />
+            <input
+              id="select-profile"
+              accept="image/*"
+              type="file"
+            >
           </div>
         </div>
       </div>
@@ -103,6 +109,9 @@ export default {
     onSubmit(data) {
       // call API...
     },
+    selectProfile() {
+      document.getElementById('select-profile').click();
+    },
   },
 };
 </script>
@@ -170,6 +179,10 @@ export default {
 .recommend p {
   color: rgba(0, 0, 0, 0.25);
   font-size: 0.9rem;
+}
+
+.recommend input {
+  display: none;
 }
 
 @media (max-width: 30em) {
