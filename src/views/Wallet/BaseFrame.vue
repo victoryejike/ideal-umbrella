@@ -1,14 +1,5 @@
 <template>
   <div class="container">
-    <router-link
-      :class="{'hide': $route.name == 'ConnectWallet'}"
-      to="/connect-wallet"
-    >
-      <img
-        class="back-btn"
-        src="@svg/arrow-back.svg"
-      >
-    </router-link>
     <span
       v-if=" $route.name == 'ConnectWallet'"
       class="title"

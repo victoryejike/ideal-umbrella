@@ -13,7 +13,7 @@
 
 <script>
 export default {
-  name: 'BaseNavigation',
+  name: 'BaseFrame',
   props: {
     url: { type: String, required: false, default: null },
   },
