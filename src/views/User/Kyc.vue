@@ -2,7 +2,7 @@
   <BaseSettingFrame
     :title="$t('kyc_screen.id_verification')"
   >
-    <Form class="kyc-form">
+    <BaseForm class="kyc-form">
       <BaseScrollableSelectBox
         active-color="#DDE1FB"
         :bg-color="backgroundColor"
@@ -43,7 +43,7 @@
           :text="$t('kyc_screen.confirm')"
         />
       </div>
-    </Form>
+    </BaseForm>
   </BaseSettingFrame>
 </template>
 

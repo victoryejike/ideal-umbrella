@@ -1,6 +1,6 @@
 <template>
   <BaseSettingFrame :title="$t('reset_password_screen.reset_password')">
-    <Form class="reset-form">
+    <BaseForm class="reset-form">
       <BaseUnderlinedInput
         class="input-field"
         name="resetPassword"
@@ -50,7 +50,7 @@
           {{ $t("reset_password_screen.cancel") }}
         </router-link>
       </div>
-    </Form>
+    </BaseForm>
   </BaseSettingFrame>
 </template>
 <script>

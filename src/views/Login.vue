@@ -1,8 +1,8 @@
 <template>
   <div class="container">
-    <Form
+    <BaseForm
       class="login-form"
-      @submit="onSubmit"
+      :submit="onSubmit"
     >
       <h1 class="login-text">
         {{ $t("login_screen.login") }}
@@ -45,7 +45,7 @@
           </router-link>
         </div>
       </div>
-    </Form>
+    </BaseForm>
   </div>
 </template>
 

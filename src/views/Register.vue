@@ -1,9 +1,9 @@
 <template>
   <div class="container">
-    <Form
+    <BaseForm
       ref="form"
       class="register-form"
-      @submit="onSubmit"
+      :submit="onSubmit"
     >
       <h1 class="register-text">
         {{ $t("register_screen.register") }}
@@ -98,7 +98,7 @@
         :submit="true"
         :text="$t('register_screen.register')"
       />
-    </form>
+    </BaseForm>
     <div class="login-div">
       {{ $t("register_screen.already_have_account") }}
       <router-link

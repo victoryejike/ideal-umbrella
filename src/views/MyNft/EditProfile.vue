@@ -14,9 +14,9 @@
         />
       </div>
     </div>
-    <Form
+    <BaseForm
       class="edit-profile-form"
-      @submit="onSubmit"
+      :submit="onSubmit"
     >
       <div class="mt-2">
         <div class="input-group-text">
@@ -82,7 +82,7 @@
           {{ $t("edit_profile.need_verified_account") }}
         </router-link>
       </div>
-    </Form>
+    </BaseForm>
   </div>
 </template>
 

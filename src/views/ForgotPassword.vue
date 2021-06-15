@@ -1,8 +1,8 @@
 <template>
   <div class="container">
-    <Form
+    <BaseForm
       class="forgot-password-form"
-      @submit="onSubmit"
+      :submit="onSubmit"
     >
       <h1 class="forgot-password-text">
         {{ $t("forgot_password.forgot_password") }}
@@ -57,7 +57,7 @@
           {{ $t("forgot_password.login") }}
         </router-link>
       </div>
-    </Form>
+    </BaseForm>
   </div>
 </template>
 
