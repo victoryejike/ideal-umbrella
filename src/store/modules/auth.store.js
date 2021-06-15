@@ -21,6 +21,10 @@ const actions = {
     // TODO: CAll API to validate
     return false;
   },
+  logout({ commit, state }) {
+    // ...
+    commit('setUsername', null);
+  },
 };
 
 const mutations = {
@@ -29,6 +33,9 @@ const mutations = {
     Object.keys(newState).forEach((key) => {
       state[key] = newState[key];
     });
+  },
+  setUsername(state, username) {
+    state.username = username;
   },
 };
 

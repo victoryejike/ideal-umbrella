@@ -26,11 +26,9 @@ const mutations = {
       state[key] = newState[key];
     });
   },
-
   setIsMenuOpen(state, status) {
     state.isMenuOpen = status;
   },
-
   setisInterval(state, status) {
     state.isInterval = status;
   },

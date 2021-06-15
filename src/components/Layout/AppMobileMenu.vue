@@ -76,21 +76,21 @@ export default {
   data() {
     return {
       baseList: [
-        { name: this.$t('menu.discovery'), url: '/discover' },
+        { name: this.$t('menu.discovery'), action: '/discover' },
         {
           name: this.$t('menu.nft.title'),
           child: [
-            { name: this.$t('menu.nft.create'), url: '/nft' },
-            { name: this.$t('menu.nft.wallet'), url: '/wallet' },
+            { name: this.$t('menu.nft.create'), action: '/nft' },
+            { name: this.$t('menu.nft.wallet'), action: '/wallet' },
           ],
         },
-        { name: this.$t('menu.how_it_works'), url: '/' },
+        { name: this.$t('menu.how_it_works'), action: '/' },
         {
           name: this.$t('menu.fanschain.title'),
           child: [
-            { name: this.$t('menu.fanschain.exchange'), url: '/' },
-            { name: this.$t('menu.fanschain.fto'), url: '/' },
-            { name: this.$t('menu.fanschain.community'), url: '/' },
+            { name: this.$t('menu.fanschain.exchange'), action: '/' },
+            { name: this.$t('menu.fanschain.fto'), action: '/' },
+            { name: this.$t('menu.fanschain.community'), action: '/' },
           ],
         },
       ],
@@ -99,8 +99,8 @@ export default {
   computed: {
     unLoginList() {
       return [...this.baseList,
-        { name: this.$t('menu.login'), url: '/login' },
-        { name: this.$t('menu.register'), url: '/register' },
+        { name: this.$t('menu.login'), action: '/login' },
+        { name: this.$t('menu.register'), action: '/register' },
       ];
     },
     loggedInList() {
@@ -108,9 +108,9 @@ export default {
         name: this.$store.getters['auth/username'],
         avatar: this.$store.getters['auth/avatar'] || DefaultAvatar,
         child: [
-          { name: this.$t('menu.profile.edit_profile'), url: '/profile' },
-          { name: this.$t('menu.profile.setting'), url: '/account-setting' },
-          { name: this.$t('menu.profile.logout'), url: '/' },
+          { name: this.$t('menu.profile.edit_profile'), action: '/profile' },
+          { name: this.$t('menu.profile.setting'), action: '/account-setting' },
+          { name: this.$t('menu.profile.logout'), action: () => { this.$store.dispatch('auth/logout'); } },
         ],
       }];
     },
@@ -124,7 +124,7 @@ export default {
       if (index >= 1000) {
         const parentIndex = (index / 1000).toFixed(0);
         const childIndex = index % 1000;
-        this.$router.push(this.menuItemList[parentIndex].child[childIndex].url);
+        this.handleAction(this.menuItemList[parentIndex].child[childIndex].action);
       } else if (this.menuItemList[index].child) {
         // Which mean the parent button has dropdown menu
 
@@ -133,11 +133,17 @@ export default {
       } else {
         // Which mean the parent button without dropdown menu
 
-        this.$router.push(this.menuItemList[index].url);
+        this.handleAction(this.menuItemList[index].action);
       }
-
-      this.$store.dispatch('style/toggleMenu');
       return true;
+    },
+    handleAction(action) {
+      if (typeof action === 'string') {
+        this.$router.push(action);
+        this.$store.dispatch('style/toggleMenu');
+      } else if (typeof action === 'function') {
+        action();
+      }
     },
   },
 };

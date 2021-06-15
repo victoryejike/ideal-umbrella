@@ -13,7 +13,7 @@
         v-for="(item, index) in list"
         :key="index"
         class="menu-item"
-        @click="routerPush(item.url)"
+        @click="handleAction(item.action)"
       >
         <span class="menu-item-text">{{ item.name }}</span>
       </div>
@@ -35,8 +35,12 @@ export default {
     };
   },
   methods: {
-    routerPush(url) {
-      this.$router.push(url);
+    handleAction(action) {
+      if (typeof action === 'string') {
+        this.$router.push(action);
+      } else if (typeof action === 'function') {
+        action();
+      }
       this.isActive = false;
     },
     toogle(e) {

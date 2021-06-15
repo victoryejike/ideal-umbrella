@@ -18,6 +18,7 @@
         <BaseRoundButton
           class="logout-btn btn-outline-primary btn-md"
           text="Logout"
+          @click="$store.dispatch('auth/logout')"
         />
       </div>
       <BaseNavigationTab

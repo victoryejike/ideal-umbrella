@@ -100,9 +100,9 @@ export default {
         },
       ],
       menuList: [
-        { name: this.$t('header.edit_profile'), url: '/edit-profile' },
-        { name: this.$t('header.setting'), url: '/account-setting' },
-        { name: this.$t('header.logout'), url: '' },
+        { name: this.$t('header.edit_profile'), action: '/edit-profile' },
+        { name: this.$t('header.setting'), action: '/account-setting' },
+        { name: this.$t('header.logout'), action: () => { this.$store.dispatch('auth/logout'); } },
       ],
     };
   },
