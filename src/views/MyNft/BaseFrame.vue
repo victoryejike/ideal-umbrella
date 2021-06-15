@@ -19,10 +19,12 @@
         </h3>
       </div>
       <div class="profile-actions">
-        <BaseRoundButton
-          class="btn-outline-primary btn-sm action"
-          :text="$t('profile.edit_profile')"
-        />
+        <router-link to="/edit-profile">
+          <BaseRoundButton
+            class="btn-outline-primary btn-sm action"
+            :text="$t('profile.edit_profile')"
+          />
+        </router-link>
         <BaseRoundButton
           class="btn-outline-primary btn-sm action p1"
           :text="$t('profile.share')"
