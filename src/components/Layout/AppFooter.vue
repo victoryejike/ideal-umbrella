@@ -55,7 +55,7 @@ export default {
         {
           header: this.$t('footer.nft.title'),
           content: [
-            { name: this.$t('footer.nft.discover'), url: '/' },
+            { name: this.$t('footer.nft.discover'), url: '/discover' },
             { name: this.$t('footer.nft.create'), url: '/' },
             { name: this.$t('footer.nft.profile'), url: '/' },
             { name: this.$t('footer.nft.wallet'), url: '/' },

@@ -24,6 +24,11 @@ const publicRoute = [
     name: 'TokenDetails',
     component: () => import('@view/Nft/TokenDetails.vue'),
   },
+  {
+    path: '/discover',
+    name: 'Discover',
+    component: () => import('@view/Discover.vue'),
+  },
 ];
 
 export default publicRoute;

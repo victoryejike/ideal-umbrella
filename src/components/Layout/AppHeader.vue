@@ -80,7 +80,7 @@ export default {
       publicLinks: [
         {
           name: this.$t('header.discover'),
-          url: '/',
+          url: '/discover',
         },
         {
           name: this.$t('header.my_nft'),

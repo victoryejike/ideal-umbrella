@@ -76,7 +76,7 @@ export default {
   data() {
     return {
       baseList: [
-        { name: this.$t('menu.discovery'), url: '/' },
+        { name: this.$t('menu.discovery'), url: '/discover' },
         {
           name: this.$t('menu.nft.title'),
           child: [
