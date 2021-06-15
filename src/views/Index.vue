@@ -86,16 +86,7 @@
         />
       </template>
       <template #content>
-        <div class="filter-container">
-          <BaseRoundButton
-            v-for="(item, index) in filterBtn"
-            :key="index"
-            class="filter-btn btn-outline-secondary btn-bold"
-            :class="[filterSize, {'filter-btn-active': item.isActive}]"
-            :text="item.name"
-            @click="toogleFilterBtn(index)"
-          />
-        </div>
+        <FilterList />
         <div
           class="gridbox discover-gridbox"
           :style="{gridTemplateColumns: gridSetting.discoverSection.templateSize}"
@@ -128,10 +119,13 @@
 import AuthorBlock from '@/components/Index/AuthorBlock.vue';
 import IndexSection from '@/components/Index/IndexSection.vue';
 import SearchBar from '@/components/Index/SearchBar.vue';
+import FilterList from '@/components/Discover/FilterList.vue';
 
 export default {
   name: 'Index',
-  components: { AuthorBlock, IndexSection, SearchBar },
+  components: {
+    AuthorBlock, IndexSection, SearchBar, FilterList,
+  },
   data() {
     // TODO: Fake data to real data
     return {
@@ -169,15 +163,6 @@ export default {
         this.$t('index_screen.discover_tab.cheap'),
         this.$t('index_screen.discover_tab.high'),
       ],
-      filterBtn: [
-        { name: '🎨 Art', isActive: true },
-        { name: '🎵 Music', isActive: false },
-        { name: '⚽ Sports', isActive: false },
-        { name: '📸 Photography', isActive: false },
-        { name: '💎 Collectibles', isActive: false },
-      ],
-      activeFilterIndex: 0,
-      filterSize: 'btn-lg',
       popularSection: {
         size: 220,
         padding: '1.25rem 1.875rem',
@@ -228,7 +213,6 @@ export default {
           size: 180,
         };
         this.gridSetting.discoverSection.size = 140;
-        this.filterSize = 'btn-md-2';
         setTimeout(() => { this.calcGridTemplateSize(); }, 400);
       }
     },
@@ -243,7 +227,6 @@ export default {
           size: 220,
         };
         this.gridSetting.discoverSection.size = 190;
-        this.filterSize = 'btn-lg';
         setTimeout(() => { this.calcGridTemplateSize(); }, 400);
       }
     },
@@ -251,11 +234,6 @@ export default {
       const dom = document.querySelector(`.${className}`);
       const width = dom.clientWidth || dom.width;
       return width / 16;
-    },
-    toogleFilterBtn(index) {
-      this.filterBtn[this.activeFilterIndex].isActive = false;
-      this.filterBtn[index].isActive = true;
-      this.activeFilterIndex = index;
     },
   },
 };
@@ -337,23 +315,6 @@ export default {
   grid-row-gap: 3rem;
 }
 
-.filter-container {
-  display: flex;
-  flex-wrap: wrap;
-  margin-bottom: 3.5rem;
-}
-
-.filter-btn {
-  margin-bottom: 0.6rem;
-  margin-right: 1.2rem;
-}
-
-.filter-btn-active {
-  background-color: #586dc2;
-  color: #fff;
-  transition: all 0s;
-}
-
 .load-more-btn {
   margin: auto auto;
   margin-top: 3.5rem;
@@ -399,16 +360,6 @@ export default {
   .seller-gridbox {
     grid-row-gap: 2.5rem;
     max-height: 23.5rem;
-  }
-}
-
-@media (max-width: 54em) {
-  .filter-container {
-    margin-right: -0.6rem;
-  }
-
-  .filter-btn {
-    margin-right: 0.6rem;
   }
 }
 
