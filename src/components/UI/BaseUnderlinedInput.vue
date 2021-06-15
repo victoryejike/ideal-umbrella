@@ -257,6 +257,7 @@ select::-ms-expand {
   font-size: 0.85rem;
   margin-top: 0.2rem;
   text-align: justify;
+  white-space: normal;
 }
 
 .shake {

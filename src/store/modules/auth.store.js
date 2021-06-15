@@ -1,3 +1,5 @@
+import router from '@/router';
+
 const initialState = () => ({
   username: process.env.NODE_ENV === 'development' ? 'Tester' : null,
   avatarURL: null,
@@ -23,7 +25,10 @@ const actions = {
   },
   logout({ commit, state }) {
     // ...
-    commit('setUsername', null);
+    setTimeout(() => {
+      router.push('/');
+      commit('setUsername', null);
+    }, 400);
   },
 };
 

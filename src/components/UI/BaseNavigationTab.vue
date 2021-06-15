@@ -25,12 +25,13 @@ export default {
   props: {
     list: { type: Array, required: true },
     width: { type: Number, required: false, default: 0 },
+    actionIndex: { type: Number, required: false, default: 0 },
   },
   data() {
     return {
-      currentActiveIndex: 0,
+      currentActiveIndex: this.actionIndex,
       functionList: [],
-      isActive: [true],
+      isActive: [],
       titleList: [],
     };
   },
@@ -39,6 +40,7 @@ export default {
       this.titleList.push((typeof this.list[i] === 'string') ? this.list[i] : this.list[i].name);
       this.functionList.push((typeof this.list[i] === 'string') ? null : this.list[i].handler);
     }
+    this.isActive[this.currentActiveIndex] = true;
   },
   methods: {
     execute(index) {
