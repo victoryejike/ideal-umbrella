@@ -2,16 +2,16 @@
   <div class="container">
     <div class="header">
       <div class="title-div">
-        <span
-          ref="title"
+        <div
           class="title"
+          :style="!underlined ? 'width: 100%':null"
         >
           {{ title }}
-        </span>
-        <div
-          class="title-underline"
-          :style="{width: underlineWidth}"
-        />
+          <div
+            v-if="underlined"
+            class="title-underline"
+          />
+        </div>
       </div>
       <slot name="right" />
     </div>
@@ -25,17 +25,12 @@ export default {
   name: 'IndexSection',
   props: {
     title: { type: String, required: true },
+    underlined: { type: Boolean, required: false, default: true },
   },
   data() {
     return {
-      underlineWidth: '8rem',
+
     };
-  },
-  mounted() {
-    setTimeout(() => {
-      const width = this.$refs.title.clientWidth / 16;
-      this.underlineWidth = `${width}rem`;
-    }, 100);
   },
 };
 </script>
@@ -46,6 +41,7 @@ export default {
 }
 
 .header {
+  align-items: center;
   display: flex;
   justify-content: space-between;
   margin-bottom: 5rem;
@@ -54,17 +50,18 @@ export default {
 .title-div {
   font-size: 2rem;
   font-weight: bold;
+  width: 50%;
 }
 
 .title {
   display: inline-block;
+  overflow: hidden;
 }
 
 .title-underline {
   background: #6374c3;
-  height: 0.125rem;
+  height: 0.1rem;
   margin-top: 0.5rem;
-  width: 9.4rem;
 }
 
 @media (max-width: 46em) {

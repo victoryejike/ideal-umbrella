@@ -42,6 +42,10 @@
     }
   },
   "default": "Default Template",
+  "discover_screen": {
+    "title": "Discover the latest NFT in the market",
+    "search_result":"Searching results for: {0}"
+  },
   "edit_profile": {
     "account": "ACCOUNT",
     "avatar": "Avatar",
