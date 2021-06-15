@@ -1,6 +1,8 @@
 const path = require('path');
 
 module.exports = {
+  crossorigin: 'anonymous',
+  integrity: true,
   configureWebpack: {
     resolve: {
       alias: {
