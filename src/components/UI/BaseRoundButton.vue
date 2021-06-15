@@ -94,6 +94,10 @@ export default {
   font-weight: bold;
 }
 
+.btn-unclickable {
+  pointer-events: none;
+}
+
 /* Button Size Classes */
 
 .btn-xl {

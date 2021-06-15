@@ -12,7 +12,7 @@
       </div>
       <div class="flex">
         <BaseRoundButton
-          class="ver-btn btn-outline-danger btn-sm"
+          class="ver-btn btn-outline-danger btn-unclickable btn-sm"
           text="No ID Verification"
         />
         <BaseRoundButton
