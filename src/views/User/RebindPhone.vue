@@ -1,6 +1,6 @@
 <template>
   <BaseSettingFrame :title="$t('rabind_phone_screen.rebind_phone')">
-    <Form class="rebind-form">
+    <BaseForm class="rebind-form">
       <BaseUnderlinedInput
         class="input-field"
         name="resetPassword"
@@ -80,7 +80,7 @@
           {{ $t("reset_password_screen.cancel") }}
         </router-link>
       </div>
-    </Form>
+    </BaseForm>
   </BaseSettingFrame>
 </template>
 <script>

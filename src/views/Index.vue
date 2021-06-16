@@ -21,6 +21,7 @@
         </h1>
         <SearchBar
           :width="36.25"
+          @click="handleSearch($event)"
         />
         <BaseRoundButton
           class="mobile-search-btn btn-primary btn-lg btn-bold"
@@ -60,7 +61,6 @@
       <template #content>
         <div
           class="gridbox seller-gridbox"
-          :style="{gridTemplateColumns: gridSetting.sellerSection.templateSize}"
         >
           <AuthorBlock
             v-for="(item, index) in topSellerList"
@@ -78,40 +78,7 @@
         />
       </template>
     </IndexSection>
-    <IndexSection :title="$t('index_screen.title.discover')">
-      <template #right>
-        <BaseNavigationTab
-          :list="discoverTab"
-          :width="10"
-        />
-      </template>
-      <template #content>
-        <FilterList />
-        <div
-          class="gridbox discover-gridbox"
-          :style="{gridTemplateColumns: gridSetting.discoverSection.templateSize}"
-        >
-          <BaseProductCard
-            v-for="(item, index) in discoverList"
-            :id="item.id"
-            :key="index"
-            :author="item.author"
-            :avatar="item.avatar"
-            :bg-color="null"
-            class="discover-product-card"
-            :image="item.image"
-            :name="item.name"
-            :price="item.price"
-            :size="gridSetting.discoverSection.size"
-            :verified="item.verified"
-          />
-        </div>
-        <BaseRoundButton
-          class="load-more-btn btn-outline-primary btn-xl"
-          :text="$t('index_screen.more')"
-        />
-      </template>
-    </IndexSection>
+    <DiscoverSection :title="$t('index_screen.title.discover')" />
   </div>
 </template>
 
@@ -119,12 +86,17 @@
 import AuthorBlock from '@/components/Index/AuthorBlock.vue';
 import IndexSection from '@/components/Index/IndexSection.vue';
 import SearchBar from '@/components/Index/SearchBar.vue';
-import FilterList from '@/components/Discover/FilterList.vue';
+import DiscoverSection from '@/components/Discover/DiscoverSection.vue';
 
+/*
+  This is a px value like media query, if the width lower then this value,
+  ProductCard will be responsive
+*/
+const MAX_WIDTH = 1000;
 export default {
   name: 'Index',
   components: {
-    AuthorBlock, IndexSection, SearchBar, FilterList,
+    AuthorBlock, IndexSection, SearchBar, DiscoverSection,
   },
   data() {
     // TODO: Fake data to real data
@@ -144,96 +116,44 @@ export default {
         totalCoin: 867.00012,
         verified: true,
       }),
-      discoverList: Array(10).fill({
-        id: 'V3isglWtYb5qIy24QbTJeoJjuV35fEDd0RoL',
-        avatar: 'avatar.png',
-        author: 'Otha Davis III',
-        image: 'image.png',
-        name: 'Crypto Mask',
-        price: 67.456,
-        verified: true,
-      }),
       sellerTab: [
         this.$t('index_screen.seller_tab.day'),
         this.$t('index_screen.seller_tab.month'),
         this.$t('index_screen.seller_tab.week'),
       ],
-      discoverTab: [
-        this.$t('index_screen.discover_tab.recent'),
-        this.$t('index_screen.discover_tab.cheap'),
-        this.$t('index_screen.discover_tab.high'),
-      ],
-      popularSection: {
-        size: 220,
-        padding: '1.25rem 1.875rem',
-      },
-      gridSetting: {
-        sellerSection: {
-          name: 'seller-block',
-          templateSize: null,
-        },
-        discoverSection: {
-          name: 'discover-product-card > div > img',
-          templateSize: null,
-          size: 190,
-          padding: null,
-        },
-      },
+      popularSection: {},
     };
   },
   mounted() {
-    /*
-      This is a px value like media query, if the width lower then this value,
-      ProductCard will be responsive
-    */
-    this.MAX_WIDTH = 1000;
-
-    /*
-      Two function will be run to check the value of current width after mounted,
-      should have a better code version I guess, just a temporarily implementation
-    */
-    this.mobileResponsive();
-    this.pcResponsive();
+    return window.innerWidth > MAX_WIDTH
+      ? this.pcResponsive()
+      : this.mobileResponsive();
   },
   methods: {
-    calcGridTemplateSize() {
-      const setting = this.gridSetting;
-      Object.keys(setting).forEach((key) => {
-        setting[key].templateSize = `repeat(auto-fit, ${this.getWidth(setting[key].name)}rem)`;
-      });
-    },
     mobileResponsive() {
-      if (window.innerWidth <= this.MAX_WIDTH) {
-        window.removeEventListener('resize', window);
+      if (window.innerWidth <= MAX_WIDTH) {
+        window.removeEventListener('resize', this.mobileResponsive);
         window.addEventListener('resize', this.pcResponsive);
 
         this.popularSection = {
-          ...this.popularSection,
           padding: '1rem 1.25rem',
           size: 180,
         };
-        this.gridSetting.discoverSection.size = 140;
-        setTimeout(() => { this.calcGridTemplateSize(); }, 400);
       }
     },
     pcResponsive() {
-      if (window.innerWidth > this.MAX_WIDTH) {
-        window.removeEventListener('resize', window);
+      if (window.innerWidth > MAX_WIDTH) {
+        window.removeEventListener('resize', this.pcResponsive);
         window.addEventListener('resize', this.mobileResponsive);
 
         this.popularSection = {
-          ...this.popularSection,
           padding: '1.25rem 1.875rem',
           size: 220,
         };
-        this.gridSetting.discoverSection.size = 190;
-        setTimeout(() => { this.calcGridTemplateSize(); }, 400);
       }
     },
-    getWidth(className) {
-      const dom = document.querySelector(`.${className}`);
-      const width = dom.clientWidth || dom.width;
-      return width / 16;
+    handleSearch(value) {
+      this.$router.push({ path: '/discover', query: { value } });
     },
   },
 };
@@ -295,24 +215,16 @@ export default {
   margin-right: 1.25rem;
 }
 
-.discover-product-card {
-  margin-top: 0.3rem;
-}
-
 .gridbox {
   display: grid;
   justify-content: space-between;
   overflow: hidden hidden;
 }
 
-.discover-gridbox {
-  grid-gap: 1.25rem;
-  grid-row-gap: 5rem;
-}
-
 .seller-gridbox {
-  grid-gap: 4rem;
+  grid-column-gap: 4rem;
   grid-row-gap: 3rem;
+  grid-template-columns: repeat(auto-fit, 14.625rem);
 }
 
 .load-more-btn {
@@ -352,9 +264,9 @@ export default {
 }
 
 @media (max-width: 62.5em) {
-  .discover-gridbox {
-    grid-row-gap: 3rem;
-    max-height: 48.5rem;
+  .discover-section {
+    max-height: 67rem;
+    overflow: hidden;
   }
 
   .seller-gridbox {

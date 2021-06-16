@@ -42,6 +42,27 @@
     }
   },
   "default": "Default Template",
+  "discover_screen": {
+    "title": "Discover the latest NFT in the market",
+    "search_result":"Searching results for: {0}"
+  },
+  "edit_profile": {
+    "account": "ACCOUNT",
+    "avatar": "Avatar",
+    "bio": "Bio",
+    "bio_placeholder": "Tell about yourself in a few words",
+    "choose_file": "Choose File",
+    "display_name": "Display Name",
+    "display_name_placeholder": "Enter your display name",
+    "edit_profile": "EDIT PROFILE",
+    "email": "E-Mail",
+    "email_placeholder": "Your E-mail for marketplace notifications",
+    "need_verified_account": "Need a verified account?",
+    "portfolio": "Personal site or portfolio",
+    "portfolio_placeholder": "https://",
+    "recommend": "We recommend an image of at least 400x400. Gifs work too.",
+    "update_btn": "Update"
+  },
   "footer": {
     "fanschain": {
       "community": "Community",
@@ -76,15 +97,15 @@
   "header": {
     "create": "Create",
     "discover": "Discover",
+    "edit_profile": "Edit Profile",
     "fanschain": "Fanschain",
     "how_it_works": "How it works",
     "login": "Login",
+    "logout": "Logout",
     "my_nft": "My NFT",
     "register": "Register",
-    "wallet": "Wallet",
-    "edit_profile":"Edit Profile",
     "setting": "Account Setting",
-    "logout": "Logout"
+    "wallet": "Wallet"
   },
   "index_screen": {
     "banner_text": "NFT Marketplace",
@@ -148,6 +169,16 @@
     "register": "Register"
   },
   "nft_details": {
+    "bid": {
+      "bid-content": "You are about to place a bid for",
+      "quantity_label": "Quantity",
+      "service_fee": "Service fee",
+      "total_bid_amount": "Total bid amount",
+      "user_balance": "Your balance",
+      "user_bid_label": "Your bid",
+      "user_bid_placeholder": "Enter bid",
+      "user_bidding_balance": "Your bidding balance"
+    },
     "blockchain": "Blockchain",
     "buy_now": "Buy Now",
     "contact_details": "Contact Details",
@@ -163,19 +194,7 @@
       "history": "HISTORY"
     },
     "token_id": "Token ID",
-    "token_text": "Everydays - The First 5000 Days",
-    "bid": {
-      "bid-content":"You are about to place a bid for",
-      "user_bid_label": "Your bid",
-      "user_bid_placeholder": "Enter bid",
-      "quantity_label": "Quantity",
-      "user_bidding_balance": "Your bidding balance",
-    "user_balance": "Your balance",
-    "service_fee": "Service fee",
-    "total_bid_amount": "Total bid amount"
-    
-    }
-
+    "token_text": "Everydays - The First 5000 Days"
   },
   "nft_index": {
     "button_text": "Timed Auctions",
@@ -189,23 +208,6 @@
     "owned": "OWNED",
     "share": "Share",
     "username": "Chris Torres"
-  },
-  "edit_profile": {
-    "avatar": "Avatar",
-    "choose_file":"Choose File",
-    "recommend": "We recommend an image of at least 400x400. Gifs work too.",
-    "edit_profile": "EDIT PROFILE",
-    "account": "ACCOUNT",
-    "display_name": "Display Name",
-    "display_name_placeholder": "Enter your display name",
-    "bio": "Bio",
-    "bio_placeholder": "Tell about yourself in a few words",
-    "portfolio": "Personal site or portfolio",
-    "portfolio_placeholder": "https://",
-    "email": "E-Mail",
-    "email_placeholder": "Your E-mail for marketplace notifications",
-    "update_btn": "Update",
-    "need_verified_account":"Need a verified account?"
   },
   "rabind_email_screen": {
     "cancel": "Cancel",
@@ -304,7 +306,7 @@
   "validator": {
     "email_msg": "Invalid email address.",
     "match_msg": "Passwords must match.",
-    "password_msg": "Invalid password, the password must contain at least 8 characters in length, and at least 1 lowercase, uppercase, special characters and numeric values.",
+    "password_msg": "Invalid password, the password must contain at least 8 characters in length, and at least 1 lowercase, uppercase and numeric values.",
     "phone_msg": "Invalid phone number.",
     "required_msg": "Field cannot be empty.",
     "sms_msg": "The code should be a 6 digit number.",

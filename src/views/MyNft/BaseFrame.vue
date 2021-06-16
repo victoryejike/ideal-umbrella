@@ -42,7 +42,7 @@ export default {
 
 <style scoped>
   .top {
-    background-image: url("~@img/profile-bg.png");
+    background-image: url("~@img/banner-bg.png");
     border-radius: 0.625rem;
     padding: 5rem;
   }

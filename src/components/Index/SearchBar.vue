@@ -6,6 +6,7 @@
     <div class="padding">
       <img src="@svg/search.svg">
       <input
+        v-model="value"
         class="search-input"
         :placeholder="$t('components.search_placeholder')"
         type="text"
@@ -13,6 +14,7 @@
       <BaseRoundButton
         class="search-btn btn-primary btn-lg btn-bold"
         :text="$t('components.search')"
+        @click="handleSearch"
       />
     </div>
   </div>
@@ -24,6 +26,17 @@ export default {
   name: 'BaseSearchBar',
   props: {
     width: { type: Number, required: true },
+  },
+  emits: ['click'],
+  data() {
+    return {
+      value: '',
+    };
+  },
+  methods: {
+    handleSearch() {
+      this.$emit('click', this.value.trim());
+    },
   },
 };
 </script>

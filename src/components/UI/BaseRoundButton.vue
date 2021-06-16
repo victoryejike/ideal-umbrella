@@ -2,8 +2,8 @@
   <button
     class="btn-root-style"
     :disabled="isActive"
-    type="button"
-    @click="timeDelay(); forwardURL(); submit ? onSubmit() : null"
+    type="submit"
+    @click="timeDelay(); forwardURL();"
   >
     <div class="btn-left-icon">
       <slot name="icon" />
