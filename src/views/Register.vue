@@ -83,12 +83,9 @@
             v-show="isModalVisible"
             @close="closeModal"
           >
-            <template #header />
-
             <template #body>
               <Agreement />
             </template>
-            <template #footer />
           </BaseModal>
         </div>
       </div>

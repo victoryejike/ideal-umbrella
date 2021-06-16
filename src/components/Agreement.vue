@@ -82,15 +82,13 @@
 </template>
 <style scoped>
 .container {
-  height: 500px;
-  overflow-y: scroll;
-  padding: 10px;
-  width: 40em;
+  height: 31.25rem;
+  margin-top: 1.25rem;
 }
 
 p {
   margin-bottom: 1em;
-  padding: 5px;
+  padding: 0.3125rem;
   white-space: normal;
 }
 

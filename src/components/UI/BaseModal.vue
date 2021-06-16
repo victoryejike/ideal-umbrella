@@ -2,25 +2,31 @@
   <Transition name="modal-fade">
     <div
       class="modal-backdrop"
-      @click="close"
     >
+      <img
+        class="close-icon "
+        height="20"
+        src="@svg/close-icon.svg"
+        width="20"
+        @click="close"
+      >
+
       <div class="modal">
-        <header class="modal-header">
+        <header
+          v-if="$slots.header"
+          class="modal-header"
+        >
           <slot name="header" />
-          <button
-            class="btn-close"
-            type="button"
-            @click="close"
-          >
-            x
-          </button>
         </header>
 
         <section class="modal-body">
           <slot name="body" />
         </section>
 
-        <footer class="modal-footer">
+        <footer
+          v-if="$slots.footer"
+          class="modal-footer"
+        >
           <div>
             <slot name="footer" />
           </div>
@@ -61,6 +67,7 @@ export default {
   flex-direction: column;
   padding-left: 2.5rem;
   padding-right: 2.5rem;
+  width: 32.5rem;
 }
 
 .modal-header {
@@ -81,6 +88,7 @@ export default {
 
 .modal-body {
   margin-bottom: 2.8125rem;
+  overflow-y: auto;
   position: relative;
 }
 
@@ -94,16 +102,22 @@ export default {
   transition: opacity 0.5s ease;
 }
 
-.btn-close {
+.close-icon {
   background: transparent;
   border: none;
   cursor: pointer;
-  font-size: 20px;
-  font-weight: bold;
-  padding: 10px;
+  padding: 0.625rem;
   position: absolute;
   right: 0;
   top: 0;
 }
 
+@media screen and (max-width: 30em) {
+  .modal {
+    border-radius: 1rem 1rem 0 0;
+    margin: auto;
+    position: absolute;
+    width: 90%;
+  }
+}
 </style>
