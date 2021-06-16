@@ -76,9 +76,20 @@
         >
         <div class="agree-text">
           {{ $t("register_screen.agree_text") }}
-          <router-link to="/">
+          <a @click="showModal">
             {{ $t("register_screen.privacy_agreement") }}
-          </router-link>
+          </a>
+          <BaseModal
+            v-show="isModalVisible"
+            @close="closeModal"
+          >
+            <template #header />
+
+            <template #body>
+              <Agreement />
+            </template>
+            <template #footer />
+          </BaseModal>
         </div>
       </div>
       <BaseRoundButton
@@ -101,11 +112,15 @@
 </template>
 
 <script>
+import Agreement from '../components/Agreement.vue';
 
 export default {
+
   name: 'Register',
+  components: { Agreement },
   data() {
     return {
+      isModalVisible: false,
       isEmail: true,
       registerTab: [
         {
@@ -129,6 +144,14 @@ export default {
           // Call API
         }
       });
+    },
+
+    showModal() {
+      this.isModalVisible = true;
+      console.log('in modal fn');
+    },
+    closeModal() {
+      this.isModalVisible = false;
     },
   },
 

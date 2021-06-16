@@ -59,7 +59,6 @@ export default {
   border-radius: 1rem;
   display: flex;
   flex-direction: column;
-  overflow-x: auto;
   padding-left: 2.5rem;
   padding-right: 2.5rem;
 }
