@@ -1,15 +1,16 @@
 <template>
-  <BaseFrame>
-    <Table />
-  </BaseFrame>
+  <BaseFrame
+    url="/connect-wallet"
+  />
+  <Table />
 </template>
 <script>
 import Table from '@/components/Wallet/Table.vue';
-import BaseFrame from './BaseFrame.vue';
+// import BaseFrame from './BaseFrame.vue';
 
 export default {
   name: 'NFT',
-  components: { BaseFrame, Table },
+  components: { Table },
 };
 
 </script>
