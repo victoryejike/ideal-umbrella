@@ -3,17 +3,18 @@
     <div class="display-token-image">
       <div class="token-text-div">
         <span class="token-text">   {{ $t('nft_details.token_text') }}</span>
-
-        <BaseRoundButton
-          class="btn-outline-secondary button"
-          text="Art"
-        >
-          <template #icon>
-            <img
-              src="@img/art.png"
-            >
-          </template>
-        </BaseRoundButton>
+        <div class="button-div">
+          <BaseRoundButton
+            class="btn-outline-secondary button"
+            text="Art"
+          >
+            <template #icon>
+              <img
+                src="@img/art.png"
+              >
+            </template>
+          </BaseRoundButton>
+        </div>
       </div>
       <img
         class="token-image"
@@ -65,7 +66,7 @@
         >{{ $t('nft_details.read_more') }}</a>
       </div>
       <BaseNavigationTab
-        class="tabs"
+        class="tab"
         :list="tabTitleList"
         :width="10"
       />
@@ -123,7 +124,7 @@
           icon="arrow-right"
           :text="$t('nft_details.buy_now')"
         />
-        <div>
+        <div class="bid-button-div">
           <BaseRoundButton
             class="bid-button btn-outline-primary btn-xl"
             :text="$t('nft_details.place_bid')"
@@ -251,19 +252,30 @@ export default {
   display: flex;
 }
 
+.display-token-image {
+  width: 50%;
+}
+
 .token-text-div {
   display: flex;
   justify-content: space-between;
+  width: 90%;
 }
 
 .token-text {
   font-size: 1.625em;
   font-weight: bold;
   line-height: 150%;
+  white-space: normal;
+}
+
+.button-div {
+  margin: auto;
 }
 
 .token-image {
   margin-top: 1.25rem;
+  width: 90%;
 }
 
 .button {
@@ -279,13 +291,14 @@ export default {
 
 .display-token-details {
   font-size: 0.875rem;
-  margin-left: 6.25rem;
+  width: 50%;
 }
 
 .user-details {
   display: flex;
   height: 5.3125rem;
   justify-content: space-between;
+  width: 90%;
 }
 
 .details-section {
@@ -300,11 +313,13 @@ label {
 
 .token-content {
   margin-top: 1.875rem;
+  width: 90%;
 }
 
-.tabs {
+.tab {
   margin-bottom: 2.9375rem;
   margin-top: 2.4375rem;
+  width: 90% !important;
 }
 
 .token-description {
@@ -318,6 +333,7 @@ label {
 
 .bids-main-div {
   margin-bottom: 1.4688rem;
+  width: 90%;
 }
 
 .bids-inner-div {
@@ -334,6 +350,7 @@ label {
 .highest-bid-details {
   align-items: center;
   display: flex;
+  height: 2.5rem;
 }
 
 .coin {
@@ -385,8 +402,17 @@ label {
   display: flex;
 }
 
+.buy-button {
+  width: 46%;
+}
+
+.bid-button-div {
+  width: 46%;
+}
+
 .bid-button {
   margin-left: 1.25em;
+  width: 100%;
 }
 
 .creater-details {
@@ -400,5 +426,55 @@ label {
   line-height: 100%;
   margin-left: 0.5em;
   margin-right: 0.5em;
+}
+
+@media (max-width: 43em) {
+  .token-details {
+    display: block;
+  }
+
+  .token-text-div {
+    display: block;
+  }
+
+  .display-token-image {
+    width: 100%;
+  }
+
+  .token-text {
+    white-space: normal;
+  }
+
+  .token-image {
+    width: 100%;
+  }
+
+  .display-token-details {
+    margin-left: 0;
+    margin-top: 2.0625rem;
+    width: 100%;
+  }
+
+  .actions {
+    display: block;
+  }
+
+  .buy-button,
+  .bid-button {
+    width: 100%;
+  }
+
+  .bid-button-div {
+    width: 100%;
+  }
+
+  .bid-button {
+    margin-left: 0;
+    margin-top: 1.25rem;
+  }
+
+  .button {
+    margin-top: 0.9375rem;
+  }
 }
 </style>
