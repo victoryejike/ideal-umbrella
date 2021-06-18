@@ -1,10 +1,8 @@
 <template>
-  <div class="container">
+  <div
+    class="container"
+  >
     <div class="discover-banner">
-      <img
-        class="discover-hero"
-        src="@img/discover-hero.png"
-      >
       <h1 class="discover-title">
         {{ $t('discover_screen.title') }}
       </h1>
@@ -13,6 +11,10 @@
         :width="36.25"
         @click="updateGridBox($event)"
       />
+      <img
+        class="discover-hero"
+        src="@img/discover-hero.png"
+      >
     </div>
     <DiscoverSection
       :number="25"
@@ -63,16 +65,20 @@ export default {
 .discover-banner {
   align-items: center;
   background-image: url('~@img/banner-bg.png');
-  background-position: left;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 1rem;
   display: flex;
-  height: 13.75rem;
+  height: calc((-4 / 27) * 100vw + (1300px / 3));
   margin-bottom: 4.375rem;
   max-width: 73.75rem;
+  min-height: 13.75rem;
+  min-width: 0;
 }
 
 .discover-hero {
-  margin-bottom: 1.25rem;
-  margin-left: 44.25rem;
+  margin-left: 44rem;
+  margin-top: -1.2rem;
   position: absolute;
   z-index: 1;
 }
@@ -80,6 +86,7 @@ export default {
 .discover-title {
   font-size: 2rem;
   font-weight: bold;
+  margin-bottom: 2.5rem;
   margin-left: 6.25rem;
   white-space: normal;
   width: 18rem;
@@ -89,5 +96,49 @@ export default {
 .searchbar {
   margin-left: 5.25rem;
   z-index: 2;
+}
+
+@media (max-width: 90em) {
+  .discover-banner {
+    flex-direction: column;
+  }
+
+  .discover-title {
+    margin-left: 0;
+    margin-top: 2rem;
+    text-align: center;
+  }
+
+  .discover-hero {
+    margin-right: calc((-0.95) * 100vw + (1372.29px));
+    margin-top: calc((-0.15) * 100vw + (192.26px));
+  }
+
+  .searchbar {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 70em) {
+  .discover-banner {
+    margin-left: -3rem;
+    min-width: 106vw;
+    transition: margin-left 0s, min-width 0.5;
+  }
+
+  .discover-hero {
+    margin-right: calc((-0.59) * 100vw + (755.94px));
+  }
+
+  .discover-title {
+    margin-top: 4.5rem;
+  }
+}
+
+@media (max-width: 40em) {
+  .discover-title {
+    font-size: 1.375rem;
+    width: 16rem;
+  }
 }
 </style>

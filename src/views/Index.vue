@@ -23,10 +23,6 @@
           :width="36.25"
           @click="handleSearch($event)"
         />
-        <BaseRoundButton
-          class="mobile-search-btn btn-primary btn-lg btn-bold"
-          :text="$t('components.search')"
-        />
       </div>
     </div>
     <IndexSection :title="$t('index_screen.title.popular')">
@@ -200,12 +196,6 @@ export default {
   opacity: 1;
 }
 
-.mobile-search-btn {
-  margin-top: 1.25rem;
-  opacity: 0;
-  width: 100%;
-}
-
 .popular-box {
   display: flex;
   overflow-x: hidden;
@@ -279,11 +269,6 @@ export default {
   .banner-title {
     font-size: 8.5vw;
     margin-bottom: 6.5vw;
-  }
-
-  .mobile-search-btn {
-    opacity: 1;
-    position: inherit;
   }
 }
 

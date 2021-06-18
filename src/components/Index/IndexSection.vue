@@ -66,6 +66,7 @@ export default {
 
 @media (max-width: 46em) {
   .header {
+    align-items: normal;
     flex-direction: column;
     margin-bottom: 3rem;
   }
