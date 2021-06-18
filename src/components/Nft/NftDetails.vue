@@ -313,13 +313,11 @@ label {
 
 .token-content {
   margin-top: 1.875rem;
-  width: 90%;
 }
 
 .tab {
   margin-bottom: 2.9375rem;
   margin-top: 2.4375rem;
-  width: 90% !important;
 }
 
 .token-description {
@@ -333,7 +331,6 @@ label {
 
 .bids-main-div {
   margin-bottom: 1.4688rem;
-  width: 90%;
 }
 
 .bids-inner-div {
@@ -428,7 +425,35 @@ label {
   margin-right: 0.5em;
 }
 
-@media (max-width: 43em) {
+@media (max-width: 34em) {
+  .tab {
+    width: 100% !important;
+  }
+
+  .buy-button,
+  .bid-button {
+    width: 100%;
+  }
+
+  .bid-button-div {
+    width: 100%;
+  }
+
+  .actions {
+    display: block;
+  }
+
+  .bid-button {
+    margin-left: 0;
+    margin-top: 1.25rem;
+  }
+
+  .button {
+    margin-top: 0.9375rem;
+  }
+}
+
+@media (max-width: 62em) {
   .token-details {
     display: block;
   }
@@ -455,26 +480,12 @@ label {
     width: 100%;
   }
 
-  .actions {
-    display: block;
-  }
-
-  .buy-button,
-  .bid-button {
+  .user-details {
     width: 100%;
   }
 
-  .bid-button-div {
+  .token-content {
     width: 100%;
-  }
-
-  .bid-button {
-    margin-left: 0;
-    margin-top: 1.25rem;
-  }
-
-  .button {
-    margin-top: 0.9375rem;
   }
 }
 </style>
