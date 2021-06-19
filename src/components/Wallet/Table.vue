@@ -1,111 +1,113 @@
 <template>
   <div class="wallet-table">
     <h3>Wallet</h3>
-    <table style="width: 100%;">
-      <tr>
-        <th>Token/Coin</th>
-        <th>Available</th>
-        <th>Frozen</th>
-        <th>Estimated Value (USDT)</th>
-        <th>Action</th>
-      </tr>
-      <tr>
-        <td class="flex">
-          <div class="coin-icon">
-            <img src="@svg/bitcoin.svg">
-          </div>
-          <div class="coin-name">
-            <b class="color-light">BTC</b>
-            <br>
-            <span>Bitcoin</span>
-          </div>
-        </td>
-        <td class="color-light">
-          0.112300
-        </td>
-        <td class="color-light">
-          $6750
-        </td>
-        <td class="color-light">
-          ≈ 6500.00
-        </td>
-        <td>
-          <a class="color-dark">Trade</a>
-        </td>
-      </tr>
-      <tr>
-        <td class="flex">
-          <div class="coin-icon">
-            <img src="@svg/dogecoin.svg">
-          </div>
-          <div class="coin-name">
-            <b class="color-light">Doge</b>
-            <br>
-            <span>DogeCoin</span>
-          </div>
-        </td>
-        <td class="color-light">
-          0.112300
-        </td>
-        <td class="color-light">
-          $6750
-        </td>
-        <td class="color-light">
-          ≈ 6500.00
-        </td>
-        <td>
-          <a class="color-dark">Trade</a>
-        </td>
-      </tr>
-      <tr>
-        <td class="flex">
-          <div class="coin-icon">
-            <img src="@svg/ethereum.svg">
-          </div>
-          <div class="coin-name">
-            <b class="color-light">ETH</b>
-            <br>
-            <span>Ethereum</span>
-          </div>
-        </td>
-        <td class="color-light">
-          0.112300
-        </td>
-        <td class="color-light">
-          $6750
-        </td>
-        <td class="color-light">
-          ≈ 6500.00
-        </td>
-        <td>
-          <a class="color-dark">Trade</a>
-        </td>
-      </tr>
-      <tr>
-        <td class="flex">
-          <div class="coin-icon">
-            <img src="@svg/litecoin.svg">
-          </div>
-          <div class="coin-name">
-            <b class="color-light">Lite</b>
-            <br>
-            <span>Litecoin</span>
-          </div>
-        </td>
-        <td class="color-light">
-          0.112300
-        </td>
-        <td class="color-light">
-          $6750
-        </td>
-        <td class="color-light">
-          ≈ 6500.00
-        </td>
-        <td>
-          <a class="color-dark">Trade</a>
-        </td>
-      </tr>
-    </table>
+    <div class="overflow">
+      <table style="width: 100%;">
+        <tr>
+          <th>Token/Coin</th>
+          <th>Available</th>
+          <th>Frozen</th>
+          <th>Estimated Value (USDT)</th>
+          <th>Action</th>
+        </tr>
+        <tr>
+          <td class="flex">
+            <div class="coin-icon">
+              <img src="@svg/bitcoin.svg">
+            </div>
+            <div class="coin-name">
+              <b class="color-light">BTC</b>
+              <br>
+              <span>Bitcoin</span>
+            </div>
+          </td>
+          <td class="color-light">
+            0.112300
+          </td>
+          <td class="color-light">
+            $6750
+          </td>
+          <td class="color-light">
+            ≈ 6500.00
+          </td>
+          <td>
+            <a class="color-dark">Trade</a>
+          </td>
+        </tr>
+        <tr>
+          <td class="flex">
+            <div class="coin-icon">
+              <img src="@svg/dogecoin.svg">
+            </div>
+            <div class="coin-name">
+              <b class="color-light">Doge</b>
+              <br>
+              <span>DogeCoin</span>
+            </div>
+          </td>
+          <td class="color-light">
+            0.112300
+          </td>
+          <td class="color-light">
+            $6750
+          </td>
+          <td class="color-light">
+            ≈ 6500.00
+          </td>
+          <td>
+            <a class="color-dark">Trade</a>
+          </td>
+        </tr>
+        <tr>
+          <td class="flex">
+            <div class="coin-icon">
+              <img src="@svg/ethereum.svg">
+            </div>
+            <div class="coin-name">
+              <b class="color-light">ETH</b>
+              <br>
+              <span>Ethereum</span>
+            </div>
+          </td>
+          <td class="color-light">
+            0.112300
+          </td>
+          <td class="color-light">
+            $6750
+          </td>
+          <td class="color-light">
+            ≈ 6500.00
+          </td>
+          <td>
+            <a class="color-dark">Trade</a>
+          </td>
+        </tr>
+        <tr>
+          <td class="flex">
+            <div class="coin-icon">
+              <img src="@svg/litecoin.svg">
+            </div>
+            <div class="coin-name">
+              <b class="color-light">Lite</b>
+              <br>
+              <span>Litecoin</span>
+            </div>
+          </td>
+          <td class="color-light">
+            0.112300
+          </td>
+          <td class="color-light">
+            $6750
+          </td>
+          <td class="color-light">
+            ≈ 6500.00
+          </td>
+          <td>
+            <a class="color-dark">Trade</a>
+          </td>
+        </tr>
+      </table>
+    </div>
   </div>
 </template>
 
@@ -120,7 +122,12 @@ export default {
   display: flex;
 }
 
+.overflow {
+  overflow-x: scroll;
+}
+
 .coin-name {
+  margin-left: 11px;
   text-align: left;
   width: 50%;
 }

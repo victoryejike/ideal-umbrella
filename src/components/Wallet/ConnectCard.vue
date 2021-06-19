@@ -47,7 +47,7 @@ export default {
   margin-right: 1.875rem;
   margin-top: 1.875rem;
   padding: 1.25rem;
-  width: 15.625rem;
+  width: 16.625rem !important;
 }
 
 .img-container {

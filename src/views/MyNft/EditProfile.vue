@@ -1,5 +1,8 @@
 <template>
   <div class="container">
+    <BaseFrame
+      url="/profile"
+    />
     <div class="flex">
       <div class="w-50">
         <h1 class="edit-profile-text">
@@ -179,6 +182,7 @@ export default {
 .recommend p {
   color: rgba(0, 0, 0, 0.25);
   font-size: 0.9rem;
+  white-space: break-spaces;
 }
 
 .recommend input {
@@ -199,6 +203,7 @@ export default {
   .w-50 div {
     float: none !important;
     margin: 0.1rem !important;
+    width: 16rem !important;
   }
 }
 </style>

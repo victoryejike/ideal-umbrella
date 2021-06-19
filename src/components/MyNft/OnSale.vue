@@ -1,32 +1,40 @@
 <template>
-  <div
-    class="gridbox card-gridbox m-3"
-    style="grid-template-columns: repeat(auto-fit, 11.875rem);"
-  >
-    <BaseProductCard
-      v-for="(item, index) in discoverList"
-      :id="item.id"
-      :key="index"
-      :author="item.author"
-      :avatar="item.avatar"
-      :bg-color="null"
-      class="discover-product-card"
-      :image="item.image"
-      :name="item.name"
-      :price="item.price"
-      :size="190"
-      :verified="item.verified"
+  <div class="gridbox-root mt-2">
+    <div
+      class="gridbox"
+    >
+      <BaseProductCard
+        v-for="(item, index) in list"
+        :id="item.id"
+        :key="index"
+        :author="item.author"
+        :avatar="item.avatar"
+        :bg-color="null"
+        class="gridbox-product-card"
+        :image="item.image"
+        :name="item.name"
+        :price="item.price"
+        :size="size"
+        :verified="item.verified"
+      />
+    </div>
+    <BaseRoundButton
+      class="load-more-btn btn-outline-primary btn-xl"
+      :text="$t('index_screen.more')"
     />
   </div>
 </template>
+
 <script>
+
+const MAX_WIDTH = 1000;
 
 export default {
   name: 'OnSale',
   data() {
     return {
-      discoverList: Array(5).fill({
-        id: 'V9pCCtpYT2fKHeXQjzwhCxXPTuyQEPID6oEJ',
+      list: Array(10).fill({
+        id: 'V3isglWtYb5qIy24QbTJeoJjuV35fEDd0RoL',
         avatar: 'avatar.png',
         author: 'Otha Davis III',
         image: 'image.png',
@@ -34,24 +42,59 @@ export default {
         price: 67.456,
         verified: true,
       }),
+      size: null,
     };
   },
+  mounted() {
+    return window.innerWidth > MAX_WIDTH
+      ? this.pcResponsive()
+      : this.mobileResponsive();
+  },
+  methods: {
+    mobileResponsive() {
+      if (window.innerWidth <= MAX_WIDTH) {
+        window.removeEventListener('resize', this.mobileResponsive);
+        window.addEventListener('resize', this.pcResponsive);
+        this.size = 140;
+      }
+    },
+    pcResponsive() {
+      if (window.innerWidth > MAX_WIDTH) {
+        window.removeEventListener('resize', this.pcResponsive);
+        window.addEventListener('resize', this.mobileResponsive);
+        this.size = 190;
+      }
+    },
+  },
 };
-
 </script>
 
 <style scoped>
+.gridbox {
+  display: grid;
+  grid-column-gap: 1.25rem;
+  grid-row-gap: 5rem;
+  grid-template-columns: repeat(auto-fit, 11.875rem);
+  justify-content: space-between;
+  overflow: hidden hidden;
+}
+
+.gridbox-product-card {
+  margin-top: 0.3rem;
+}
+
+.load-more-btn {
+  margin: auto auto;
+  margin-top: 3.5rem;
+}
+
+.mt-2 {
+  margin-top: 2rem;
+}
+
+@media (max-width: 62.5em) {
   .gridbox {
-    display: grid;
-    justify-content: space-between;
+    grid-template-columns: repeat(auto-fit, 8.75rem);
   }
-
-  .card-gridbox {
-    grid-gap: 1.25rem;
-    grid-row-gap: 5rem;
-  }
-
-  .m-3 {
-    margin-top: 4rem;
-  }
+}
 </style>
