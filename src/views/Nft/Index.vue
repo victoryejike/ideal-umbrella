@@ -1,7 +1,4 @@
 <template>
-  <BaseFrame
-    url="/profile"
-  />
   <Base
     :description="$t('nft_index.description')"
     :title="$t('nft_index.title')"
