@@ -1,14 +1,5 @@
 <template>
   <div class="container">
-    <router-link
-      :class="{'hide': $route.name == 'NFT'}"
-      to="/nft"
-    >
-      <img
-        class="back-btn"
-        src="@svg/arrow-back.svg"
-      >
-    </router-link>
     <span class="title">{{ title }}</span>
     <p class="description">
       {{ description }}
@@ -29,10 +20,6 @@ export default {
   display: flex;
   flex-direction: column;
   max-width: 50rem;
-}
-
-.hide {
-  display: none;
 }
 
 .title {

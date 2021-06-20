@@ -1,6 +1,9 @@
 <template>
   <div class="single-collectible-main">
     <BaseFrame
+      url="/nft"
+    />
+    <Base
       :title="$t('collectible.title_multiple')"
     >
       <UploadCard
@@ -108,18 +111,18 @@
           :text="$t('collectible.create_button_text')"
         />
       </div>
-    </BaseFrame>
+    </Base>
   </div>
 </template>
 <script>
 
 import UploadCard from '@/components/Nft/UploadCard.vue';
-import BaseFrame from './BaseFrame.vue';
+import Base from './BaseFrame.vue';
 
 export default {
   name: 'CollectibleSingle',
   components: {
-    BaseFrame,
+    Base,
     UploadCard,
   },
   data() {

@@ -1,5 +1,8 @@
 <template>
   <BaseFrame
+    url="/profile"
+  />
+  <Base
     :description="$t('nft_index.description')"
     :title="$t('nft_index.title')"
   >
@@ -14,15 +17,15 @@
         url="/nft/multiple"
       />
     </div>
-  </BaseFrame>
+  </Base>
 </template>
 <script>
 import NftCard from '@/components/Nft/NftCard.vue';
-import BaseFrame from './BaseFrame.vue';
+import Base from './BaseFrame.vue';
 
 export default {
   name: 'NFT',
-  components: { BaseFrame, NftCard },
+  components: { Base, NftCard },
 };
 
 </script>
