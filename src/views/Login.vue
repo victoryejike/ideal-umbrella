@@ -2,7 +2,7 @@
   <div class="container">
     <BaseForm
       class="login-form"
-      :submit="onSubmit"
+      @submit="onSubmit"
     >
       <h1 class="login-text">
         {{ $t("login_screen.login") }}

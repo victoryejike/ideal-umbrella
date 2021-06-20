@@ -2,7 +2,7 @@
   <div class="container">
     <BaseForm
       class="forgot-password-form"
-      :submit="onSubmit"
+      @submit="onSubmit"
     >
       <h1 class="forgot-password-text">
         {{ $t("forgot_password.forgot_password") }}

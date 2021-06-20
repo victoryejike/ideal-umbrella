@@ -3,7 +3,7 @@
     <BaseForm
       ref="form"
       class="register-form"
-      :submit="onSubmit"
+      @submit="onSubmit"
     >
       <h1 class="register-text">
         {{ $t("register_screen.register") }}
@@ -65,7 +65,6 @@
           <BaseRoundButton
             class="btn-outline-primary btn-sm"
             :text="$t('register_screen.send_code')"
-            @click="sendSMS"
           />
         </template>
       </BaseUnderlinedInput>
@@ -135,14 +134,6 @@ export default {
     onSubmit(data) {
       // call API...
     },
-    sendSMS() {
-      this.$refs.form.validateField(this.isEmail ? 'email' : 'phone').then((result) => {
-        if (result.valid) {
-          // Call API
-        }
-      });
-    },
-
     showModal() {
       this.isModalVisible = true;
       console.log('in modal fn');

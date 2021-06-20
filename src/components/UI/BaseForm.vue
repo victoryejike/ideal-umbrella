@@ -1,37 +1,32 @@
 <template>
   <Form
-    ref="form"
-    @submit="shakeErrorMessage"
+    @submit="onSubmit"
   >
+    <Field
+      name="csrf_token"
+      type="hidden"
+      :value="csrfToken"
+    />
     <slot />
   </Form>
 </template>
 
 <script>
+import { Field } from 'vee-validate';
 
 export default {
   name: 'BaseForm',
+  components: { Field },
   props: {
-    submit: { type: Function, require: false, default: null },
+    onSubmit: { type: Function, require: false, default: null },
   },
   data() {
     return {
-
+      csrfToken: null,
     };
   },
   methods: {
-    shakeErrorMessage(data) {
-      this.$refs.form.validate().then(({ valid }) => {
-        if (!valid) {
-          const { classList } = document.querySelector('.input-error-msg') ?? {};
-          if (classList) {
-            classList.add('shake');
-            setTimeout(() => { classList.remove('shake'); }, 1000);
-          }
-        }
-      });
-      this.submit(data);
-    },
+
   },
 };
 </script>
