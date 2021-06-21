@@ -56,16 +56,9 @@ export default {
     }
     this.isActive[this.currentActiveIndex] = true;
 
-    const responsiveAction = (mediaQuery) => {
-      if (mediaQuery.matches) {
-        this.dynamicWidth = null;
-      } else {
-        this.dynamicWidth = this.width;
-      }
-    };
-    const mediaQuery = window.matchMedia(`(max-width: ${this.mobileMaxWidth}em)`);
-    responsiveAction(mediaQuery);
-    mediaQuery.addListener(responsiveAction);
+    this.$global.handleResponsive(this.mobileMaxWidth,
+      () => { this.dynamicWidth = this.width; },
+      () => { this.dynamicWidth = null; });
   },
   methods: {
     execute(index) {

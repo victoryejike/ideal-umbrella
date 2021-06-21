@@ -50,12 +50,9 @@ export default {
     };
   },
   mounted() {
-    const responsiveAction = (mediaQuery) => {
-      this.size = (mediaQuery.matches) ? 140 : 190;
-    };
-    const mediaQuery = window.matchMedia(`(max-width: ${62.5}em)`);
-    responsiveAction(mediaQuery);
-    mediaQuery.addListener(responsiveAction);
+    this.$global.handleResponsive(62.5,
+      () => { this.size = 190; },
+      () => { this.size = 140; });
   },
 };
 </script>

@@ -1,5 +1,4 @@
 import { createApp } from 'vue';
-import { Form } from 'vee-validate';
 import App from './App.vue';
 import router from './router';
 import store from './store';
@@ -14,5 +13,4 @@ const app = createApp(App).use(i18n).use(store).use(router)
   .use(global)
   .use(components);
 
-app.component('Form', Form);
 app.mount('#app');

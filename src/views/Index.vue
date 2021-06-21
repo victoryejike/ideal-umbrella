@@ -117,22 +117,19 @@ export default {
     };
   },
   mounted() {
-    const responsiveAction = (mediaQuery) => {
-      if (mediaQuery.matches) {
-        this.popularSection = {
-          padding: '1rem 1.25rem',
-          size: 180,
-        };
-      } else {
+    this.$global.handleResponsive(62.5,
+      () => {
         this.popularSection = {
           padding: '1.25rem 1.875rem',
           size: 220,
         };
-      }
-    };
-    const mediaQuery = window.matchMedia(`(max-width: ${62.5}em)`);
-    responsiveAction(mediaQuery);
-    mediaQuery.addListener(responsiveAction);
+      },
+      () => {
+        this.popularSection = {
+          padding: '1rem 1.25rem',
+          size: 180,
+        };
+      });
   },
   methods: {
     handleSearch(value) {

@@ -12,11 +12,11 @@
 </template>
 
 <script>
-import { Field } from 'vee-validate';
+import { Field, Form } from 'vee-validate';
 
 export default {
   name: 'BaseForm',
-  components: { Field },
+  components: { Field, Form },
   props: {
     onSubmit: { type: Function, require: false, default: null },
   },
