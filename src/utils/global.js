@@ -1,4 +1,4 @@
-const globalFunction = {
+const GLOBAL_FUNCTION = {
   /**
    * All the avatar IMG tag should add this function to handle error display.
    * example: :onerror="$global.handleAvatarError"
@@ -38,6 +38,6 @@ const globalFunction = {
 export default {
   install: (app, options) => {
     const { globalProperties } = app.config;
-    globalProperties.$global = globalFunction;
+    globalProperties.$global = GLOBAL_FUNCTION;
   },
 };

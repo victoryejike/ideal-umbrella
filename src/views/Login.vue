@@ -1,6 +1,7 @@
 <template>
   <div class="container">
     <BaseForm
+      ref="login-form"
       class="login-form"
       @submit="onSubmit"
     >
@@ -9,7 +10,7 @@
       </h1>
       <BaseUnderlinedInput
         class="input-group"
-        name="username"
+        name="email"
         :placeholder="$t('login_screen.username_placeholder')"
         rules="required|username"
         :text="$t('login_screen.username_text')"
@@ -18,7 +19,7 @@
         class="input-group"
         name="password"
         :placeholder="$t('login_screen.password_placehoder')"
-        rules="required|password"
+        rules="required"
         :text="$t('login_screen.password_text')"
         type="password"
       />
@@ -54,8 +55,22 @@
 export default {
   name: 'Login',
   methods: {
-    onSubmit(data) {
-      // call API...
+    async onSubmit(formData) {
+      let response = null;
+      try {
+        const { data } = await this.$api.LOGIN(formData);
+        response = data;
+      } catch (error) {
+        response = error.response.data;
+      }
+
+      if (response?.success) {
+        this.$store.dispatch('auth/login', response.data);
+        this.$router.push('/profile');
+      } else {
+        const { form } = this.$refs['login-form'];
+        form.setFieldError('password', response.error);
+      }
     },
   },
 };

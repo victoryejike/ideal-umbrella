@@ -1,5 +1,7 @@
 <template>
   <Form
+    ref="vee-validate-form"
+    v-bind="$attrs"
     @submit="onSubmit"
   >
     <Field
@@ -24,6 +26,9 @@ export default {
     return {
       csrfToken: null,
     };
+  },
+  computed: {
+    form() { return this.$refs['vee-validate-form']; },
   },
   methods: {
 
