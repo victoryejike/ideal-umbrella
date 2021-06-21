@@ -6,6 +6,7 @@
     <div
       v-if="text"
       class="input-group-text"
+      :class="{'error-text': isError}"
     >
       <span
         v-if="type === 'tel'"
@@ -94,6 +95,8 @@
           v-model="inputValue"
           v-bind="$attrs"
           class="input-box"
+          maxlength="6"
+          minlength="6"
           :name="name"
           :placeholder="placeholder"
           rules="required|otp"
@@ -139,13 +142,17 @@
     </div>
     <div
       class="input-line"
-      :class="{focus:isFocus}"
+      :class="[{focus: isFocus}, {'error-underline': isError}]"
     />
-    <ErrorMessage
-      ref="errorMsg"
+    <div
+      :id="`${name}-error-msg`"
       class="input-error-msg"
-      :name="name"
-    />
+    >
+      <ErrorMessage
+        class="error-msg-text"
+        :name="name"
+      />
+    </div>
   </div>
 </template>
 
@@ -173,10 +180,14 @@ export default {
       inputValue: this.value,
       isDisplay: false,
       isFocus: false,
+      isError: false,
     };
   },
-  computed: {
-
+  mounted() {
+    this.observer = new MutationObserver(((mutations) => {
+      this.isError = (mutations[1]?.addedNodes[0]?.className === 'error-msg-text');
+    }));
+    this.observer.observe(document.getElementById(`${this.name}-error-msg`), { childList: true });
   },
   methods: {
     isInteger(e) {
@@ -214,6 +225,7 @@ export default {
   font-size: 0.9rem;
   margin-bottom: 1.2rem;
   overflow: hidden;
+  transition: color 0s;
 }
 
 .input-group-icon {
@@ -251,14 +263,40 @@ export default {
 }
 
 .input-line {
-  border-bottom: 0.05rem solid rgba(0, 0, 0, 0.25);
-  transition: border-bottom 0.3s ease-in-out;
+  background-color: #000;
+  filter: opacity(0.25);
+  height: 0.08rem;
   width: 100%;
 }
 
 .focus {
-  border-bottom: 0.05rem solid rgba(1, 1, 1, 1);
-  transition: border-bottom 0.3s ease-in-out;
+  filter: opacity(1);
+}
+
+.error-text {
+  color: #ff3a31;
+  transition: color 0s;
+}
+
+.error-underline {
+  background-color: #ff3a31;
+}
+
+.input-error-msg {
+  margin-top: 0.5rem;
+}
+
+.error-msg-text {
+  color: #ff3a31;
+  font-size: 0.85rem;
+  text-align: justify;
+  white-space: normal;
+}
+
+.shake {
+  animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+  backface-visibility: hidden;
+  transform: translate3d(0, 0, 0);
 }
 
 .input-phone {
@@ -279,20 +317,6 @@ select {
 
 select::-ms-expand {
   display: none;
-}
-
-.input-error-msg {
-  color: #ff3a31;
-  font-size: 0.85rem;
-  margin-top: 0.2rem;
-  text-align: justify;
-  white-space: normal;
-}
-
-.shake {
-  animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
-  backface-visibility: hidden;
-  transform: translate3d(0, 0, 0);
 }
 
 @keyframes shake {

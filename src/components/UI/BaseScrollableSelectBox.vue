@@ -21,7 +21,7 @@
       <span class="options-text">{{ selectedItem.name || selectedItem }}</span>
       <i
         class="selector-arrow"
-        :class="{'rotate':isPullDown}"
+        :class="{'rotate': isPullDown}"
         :style="customCSS"
       />
     </div>
