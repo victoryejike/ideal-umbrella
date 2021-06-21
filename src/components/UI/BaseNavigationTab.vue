@@ -1,7 +1,7 @@
 <template>
   <div
     class="tabs"
-    :style="width !== 0 ? {width: `${width * list.length}rem`} : null"
+    :style="width !== 0 ? {width: tabsWidth} : null"
   >
     <button
       v-for="(name, index) in titleList"
@@ -9,7 +9,7 @@
       class="navs"
       :class="[{active: isActive[index]}, width !== 0 ? 'fixed' : 'auto']"
       :onClick="() => {toggleTab(index); execute(index)}"
-      :style="width !== 0 ? {width: `${width}rem`} : null"
+      :style="width !== 0 ? {width: btnWidth} : null"
       type="button"
     >
       <span class="btn-text">
@@ -25,15 +25,29 @@ export default {
   props: {
     list: { type: Array, required: true },
     width: { type: Number, required: false, default: 0 },
-    actionIndex: { type: Number, required: false, default: 0 },
+    mobileMaxWidth: { type: Number, required: false, default: 30 },
+    activeIndex: { type: Number, required: false, default: 0 },
   },
   data() {
     return {
-      currentActiveIndex: this.actionIndex,
+      currentActiveIndex: this.activeIndex,
       functionList: [],
       isActive: [],
       titleList: [],
+      dynamicWidth: this.width,
     };
+  },
+  computed: {
+    tabsWidth() {
+      return this.dynamicWidth == null
+        ? null
+        : `${this.dynamicWidth * this.list.length}rem`;
+    },
+    btnWidth() {
+      return this.dynamicWidth == null
+        ? null
+        : `${this.dynamicWidth}rem`;
+    },
   },
   created() {
     for (let i = 0; i < this.list.length; i += 1) {
@@ -41,6 +55,17 @@ export default {
       this.functionList.push((typeof this.list[i] === 'string') ? null : this.list[i].handler);
     }
     this.isActive[this.currentActiveIndex] = true;
+
+    const responsiveAction = (mediaQuery) => {
+      if (mediaQuery.matches) {
+        this.dynamicWidth = null;
+      } else {
+        this.dynamicWidth = this.width;
+      }
+    };
+    const mediaQuery = window.matchMedia(`(max-width: ${this.mobileMaxWidth}em)`);
+    responsiveAction(mediaQuery);
+    mediaQuery.addListener(responsiveAction);
   },
   methods: {
     execute(index) {
@@ -65,6 +90,7 @@ export default {
   border-radius: 0.6rem;
   display: inline-flex;
   padding: 0.25rem;
+  width: 100%;
 }
 
 .navs {
@@ -99,15 +125,6 @@ export default {
 
 .fixed {
   padding: 0.6rem 0;
-}
-
-@media (max-width: 30em) {
-  .tabs {
-    width: 100% !important;
-  }
-
-  .fixed {
-    width: 100% !important;
-  }
+  width: 100%;
 }
 </style>

@@ -51,6 +51,7 @@
       <template #right>
         <BaseNavigationTab
           :list="sellerTab"
+          :mobile-max-width="38"
           :width="9.4"
         />
       </template>
@@ -269,16 +270,6 @@ export default {
   .banner-title {
     font-size: 8.5vw;
     margin-bottom: 6.5vw;
-  }
-}
-
-@media (max-width: 34em) {
-  .tabs {
-    width: 100% !important;
-  }
-
-  .fixed {
-    width: 100% !important;
   }
 }
 </style>

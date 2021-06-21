@@ -6,6 +6,7 @@
     <template #right>
       <BaseNavigationTab
         :list="discoverTab"
+        :mobile-max-width="38"
         :width="10"
       />
     </template>

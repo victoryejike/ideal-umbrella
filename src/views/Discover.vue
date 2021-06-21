@@ -3,14 +3,16 @@
     class="container"
   >
     <div class="discover-banner">
-      <h1 class="discover-title">
-        {{ $t('discover_screen.title') }}
-      </h1>
-      <SearchBar
-        class="searchbar"
-        :width="36.25"
-        @click="updateGridBox($event)"
-      />
+      <div class="discover-title-and-searchbar">
+        <h1 class="discover-title">
+          {{ $t('discover_screen.title') }}
+        </h1>
+        <SearchBar
+          class="searchbar"
+          :width="36.25"
+          @click="updateGridBox($event)"
+        />
+      </div>
       <img
         class="discover-hero"
         src="@img/discover-hero.png"
@@ -63,7 +65,6 @@ export default {
 <style scoped>
 
 .discover-banner {
-  align-items: center;
   background-image: url('~@img/banner-bg.png');
   background-repeat: no-repeat;
   background-size: cover;
@@ -74,6 +75,11 @@ export default {
   max-width: 73.75rem;
   min-height: 13.75rem;
   min-width: 0;
+}
+
+.discover-title-and-searchbar {
+  align-items: center;
+  display: flex;
 }
 
 .discover-hero {
@@ -99,8 +105,10 @@ export default {
 }
 
 @media (max-width: 90em) {
-  .discover-banner {
+  .discover-title-and-searchbar {
     flex-direction: column;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .discover-title {
@@ -110,7 +118,7 @@ export default {
   }
 
   .discover-hero {
-    margin-right: calc((-0.95) * 100vw + (1372.29px));
+    margin-left: calc(100vw - (740.51px));
     margin-top: calc((-0.15) * 100vw + (192.26px));
   }
 
@@ -127,7 +135,7 @@ export default {
   }
 
   .discover-hero {
-    margin-right: calc((-0.59) * 100vw + (755.94px));
+    margin-left: calc((0.79) * 100vw - (248.39px));
   }
 
   .discover-title {
