@@ -311,5 +311,9 @@
     "required_msg": "Field cannot be empty.",
     "otp_msg": "The code should be a 6 digit number.",
     "username_msg": "Invalid username, it should be an email address or a phone number."
+  },
+  "error_page": {
+    "message": "Looks like you’re lost!",
+    "btn": "Home"
   }
 }
