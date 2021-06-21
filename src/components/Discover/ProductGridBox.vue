@@ -29,8 +29,6 @@
 <script>
 import FilterList from '@/components/Discover/FilterList.vue';
 
-const MAX_WIDTH = 1000;
-
 export default {
   name: 'ProductGridBox',
   components: { FilterList },
@@ -52,25 +50,12 @@ export default {
     };
   },
   mounted() {
-    return window.innerWidth > MAX_WIDTH
-      ? this.pcResponsive()
-      : this.mobileResponsive();
-  },
-  methods: {
-    mobileResponsive() {
-      if (window.innerWidth <= MAX_WIDTH) {
-        window.removeEventListener('resize', this.mobileResponsive);
-        window.addEventListener('resize', this.pcResponsive);
-        this.size = 140;
-      }
-    },
-    pcResponsive() {
-      if (window.innerWidth > MAX_WIDTH) {
-        window.removeEventListener('resize', this.pcResponsive);
-        window.addEventListener('resize', this.mobileResponsive);
-        this.size = 190;
-      }
-    },
+    const responsiveAction = (mediaQuery) => {
+      this.size = (mediaQuery.matches) ? 140 : 190;
+    };
+    const mediaQuery = window.matchMedia(`(max-width: ${62.5}em)`);
+    responsiveAction(mediaQuery);
+    mediaQuery.addListener(responsiveAction);
   },
 };
 </script>

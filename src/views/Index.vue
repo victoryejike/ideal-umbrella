@@ -85,11 +85,6 @@ import IndexSection from '@/components/Index/IndexSection.vue';
 import SearchBar from '@/components/Index/SearchBar.vue';
 import DiscoverSection from '@/components/Discover/DiscoverSection.vue';
 
-/*
-  This is a px value like media query, if the width lower then this value,
-  ProductCard will be responsive
-*/
-const MAX_WIDTH = 1000;
 export default {
   name: 'Index',
   components: {
@@ -122,33 +117,24 @@ export default {
     };
   },
   mounted() {
-    return window.innerWidth > MAX_WIDTH
-      ? this.pcResponsive()
-      : this.mobileResponsive();
-  },
-  methods: {
-    mobileResponsive() {
-      if (window.innerWidth <= MAX_WIDTH) {
-        window.removeEventListener('resize', this.mobileResponsive);
-        window.addEventListener('resize', this.pcResponsive);
-
+    const responsiveAction = (mediaQuery) => {
+      if (mediaQuery.matches) {
         this.popularSection = {
           padding: '1rem 1.25rem',
           size: 180,
         };
-      }
-    },
-    pcResponsive() {
-      if (window.innerWidth > MAX_WIDTH) {
-        window.removeEventListener('resize', this.pcResponsive);
-        window.addEventListener('resize', this.mobileResponsive);
-
+      } else {
         this.popularSection = {
           padding: '1.25rem 1.875rem',
           size: 220,
         };
       }
-    },
+    };
+    const mediaQuery = window.matchMedia(`(max-width: ${62.5}em)`);
+    responsiveAction(mediaQuery);
+    mediaQuery.addListener(responsiveAction);
+  },
+  methods: {
     handleSearch(value) {
       this.$router.push({ path: '/discover', query: { value } });
     },
