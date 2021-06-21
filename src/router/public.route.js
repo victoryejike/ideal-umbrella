@@ -29,6 +29,11 @@ const publicRoute = [
     name: 'Discover',
     component: () => import('@view/Discover.vue'),
   },
+  {
+    path: '/404',
+    name: 'Erro',
+    component: () => import('@view/404.vue'),
+  },
 ];
 
 export default publicRoute;
