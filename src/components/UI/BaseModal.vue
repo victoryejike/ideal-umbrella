@@ -120,4 +120,10 @@ export default {
     width: 90%;
   }
 }
+
+@media (max-width: 62em) {
+  .modal {
+    height: 90%;
+  }
+}
 </style>
