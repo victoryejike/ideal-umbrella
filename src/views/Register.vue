@@ -58,16 +58,9 @@
         class="input-field"
         name="verificationCode"
         :placeholder="$t('register_screen.verification_code__placehoder')"
-        rules="required|sms"
         :text="$t('register_screen.verification_code_label')"
-      >
-        <template #element>
-          <BaseRoundButton
-            class="btn-outline-primary btn-sm"
-            :text="$t('register_screen.send_code')"
-          />
-        </template>
-      </BaseUnderlinedInput>
+        type="otp"
+      />
       <div class="input-agree-div">
         <input
           id="checkbox"

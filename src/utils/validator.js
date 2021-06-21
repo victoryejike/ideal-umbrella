@@ -27,10 +27,10 @@ defineRule('password', (val) => {
   return re.test(String(val)) || $t('validator.password_msg');
 });
 
-defineRule('sms', async (val) => {
+defineRule('otp', async (val) => {
   if (/^[0-9]{6}$/.test(String(val))) {
     // call API to verify...
     return true;
   }
-  return $t('validator.sms_msg');
+  return $t('validator.otp_msg');
 });

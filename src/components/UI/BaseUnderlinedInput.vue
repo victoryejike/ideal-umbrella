@@ -89,6 +89,22 @@
           @keypress="isInteger($event)"
         />
       </template>
+      <template v-else-if="type === 'otp'">
+        <Field
+          v-model="inputValue"
+          v-bind="$attrs"
+          class="input-box"
+          :name="name"
+          :placeholder="placeholder"
+          rules="required|otp"
+          type="tel"
+          :validate-on-change="false"
+          @change="$emit('input', $event.target.value)"
+          @focus="isFocus = true"
+          @focusout="isFocus = false"
+          @keypress="isInteger($event)"
+        />
+      </template>
       <template v-else>
         <Field
           v-model="inputValue"
@@ -106,10 +122,19 @@
         />
       </template>
       <div
-        v-if="$slots.element && type !== 'password'"
+        v-if="$slots.element || type === 'otp'"
         class="input-group-button"
       >
-        <slot name="element" />
+        <template v-if="type === 'otp'">
+          <BaseRoundButton
+            class="btn-outline-primary btn-sm"
+            :text="$t('register_screen.send_code')"
+            @click="sendCode"
+          />
+        </template>
+        <template v-else>
+          <slot name="element" />
+        </template>
       </div>
     </div>
     <div
@@ -170,6 +195,9 @@ export default {
     toggleEye() {
       this.$refs['password-eye'].src = (this.isDisplay) ? PasswordEye : PasswordEyeClosed;
       this.isDisplay = !this.isDisplay;
+    },
+    sendCode() {
+
     },
   },
 };
