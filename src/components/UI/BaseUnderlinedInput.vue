@@ -59,8 +59,10 @@
           width="12"
         >
         <!-- TODO: Better UI -->
-        <select
+        <Field
           id="country-code"
+          as="select"
+          name="country_code"
         >
           <option
             v-for="item in countryCode"
@@ -70,7 +72,7 @@
           >
             ({{ item.code }}) +{{ item.dial_code }}
           </option>
-        </select>
+        </Field>
         <Field
           v-model="inputValue"
           v-bind="$attrs"

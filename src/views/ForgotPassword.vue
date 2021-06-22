@@ -1,6 +1,7 @@
 <template>
   <div class="container">
     <BaseForm
+      ref="forgot-password-form"
       class="forgot-password-form"
       @submit="onSubmit"
     >
@@ -31,7 +32,7 @@
       <BaseUnderlinedInput
         class="input-field"
         :ismail="isEmail"
-        name="otp_code"
+        name="otp"
         :placeholder="$t('register_screen.verification_code__placehoder')"
         :text="$t('register_screen.verification_code_label')"
         type="otp"
@@ -75,8 +76,23 @@ export default {
     };
   },
   methods: {
-    onSubmit(data) {
+    async onSubmit(forgotPasswordData) {
       // call API...
+      let response = null;
+      try {
+        const { data } = await this.$api.VERIFYFORGOTPASSWORDTOKEN(forgotPasswordData);
+        response = data;
+        console.log('response', response);
+      } catch (error) {
+        response = error.response.data;
+      }
+
+      if (response?.success) {
+        console.log(response.data);
+      } else {
+        const { form } = this.$refs['forgot-password-form'];
+        form.setFieldError('otp', response.error);
+      }
     },
   },
 };

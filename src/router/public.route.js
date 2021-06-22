@@ -20,6 +20,11 @@ const publicRoute = [
     component: () => import('@view/ForgotPassword.vue'),
   },
   {
+    path: '/update-password',
+    name: 'UpdatePassword',
+    component: () => import('@view/UpdatePassword.vue'),
+  },
+  {
     path: '/token-details/:id',
     name: 'TokenDetails',
     component: () => import('@view/Nft/TokenDetails.vue'),
