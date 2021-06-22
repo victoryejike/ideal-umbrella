@@ -63,7 +63,7 @@ export default {
   grid-column-gap: 1.25rem;
   grid-row-gap: 5rem;
   grid-template-columns: repeat(auto-fit, 11.875rem);
-  justify-content: space-between;
+  justify-content: space-around;
   overflow: hidden hidden;
 }
 

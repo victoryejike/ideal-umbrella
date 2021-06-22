@@ -57,7 +57,7 @@
       </template>
       <template #content>
         <div
-          class="gridbox seller-gridbox"
+          class="seller-gridbox"
         >
           <AuthorBlock
             v-for="(item, index) in topSellerList"
@@ -189,16 +189,13 @@ export default {
   margin-right: 1.25rem;
 }
 
-.gridbox {
-  display: grid;
-  justify-content: space-between;
-  overflow: hidden hidden;
-}
-
 .seller-gridbox {
+  display: grid;
   grid-column-gap: 4rem;
   grid-row-gap: 3rem;
   grid-template-columns: repeat(auto-fit, 14.625rem);
+  justify-content: space-around;
+  overflow: hidden hidden;
 }
 
 .load-more-btn {
@@ -253,6 +250,12 @@ export default {
   .banner-title {
     font-size: 8.5vw;
     margin-bottom: 6.5vw;
+  }
+}
+
+@media (max-width: 37.1875em) {
+  .seller-gridbox {
+    justify-content: space-between;
   }
 }
 </style>
