@@ -1,9 +1,6 @@
 const path = require('path');
 
 module.exports = {
-  devServer: {
-    public: 'naffiti.com'
-  },
   crossorigin: 'anonymous',
   integrity: true,
   configureWebpack: {
@@ -32,6 +29,7 @@ module.exports = {
         pathRewrite: { '^/api/': '' },
       },
     },
+    disableHostCheck: true
   },
   chainWebpack: (config) => {
     config.plugin('define').tap((args) => {
