@@ -1,6 +1,6 @@
 <template>
   <div
-    ref="otp"
+    ref="field-form"
     class="input-group"
     :style="{maxWidth: `${width}rem`}"
   >
@@ -66,10 +66,9 @@
             v-for="item in countryCode"
             :key="item.name"
             :data-countryCode="item.code"
-            selected
             :value="item.dial_code"
           >
-            +{{ item.dial_code }}
+            ({{ item.code }}) +{{ item.dial_code }}
           </option>
         </select>
         <Field
@@ -238,8 +237,12 @@ export default {
         response = error.response.data;
       }
       if (response?.success) {
+        const { form } = this.$refs['field-form'];
+        form.setFieldError('otp_code', response.message);
         console.log(response.message);
       } else {
+        const { form } = this.$refs['field-form'];
+        form.setFieldError('otp_code', response.error);
         console.log(response.error);
       }
     },
