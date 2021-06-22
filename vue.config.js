@@ -2,7 +2,7 @@ const path = require('path');
 
 module.exports = {
   devServer: {
-    public: 'naffiti.com:80'
+    public: 'naffiti.com'
   },
   crossorigin: 'anonymous',
   integrity: true,
