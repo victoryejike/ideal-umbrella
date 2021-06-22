@@ -1,6 +1,9 @@
 const path = require('path');
 
 module.exports = {
+  devServer: {
+    public: 'naffiti.com:80'
+  },
   crossorigin: 'anonymous',
   integrity: true,
   configureWebpack: {
