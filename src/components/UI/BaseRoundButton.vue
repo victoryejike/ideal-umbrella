@@ -18,6 +18,13 @@
       src="@svg/arrow-right.svg"
       width="32"
     >
+    <img
+      v-if="icon === 'loading'"
+      class="btn-right-icon"
+      height="32"
+      src="@svg/loading.svg"
+      width="32"
+    >
   </button>
 </template>
 

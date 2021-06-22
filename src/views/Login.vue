@@ -25,7 +25,7 @@
       />
       <BaseRoundButton
         class="login-btn btn-primary btn-md btn-bold"
-        icon="arrow-right"
+        :icon="isLoading ? 'loading' : 'arrow-right'"
         :submit="true"
         :text="$t('login_screen.login')"
       />
@@ -54,8 +54,14 @@
 
 export default {
   name: 'Login',
+  data() {
+    return {
+      isLoading: false,
+    };
+  },
   methods: {
     async onSubmit(formData) {
+      this.isLoading = true;
       let response = null;
       try {
         const { data } = await this.$api.LOGIN(formData);
@@ -71,6 +77,7 @@ export default {
         const { form } = this.$refs['login-form'];
         form.setFieldError('password', response.error);
       }
+      this.isLoading = false;
     },
   },
 };
