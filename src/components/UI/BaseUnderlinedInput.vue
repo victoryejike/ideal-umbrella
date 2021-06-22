@@ -71,12 +71,6 @@
           >
             +{{ item.dial_code }}
           </option>
-          <!-- <option
-            data-countryCode="NG"
-            value="234"
-          >
-            +234
-          </option> -->
         </select>
         <Field
           v-model="inputValue"
