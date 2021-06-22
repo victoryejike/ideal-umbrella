@@ -23,10 +23,6 @@
           :width="36.25"
           @click="handleSearch($event)"
         />
-        <BaseRoundButton
-          class="mobile-search-btn btn-primary btn-lg btn-bold"
-          :text="$t('components.search')"
-        />
       </div>
     </div>
     <IndexSection :title="$t('index_screen.title.popular')">
@@ -55,6 +51,7 @@
       <template #right>
         <BaseNavigationTab
           :list="sellerTab"
+          :mobile-max-width="38"
           :width="9.4"
         />
       </template>
@@ -88,11 +85,6 @@ import IndexSection from '@/components/Index/IndexSection.vue';
 import SearchBar from '@/components/Index/SearchBar.vue';
 import DiscoverSection from '@/components/Discover/DiscoverSection.vue';
 
-/*
-  This is a px value like media query, if the width lower then this value,
-  ProductCard will be responsive
-*/
-const MAX_WIDTH = 1000;
 export default {
   name: 'Index',
   components: {
@@ -125,33 +117,21 @@ export default {
     };
   },
   mounted() {
-    return window.innerWidth > MAX_WIDTH
-      ? this.pcResponsive()
-      : this.mobileResponsive();
-  },
-  methods: {
-    mobileResponsive() {
-      if (window.innerWidth <= MAX_WIDTH) {
-        window.removeEventListener('resize', this.mobileResponsive);
-        window.addEventListener('resize', this.pcResponsive);
-
-        this.popularSection = {
-          padding: '1rem 1.25rem',
-          size: 180,
-        };
-      }
-    },
-    pcResponsive() {
-      if (window.innerWidth > MAX_WIDTH) {
-        window.removeEventListener('resize', this.pcResponsive);
-        window.addEventListener('resize', this.mobileResponsive);
-
+    this.$global.handleResponsive(62.5,
+      () => {
         this.popularSection = {
           padding: '1.25rem 1.875rem',
           size: 220,
         };
-      }
-    },
+      },
+      () => {
+        this.popularSection = {
+          padding: '1rem 1.25rem',
+          size: 180,
+        };
+      });
+  },
+  methods: {
     handleSearch(value) {
       this.$router.push({ path: '/discover', query: { value } });
     },
@@ -198,12 +178,6 @@ export default {
   margin-left: 7.5rem;
   margin-top: -1rem;
   opacity: 1;
-}
-
-.mobile-search-btn {
-  margin-top: 1.25rem;
-  opacity: 0;
-  width: 100%;
 }
 
 .popular-box {
@@ -279,21 +253,6 @@ export default {
   .banner-title {
     font-size: 8.5vw;
     margin-bottom: 6.5vw;
-  }
-
-  .mobile-search-btn {
-    opacity: 1;
-    position: inherit;
-  }
-}
-
-@media (max-width: 34em) {
-  .tabs {
-    width: 100% !important;
-  }
-
-  .fixed {
-    width: 100% !important;
   }
 }
 </style>

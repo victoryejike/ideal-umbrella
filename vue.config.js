@@ -24,6 +24,15 @@ module.exports = {
       title: 'Naffiti - NFT Marketplace',
     },
   },
+  devServer: {
+    proxy: {
+      '/api/': {
+        target: 'https://api.fanschain.net/v1/',
+        changeOrigin: true,
+        pathRewrite: { '^/api/': '' },
+      },
+    },
+  },
   chainWebpack: (config) => {
     config.plugin('define').tap((args) => {
       const newArgs = [{

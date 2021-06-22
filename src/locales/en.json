@@ -309,7 +309,11 @@
     "password_msg": "Invalid password, the password must contain at least 8 characters in length, and at least 1 lowercase, uppercase and numeric values.",
     "phone_msg": "Invalid phone number.",
     "required_msg": "Field cannot be empty.",
-    "sms_msg": "The code should be a 6 digit number.",
+    "otp_msg": "The code should be a 6 digit number.",
     "username_msg": "Invalid username, it should be an email address or a phone number."
+  },
+  "error_page": {
+    "message": "Looks like you’re lost!",
+    "btn": "Home"
   }
 }

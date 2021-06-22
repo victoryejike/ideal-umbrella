@@ -2,7 +2,7 @@
   <div class="container">
     <BaseForm
       class="forgot-password-form"
-      :submit="onSubmit"
+      @submit="onSubmit"
     >
       <h1 class="forgot-password-text">
         {{ $t("forgot_password.forgot_password") }}
@@ -32,16 +32,9 @@
         class="input-field"
         name="verificationCode"
         :placeholder="$t('register_screen.verification_code__placehoder')"
-        rules="required|sms"
         :text="$t('register_screen.verification_code_label')"
-      >
-        <template #element>
-          <BaseRoundButton
-            class="btn-outline-primary btn-sm"
-            :text="$t('register_screen.send_code')"
-          />
-        </template>
-      </BaseUnderlinedInput>
+        type="otp"
+      />
       <BaseRoundButton
         class="send-btn btn-primary btn-md btn-bold"
         icon="arrow-right"

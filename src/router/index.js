@@ -47,9 +47,7 @@ router.beforeEach((to, from, next) => {
   // Auth isn't required for the route, just continue.
   if (!requiresAuth) return next();
 
-  if (store.getters['auth/loggedIn']) {
-    return store.dispatch('auth/validate').then((validUser) => (validUser ? next() : next({ name: 'Login', query: { redirectFrom: to.fullPath } })));
-  }
+  if (store.getters['auth/loggedIn']) return next();
 
   // Auth is required and the user is NOT currently logged in
   return next({ name: 'Login', query: { redirectFrom: to.fullPath } });

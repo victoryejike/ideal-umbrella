@@ -177,7 +177,7 @@ export default {
   padding: 3rem 0 2rem 0;
   position: absolute;
   scrollbar-width: none;
-  width: 24rem;
+  width: 18rem;
   z-index: 999;
 }
 

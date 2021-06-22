@@ -1,34 +1,37 @@
 import router from '@/router';
 
 const initialState = () => ({
-  username: process.env.NODE_ENV === 'development' ? 'Tester' : null,
-  avatarURL: null,
+  user: JSON.parse(localStorage.getItem('userData')) || null,
 });
 
 const getters = {
   loggedIn(state) {
-    return !!state.username;
+    return !!state.user;
   },
   username(state) {
-    return state.username;
+    return state.user?.name;
   },
   avatar(state) {
-    return state.avatarURL;
+    return state.user?.avatarURL;
   },
 };
 
 const actions = {
   validate({ commit, state }) {
-    if (process.env.NODE_ENV === 'development') return true;
-    // TODO: CAll API to validate
-    return false;
+    // TODO: Call API to validate
+    return true;
   },
   logout({ commit, state }) {
     // ...
     setTimeout(() => {
       router.push('/');
-      commit('setUsername', null);
+      localStorage.removeItem('userData');
+      commit('setUser', null);
     }, 400);
+  },
+  login({ commit, state }, userData) {
+    commit('setUser', { ...userData, name: 'Chris Torres' });
+    localStorage.setItem('userData', JSON.stringify({ ...userData, name: 'Chris Torres' }));
   },
 };
 
@@ -39,8 +42,8 @@ const mutations = {
       state[key] = newState[key];
     });
   },
-  setUsername(state, username) {
-    state.username = username;
+  setUser(state, userData) {
+    state.user = userData;
   },
 };
 

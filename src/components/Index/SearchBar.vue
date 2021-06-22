@@ -3,20 +3,30 @@
     class="searchbar-container"
     :style="{width: `${width}rem`}"
   >
-    <div class="padding">
-      <img src="@svg/search.svg">
-      <input
-        v-model="value"
-        class="search-input"
-        :placeholder="$t('components.search_placeholder')"
-        type="text"
-      >
-      <BaseRoundButton
-        class="search-btn btn-primary btn-lg btn-bold"
-        :text="$t('components.search')"
-        @click="handleSearch"
-      />
+    <div
+      class="searchbar-bg"
+      :style="{width: `${width}rem`}"
+    >
+      <div class="padding">
+        <img src="@svg/search.svg">
+        <input
+          v-model="value"
+          class="search-input"
+          :placeholder="$t('components.search_placeholder')"
+          type="text"
+        >
+        <BaseRoundButton
+          class="search-btn btn-primary btn-lg btn-bold"
+          :text="$t('components.search')"
+          @click="handleSearch"
+        />
+      </div>
     </div>
+    <BaseRoundButton
+      class="mobile-search-btn btn-primary btn-lg btn-bold"
+      :text="$t('components.search')"
+      @click="handleSearch"
+    />
   </div>
 </template>
 
@@ -42,7 +52,7 @@ export default {
 </script>
 
 <style scoped>
-.searchbar-container {
+.searchbar-bg {
   background-color: #fff;
   border-radius: 2rem;
 }
@@ -76,6 +86,14 @@ export default {
   position: inherit;
 }
 
+.mobile-search-btn {
+  left: -9999rem;
+  opacity: 0;
+  position: absolute;
+  top: -9999rem;
+  width: 100%;
+}
+
 @media (max-width: 40em) {
   .search-btn {
     left: -9999rem;
@@ -84,8 +102,15 @@ export default {
     top: -9999rem;
   }
 
-  .searchbar-container {
+  .searchbar-container,
+  .searchbar-bg {
     width: 80vw !important;
+  }
+
+  .mobile-search-btn {
+    margin-top: 1.25rem;
+    opacity: 1;
+    position: inherit;
   }
 }
 

@@ -2,8 +2,8 @@
   <button
     class="btn-root-style"
     :disabled="isActive"
-    type="submit"
-    @click="timeDelay(); forwardURL();"
+    type="button"
+    @click="timeDelay(); forwardURL(); submit ? handleSubmit() : null"
   >
     <div class="btn-left-icon">
       <slot name="icon" />
@@ -37,7 +37,7 @@ export default {
     forwardURL() {
       if (this.url !== null) { this.$router.push(this.url); }
     },
-    onSubmit() {
+    handleSubmit() {
       this.$parent.validate().then(({ valid }) => {
         if (!valid) {
           const { classList } = document.querySelector('.input-error-msg') ?? {};
@@ -45,6 +45,8 @@ export default {
             classList.add('shake');
             setTimeout(() => { classList.remove('shake'); }, 1000);
           }
+        } else {
+          this.$parent.$el.dispatchEvent(new Event('submit', { cancelable: true }));
         }
       });
     },

@@ -14,14 +14,8 @@
         name="emailVerificationCode"
         :placeholder="$t('rabind_phone_screen.email_verfication_placehoder')"
         :text="$t('rabind_phone_screen.email_verfication_label')"
-      >
-        <template #element>
-          <BaseRoundButton
-            class="btn-outline-primary btn-sm"
-            :text="$t('register_screen.send_code')"
-          />
-        </template>
-      </BaseUnderlinedInput>
+        type="otp"
+      />
 
       <BaseUnderlinedInput
         class="input-field"
@@ -36,14 +30,8 @@
         name="phoneVerificationCode"
         :placeholder="$t('rabind_phone_screen.phone_verfication_placehoder')"
         :text="$t('rabind_phone_screen.phone_verfication')"
-      >
-        <template #element>
-          <BaseRoundButton
-            class="btn-outline-primary btn-sm"
-            :text="$t('register_screen.send_code')"
-          />
-        </template>
-      </BaseUnderlinedInput>
+        type="otp"
+      />
 
       <BaseUnderlinedInput
         class="input-field"
@@ -58,14 +46,8 @@
         name="newEmailVerificationCode"
         :placeholder="$t('rabind_phone_screen.email_verfication_placehoder')"
         :text="$t('rabind_phone_screen.email_verfication_label')"
-      >
-        <template #element>
-          <BaseRoundButton
-            class="btn-outline-primary btn-sm"
-            :text="$t('register_screen.send_code')"
-          />
-        </template>
-      </BaseUnderlinedInput>
+        type="otp"
+      />
 
       <div class="actions-div">
         <BaseRoundButton
