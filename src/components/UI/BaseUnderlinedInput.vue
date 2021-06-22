@@ -165,6 +165,7 @@ export default {
     type: { type: String, required: false, default: 'text' },
     value: { type: String, required: false, default: '' },
     width: { type: Number, required: false, default: null },
+    isemail: { type: Boolean, required: false, default: null },
   },
   emits: ['input'],
   data() {
@@ -197,7 +198,7 @@ export default {
       this.isDisplay = !this.isDisplay;
     },
     sendCode() {
-
+      console.log(this.inputValue);
     },
   },
 };

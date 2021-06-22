@@ -31,7 +31,7 @@ const publicRoute = [
   },
   {
     path: '/404',
-    name: 'Erro',
+    name: 'Error',
     component: () => import('@view/404.vue'),
   },
 ];
