@@ -17,7 +17,7 @@
       {{ text }}
     </div>
     <div
-      class="inline-block"
+      class="input-inline-block"
     >
       <div
         v-if="$slots.icon && type !== 'tel'"
@@ -149,7 +149,7 @@
       class="input-error-msg"
     >
       <ErrorMessage
-        class="error-msg-text"
+        class="input-error-msg-text"
         :name="name"
       />
     </div>
@@ -185,7 +185,7 @@ export default {
   },
   mounted() {
     this.observer = new MutationObserver(((mutations) => {
-      this.isError = (mutations[1]?.addedNodes[0]?.className === 'error-msg-text');
+      this.isError = (mutations[1]?.addedNodes[0]?.className === 'input-error-msg-text');
     }));
     this.observer.observe(document.getElementById(`${this.name}-error-msg`), { childList: true });
   },
@@ -238,7 +238,7 @@ export default {
   align-self: center;
 }
 
-.inline-block {
+.input-inline-block {
   align-items: baseline;
   display: inline-flex;
   margin-bottom: 0.2rem;
@@ -283,10 +283,11 @@ export default {
 }
 
 .input-error-msg {
+  display: flex;
   margin-top: 0.5rem;
 }
 
-.error-msg-text {
+.input-error-msg-text {
   color: #ff3a31;
   font-size: 0.85rem;
   text-align: justify;
