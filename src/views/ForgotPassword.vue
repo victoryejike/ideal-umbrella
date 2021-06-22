@@ -14,7 +14,7 @@
       <BaseUnderlinedInput
         v-if="isEmail"
         class="input-field"
-        name="username"
+        name="email"
         :placeholder="$t('register_screen.email_placeholder')"
         rules="required|email"
         :text="$t('register_screen.email_label')"
@@ -22,7 +22,7 @@
       <BaseUnderlinedInput
         v-if="!isEmail"
         class="input-field"
-        name="username"
+        name="phone"
         :placeholder="$t('register_screen.phone_placeholder')"
         rules="required|phone"
         :text="$t('forgot_password.phone')"

@@ -58,19 +58,21 @@
           width="12"
         >
         <!-- TODO: Better UI -->
-        <select>
+        <select
+          id="country-code"
+        >
           <option
-            data-countryCode="GB"
+            data-countryCode="HK"
             selected
-            value="44"
+            value="852"
           >
-            +44
+            +852
           </option>
           <option
-            data-countryCode="US"
-            value="1"
+            data-countryCode="NG"
+            value="234"
           >
-            +1
+            +234
           </option>
         </select>
         <Field
@@ -172,7 +174,7 @@ export default {
     type: { type: String, required: false, default: 'text' },
     value: { type: String, required: false, default: '' },
     width: { type: Number, required: false, default: null },
-    isemail: { type: Boolean, required: false, default: null },
+    ismail: { type: Boolean, required: false, default: null },
   },
   emits: ['input'],
   data() {
@@ -209,7 +211,38 @@ export default {
       this.isDisplay = !this.isDisplay;
     },
     sendCode() {
-      console.log(this.inputValue);
+      if (this.ismail === true) {
+        const email = document.querySelector('input[name=email]').value;
+        const params = {
+          // eslint-disable-next-line object-shorthand
+          email: email,
+        };
+        this.callApi(params);
+      } else {
+        const phone = document.querySelector('input[name=phone]').value;
+        const countryCode = document.getElementById('country-code').value;
+        const params = {
+          // eslint-disable-next-line camelcase
+          country_code: countryCode,
+          // eslint-disable-next-line object-shorthand
+          phone: phone,
+        };
+        this.callApi(params);
+      }
+    },
+    async callApi(params) {
+      let response;
+      try {
+        const { data } = await this.$api.REQUESTOTP(params);
+        response = data;
+      } catch (error) {
+        response = error.response.data;
+      }
+      if (response?.success) {
+        console.log(response.message);
+      } else {
+        console.log(response.error);
+      }
     },
   },
 };

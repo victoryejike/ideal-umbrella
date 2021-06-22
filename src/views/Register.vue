@@ -56,6 +56,7 @@
       </BaseUnderlinedInput>
       <BaseUnderlinedInput
         class="input-field"
+        :ismail="isEmail"
         name="otp_code"
         :placeholder="$t('register_screen.verification_code__placehoder')"
         :text="$t('register_screen.verification_code_label')"
