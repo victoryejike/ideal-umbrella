@@ -18,7 +18,7 @@ export default {
   data() {
     return {
       filterBtn: [
-        { name: '🎨 Art', isActive: true },
+        { name: '🎨 Artssss', isActive: true },
         { name: '🎵 Music', isActive: false },
         { name: '⚽ Sports', isActive: false },
         { name: '📸 Photography', isActive: false },
