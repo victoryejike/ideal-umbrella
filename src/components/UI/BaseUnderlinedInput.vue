@@ -1,5 +1,6 @@
 <template>
   <div
+    ref="otp"
     class="input-group"
     :style="{maxWidth: `${width}rem`}"
   >
@@ -62,18 +63,20 @@
           id="country-code"
         >
           <option
-            data-countryCode="HK"
+            v-for="item in countryCode"
+            :key="item.name"
+            :data-countryCode="item.code"
             selected
-            value="852"
+            :value="item.dial_code"
           >
-            +852
+            +{{ item.dial_code }}
           </option>
-          <option
+          <!-- <option
             data-countryCode="NG"
             value="234"
           >
             +234
-          </option>
+          </option> -->
         </select>
         <Field
           v-model="inputValue"
@@ -132,7 +135,7 @@
       >
         <template v-if="type === 'otp'">
           <BaseRoundButton
-            class="btn-outline-primary btn-sm"
+            class="btn-outline-primary btn-sm send-otp"
             :text="$t('register_screen.send_code')"
             @click="sendCode"
           />
@@ -162,6 +165,7 @@
 import PasswordEye from '@svg/password-eye.svg';
 import PasswordEyeClosed from '@svg/password-eye-closed.svg';
 import { Field, ErrorMessage } from 'vee-validate';
+import CountryCode from '../../utils/country-code.json';
 
 export default {
   name: 'BaseUnderlinedInput',
@@ -183,6 +187,7 @@ export default {
       isDisplay: false,
       isFocus: false,
       isError: false,
+      countryCode: CountryCode,
     };
   },
   mounted() {
