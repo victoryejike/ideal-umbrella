@@ -38,7 +38,7 @@ module.exports = {
       },
     ],
     'vue/attributes-order': ['warn', {
-      'alphabetical': true
+      alphabetical: true,
     }],
   },
   overrides: [

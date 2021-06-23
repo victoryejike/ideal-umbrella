@@ -75,5 +75,6 @@ export default {
   color: #c4c4c4;
   margin-right: 1rem;
   margin-top: 2.5rem;
+  white-space: normal;
 }
 </style>

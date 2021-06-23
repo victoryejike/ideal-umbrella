@@ -165,6 +165,7 @@ export default {
   background-color: rgba(0, 0, 0, 0.5);
   height: 100vh;
   position: fixed;
+  transition: width 0s;
   width: 100vw;
   z-index: 999;
 }
@@ -173,11 +174,11 @@ export default {
   background-color: #2c43ad;
   border-right: rgba(255, 255, 255, 0.25) 0.1rem solid;
   height: 100vh;
-  overflow: scroll;
+  max-width: 22.5rem;
+  overflow-y: scroll;
   padding: 3rem 0 2rem 0;
   position: absolute;
   scrollbar-width: none;
-  width: 18rem;
   z-index: 999;
 }
 
@@ -204,6 +205,7 @@ export default {
 
 .menu-footer {
   color: #c4c4c4;
+  font-size: 0.75rem;
   margin-left: 1.875rem;
   margin-top: 2rem;
 }

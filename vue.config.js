@@ -3,6 +3,7 @@ const path = require('path');
 module.exports = {
   crossorigin: 'anonymous',
   integrity: true,
+  productionSourceMap: false,
   configureWebpack: {
     resolve: {
       alias: {
@@ -29,7 +30,7 @@ module.exports = {
         pathRewrite: { '^/api/': '' },
       },
     },
-    disableHostCheck: true
+    disableHostCheck: true,
   },
   chainWebpack: (config) => {
     config.plugin('define').tap((args) => {
