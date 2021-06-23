@@ -33,6 +33,9 @@ const actions = {
     commit('setUser', { ...userData, name: 'Chris Torres' });
     localStorage.setItem('userData', JSON.stringify({ ...userData, name: 'Chris Torres' }));
   },
+  register({ commit }) {
+    commit('registerSuccess');
+  },
 };
 
 const mutations = {

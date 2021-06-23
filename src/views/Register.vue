@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <BaseForm
-      ref="form"
+      ref="register-form"
       class="register-form"
       @submit="onSubmit"
     >
@@ -44,7 +44,7 @@
 
       <BaseUnderlinedInput
         class="input-field"
-        name="confirmPassword"
+        name="password"
         :placeholder="$t('register_screen.confirm_password_placehoder')"
         rules="required|confirmed:loginPassword"
         :text="$t('register_screen.confirm_password_label')"
@@ -56,7 +56,7 @@
       </BaseUnderlinedInput>
       <BaseUnderlinedInput
         class="input-field"
-        name="verificationCode"
+        name="otp_code"
         :placeholder="$t('register_screen.verification_code__placehoder')"
         :text="$t('register_screen.verification_code_label')"
         type="otp"
@@ -106,7 +106,10 @@ import Agreement from '../components/Agreement.vue';
 export default {
 
   name: 'Register',
-  components: { Agreement },
+  components: {
+    Agreement,
+
+  },
   data() {
     return {
       isModalVisible: false,
@@ -124,9 +127,28 @@ export default {
     };
   },
   methods: {
-    onSubmit(data) {
-      // call API...
+    // call API...
+    async onSubmit(registerFormData) {
+      console.log('registerform', registerFormData);
+
+      let response = null;
+      try {
+        const { data } = await this.$api.REGISTER(registerFormData);
+        response = data;
+        console.log('response', response);
+      } catch (error) {
+        response = error.response.data;
+      }
+
+      if (response?.success) {
+        this.$store.dispatch('register', response.data);
+        this.$router.push('/login');
+      } else {
+        const { form } = this.$refs['register-form'];
+        form.setFieldError('otp_code', response.error);
+      }
     },
+
     showModal() {
       this.isModalVisible = true;
       console.log('in modal fn');
