@@ -14,5 +14,6 @@ jobs:
         script: |
           cd market-place-front-end
           sudo git pull origin dev
+          npm i
           sudo docker-compose down --rmi local
           sudo docker-compose up --build

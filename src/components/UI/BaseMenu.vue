@@ -60,6 +60,7 @@ export default {
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s;
+  z-index: 999;
 }
 
 .menu-container {
@@ -70,7 +71,6 @@ export default {
   outline: none;
   position: absolute;
   transform: translateX(-100%);
-  z-index: 1;
 }
 
 .menu-item {

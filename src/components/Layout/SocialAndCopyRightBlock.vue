@@ -72,6 +72,7 @@ export default {
 }
 
 .copyright-text {
+  color: #c4c4c4;
   margin-right: 1rem;
   margin-top: 2.5rem;
 }

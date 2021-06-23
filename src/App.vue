@@ -2,7 +2,7 @@
   <AppMobileMenu id="menu" />
   <div
     id="root"
-    :class="{'scroll-lock':$store.state.style.isMenuOpen}"
+    :class="{'scroll-lock': $store.state.style.isMenuOpen}"
   >
     <div
       id="wrapper"

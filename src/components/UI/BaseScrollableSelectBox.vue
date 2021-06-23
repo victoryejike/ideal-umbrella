@@ -21,7 +21,7 @@
       <span class="options-text">{{ selectedItem.name || selectedItem }}</span>
       <i
         class="selector-arrow"
-        :class="{'rotate':isPullDown}"
+        :class="{'rotate': isPullDown}"
         :style="customCSS"
       />
     </div>
@@ -129,6 +129,7 @@ export default {
   border: 0.1rem solid var(--border-color);
   cursor: pointer;
   display: flex;
+  font-weight: bold;
   height: 2.5rem;
   padding: 0 1.2rem;
   transition: background 0.3s ease-in-out;
@@ -155,8 +156,9 @@ export default {
 
 .selector-menu {
   border-bottom: 0.1rem solid var(--border-color);
-  max-height: 10.4rem;
+  max-height: 10.6rem;
   overflow: scroll;
+  overflow-x: hidden;
   position: absolute;
   scrollbar-width: none;
   z-index: 1;

@@ -5,7 +5,10 @@
     type="button"
     @click="timeDelay(); forwardURL(); submit ? handleSubmit() : null"
   >
-    <div class="btn-left-icon">
+    <div
+      v-if="icon"
+      class="btn-left-icon"
+    >
       <slot name="icon" />
     </div>
     <span class="btn-text">
@@ -16,6 +19,13 @@
       class="btn-right-icon"
       height="32"
       src="@svg/arrow-right.svg"
+      width="32"
+    >
+    <img
+      v-if="icon === 'loading'"
+      class="btn-right-icon"
+      height="32"
+      src="@svg/loading.svg"
       width="32"
     >
   </button>
@@ -40,7 +50,7 @@ export default {
     handleSubmit() {
       this.$parent.validate().then(({ valid }) => {
         if (!valid) {
-          const { classList } = document.querySelector('.input-error-msg') ?? {};
+          const { classList } = document.querySelector('.input-error-msg-text') ?? {};
           if (classList) {
             classList.add('shake');
             setTimeout(() => { classList.remove('shake'); }, 1000);
