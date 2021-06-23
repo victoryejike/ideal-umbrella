@@ -34,3 +34,11 @@ defineRule('otp', async (val) => {
   }
   return $t('validator.otp_msg');
 });
+
+defineRule('agree', (val) => {
+  if (val === false) {
+    return $t('validator.agree_terms_msg');
+  }
+
+  return true;
+});

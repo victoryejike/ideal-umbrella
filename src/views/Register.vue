@@ -62,10 +62,15 @@
         type="otp"
       />
       <div class="input-agree-div">
-        <input
+        <Field
           id="checkbox"
+          v-model="checkedTerms"
+          name="agree-terms"
+          rules="agree"
           type="checkbox"
-        >
+          :value="true"
+          @click="selectCheckbox"
+        />
         <div class="agree-text">
           {{ $t("register_screen.agree_text") }}
           <a @click="showModal">
@@ -80,9 +85,13 @@
             </template>
           </BaseModal>
         </div>
-      </div>
+      </div>  <ErrorMessage
+        class="input-error-msg-text"
+        name="agree-terms"
+      />
       <BaseRoundButton
         class="register-button btn-primary btn-md btn-bold"
+
         icon="arrow-right"
         :submit="true"
         :text="$t('register_screen.register')"
@@ -101,6 +110,7 @@
 </template>
 
 <script>
+import { Field, ErrorMessage } from 'vee-validate';
 import Agreement from '../components/Agreement.vue';
 
 export default {
@@ -108,12 +118,16 @@ export default {
   name: 'Register',
   components: {
     Agreement,
+    Field,
+    ErrorMessage,
 
   },
   data() {
     return {
       isModalVisible: false,
       isEmail: true,
+
+      checkedTerms: false,
       registerTab: [
         {
           name: this.$t('tab_titles.email'),
@@ -126,6 +140,7 @@ export default {
       ],
     };
   },
+
   methods: {
     // call API...
     async onSubmit(registerFormData) {
@@ -155,6 +170,9 @@ export default {
     },
     closeModal() {
       this.isModalVisible = false;
+    },
+    selectCheckbox() {
+      this.checkedTerms = !this.checkedTerms;
     },
   },
 
@@ -223,6 +241,13 @@ export default {
 
 .login-link {
   padding-left: 0.3125rem;
+}
+
+.input-error-msg-text {
+  color: #ff3a31;
+  font-size: 0.85rem;
+  text-align: justify;
+  white-space: normal;
 }
 
 @media (max-width: 30em) {
