@@ -5,7 +5,7 @@ const API_SERVICES = {
   REGISTER: (params) => axios.post('auth/sign-up', params, false),
   REQUESTOTP: (params) => axios.post('auth/request-otp', params, false),
   VERIFYFORGOTPASSWORDTOKEN: (params) => axios.post('auth/verify-forgot-password-code', params, false),
-  UPDATEPASSWORD: (params) => axios.post('auth/verify-forgot-password-code', params, false),
+  UPDATEPASSWORD: (params, token) => axios.post('auth/update-password-forgot-password', params, { headers: { Authorization: `Bearer ${token}` } }),
 };
 
 export default {

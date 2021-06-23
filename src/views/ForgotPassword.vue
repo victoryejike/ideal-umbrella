@@ -82,13 +82,12 @@ export default {
       try {
         const { data } = await this.$api.VERIFYFORGOTPASSWORDTOKEN(forgotPasswordData);
         response = data;
-        console.log('response', response);
       } catch (error) {
         response = error.response.data;
       }
 
       if (response?.success) {
-        console.log(response.data);
+        this.$router.push(`/update-password?token=${response.data}`);
       } else {
         const { form } = this.$refs['forgot-password-form'];
         form.setFieldError('otp', response.error);

@@ -73,11 +73,12 @@ export default {
       // call API...
       let response = null;
       try {
-        const { data } = await this.$api.UPDATEPASSWORD(updatepasswordData);
+        const { data } = await this.$api.UPDATEPASSWORD(updatepasswordData, this.token);
         response = data;
         console.log('response', response);
       } catch (error) {
         response = error.response.data;
+        console.log('error', error);
       }
 
       if (response?.success) {
