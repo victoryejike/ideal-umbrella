@@ -144,6 +144,12 @@
       class="input-line"
       :class="[{focus: isFocus}, {'error-underline': isError}]"
     />
+    <div v-if="type === 'otp'">
+      <Message
+        :message="errorMessgae"
+        :type="messageType"
+      />
+    </div>
     <div
       :id="`${name}-error-msg`"
       class="input-error-msg"
@@ -161,10 +167,11 @@ import PasswordEye from '@svg/password-eye.svg';
 import PasswordEyeClosed from '@svg/password-eye-closed.svg';
 import { Field, ErrorMessage } from 'vee-validate';
 import CountryCode from '../../utils/country-code.json';
+import Message from './Message.vue';
 
 export default {
   name: 'BaseUnderlinedInput',
-  components: { ErrorMessage, Field },
+  components: { ErrorMessage, Field, Message },
   props: {
     name: { type: String, required: true },
     placeholder: { type: String, required: false, default: null },
@@ -178,11 +185,13 @@ export default {
   emits: ['input'],
   data() {
     return {
+      errorMessgae: '',
       inputValue: this.value,
       isDisplay: false,
       isFocus: false,
       isError: false,
       countryCode: CountryCode,
+      messageType: '',
     };
   },
   mounted() {
@@ -239,13 +248,11 @@ export default {
         response = error.response.data;
       }
       if (response?.success) {
-        const { form } = this.$refs['field-form'];
-        form.setFieldError('otp_code', response.message);
-        console.log(response.message);
+        this.messageType = 'success';
+        this.errorMessgae = response.message;
       } else {
-        const { form } = this.$refs['field-form'];
-        form.setFieldError('otp_code', response.error);
-        console.log(response.error);
+        this.messageType = 'error';
+        this.errorMessgae = response.message;
       }
     },
   },

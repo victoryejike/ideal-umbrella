@@ -71,6 +71,7 @@ export default {
       }
 
       if (response?.success) {
+        console.log(response.data);
         this.$store.dispatch('auth/login', response.data);
         this.$router.push('/profile');
       } else {

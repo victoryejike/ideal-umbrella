@@ -53,6 +53,9 @@ export default {
       }),
     };
   },
+  mounted() {
+    // console.log(this.$store.auth.login);
+  },
 };
 
 </script>
