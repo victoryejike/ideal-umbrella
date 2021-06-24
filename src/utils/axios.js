@@ -2,14 +2,12 @@ import axios from 'axios';
 import router from '@/router';
 import store from '@/store';
 
-// const DOMAIN_NAME = 'api.fanschain.net';
-// const VERSION = 'v1';
-// const API_BASE_URL = `https://${DOMAIN_NAME}/${VERSION}/`;
-const API_BASE_URL = '/api/'; // devServer proxy [for development]
+const DOMAIN_NAME = process.env.API_DOMAIN_NAME || 'api.fanschain.net';
+const VERSION = process.env.API_VERSION || 'v1';
+const API_BASE_URL = `https://${DOMAIN_NAME}/${VERSION}/`;
 
 axios.defaults.baseURL = API_BASE_URL;
 axios.defaults.timeout = 5000;
-axios.defaults.withCredentials = true;
 
 axios.interceptors.request.use((config) => {
   if (localStorage && localStorage.getItem('userData')?.token) {

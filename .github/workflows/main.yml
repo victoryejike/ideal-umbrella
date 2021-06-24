@@ -1,19 +1,32 @@
-name: CI
-on: push
+name: DEPLOY TO UAT SERVER
+
+on:
+  push:
+    branches:
+      - dev
+
 jobs:
-  build:
+  uat-deplay:
     runs-on: ubuntu-latest
     steps:
-    - name: deploy (dev)
-      uses: appleboy/ssh-action@master
-      if: github.ref == 'refs/heads/dev'
-      with:
-        host: ${{ secrets.SSH_HOST }}
-        username: ${{ secrets.SSH_USER }}
-        key: ${{ secrets.SSH_KEY }}
-        script: |
-          cd market-place-front-end
-          sudo git pull origin dev
-          npm i
-          sudo docker-compose down --rmi local
-          sudo docker-compose up --build
+    - name: Checkout
+      uses: actions/checkout@master
+      
+    - name: Setup Node
+      uses: actions/setup-node@master
+    
+    - name: Installing Project Dependencies
+      run: npm ci
+      
+    - name: Building the Project
+      run: npm run build
+      
+    - name: Deploy to UAT server
+      uses: easingthemes/ssh-deploy@main
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_KEY }}
+        ARGS: "-rltgoDzvO --delete"
+        SOURCE: "dist/"
+        REMOTE_HOST: ${{ secrets.SSH_HOST }}
+        REMOTE_USER: ${{ secrets.SSH_USER }}
+        TARGET: ${{ secrets.TARGET }}
