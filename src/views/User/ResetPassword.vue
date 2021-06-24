@@ -1,9 +1,29 @@
 <template>
   <BaseSettingFrame :title="$t('reset_password_screen.reset_password')">
-    <BaseForm class="reset-form">
+    <BaseForm
+      ref="reset-form"
+      class="reset-form"
+      @submit="onSubmit"
+    >
+      <BaseUnderlinedInput
+        v-if="isEmail"
+        class="input-field"
+        name="email"
+        :placeholder="$t('register_screen.email_placeholder')"
+        rules="required|email"
+        :text="$t('register_screen.email_label')"
+      />
+      <BaseUnderlinedInput
+        v-if="!isEmail"
+        class="input-field"
+        name="phone"
+        :placeholder="$t('register_screen.phone_placeholder')"
+        :text="$t('register_screen.phone_label')"
+        type="tel"
+      />
       <BaseUnderlinedInput
         class="input-field"
-        name="resetPassword"
+        name="current_password"
         :placeholder="$t('reset_password_screen.original_password_placehoder')"
         :text="$t('reset_password_screen.original_password_label')"
         type="password"
@@ -15,7 +35,7 @@
 
       <BaseUnderlinedInput
         class="input-field"
-        name="newPassword"
+        name="new_password"
         :placeholder="$t('reset_password_screen.new_password_placehoder')"
         :text="$t('reset_password_screen.new_password_label')"
         type="password"
@@ -27,7 +47,7 @@
 
       <BaseUnderlinedInput
         class="input-field"
-        name="resetPassword"
+        name="confirm_password"
         :placeholder="$t('reset_password_screen.confirm_password_placehoder')"
         :text="$t('reset_password_screen.confirm_password_label')"
         type="password"
@@ -40,6 +60,7 @@
         <BaseRoundButton
           class="reset-button btn-primary btn-md btn-bold"
           icon="arrow-right"
+          :submit="true"
           :text="$t('reset_password_screen.reset')"
         />
 
@@ -59,6 +80,33 @@ import BaseSettingFrame from './BaseSettingFrame.vue';
 export default {
   name: 'UserResetPassword',
   components: { BaseSettingFrame },
+  data() {
+    return {
+      isEmail: true,
+    };
+  },
+  methods: {
+    async onSubmit(resetFormData) {
+      console.log('registerform', resetFormData);
+
+      let response = null;
+      try {
+        const { data } = await this.$api.RESETPASSWORD(resetFormData);
+        response = data;
+        console.log('response', response);
+      } catch (error) {
+        response = error.response.data;
+      }
+
+      if (response?.success) {
+        this.$store.dispatch('reset', response.data);
+        // this.$router.push('/login');
+      } else {
+        const { form } = this.$refs['reset-form'];
+        form.setFieldError('confirm_password', response.error);
+      }
+    },
+  },
 };
 
 </script>
