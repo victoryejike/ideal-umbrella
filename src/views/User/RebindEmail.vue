@@ -16,8 +16,8 @@
 
       <BaseUnderlinedInput
         class="input-field"
-        fieldname="current_mail"
-        :ismail="isEmail"
+        fieldName="current_mail"
+        :is-mail="isEmail"
         name="current_mail_code"
         :placeholder="$t('rabind_phone_screen.email_verfication_placehoder')"
         :text="$t('rabind_phone_screen.email_verfication_label')"
@@ -35,8 +35,8 @@
 
       <BaseUnderlinedInput
         class="input-field"
-        fieldname="new_mail"
-        :ismail="isEmail"
+        fieldName="new_mail"
+        :is-mail="isEmail"
         name="new_mail_code"
         :placeholder="$t('rabind_phone_screen.email_verfication_placehoder')"
         :text="$t('rabind_phone_screen.email_verfication_label')"

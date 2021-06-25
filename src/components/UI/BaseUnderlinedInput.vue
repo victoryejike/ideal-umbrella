@@ -132,7 +132,7 @@
           <BaseRoundButton
             class="btn-outline-primary btn-sm send-otp"
             :text="$t('register_screen.send_code')"
-            @click="sendCode(fieldname)"
+            @click="sendCode(fieldName)"
           />
         </template>
         <template v-else>
@@ -174,14 +174,14 @@ export default {
   components: { ErrorMessage, Field, Message },
   props: {
     name: { type: String, required: true },
-    fieldname: { type: String, required: false, default: null },
+    fieldName: { type: String, required: false, default: null },
     placeholder: { type: String, required: false, default: null },
     rules: { type: String, required: false, default: null },
     text: { type: String, required: false, default: null },
     type: { type: String, required: false, default: 'text' },
     value: { type: String, required: false, default: '' },
     width: { type: Number, required: false, default: null },
-    ismail: { type: Boolean, required: false, default: null },
+    isMail: { type: Boolean, required: false, default: null },
   },
   emits: ['input'],
   data() {
@@ -221,7 +221,7 @@ export default {
       this.isDisplay = !this.isDisplay;
     },
     sendCode(name) {
-      if (this.ismail === true) {
+      if (this.isMail === true) {
         const email = document.querySelector(`input[name=${name}]`).value;
         if (email === '' || email === null) {
           this.messageType = 'error';

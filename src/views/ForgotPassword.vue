@@ -23,8 +23,8 @@
       <BaseUnderlinedInput
         v-if="isEmail"
         class="input-field"
-        fieldname="email"
-        :ismail="isEmail"
+        fieldName="email"
+        :isMail="isEmail"
         name="otp"
         :placeholder="$t('register_screen.verification_code__placehoder')"
         :text="$t('register_screen.verification_code_label')"
@@ -42,8 +42,8 @@
       <BaseUnderlinedInput
         v-if="!isEmail"
         class="input-field"
-        fieldname="phone"
-        :ismail="isEmail"
+        fieldName="phone"
+        :isMail="isEmail"
         name="otp"
         :placeholder="$t('register_screen.verification_code__placehoder')"
         :text="$t('register_screen.verification_code_label')"
