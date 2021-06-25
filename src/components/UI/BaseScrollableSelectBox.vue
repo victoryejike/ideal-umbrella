@@ -1,7 +1,7 @@
 <template>
   <div
     class="selector-group"
-    :style="{width: width + 'rem'}"
+    :style="{width: customCSS['--width']}"
   >
     <span
       v-if="text"
@@ -33,15 +33,14 @@
       <i
         class="selector-arrow"
         :class="{'rotate': isPullDown}"
-        :style="customCSS"
+        :style="{'--arrow-color': arrowColor}"
       />
     </div>
     <div style="position: relative;">
       <div
         v-if="isPullDown"
         class="selector-menu"
-        :style="customCSS"
-        :value="value"
+        :style="{'--border-color': customCSS['--border-color']}"
       >
         <div
           v-for="(item, index) in options"
@@ -67,7 +66,7 @@
       class="input-error-msg"
     >
       <ErrorMessage
-        class="input-error-msg-effect"
+        class="input-error-msg-text"
         :name="name"
       />
     </div>
@@ -124,17 +123,17 @@ export default {
     customCSS() {
       return {
         '--active-color': this.css?.activeColor || '#dde1fb',
-        '--arrow-color': this.css?.arrowColor || '#9ba6d8',
         '--bg-color': this.css?.bgColor || '#e5e5e5',
         '--border-color': this.css?.borderColor || 'none',
         '--hover-color': this.css?.hoverColor || '#dde1fb',
         '--width': `${(this.css?.width || 14) - 2.4}rem`,
       };
     },
+    arrowColor() { return this.css?.arrowColor || '#9ba6d8'; },
   },
   mounted() {
     this.observer = new MutationObserver(((mutations) => {
-      this.isError = (mutations[1]?.addedNodes[0]?.className === 'input-error-msg-effect');
+      this.isError = (mutations[1]?.addedNodes[0]?.className === 'input-error-msg-text');
     }));
     this.observer.observe(document.getElementById(`${this.name}-error-msg`), { childList: true });
   },

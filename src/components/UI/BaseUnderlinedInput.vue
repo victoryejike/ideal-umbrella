@@ -174,7 +174,7 @@ export default {
   components: { ErrorMessage, Field, Message },
   props: {
     name: { type: String, required: true },
-    fieldname: { type: String, required: true },
+    fieldname: { type: String, required: false, default: null },
     placeholder: { type: String, required: false, default: null },
     rules: { type: String, required: false, default: null },
     text: { type: String, required: false, default: null },
@@ -221,7 +221,6 @@ export default {
       this.isDisplay = !this.isDisplay;
     },
     sendCode(name) {
-      // console.log();
       if (this.ismail === true) {
         const email = document.querySelector(`input[name=${name}]`).value;
         if (email === '' || email === null) {

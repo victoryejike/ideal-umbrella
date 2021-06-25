@@ -71,8 +71,8 @@ export default {
     };
   },
   methods: {
-    async onSubmit(formData) {
-      console.log(formData);
+    onSubmit(formData) {
+
     },
   },
 };

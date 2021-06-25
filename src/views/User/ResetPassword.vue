@@ -122,7 +122,6 @@ export default {
       try {
         const { data } = await this.$api.RESETPASSWORD(resetFormData);
         response = data;
-        console.log('response', response);
       } catch (error) {
         response = error.response.data;
       }

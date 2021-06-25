@@ -239,7 +239,6 @@ export default {
   methods: {
     showModal() {
       this.isModalVisible = true;
-      console.log('in modal fn');
     },
     closeModal() {
       this.isModalVisible = false;

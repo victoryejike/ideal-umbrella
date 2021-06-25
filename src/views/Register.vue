@@ -105,7 +105,6 @@
       />
       <BaseRoundButton
         class="register-button btn-primary btn-md btn-bold"
-
         icon="arrow-right"
         :submit="true"
         :text="$t('register_screen.register')"
@@ -140,7 +139,6 @@ export default {
     return {
       isModalVisible: false,
       isEmail: true,
-
       checkedTerms: false,
       registerTab: [
         {
@@ -158,13 +156,10 @@ export default {
   methods: {
     // call API...
     async onSubmit(registerFormData) {
-      console.log('registerform', registerFormData);
-
       let response = null;
       try {
         const { data } = await this.$api.REGISTER(registerFormData);
         response = data;
-        console.log('response', response);
       } catch (error) {
         response = error.response.data;
       }
@@ -180,7 +175,6 @@ export default {
 
     showModal() {
       this.isModalVisible = true;
-      console.log('in modal fn');
     },
     closeModal() {
       this.isModalVisible = false;

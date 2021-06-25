@@ -33,7 +33,7 @@ export default {
         },
         {
           name: this.$t('profile.owned'),
-          handler: () => { console.log('owned'); },
+          handler: () => {},
         },
         {
           name: this.$t('profile.created'),
@@ -52,9 +52,6 @@ export default {
         verified: true,
       }),
     };
-  },
-  mounted() {
-    // console.log(this.$store.auth.login);
   },
 };
 

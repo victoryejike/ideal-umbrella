@@ -80,10 +80,8 @@ export default {
       try {
         const { data } = await this.$api.REBINDEMAIL(rebindemailData, this.token);
         response = data;
-        console.log('response', response);
       } catch (error) {
         response = error.response.data;
-        console.log('error', error);
       }
 
       if (response?.success) {
