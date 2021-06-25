@@ -118,8 +118,6 @@ export default {
 
   methods: {
     async onSubmit(resetFormData) {
-      console.log('resetFormData', resetFormData);
-
       let response = null;
       try {
         const { data } = await this.$api.RESETPASSWORD(resetFormData);
