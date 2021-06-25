@@ -21,6 +21,16 @@
         :text="$t('register_screen.email_label')"
       />
       <BaseUnderlinedInput
+        v-if="isEmail"
+        class="input-field"
+        fieldname="email"
+        :ismail="isEmail"
+        name="otp"
+        :placeholder="$t('register_screen.verification_code__placehoder')"
+        :text="$t('register_screen.verification_code_label')"
+        type="otp"
+      />
+      <BaseUnderlinedInput
         v-if="!isEmail"
         class="input-field"
         name="phone"
@@ -30,7 +40,9 @@
         type="tel"
       />
       <BaseUnderlinedInput
+        v-if="!isEmail"
         class="input-field"
+        fieldname="phone"
         :ismail="isEmail"
         name="otp"
         :placeholder="$t('register_screen.verification_code__placehoder')"

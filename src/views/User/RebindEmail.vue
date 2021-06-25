@@ -1,17 +1,24 @@
 <template>
   <BaseSettingFrame :title="$t('rabind_email_screen.rebind_email')">
-    <BaseForm class="rebind-form">
+    <BaseForm
+      ref="rebind-email-form"
+      class="rebind-form"
+      @submit="onSubmit"
+    >
       <BaseUnderlinedInput
         class="input-field"
-        name="resetPassword"
+        name="current_mail"
         :placeholder="$t('rabind_email_screen.original_email_placehoder')"
+        rules="required|email"
         :text="$t('rabind_email_screen.original_email_label')"
         type="email"
       />
 
       <BaseUnderlinedInput
         class="input-field"
-        name="emailVerificationCode"
+        fieldname="current_mail"
+        :ismail="isEmail"
+        name="current_mail_code"
         :placeholder="$t('rabind_phone_screen.email_verfication_placehoder')"
         :text="$t('rabind_phone_screen.email_verfication_label')"
         type="otp"
@@ -19,31 +26,18 @@
 
       <BaseUnderlinedInput
         class="input-field"
-        name="resetPassword"
-        :placeholder="$t('rabind_phone_screen.phone_label_label')"
-        :text="$t('rabind_phone_screen.phone_label')"
+        name="new_mail"
+        :placeholder="$t('rabind_phone_screen.new_email_placeholder')"
+        rules="required|email"
+        :text="$t('rabind_phone_screen.new_email_label')"
         type="text"
       />
 
       <BaseUnderlinedInput
         class="input-field"
-        name="phoneVerificationCode"
-        :placeholder="$t('rabind_phone_screen.phone_verfication_placehoder')"
-        :text="$t('rabind_phone_screen.phone_verfication')"
-        type="otp"
-      />
-
-      <BaseUnderlinedInput
-        class="input-field"
-        name="phone"
-        :placeholder="$t('register_screen.phone_placeholder')"
-        :text="$t('forgot_password.phone')"
-        type="tel"
-      />
-
-      <BaseUnderlinedInput
-        class="input-field"
-        name="newEmailVerificationCode"
+        fieldname="new_mail"
+        :ismail="isEmail"
+        name="new_mail_code"
         :placeholder="$t('rabind_phone_screen.email_verfication_placehoder')"
         :text="$t('rabind_phone_screen.email_verfication_label')"
         type="otp"
@@ -53,6 +47,7 @@
         <BaseRoundButton
           class="reset-button btn-primary btn-md btn-bold"
           icon="arrow-right"
+          submit="true"
           :text="$t('rabind_phone_screen.confirm')"
         />
 
@@ -72,6 +67,34 @@ import BaseSettingFrame from './BaseSettingFrame.vue';
 export default {
   name: 'UserRebindEmail',
   components: { BaseSettingFrame },
+  data() {
+    return {
+      isEmail: true,
+      token: JSON.parse(localStorage.getItem('userData')).token,
+    };
+  },
+  methods: {
+    async onSubmit(rebindemailData) {
+      // call API...
+      let response = null;
+      try {
+        const { data } = await this.$api.REBINDEMAIL(rebindemailData, this.token);
+        response = data;
+        console.log('response', response);
+      } catch (error) {
+        response = error.response.data;
+        console.log('error', error);
+      }
+
+      if (response?.success) {
+        const { form } = this.$refs['rebind-email-form'];
+        form.setFieldError('new_mail_code', response.message);
+      } else {
+        const { form } = this.$refs['rebind-email-form'];
+        form.setFieldError('new_mail_code', response.error);
+      }
+    },
+  },
 };
 
 </script>

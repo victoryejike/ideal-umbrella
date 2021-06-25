@@ -239,6 +239,8 @@
     "new_phone_label": "New Phone",
     "new_phone_placeholder": "Enter new phone",
     "original_phone_label": "Original Phone",
+    "new_email_placeholder": "Enter new Email Address",
+    "new_email_label": "Enter new Email",
     "original_phone_placehoder": "Enter phone number",
     "phone_label": "Phone",
     "phone_label_label": "****4321",

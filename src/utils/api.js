@@ -16,6 +16,7 @@ const API_SERVICES = {
   VERIFYFORGOTPASSWORDTOKEN: (params) => axios.post('auth/verify-forgot-password-code', params, false),
   UPDATEPASSWORD: (params, token) => axios.post('auth/update-password-forgot-password', params, { headers: { Authorization: `Bearer ${token}` } }),
   RESETPASSWORD: (params) => axios.post('auth/reset-password', params, false),
+  REBINDEMAIL: (params, token) => axios.post('auth/rebind-mail', params, { headers: { Authorization: `Bearer ${token}` } }),
 };
 
 export default {

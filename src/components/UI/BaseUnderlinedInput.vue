@@ -132,7 +132,7 @@
           <BaseRoundButton
             class="btn-outline-primary btn-sm send-otp"
             :text="$t('register_screen.send_code')"
-            @click="sendCode"
+            @click="sendCode(fieldname)"
           />
         </template>
         <template v-else>
@@ -174,6 +174,7 @@ export default {
   components: { ErrorMessage, Field, Message },
   props: {
     name: { type: String, required: true },
+    fieldname: { type: String, required: true },
     placeholder: { type: String, required: false, default: null },
     rules: { type: String, required: false, default: null },
     text: { type: String, required: false, default: null },
@@ -219,24 +220,37 @@ export default {
       this.$refs['password-eye'].src = (this.isDisplay) ? PasswordEye : PasswordEyeClosed;
       this.isDisplay = !this.isDisplay;
     },
-    sendCode() {
+    sendCode(name) {
+      // console.log();
       if (this.ismail === true) {
-        const email = document.querySelector('input[name=email]').value;
-        const params = {
-          // eslint-disable-next-line object-shorthand
-          email: email,
-        };
-        this.callApi(params);
+        const email = document.querySelector(`input[name=${name}]`).value;
+        if (email === '' || email === null) {
+          this.messageType = 'error';
+          this.errorMessgae = 'Enter an Email Address';
+          setTimeout(() => { this.errorMessgae = ''; }, 2000);
+        } else {
+          const params = {
+            // eslint-disable-next-line object-shorthand
+            email: email,
+          };
+          this.callApi(params);
+        }
       } else {
-        const phone = document.querySelector('input[name=phone]').value;
+        const phone = document.querySelector(`input[name=${name}]`).value;
         const countryCode = document.getElementById('country-code').value;
-        const params = {
-          // eslint-disable-next-line camelcase
-          country_code: countryCode,
-          // eslint-disable-next-line object-shorthand
-          phone: phone,
-        };
-        this.callApi(params);
+        if (phone === '' || phone === null) {
+          this.messageType = 'error';
+          this.errorMessgae = 'Enter a Phone Number';
+          setTimeout(() => { this.errorMessgae = ''; }, 2000);
+        } else {
+          const params = {
+            // eslint-disable-next-line camelcase
+            country_code: countryCode,
+            // eslint-disable-next-line object-shorthand
+            phone: phone,
+          };
+          this.callApi(params);
+        }
       }
     },
     async callApi(params) {
@@ -250,9 +264,11 @@ export default {
       if (response?.success) {
         this.messageType = 'success';
         this.errorMessgae = response.message;
+        setTimeout(() => { this.errorMessgae = ''; }, 2000);
       } else {
         this.messageType = 'error';
-        this.errorMessgae = response.message;
+        this.errorMessgae = response.error;
+        setTimeout(() => { this.errorMessgae = ''; }, 2000);
       }
     },
   },
