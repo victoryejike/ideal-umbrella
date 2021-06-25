@@ -31,7 +31,8 @@
   "components": {
     "country_code": "Country Code",
     "search": "Search",
-    "search_placeholder": "Search by creator, collectible or collection"
+    "search_placeholder": "Search by creator, collectible or collection",
+    "select_placeholder": "Select Item"
   },
   "connect_wallet": {
     "description": "Connect with one of available wallet providers or create a new wallet.",
@@ -144,16 +145,16 @@
     "nationality_label": "Nationality"
   },
   "login_screen": {
+    "email_placeholder": "Enter your email address",
+    "email_text": "Email Address",
     "forgot_password": "Forgot Password?",
     "login": "Login",
     "not_a_member": "Not a member?",
     "password_placehoder": "Enter your password",
     "password_text": "Login Password",
-    "registered": "Registered",
-    "email_placeholder": "Enter your email address",
-    "email_text": "Email Address",
     "phone_placeholder": "Enter your phone number",
-    "phone_text": "Phone Number"
+    "phone_text": "Phone Number",
+    "registered": "Registered"
   },
   "menu": {
     "discovery": "Discovery",

@@ -2,37 +2,40 @@
   <BaseSettingFrame
     :title="$t('kyc_screen.id_verification')"
   >
-    <BaseForm class="kyc-form">
+    <BaseForm
+      ref="kyc-form"
+      class="kyc-form"
+      @submit="onSubmit"
+    >
       <BaseScrollableSelectBox
-        active-color="#DDE1FB"
-        :bg-color="backgroundColor"
-        :border-color="borderColor"
         class="input-div"
-        hover-color="#DDE1FB"
+        :css="{width: 17.5}"
+        :default-selected="false"
+        name="nationality"
         :options="countryList"
+        rules="required"
         :text="$t('kyc_screen.nationality_label')"
-        :width="17.5"
       />
       <BaseUnderlinedInput
         class="input-div"
-        name="userName"
+        name="fullName"
         :placeholder="$t('kyc_screen.name_placeholder')"
+        rules="required"
         :text="$t('kyc_screen.name_label')"
         :width="23.75"
       />
       <div class="user-id-div input-div">
         <BaseScrollableSelectBox
-          active-color="#DDE1FB"
-          :bg-color="backgroundColor"
-          :border-color="borderColor"
-          hover-color="#DDE1FB"
+          name="idType"
           :options="idTypeList"
+          rules="required"
           :text="$t('kyc_screen.id_type_label')"
         />
         <BaseUnderlinedInput
           class="input-user-id"
-          name="userName"
+          name="idNumber"
           :placeholder="$t('kyc_screen.id_number_placeholder')"
+          rules="required"
           :text="$t('kyc_screen.id_number_label')"
         />
       </div>
@@ -40,6 +43,7 @@
         <BaseRoundButton
           class="confirm-button btn-primary btn-md btn-bold"
           icon="arrow-right"
+          :submit="true"
           :text="$t('kyc_screen.confirm')"
         />
       </div>
@@ -55,9 +59,7 @@ export default {
   components: { BaseSettingFrame },
   data() {
     return {
-      backgroundColor: '#E5E5E5',
-      borderColor: 'none',
-      idTypeList: ['Id Card'],
+      idTypeList: ['ID Card'],
       countryList: [
         { name: 'Singapore', image: 'https://www.countryflags.io/SG/flat/16.png' },
         { name: 'Japan', image: 'https://www.countryflags.io/JP/flat/16.png' },
@@ -67,6 +69,11 @@ export default {
         { name: 'Germany', image: 'https://www.countryflags.io/DE/flat/16.png' },
       ],
     };
+  },
+  methods: {
+    async onSubmit(formData) {
+      console.log(formData);
+    },
   },
 };
 </script>

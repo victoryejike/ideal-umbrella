@@ -7,7 +7,7 @@
     <div
       v-if="text"
       class="input-group-text"
-      :class="{'error-text': isError}"
+      :class="{'label-error-effect': isError}"
     >
       <span
         v-if="type === 'tel'"
@@ -155,7 +155,7 @@
       class="input-error-msg"
     >
       <ErrorMessage
-        class="input-error-msg-text"
+        class="input-error-msg-effect"
         :name="name"
       />
     </div>
@@ -197,7 +197,7 @@ export default {
   },
   mounted() {
     this.observer = new MutationObserver(((mutations) => {
-      this.isError = (mutations[1]?.addedNodes[0]?.className === 'input-error-msg-text');
+      this.isError = (mutations[1]?.addedNodes[0]?.className === 'input-error-msg-effect');
     }));
     this.observer.observe(document.getElementById(`${this.name}-error-msg`), { childList: true });
   },
@@ -333,31 +333,8 @@ export default {
   filter: opacity(1);
 }
 
-.error-text {
-  color: #ff3a31;
-  transition: color 0s;
-}
-
 .error-underline {
   background-color: #ff3a31;
-}
-
-.input-error-msg {
-  display: flex;
-  margin-top: 0.5rem;
-}
-
-.input-error-msg-text {
-  color: #ff3a31;
-  font-size: 0.85rem;
-  text-align: justify;
-  white-space: normal;
-}
-
-.shake {
-  animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
-  backface-visibility: hidden;
-  transform: translate3d(0, 0, 0);
 }
 
 .input-phone {
@@ -378,28 +355,5 @@ select {
 
 select::-ms-expand {
   display: none;
-}
-
-@keyframes shake {
-  10%,
-  90% {
-    transform: translate3d(-0.0625rem, 0, 0);
-  }
-
-  20%,
-  80% {
-    transform: translate3d(0.125rem, 0, 0);
-  }
-
-  30%,
-  50%,
-  70% {
-    transform: translate3d(-0.1875rem, 0, 0);
-  }
-
-  40%,
-  60% {
-    transform: translate3d(0.25rem, 0, 0);
-  }
 }
 </style>

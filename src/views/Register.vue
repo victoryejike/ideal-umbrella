@@ -98,8 +98,9 @@
             </template>
           </BaseModal>
         </div>
-      </div>  <ErrorMessage
-        class="input-error-msg-text"
+      </div>
+      <ErrorMessage
+        class="input-error-msg-effect"
         name="agree-terms"
       />
       <BaseRoundButton
@@ -256,7 +257,7 @@ export default {
   padding-left: 0.3125rem;
 }
 
-.input-error-msg-text {
+.input-error-msg-effect {
   color: #ff3a31;
   font-size: 0.85rem;
   text-align: justify;

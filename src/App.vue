@@ -39,7 +39,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import "@/assets/scss/variables";
+@import "@/assets/scss/main";
 @import url('https://fonts.googleapis.com/css2?family=Mulish:wght@500;600;700;800&display=swap');
 
 * {

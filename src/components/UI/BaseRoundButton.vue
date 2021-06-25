@@ -50,7 +50,7 @@ export default {
     handleSubmit() {
       this.$parent.validate().then(({ valid }) => {
         if (!valid) {
-          const { classList } = document.querySelector('.input-error-msg-text') ?? {};
+          const { classList } = document.querySelector('.input-error-msg-effect') ?? {};
           if (classList) {
             classList.add('shake');
             setTimeout(() => { classList.remove('shake'); }, 1000);

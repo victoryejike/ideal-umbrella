@@ -6,19 +6,30 @@
     <span
       v-if="text"
       class="selector-group-text"
+      :class="{'label-error-effect': isError}"
     >{{ text }}</span>
+    <Field
+      v-model="activeIndex"
+      :name="name"
+      :rules="rules"
+      type="hidden"
+    />
     <div
       ref="selector"
       class="selector-root"
       :onClick="() => {toogleMenu()}"
       :style="customCSS"
+      tabindex="0"
+      @focusout="handleFocusout"
     >
       <img
-        v-if="selectedItem.image"
+        v-if="selectedItem?.image"
         class="options-image"
         :src="selectedItem.image"
       >
-      <span class="options-text">{{ selectedItem.name || selectedItem }}</span>
+      <span class="options-text">
+        {{ selectedItem?.name || selectedItem || $t('components.select_placeholder') }}
+      </span>
       <i
         class="selector-arrow"
         :class="{'rotate': isPullDown}"
@@ -29,7 +40,8 @@
       <div
         v-if="isPullDown"
         class="selector-menu"
-        :style="[customCSS]"
+        :style="customCSS"
+        :value="value"
       >
         <div
           v-for="(item, index) in options"
@@ -40,66 +52,104 @@
           :style="customCSS"
         >
           <img
-            v-if="item.image"
+            v-if="item?.image"
             class="options-image"
             :src="item.image"
           >
-          <span
-            class="options-text"
-          >{{ item.name || item }}</span>
+          <span class="options-text">
+            {{ item?.name || item }}
+          </span>
         </div>
       </div>
+    </div>
+    <div
+      :id="`${name}-error-msg`"
+      class="input-error-msg"
+    >
+      <ErrorMessage
+        class="input-error-msg-effect"
+        :name="name"
+      />
     </div>
   </div>
 </template>
 
 <script>
+import { Field, ErrorMessage } from 'vee-validate';
+
 export default {
-  name: 'BaseScrollingSlectBox',
+  name: 'BaseScrollableSelectBox',
+  components: { Field, ErrorMessage },
   props: {
-    activeColor: { type: String, required: false, default: '#31459f' },
-    arrowColor: { type: String, required: false, default: '#9ba6d8' },
-    bgColor: { type: String, required: false, default: '#374db1' },
-    borderColor: { type: String, required: false, default: '#697ac5' },
-    hoverColor: { type: String, required: false, default: '#31459f' },
+    css: {
+      type: Object,
+      required: false,
+      default: null,
+      validator(value) {
+        const whiteList = [
+          'activeColor',
+          'arrowColor',
+          'bgColor',
+          'borderColor',
+          'hoverColor',
+          'width',
+        ];
+        const keys = Object.keys(value);
+        for (let i = 0; i < keys.length; i += 1) {
+          if (!whiteList.includes(keys[i])) {
+            return false;
+          }
+        }
+        return true;
+      },
+    },
     options: { type: [Array, Object], required: true },
     text: { type: String, required: false, default: null },
     value: { type: Number, required: false, default: 0 },
-    width: { type: Number, required: false, default: 14 },
+    defaultSelected: { type: Boolean, required: false, default: true },
+    name: { type: String, required: true },
+    rules: { type: String, required: false, default: null },
   },
   emits: ['selected'],
   data() {
     return {
       isPullDown: false,
+      isError: false,
       optionStatus: [],
-      selectedItem: '',
+      selectedItem: null,
+      activeIndex: (this.defaultSelected) ? this.value : null,
     };
   },
   computed: {
     customCSS() {
       return {
-        '--active-color': this.activeColor,
-        '--arrow-color': this.arrowColor,
-        '--bg-color': this.bgColor,
-        '--border-color': this.borderColor,
-        '--hover-color': this.hoverColor,
-        '--width': `${this.width - 2.4}rem`,
+        '--active-color': this.css?.activeColor || '#dde1fb',
+        '--arrow-color': this.css?.arrowColor || '#9ba6d8',
+        '--bg-color': this.css?.bgColor || '#e5e5e5',
+        '--border-color': this.css?.borderColor || 'none',
+        '--hover-color': this.css?.hoverColor || '#dde1fb',
+        '--width': `${(this.css?.width || 14) - 2.4}rem`,
       };
     },
   },
+  mounted() {
+    this.observer = new MutationObserver(((mutations) => {
+      this.isError = (mutations[1]?.addedNodes[0]?.className === 'input-error-msg-effect');
+    }));
+    this.observer.observe(document.getElementById(`${this.name}-error-msg`), { childList: true });
+  },
   created() {
-    this.activeIndex = this.value;
-    if (this.options.length > this.value) {
-      this.selectedItem = this.options[this.value];
+    if (this.activeIndex != null && this.activeIndex <= this.options.length) {
+      this.selectedItem = this.options[this.activeIndex];
     }
 
     for (let i = 0; i < this.options.length; i += 1) {
-      this.optionStatus.push(i === this.value);
+      this.optionStatus.push(i === this.activeIndex);
     }
   },
   methods: {
     selectItem(item, index) {
-      this.isPullDown = !this.isPullDown;
+      this.toogleMenu();
       if (index !== this.activeIndex) {
         this.$emit('selected', index);
         this.selectedItem = item;
@@ -110,6 +160,9 @@ export default {
     },
     toogleMenu() {
       this.isPullDown = !this.isPullDown;
+    },
+    handleFocusout() {
+      setTimeout(() => { this.isPullDown = false; }, 150);
     },
   },
 
@@ -143,6 +196,7 @@ export default {
 .selector-group-text {
   font-size: 0.9rem;
   margin-bottom: 1.3rem;
+  transition: color 0s;
 }
 
 .selector-arrow {
@@ -158,14 +212,15 @@ export default {
   border-bottom: 0.1rem solid var(--border-color);
   max-height: 10.6rem;
   overflow: scroll;
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
   overflow-x: hidden;
   position: absolute;
-  scrollbar-width: none;
+  scrollbar-width: none;  /* Firefox */
   z-index: 1;
 }
 
 .selector-menu::-webkit-scrollbar {
-  width: 0;
+  display: none;  /* Safari and Chrome */
 }
 
 .options-image {
@@ -186,5 +241,4 @@ export default {
   transform: rotate(-180deg);
   transition: transform 150ms ease;
 }
-
 </style>

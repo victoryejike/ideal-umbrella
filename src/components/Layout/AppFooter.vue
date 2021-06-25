@@ -10,6 +10,8 @@
         <BaseScrollableSelectBox
           ref="language-selectbox"
           class="select-language"
+          :css="selectBoxCSS"
+          name="currLang"
           :options="languageList"
         />
       </div>
@@ -51,6 +53,12 @@ export default {
   data() {
     return {
       languageList: ['English', '中文', '日本語', '한국어'],
+      selectBoxCSS: {
+        activeColor: '#31459f',
+        bgColor: '#374db1',
+        borderColor: '#697ac5',
+        hoverColor: '#31459f',
+      },
       links: [
         {
           header: this.$t('footer.nft.title'),

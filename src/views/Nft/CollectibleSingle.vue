@@ -39,10 +39,7 @@
         <template #element>
           <BaseScrollableSelectBox
             v-if="selectedSwitch"
-            active-color="#DDE1FB"
-            bg-color="#E5E5E5"
-            border-color="none"
-            hover-color="#DDE1FB"
+            name="amountCoinType"
             :options="coinList"
           />
         </template>
@@ -58,20 +55,15 @@
         <template #element>
           <BaseScrollableSelectBox
             v-if="selectedSwitch"
-            active-color="#DDE1FB"
-            bg-color="#E5E5E5"
-            border-color="none"
-            hover-color="#DDE1FB"
+            name="receivedAmountCoinType"
             :options="coinList"
           />
         </template>
       </BaseUnderlinedInput>
       <BaseScrollableSelectBox
         active-color="#DDE1FB"
-        bg-color="#E5E5E5"
-        border-color="none"
         class="input-div label"
-        hover-color="#DDE1FB"
+        name="collectible"
         :options="collectibleList"
         :text="$t('collectible.choose_collection_label')"
       />
@@ -88,11 +80,8 @@
         :text="$t('collectible.discription_label')"
       />
       <BaseScrollableSelectBox
-        active-color="#DDE1FB"
-        bg-color="#E5E5E5"
-        border-color="none"
         class="input-div label"
-        hover-color="#DDE1FB"
+        name="royalties"
         :options="royaltiesList"
         :text="$t('collectible.royalties_label')"
       />

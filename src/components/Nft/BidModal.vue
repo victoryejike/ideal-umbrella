@@ -14,7 +14,6 @@
     </div>
   </div>
   <BaseUnderlinedInput
-
     class="input-field"
     name="amount"
     :placeholder="$t('nft_details.bid.user_bid_placeholder')"
@@ -22,11 +21,7 @@
   >
     <template #element>
       <BaseScrollableSelectBox
-
-        active-color="#DDE1FB"
-        bg-color="#E5E5E5"
-        border-color="none"
-        hover-color="#DDE1FB"
+        name="coin"
         :options="coinList"
       />
     </template>
