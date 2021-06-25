@@ -8,13 +8,28 @@
       <h1 class="login-text">
         {{ $t("login_screen.login") }}
       </h1>
+      <BaseNavigationTab
+        class="tabs"
+        :list="LoginTab"
+        :width="10.6"
+      />
       <BaseUnderlinedInput
+        v-if="isEmail"
         class="input-group"
         name="email"
-        :placeholder="$t('login_screen.username_placeholder')"
-        rules="required|username"
-        :text="$t('login_screen.username_text')"
+        :placeholder="$t('login_screen.email_placeholder')"
+        rules="required|email"
+        :text="$t('login_screen.email_text')"
       />
+      <BaseUnderlinedInput
+        v-if="!isEmail"
+        class="input-group"
+        name="phone"
+        :placeholder="$t('login_screen.phone_placeholder')"
+        :text="$t('login_screen.phone_text')"
+        type="tel"
+      />
+
       <BaseUnderlinedInput
         class="input-group"
         name="password"
@@ -57,6 +72,17 @@ export default {
   data() {
     return {
       isLoading: false,
+      isEmail: true,
+      LoginTab: [
+        {
+          name: this.$t('tab_titles.email'),
+          handler: () => { this.isEmail = true; },
+        },
+        {
+          name: this.$t('tab_titles.phone'),
+          handler: () => { this.isEmail = false; },
+        },
+      ],
     };
   },
   methods: {

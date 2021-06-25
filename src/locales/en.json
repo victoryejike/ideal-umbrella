@@ -150,8 +150,10 @@
     "password_placehoder": "Enter your password",
     "password_text": "Login Password",
     "registered": "Registered",
-    "username_placeholder": "Enter your email address or phone number",
-    "username_text": "Email Address or Phone Number"
+    "email_placeholder": "Enter your email address",
+    "email_text": "Email Address",
+    "phone_placeholder": "Enter your phone number",
+    "phone_text": "Phone Number"
   },
   "menu": {
     "discovery": "Discovery",

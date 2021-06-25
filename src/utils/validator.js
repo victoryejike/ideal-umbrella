@@ -12,7 +12,12 @@ function isPhone(val) {
   return /^[0-9]{8,15}$/.test(String(val)) || $t('validator.phone_msg');
 }
 
-defineRule('required', (val) => (val != null && val.trim() !== '') || $t('validator.required_msg'));
+defineRule('required', (val) => {
+  if (typeof val === 'string') {
+    return val.trim() !== '' || $t('validator.required_msg');
+  }
+  return val != null || $t('validator.required_msg');
+});
 
 defineRule('email', (val) => isEmail(val));
 
