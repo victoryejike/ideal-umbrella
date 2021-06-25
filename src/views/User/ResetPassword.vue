@@ -5,6 +5,11 @@
       class="reset-form"
       @submit="onSubmit"
     >
+      <BaseNavigationTab
+        class="tabs input-field"
+        :list="resetTab"
+        :width="10.6"
+      />
       <BaseUnderlinedInput
         v-if="isEmail"
         class="input-field"
@@ -25,6 +30,7 @@
         class="input-field"
         name="current_password"
         :placeholder="$t('reset_password_screen.original_password_placehoder')"
+        rules="required|password"
         :text="$t('reset_password_screen.original_password_label')"
         type="password"
       >
@@ -37,6 +43,7 @@
         class="input-field"
         name="new_password"
         :placeholder="$t('reset_password_screen.new_password_placehoder')"
+        rules="required|password"
         :text="$t('reset_password_screen.new_password_label')"
         type="password"
       >
@@ -49,6 +56,7 @@
         class="input-field"
         name="confirm_password"
         :placeholder="$t('reset_password_screen.confirm_password_placehoder')"
+        rules="required|confirmed:new_password"
         :text="$t('reset_password_screen.confirm_password_label')"
         type="password"
       >
@@ -83,6 +91,16 @@ export default {
   data() {
     return {
       isEmail: true,
+      resetTab: [
+        {
+          name: this.$t('tab_titles.email'),
+          handler: () => { this.isEmail = true; },
+        },
+        {
+          name: this.$t('tab_titles.phone'),
+          handler: () => { this.isEmail = false; },
+        },
+      ],
     };
   },
   methods: {
