@@ -10,10 +10,10 @@ axios.defaults.baseURL = API_BASE_URL;
 axios.defaults.timeout = 5000;
 
 axios.interceptors.request.use((config) => {
-  if (localStorage && localStorage.getItem('userData')?.token) {
-    const { token } = localStorage.getItem('userData');
+  const token = store.getters['auth/apiToken'];
+  if (token) {
     const { headers } = config;
-    headers.Authorization = token;
+    headers.Authorization = `Bearer ${token}`;
   }
   return config;
 }, (error) => Promise.error(error));

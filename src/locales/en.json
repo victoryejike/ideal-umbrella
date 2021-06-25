@@ -1,4 +1,7 @@
 {
+  "axios": {
+    "unexcepted_error": "Unexcepted Error"
+  },
   "collectible": {
     "amount_label": "Amount",
     "amount_placeholder": "Enter price for one piece",
@@ -43,8 +46,8 @@
   },
   "default": "Default Template",
   "discover_screen": {
-    "title": "Discover the latest NFT in the market",
-    "search_result":"Searching results for: {0}"
+    "search_result": "Searching results for: {0}",
+    "title": "Discover the latest NFT in the market"
   },
   "edit_profile": {
     "account": "ACCOUNT",
@@ -62,6 +65,10 @@
     "portfolio_placeholder": "https://",
     "recommend": "We recommend an image of at least 400x400. Gifs work too.",
     "update_btn": "Update"
+  },
+  "error_page": {
+    "btn": "Home",
+    "message": "Looks like you’re lost!"
   },
   "footer": {
     "fanschain": {
@@ -304,17 +311,13 @@
     "uid": "UID"
   },
   "validator": {
+    "agree_terms_msg": "Please accept the Terms and Conditions.",
     "email_msg": "Invalid email address.",
     "match_msg": "Passwords must match.",
+    "otp_msg": "The code should be a 6 digit number.",
     "password_msg": "Invalid password, the password must contain at least 8 characters in length, and at least 1 lowercase, uppercase and numeric values.",
     "phone_msg": "Invalid phone number.",
     "required_msg": "Field cannot be empty.",
-    "otp_msg": "The code should be a 6 digit number.",
-    "username_msg": "Invalid username, it should be an email address or a phone number.",
-    "agree_terms_msg": "Please accept the Terms and Conditions."
-  },
-  "error_page": {
-    "message": "Looks like you’re lost!",
-    "btn": "Home"
+    "username_msg": "Invalid username, it should be an email address or a phone number."
   }
 }

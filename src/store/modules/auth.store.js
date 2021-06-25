@@ -1,7 +1,17 @@
 import router from '@/router';
 
+const safelyParseJSON = (jsonStr) => {
+  let result;
+  try {
+    result = JSON.parse(jsonStr);
+  } catch {
+    result = null;
+  }
+  return result;
+};
+
 const initialState = () => ({
-  user: JSON.parse(localStorage.getItem('userData')) || null,
+  user: safelyParseJSON(localStorage.getItem('userData')),
 });
 
 const getters = {
@@ -13,6 +23,9 @@ const getters = {
   },
   avatar(state) {
     return state.user?.avatarURL;
+  },
+  apiToken(state) {
+    return state.user?.token;
   },
 };
 

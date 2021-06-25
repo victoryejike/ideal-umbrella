@@ -62,21 +62,16 @@ export default {
   methods: {
     async onSubmit(formData) {
       this.isLoading = true;
-      let response = null;
-      try {
-        const { data } = await this.$api.LOGIN(formData);
-        response = data;
-      } catch (error) {
-        response = error.response.data;
-      }
+      const { form } = this.$refs['login-form'];
+      const response = await this.$api.LOGIN(formData);
 
-      if (response?.success) {
-        console.log(response.data);
-        this.$store.dispatch('auth/login', response.data);
+      if (response?.success === true) {
+        this.$store.dispatch('auth/login', response?.data);
         this.$router.push('/profile');
+      } else if (response?.success === false) {
+        form.setFieldError('password', response?.error);
       } else {
-        const { form } = this.$refs['login-form'];
-        form.setFieldError('password', response.error);
+        form.setFieldError('password', this.$t('axios.unexcepted_error'));
       }
       this.isLoading = false;
     },
