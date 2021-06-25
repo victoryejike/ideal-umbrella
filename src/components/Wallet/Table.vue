@@ -133,7 +133,7 @@ export default {
 }
 
 .coin-name {
-  margin-left: 11px;
+  margin-left: 0.6875rem;
   text-align: left;
   width: 50%;
 }

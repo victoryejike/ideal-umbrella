@@ -12,7 +12,7 @@
       <div class="w-50">
         <BaseNavigationTab
           :list="forgotPasswordTab"
-          style="float: right; margin: 10px;"
+          style="float: right; margin: 0.625rem;"
           :width="10.6"
         />
       </div>
@@ -130,10 +130,10 @@ export default {
 }
 
 .profile {
-  border: 3px solid #fff;
-  border-radius: 360px;
-  height: 100px;
-  width: 100px;
+  border: 0.1875rem solid #fff;
+  border-radius: 22.5rem;
+  height: 6.25rem;
+  width: 6.25rem;
 }
 
 .input-group {
@@ -195,7 +195,7 @@ export default {
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 48em) {
   .flex {
     display: block;
   }

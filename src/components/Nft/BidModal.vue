@@ -83,18 +83,18 @@ export default {
 .nft-box {
   align-items: center;
   background: rgba(255, 255, 255, 0.25);
-  border: 1px solid rgba(44, 67, 173, 0.25);
-  border-radius: 10px;
+  border: 0.0625rem solid rgba(44, 67, 173, 0.25);
+  border-radius: 0.625rem;
   box-sizing: border-box;
   display: flex;
-  height: 100px;
-  padding: 15px;
+  height: 6.25rem;
+  padding: 0.9375rem;
 }
 
 .token-image {
-  border-radius: 10px;
-  height: 70px;
-  width: 70px;
+  border-radius: 0.625rem;
+  height: 4.375rem;
+  width: 4.375rem;
 }
 
 .bidding-details {
@@ -109,10 +109,10 @@ export default {
 .bid-text {
   align-items: center;
   color: #808080;
-  font-size: 15px;
+  font-size: 0.9375rem;
   font-weight: 600;
-  line-height: 26px;
-  margin-left: 20px;
+  line-height: 1.625rem;
+  margin-left: 1.25rem;
 }
 
 .token-description {
@@ -141,5 +141,4 @@ export default {
 .bid-text div {
   white-space: normal;
 }
-
 </style>
