@@ -123,7 +123,13 @@ export default {
 }
 
 .overflow {
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
   overflow-x: scroll;
+  scrollbar-width: none;  /* Firefox */
+}
+
+.overflow::-webkit-scrollbar {
+  display: none;  /* Safari and Chrome */
 }
 
 .coin-name {

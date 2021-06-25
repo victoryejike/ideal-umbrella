@@ -1,8 +1,10 @@
 <template>
-  <BaseFrame
-    url="/connect-wallet"
-  />
-  <Table />
+  <div class="container">
+    <BaseFrame
+      url="/connect-wallet"
+    />
+    <Table />
+  </div>
 </template>
 <script>
 import Table from '@/components/Wallet/Table.vue';
@@ -14,6 +16,3 @@ export default {
 };
 
 </script>
-
-<style scoped>
-</style>
