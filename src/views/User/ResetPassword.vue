@@ -64,6 +64,11 @@
           <img src="@svg/password-lock.svg">
         </template>
       </BaseUnderlinedInput>
+      <Field
+        name="token"
+        type="hidden"
+        :value="token"
+      />
       <div class="actions-div">
         <BaseRoundButton
           class="reset-button btn-primary btn-md btn-bold"
@@ -83,14 +88,20 @@
   </BaseSettingFrame>
 </template>
 <script>
+import { Field } from 'vee-validate';
 import BaseSettingFrame from './BaseSettingFrame.vue';
 
 export default {
   name: 'UserResetPassword',
-  components: { BaseSettingFrame },
+  components: {
+    BaseSettingFrame,
+    Field,
+  },
   data() {
     return {
       isEmail: true,
+      token: ' ',
+
       resetTab: [
         {
           name: this.$t('tab_titles.email'),
@@ -103,13 +114,15 @@ export default {
       ],
     };
   },
+
   methods: {
     async onSubmit(resetFormData) {
       console.log('registerform', resetFormData);
+      console.log('token', this.token);
 
       let response = null;
       try {
-        const { data } = await this.$api.RESETPASSWORD(resetFormData);
+        const { data } = await this.$api.RESETPASSWORD(resetFormData, this.token);
         response = data;
         console.log('response', response);
       } catch (error) {
