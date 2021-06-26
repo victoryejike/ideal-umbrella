@@ -1,3 +1,5 @@
+import store from '@/store';
+
 const publicRoute = [
   {
     path: '/',
@@ -8,6 +10,12 @@ const publicRoute = [
     path: '/login',
     name: 'Login',
     component: () => import('@view/Login.vue'),
+    beforeEnter: (to, from, next) => {
+      if (store.getters['auth/loggedIn']) {
+        return next({ name: 'Profile' });
+      }
+      return next();
+    },
   },
   {
     path: '/register',

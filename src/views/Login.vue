@@ -37,8 +37,10 @@
         rules="required"
         :text="$t('login_screen.password_text')"
         type="password"
+        @keyup.enter="$refs['login-btn'].$el.click()"
       />
       <BaseRoundButton
+        ref="login-btn"
         class="login-btn btn-primary btn-md btn-bold"
         :icon="isLoading ? 'loading' : 'arrow-right'"
         :submit="true"
@@ -93,7 +95,7 @@ export default {
 
       if (response?.success === true) {
         this.$store.dispatch('auth/login', response?.data);
-        this.$router.push('/profile');
+        this.$router.push(this.$route.query.redirectFrom || '/profile');
       } else if (response?.success === false) {
         form.setFieldError('password', response?.error);
       } else {
