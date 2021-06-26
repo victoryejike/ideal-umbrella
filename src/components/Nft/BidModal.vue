@@ -28,8 +28,9 @@
   </BaseUnderlinedInput>
   <BaseUnderlinedInput
     class="input-field"
-
+    name="quantity"
     :text="$t('nft_details.bid.quantity_label')"
+    type="number"
   />
   <div class="details-section">
     <div class="bidding-details">
