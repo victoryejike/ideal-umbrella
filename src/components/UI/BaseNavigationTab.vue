@@ -103,6 +103,7 @@ export default {
   font-size: 0.875rem;
   font-weight: bold;
   padding: 0 0.5rem;
+  white-space: nowrap;
 }
 
 .active {

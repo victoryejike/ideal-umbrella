@@ -265,7 +265,6 @@ export default {
   font-size: 1.625em;
   font-weight: bold;
   line-height: 150%;
-  white-space: normal;
 }
 
 .button-div {
@@ -325,7 +324,6 @@ label {
   font-weight: 600;
   line-height: 1.125rem;
   margin-bottom: 0.625rem;
-  white-space: normal;
 }
 
 .bids-main-div {
@@ -463,10 +461,6 @@ label {
 
   .display-token-image {
     width: 100%;
-  }
-
-  .token-text {
-    white-space: normal;
   }
 
   .token-image {

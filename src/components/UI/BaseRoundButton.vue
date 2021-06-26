@@ -96,6 +96,10 @@ export default {
   margin-right: 0.375rem;
 }
 
+.btn-text {
+  white-space: nowrap;
+}
+
 .btn-right-icon {
   height: 2rem;
   margin-left: 1.25rem;

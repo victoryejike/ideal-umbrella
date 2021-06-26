@@ -66,6 +66,7 @@ export default {
 
 .author-name {
   overflow: hidden;
+  white-space: nowrap;
   width: 8rem;
 }
 

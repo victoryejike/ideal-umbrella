@@ -45,6 +45,7 @@ export default {
   display: flex;
   justify-content: space-between;
   margin-bottom: 5rem;
+  white-space: nowrap;
 }
 
 .title-div {

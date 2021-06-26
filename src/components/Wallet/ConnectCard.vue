@@ -71,10 +71,6 @@ export default {
   font-size: 0.7rem;
 }
 
-.text {
-  white-space: normal;
-}
-
 .relative {
   position: relative;
   top: 80%;

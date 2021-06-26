@@ -255,7 +255,6 @@ export default {
   color: #ff3a31;
   font-size: 0.85rem;
   text-align: justify;
-  white-space: normal;
 }
 
 @media (max-width: 30em) {
@@ -263,7 +262,6 @@ export default {
     font-size: 0.75rem;
     line-height: 0.9375rem;
     margin-top: 0;
-    white-space: normal;
   }
 
   .input-agree-div {

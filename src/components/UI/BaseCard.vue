@@ -80,6 +80,7 @@ export default {
   font-weight: bold;
   overflow: hidden;
   text-transform: uppercase;
+  white-space: nowrap;
   width: 92%;
 }
 
@@ -102,7 +103,6 @@ export default {
   -webkit-line-clamp: 3;
   margin-top: 0.625rem;
   overflow: hidden;
-  white-space: normal;
   width: 92%;
 }
 

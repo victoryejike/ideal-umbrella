@@ -89,7 +89,6 @@
 p {
   margin-bottom: 1em;
   padding: 0.3125rem;
-  white-space: normal;
 }
 
 </style>

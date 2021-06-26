@@ -121,6 +121,7 @@ export default {
   font-size: 2rem;
   font-weight: bold;
   line-height: 150%;
+  white-space: nowrap;
 }
 
 .ver-btn {

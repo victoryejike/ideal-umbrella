@@ -140,10 +140,10 @@ export default {
     handleAction(action) {
       if (typeof action === 'string') {
         this.$router.push(action);
-        this.$store.dispatch('style/toggleMenu');
       } else if (typeof action === 'function') {
         action();
       }
+      this.$store.dispatch('style/toggleMenu');
     },
   },
 };

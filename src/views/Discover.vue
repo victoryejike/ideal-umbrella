@@ -94,7 +94,6 @@ export default {
   font-weight: bold;
   margin-bottom: 2.5rem;
   margin-left: 6.25rem;
-  white-space: normal;
   width: 18rem;
   z-index: 2;
 }

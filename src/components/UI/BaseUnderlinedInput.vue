@@ -285,6 +285,7 @@ export default {
   margin-bottom: 1.2rem;
   overflow: hidden;
   transition: color 0s;
+  white-space: nowrap;
 }
 
 .input-group-icon {

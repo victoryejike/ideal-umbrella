@@ -45,7 +45,6 @@ export default {
 * {
   text-overflow: ellipsis;
   transition: all 0.5s;
-  white-space: nowrap;
 }
 
 body {

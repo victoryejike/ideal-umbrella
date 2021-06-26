@@ -1,7 +1,7 @@
 <template>
   <div
     class="selector-group"
-    :style="{width: customCSS['--width']}"
+    :style="{width: css?.width}"
   >
     <span
       v-if="text"
@@ -66,7 +66,7 @@
       class="input-error-msg"
     >
       <ErrorMessage
-        class="input-error-msg-text"
+        class="input-error-msg-effect"
         :name="name"
       />
     </div>
@@ -133,7 +133,7 @@ export default {
   },
   mounted() {
     this.observer = new MutationObserver(((mutations) => {
-      this.isError = (mutations[1]?.addedNodes[0]?.className === 'input-error-msg-text');
+      this.isError = (mutations[1]?.addedNodes[0]?.className === 'input-error-msg-effect');
     }));
     this.observer.observe(document.getElementById(`${this.name}-error-msg`), { childList: true });
   },
@@ -230,6 +230,7 @@ export default {
 .options-text {
   flex-grow: 1;
   overflow: hidden;
+  white-space: nowrap;
 }
 
 .active {

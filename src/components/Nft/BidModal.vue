@@ -137,8 +137,4 @@ export default {
   font-weight: bold;
   line-height: 1.75rem;
 }
-
-.bid-text div {
-  white-space: normal;
-}
 </style>

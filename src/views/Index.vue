@@ -171,6 +171,7 @@ export default {
   font-weight: 800;
   margin-bottom: 4rem;
   text-align: center;
+  white-space: nowrap;
   width: 0;
 }
 
