@@ -183,7 +183,7 @@ export default {
 
 .popular-box {
   display: flex;
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
 .popular-product-card {
@@ -196,7 +196,7 @@ export default {
   grid-row-gap: 3rem;
   grid-template-columns: repeat(auto-fit, 14.625rem);
   justify-content: space-around;
-  overflow: hidden hidden;
+  overflow: hidden;
 }
 
 .load-more-btn {
@@ -206,7 +206,7 @@ export default {
 
 @media (max-width: 90em) {
   .popular-box {
-    overflow-x: scroll;
+    overflow: scroll;
   }
 
   .banner-bg {

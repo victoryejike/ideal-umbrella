@@ -16,7 +16,7 @@
 
 <script>
 export default {
-  name: 'UserBaseSettingFrame',
+  name: 'WalletBaseFrame',
   props: {
     title: { type: String, required: false, default: null },
     description: { type: String, required: false, default: '' },
@@ -47,7 +47,6 @@ export default {
   font-size: 1.2rem;
   font-weight: 600;
   margin-top: 1.99rem;
-  white-space: break-spaces;
 }
 
 @media (max-width: 30em) {

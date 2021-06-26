@@ -123,8 +123,8 @@ export default {
 }
 
 .overflow {
+  overflow: scroll;
   -ms-overflow-style: none; /* Internet Explorer 10+ */
-  overflow-x: scroll;
   scrollbar-width: none;  /* Firefox */
 }
 

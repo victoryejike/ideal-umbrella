@@ -81,7 +81,6 @@ a {
 
 #footer {
   min-height: 10vh;
-  overflow: hidden;
   padding: 5rem 8rem;
 }
 
@@ -97,7 +96,7 @@ a {
 
 .scroll-lock {
   height: 100vh;
-  overflow: hidden hidden;
+  overflow: hidden;
 }
 
 /* The reason using 70em is to fit the footer UI */

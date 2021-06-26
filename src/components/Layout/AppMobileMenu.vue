@@ -175,8 +175,8 @@ export default {
   border-right: rgba(255, 255, 255, 0.25) 0.1rem solid;
   height: 100vh;
   max-width: 22.5rem;
+  overflow: scroll;
   -ms-overflow-style: none; /* Internet Explorer 10+ */
-  overflow-y: scroll;
   padding: 3rem 0 2rem 0;
   position: absolute;
   scrollbar-width: none;  /* Firefox */

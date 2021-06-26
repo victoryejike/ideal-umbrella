@@ -76,7 +76,7 @@ export default {
   grid-row-gap: 5rem;
   grid-template-columns: repeat(auto-fit, 11.875rem);
   justify-content: space-between;
-  overflow: hidden hidden;
+  overflow: hidden;
 }
 
 .gridbox-product-card {

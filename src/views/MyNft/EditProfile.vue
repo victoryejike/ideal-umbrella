@@ -145,7 +145,6 @@ export default {
   font-size: 0.9rem;
   margin-bottom: 1.2rem;
   overflow: hidden;
-  text-overflow: ellipsis;
   white-space: nowrap;
 }
 
@@ -182,7 +181,6 @@ export default {
 .recommend p {
   color: rgba(0, 0, 0, 0.25);
   font-size: 0.9rem;
-  white-space: break-spaces;
 }
 
 .recommend input {

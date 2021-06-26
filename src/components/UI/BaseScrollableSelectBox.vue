@@ -210,9 +210,8 @@ export default {
 .selector-menu {
   border-bottom: 0.1rem solid var(--border-color);
   max-height: 10.6rem;
-  overflow: scroll;
+  overflow: hidden scroll;
   -ms-overflow-style: none; /* Internet Explorer 10+ */
-  overflow-x: hidden;
   position: absolute;
   scrollbar-width: none;  /* Firefox */
   z-index: 1;
