@@ -1,17 +1,24 @@
 <template>
   <BaseSettingFrame :title="$t('rabind_phone_screen.rebind_phone')">
-    <BaseForm class="rebind-form">
+    <BaseForm
+      ref="rebind-phone-form"
+      class="rebind-form"
+      @submit="onSubmit"
+    >
       <BaseUnderlinedInput
         class="input-field"
         country="current_phone_country_code"
-        name="resetPassword"
+        name="current_phone"
         :placeholder="$t('rabind_phone_screen.original_phone_placehoder')"
         :text="$t('rabind_phone_screen.original_phone_label')"
         type="tel"
       />
       <BaseUnderlinedInput
         class="input-field"
-        name="verification-code"
+        country="current_phone_country_code"
+        field-name="current_phone"
+        :is-mail="isEmail"
+        name="current_phone_code"
         :placeholder="$t('rabind_phone_screen.phone_verfication_placehoder')"
         :text="$t('rabind_phone_screen.original_phone_verfication')"
         type="otp"
@@ -19,7 +26,8 @@
 
       <BaseUnderlinedInput
         class="input-field"
-        name="newPassword"
+        country="new_phone_country_code"
+        name="new_phone"
         :placeholder="$t('rabind_phone_screen.new_phone_placeholder')"
         :text="$t('rabind_phone_screen.new_phone_label')"
         type="tel"
@@ -27,7 +35,10 @@
 
       <BaseUnderlinedInput
         class="input-field"
-        name="verification-code"
+        country="new_phone_country_code"
+        field-name="new_phone"
+        :is-mail="isEmail"
+        name="new_phone_code"
         :placeholder="$t('rabind_phone_screen.phone_verfication_placehoder')"
         :text="$t('rabind_phone_screen.new_phone_verfication')"
         type="otp"
@@ -36,7 +47,8 @@
       <div class="actions-div">
         <BaseRoundButton
           class="reset-button btn-primary btn-md btn-bold"
-          icon="arrow-right"
+          :icon="isLoading ? 'loading' : 'arrow-right'"
+          :submit="true"
           :text="$t('rabind_phone_screen.confirm')"
         />
 
@@ -56,6 +68,34 @@ import BaseSettingFrame from './BaseSettingFrame.vue';
 export default {
   name: 'UserRebindPhone',
   components: { BaseSettingFrame },
+  data() {
+    return {
+      isLoading: false,
+      isEmail: false,
+      token: JSON.parse(localStorage.getItem('userData')).token,
+    };
+  },
+  methods: {
+    async onSubmit(rebindPhoneData) {
+      // call API...
+      this.isLoading = true;
+      let response = null;
+      try {
+        const { data } = await this.$api.REBINDPHONE(rebindPhoneData, this.token);
+        response = data;
+      } catch (error) {
+        response = error.response.data;
+      }
+
+      if (response?.success) {
+        this.$store.dispatch('reset', response.data);
+      } else {
+        const { form } = this.$refs['rebind-phone-form'];
+        form.setFieldError('new_phone_code', response.error);
+        this.isLoading = false;
+      }
+    },
+  },
 };
 
 </script>

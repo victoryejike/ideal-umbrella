@@ -60,8 +60,9 @@
         >
         <!-- TODO: Better UI -->
         <Field
-          id="country-code"
+          :id="country"
           as="select"
+          :class="country"
           :name="country"
         >
           <option
@@ -237,7 +238,7 @@ export default {
         }
       } else {
         const phone = document.querySelector(`input[name=${name}]`).value;
-        const countryCode = document.getElementById('country-code').value;
+        const countryCode = document.getElementById(this.country).value;
         if (phone === '' || phone === null) {
           this.messageType = 'error';
           this.errorMessgae = 'Enter a Phone Number';

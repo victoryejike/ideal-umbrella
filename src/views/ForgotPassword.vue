@@ -47,6 +47,7 @@
         <BaseUnderlinedInput
           v-if="!isEmail"
           class="input-field"
+          country="country_code"
           field-name="phone"
           :is-mail="isEmail"
           name="otp"
