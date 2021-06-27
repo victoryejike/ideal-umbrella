@@ -247,7 +247,8 @@
     "original_phone_placehoder": "Enter phone number",
     "phone_label": "Phone",
     "phone_label_label": "****4321",
-    "phone_verfication": "Phone Verification Code",
+    "original_phone_verfication": "Original Phone Verification Code",
+    "new_phone_verfication": "New Phone Verification Code",
     "phone_verfication_placehoder": "Enter the verification code",
     "rebind_phone": "Rebind Phone"
   },

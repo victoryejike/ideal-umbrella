@@ -3,32 +3,17 @@
     <BaseForm class="rebind-form">
       <BaseUnderlinedInput
         class="input-field"
+        country="current_phone_country_code"
         name="resetPassword"
         :placeholder="$t('rabind_phone_screen.original_phone_placehoder')"
         :text="$t('rabind_phone_screen.original_phone_label')"
-        type="password"
+        type="tel"
       />
       <BaseUnderlinedInput
         class="input-field"
         name="verification-code"
         :placeholder="$t('rabind_phone_screen.phone_verfication_placehoder')"
-        :text="$t('rabind_phone_screen.phone_verfication')"
-        type="otp"
-      />
-
-      <BaseUnderlinedInput
-        class="input-field"
-        name="resetPassword"
-        :placeholder="$t('rabind_phone_screen.phone_label_label')"
-        :text="$t('rabind_phone_screen.phone_label')"
-        type="text"
-      />
-
-      <BaseUnderlinedInput
-        class="input-field"
-        name="verification-code"
-        :placeholder="$t('rabind_phone_screen.email_verfication_placehoder')"
-        :text="$t('rabind_phone_screen.email_verfication_label')"
+        :text="$t('rabind_phone_screen.original_phone_verfication')"
         type="otp"
       />
 
@@ -37,14 +22,14 @@
         name="newPassword"
         :placeholder="$t('rabind_phone_screen.new_phone_placeholder')"
         :text="$t('rabind_phone_screen.new_phone_label')"
-        type="text"
+        type="tel"
       />
 
       <BaseUnderlinedInput
         class="input-field"
         name="verification-code"
         :placeholder="$t('rabind_phone_screen.phone_verfication_placehoder')"
-        :text="$t('rabind_phone_screen.phone_verfication')"
+        :text="$t('rabind_phone_screen.new_phone_verfication')"
         type="otp"
       />
 

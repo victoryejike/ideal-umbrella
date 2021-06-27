@@ -16,7 +16,7 @@
 
       <BaseUnderlinedInput
         class="input-field"
-        fieldName="current_mail"
+        field-name="current_mail"
         :is-mail="isEmail"
         name="current_mail_code"
         :placeholder="$t('rabind_phone_screen.email_verfication_placehoder')"
@@ -35,7 +35,7 @@
 
       <BaseUnderlinedInput
         class="input-field"
-        fieldName="new_mail"
+        field-name="new_mail"
         :is-mail="isEmail"
         name="new_mail_code"
         :placeholder="$t('rabind_phone_screen.email_verfication_placehoder')"
@@ -46,7 +46,7 @@
       <div class="actions-div">
         <BaseRoundButton
           class="reset-button btn-primary btn-md btn-bold"
-          icon="arrow-right"
+          :icon="isLoading ? 'loading' : 'arrow-right'"
           submit="true"
           :text="$t('rabind_phone_screen.confirm')"
         />
@@ -69,6 +69,7 @@ export default {
   components: { BaseSettingFrame },
   data() {
     return {
+      isLoading: false,
       isEmail: true,
       token: JSON.parse(localStorage.getItem('userData')).token,
     };
@@ -76,6 +77,7 @@ export default {
   methods: {
     async onSubmit(rebindemailData) {
       // call API...
+      this.isLoading = true;
       let response = null;
       try {
         const { data } = await this.$api.REBINDEMAIL(rebindemailData, this.token);
@@ -85,11 +87,13 @@ export default {
       }
 
       if (response?.success) {
-        const { form } = this.$refs['rebind-email-form'];
-        form.setFieldError('new_mail_code', response.message);
+        this.$store.dispatch('reset', response.data);
+        // const { form } = this.$refs['rebind-email-form'];
+        // form.setFieldError('new_mail_code', response.message);
       } else {
         const { form } = this.$refs['rebind-email-form'];
         form.setFieldError('new_mail_code', response.error);
+        this.isLoading = true;
       }
     },
   },

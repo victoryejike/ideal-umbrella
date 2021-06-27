@@ -62,7 +62,7 @@
         <Field
           id="country-code"
           as="select"
-          name="country_code"
+          :name="country"
         >
           <option
             v-for="item in countryCode"
@@ -175,6 +175,7 @@ export default {
   props: {
     name: { type: String, required: true },
     fieldName: { type: String, required: false, default: null },
+    country: { type: String, required: false, default: null },
     placeholder: { type: String, required: false, default: null },
     rules: { type: String, required: false, default: null },
     text: { type: String, required: false, default: null },

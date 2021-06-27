@@ -24,6 +24,7 @@
       <BaseUnderlinedInput
         v-if="!isEmail"
         class="input-field"
+        country="country_code"
         name="phone"
         :placeholder="$t('register_screen.phone_placeholder')"
         :text="$t('register_screen.phone_label')"
@@ -105,7 +106,7 @@
       />
       <BaseRoundButton
         class="register-button btn-primary btn-md btn-bold"
-        icon="arrow-right"
+        :icon="isLoading ? 'loading' : 'arrow-right'"
         :submit="true"
         :text="$t('register_screen.register')"
       />
@@ -137,6 +138,7 @@ export default {
   },
   data() {
     return {
+      isLoading: false,
       isModalVisible: false,
       isEmail: true,
       checkedTerms: false,
@@ -156,6 +158,7 @@ export default {
   methods: {
     // call API...
     async onSubmit(registerFormData) {
+      this.isLoading = true;
       let response = null;
       try {
         const { data } = await this.$api.REGISTER(registerFormData);
@@ -170,6 +173,7 @@ export default {
       } else {
         const { form } = this.$refs['register-form'];
         form.setFieldError('otp_code', response.error);
+        this.isLoading = true;
       }
     },
 
