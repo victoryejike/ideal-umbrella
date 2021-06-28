@@ -126,7 +126,7 @@
         />
         <div class="bid-button-div">
           <BaseRoundButton
-            class="bid-button btn-outline-primary btn-xl"
+            class="bid-button btn-outline-primary btn-bold btn-xl"
             :text="$t('nft_details.place_bid')"
             @click="showModal"
           />
@@ -252,7 +252,7 @@ export default {
 }
 
 .display-token-image {
-  width: 50%;
+  width: 60%;
 }
 
 .token-text-div {
@@ -289,7 +289,7 @@ export default {
 
 .display-token-details {
   font-size: 0.875rem;
-  width: 50%;
+  width: 40%;
 }
 
 .user-details {
@@ -321,7 +321,6 @@ label {
 .token-description {
   color: #808080;
   font-size: 0.875rem;
-  font-weight: 600;
   line-height: 1.125rem;
   margin-bottom: 0.625rem;
 }
@@ -479,6 +478,12 @@ label {
 
   .token-content {
     width: 100%;
+  }
+}
+
+@media (min-width: 993px) and (max-width: 1400px) {
+  .tab {
+    width: 100% !important;
   }
 }
 </style>
