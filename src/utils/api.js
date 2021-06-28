@@ -11,6 +11,16 @@ const API_SERVICES = {
     }
     return response;
   },
+  IS_2FA_ENABLED: async (params) => {
+    let response = false;
+    try {
+      const { data } = await axios.get('auth/is2faEnabled', params, false);
+      response = (data?.data === 'true');
+    } catch (error) {
+      response = false;
+    }
+    return response;
+  },
   REGISTER: (params) => axios.post('auth/sign-up', params, false),
   REQUESTOTP: (params) => axios.post('auth/request-otp', params, false),
   VERIFYFORGOTPASSWORDTOKEN: (params) => axios.post('auth/verify-forgot-password-code', params, false),

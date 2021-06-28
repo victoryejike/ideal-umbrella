@@ -30,7 +30,6 @@
         :text="$t('login_screen.phone_text')"
         type="tel"
       />
-
       <BaseUnderlinedInput
         class="input-group"
         name="password"
@@ -91,18 +90,23 @@ export default {
   methods: {
     async onSubmit(formData) {
       this.isLoading = true;
-      const { form } = this.$refs['login-form'];
-      const response = await this.$api.LOGIN(formData);
-
-      if (response?.success === true) {
-        this.$store.dispatch('auth/login', response?.data);
-        this.$router.push(this.$route.query.redirectFrom || '/profile');
-      } else if (response?.success === false) {
-        form.setFieldError('password', response?.error);
+      const need2FA = await this.$api.IS_2FA_ENABLED(formData);
+      if (need2FA === true) {
+        this.$router.push({ name: '2FA', params: { formData: JSON.stringify(formData) } });
       } else {
-        form.setFieldError('password', this.$t('axios.unexcepted_error'));
+        const response = await this.$api.LOGIN(formData);
+        const { form } = this.$refs['login-form'];
+
+        if (response?.success === true) {
+          this.$store.dispatch('auth/login', response?.data);
+          this.$router.push(this.$route.query.redirectFrom || '/profile');
+        } else if (response?.success === false) {
+          form.setFieldError('password', response?.error);
+        } else {
+          form.setFieldError('password', this.$t('axios.unexcepted_error'));
+        }
+        this.isLoading = false;
       }
-      this.isLoading = false;
     },
   },
 };
