@@ -1,48 +1,42 @@
 <template>
-  <div class="container-bg">
-    <img src="@/assets/image/nft-hero.png">
-    <p>{{ $t('error_page.message') }}</p>
-    <div class="mt-3">
-      <BaseRoundButton
-        class="send-btn btn-primary btn-md"
-        :text="$t('error_page.btn')"
-      />
-    </div>
+  <div class="container">
+    <h1 class="error-title">
+      {{ $t('error_page.message') }}
+    </h1>
+    <img
+      class="error-image"
+      src="@img/bg-404.png"
+    >
+    <BaseRoundButton
+      class="home-btn btn-primary btn-xxl"
+      :text="$t('error_page.btn')"
+      url="/"
+    />
   </div>
 </template>
 
 <style scoped>
-.container-bg {
-  background-image: url('../assets/image/bg-404.png');
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  margin-top: -4rem;
-  position: absolute;
-  right: 0.4rem;
-  text-align: center;
-  width: 100%;
+.container {
+  margin-top: -6rem;
 }
 
-.container-bg img {
-  width: 22rem;
+.error-image {
+  margin-left: -8.125rem;
+  width: 90rem;
 }
 
-.container-bg p {
+.error-title {
   color: #fff;
-  font-size: 1.7rem;
-  left: 0;
-  margin-top: -12rem;
+  font-size: 4rem;
+  margin: auto auto;
+  margin-top: 20rem;
   position: absolute;
-  right: 0;
-}
-
-.mt-3 {
-  margin: 3rem;
   text-align: center;
+  width: 73.75rem;
 }
 
-.mt-3 button {
-  display: initial;
+.home-btn {
+  margin: auto auto;
+  margin-top: -5rem;
 }
 </style>

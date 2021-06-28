@@ -115,6 +115,9 @@ export default {
 }
 
 /* Button Size Classes */
+.btn-xxl {
+  padding: 0.8125rem 3.875rem;
+}
 
 .btn-xl {
   padding: 0.75rem 2.5rem;
