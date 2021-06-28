@@ -206,7 +206,7 @@ export default {
 
 @media (max-width: 90em) {
   .popular-box {
-    overflow: scroll;
+    overflow-x: scroll;
   }
 
   .banner-bg {

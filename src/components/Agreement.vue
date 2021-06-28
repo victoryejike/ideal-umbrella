@@ -9,7 +9,7 @@
       The FANS token does not possess any necessary characteristic required to be
       considered a transferable security, money market instrument, unit in
       collective investment schemes, a digital currency, commodity, security
-      or any other form of investment in any jurisdiction..
+      or any other form of investment in any jurisdiction.
     </p>
     <p>
       This white paper does not constitute a prospectus or offering document and
@@ -84,11 +84,13 @@
 .container {
   height: 31.25rem;
   margin-top: 1.25rem;
+  overflow: hidden scroll;
 }
 
 p {
   margin-bottom: 1em;
   padding: 0.3125rem;
+  text-align: justify;
 }
 
 </style>

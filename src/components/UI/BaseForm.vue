@@ -6,6 +6,7 @@
   >
     <Field
       name="csrf_token"
+      rules="required"
       type="hidden"
       :value="csrfToken"
     />
@@ -24,7 +25,7 @@ export default {
   },
   data() {
     return {
-      csrfToken: null,
+      csrfToken: 'CIwNZNlR4XbisJF39I8yWnWX9wX4WFoz',
     };
   },
   computed: {

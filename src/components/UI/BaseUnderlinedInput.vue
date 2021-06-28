@@ -11,7 +11,7 @@
     >
       <span
         v-if="type === 'tel'"
-        style="margin-right: 1rem;"
+        class="country-code-text"
       >
         {{ $t('components.country_code') }}
       </span>
@@ -28,7 +28,7 @@
       </div>
       <template v-if="type === 'password'">
         <Field
-          v-model="inputValue"
+          v-model="value"
           v-bind="$attrs"
           class="input-box"
           :name="name"
@@ -75,7 +75,7 @@
           </option>
         </Field>
         <Field
-          v-model="inputValue"
+          v-model="value"
           v-bind="$attrs"
           class="input-box input-phone"
           maxlength="15"
@@ -93,7 +93,7 @@
       </template>
       <template v-else-if="type === 'otp'">
         <Field
-          v-model="inputValue"
+          v-model="value"
           v-bind="$attrs"
           class="input-box"
           maxlength="6"
@@ -111,7 +111,7 @@
       </template>
       <template v-else>
         <Field
-          v-model="inputValue"
+          v-model="value"
           v-bind="$attrs"
           class="input-box"
           :name="name"
@@ -145,7 +145,7 @@
       class="input-line"
       :class="[{focus: isFocus}, {'error-underline': isError}]"
     />
-    <div v-if="type === 'otp'">
+    <div v-if="errorMessgae">
       <Message
         :message="errorMessgae"
         :type="messageType"
@@ -181,7 +181,7 @@ export default {
     rules: { type: String, required: false, default: null },
     text: { type: String, required: false, default: null },
     type: { type: String, required: false, default: 'text' },
-    value: { type: String, required: false, default: '' },
+    defaultValue: { type: String, required: false, default: '' },
     width: { type: Number, required: false, default: null },
     isMail: { type: Boolean, required: false, default: null },
   },
@@ -189,7 +189,7 @@ export default {
   data() {
     return {
       errorMessgae: '',
-      inputValue: this.value,
+      value: this.defaultValue,
       isDisplay: false,
       isFocus: false,
       isError: false,
@@ -230,10 +230,7 @@ export default {
           this.errorMessgae = 'Enter an Email Address';
           setTimeout(() => { this.errorMessgae = ''; }, 2000);
         } else {
-          const params = {
-            // eslint-disable-next-line object-shorthand
-            email: email,
-          };
+          const params = { email };
           this.callApi(params);
         }
       } else {
@@ -247,8 +244,7 @@ export default {
           const params = {
             // eslint-disable-next-line camelcase
             country_code: countryCode,
-            // eslint-disable-next-line object-shorthand
-            phone: phone,
+            phone,
           };
           this.callApi(params);
         }
@@ -288,6 +284,11 @@ export default {
   overflow: hidden;
   transition: color 0s;
   white-space: nowrap;
+}
+
+.country-code-text {
+  margin-right: 1rem;
+  transition: color 0s;
 }
 
 .input-group-icon {
