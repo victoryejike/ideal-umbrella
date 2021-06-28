@@ -96,7 +96,7 @@
       <div class="actions-div">
         <BaseRoundButton
           class="reset-button btn-primary btn-md btn-bold"
-          icon="arrow-right"
+          :icon="isLoading ? 'loading' : 'arrow-right'"
           :submit="true"
           :text="$t('reset_password_screen.reset')"
         />
@@ -127,6 +127,7 @@ export default {
       message: ' ',
       messageType: ' ',
       isEmail: true,
+      isLoading: false,
       resetTab: [
         {
           name: this.$t('tab_titles.email'),
@@ -143,6 +144,7 @@ export default {
   methods: {
     async onSubmit(resetFormData) {
       this.message = ' ';
+      this.isLoading = true;
       let response = null;
       try {
         const { data } = await this.$api.RESETPASSWORD(resetFormData);
@@ -152,11 +154,13 @@ export default {
       }
 
       if (response?.success) {
+        this.isLoading = false;
         this.messageType = 'success';
         this.message = response.message;
         // this.$store.dispatch('reset', response.data);
         // this.$router.push('/login');
       } else {
+        this.isLoading = false;
         this.messageType = 'error';
         this.message = response.error;
         console.log('error message', this.message);
