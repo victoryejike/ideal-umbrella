@@ -105,6 +105,12 @@
         class="input-error-msg-effect"
         name="agree-terms"
       />
+      <div v-if="message !== ' '">
+        <Message
+          :message="message"
+          :type="messageType"
+        />
+      </div>
       <BaseRoundButton
         class="register-button btn-primary btn-md btn-bold"
         :icon="isLoading ? 'loading' : 'arrow-right'"
@@ -127,6 +133,7 @@
 <script>
 import { Field, ErrorMessage } from 'vee-validate';
 import Agreement from '../components/Agreement.vue';
+import Message from '../components/UI/Message.vue';
 
 export default {
 
@@ -135,6 +142,7 @@ export default {
     Agreement,
     Field,
     ErrorMessage,
+    Message,
 
   },
   data() {
@@ -143,6 +151,8 @@ export default {
       isModalVisible: false,
       isEmail: true,
       checkedTerms: false,
+      message: ' ',
+      messageType: ' ',
       registerTab: [
         {
           name: this.$t('tab_titles.email'),
@@ -171,10 +181,13 @@ export default {
       if (response?.success) {
         this.$store.dispatch('register', response.data);
         this.$router.push('/login');
+        this.isLoading = false;
       } else {
-        const { form } = this.$refs['register-form'];
-        form.setFieldError('otp_code', response.error);
-        this.isLoading = true;
+        // const { form } = this.$refs['register-form'];
+        // form.setFieldError('otp_code', response.error);
+        this.messageType = 'error';
+        this.message = response.error;
+        this.isLoading = false;
       }
     },
 

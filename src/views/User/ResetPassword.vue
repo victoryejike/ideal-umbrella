@@ -87,7 +87,12 @@
         :text="$t('register_screen.verification_code_label')"
         type="otp"
       />
-
+      <div v-if="message !== ' '">
+        <Message
+          :message="message"
+          :type="messageType"
+        />
+      </div>
       <div class="actions-div">
         <BaseRoundButton
           class="reset-button btn-primary btn-md btn-bold"
@@ -108,15 +113,19 @@
 </template>
 <script>
 import BaseSettingFrame from './BaseSettingFrame.vue';
+import Message from '../../components/UI/Message.vue';
 
 export default {
   name: 'UserResetPassword',
   components: {
     BaseSettingFrame,
+    Message,
 
   },
   data() {
     return {
+      message: ' ',
+      messageType: ' ',
       isEmail: true,
       resetTab: [
         {
@@ -133,6 +142,7 @@ export default {
 
   methods: {
     async onSubmit(resetFormData) {
+      this.message = ' ';
       let response = null;
       try {
         const { data } = await this.$api.RESETPASSWORD(resetFormData);
@@ -142,11 +152,16 @@ export default {
       }
 
       if (response?.success) {
-        this.$store.dispatch('reset', response.data);
+        this.messageType = 'success';
+        this.message = response.message;
+        // this.$store.dispatch('reset', response.data);
         // this.$router.push('/login');
       } else {
-        const { form } = this.$refs['reset-form'];
-        form.setFieldError('confirm_password', response.error);
+        this.messageType = 'error';
+        this.message = response.error;
+        console.log('error message', this.message);
+        // const { form } = this.$refs['reset-form'];
+        // form.setFieldError('confirm_password', response.error);
       }
     },
   },
