@@ -100,7 +100,7 @@
     "login": "Login",
     "phone": "Phone Number",
     "send": "Send",
-    "sms_code": "Otp"
+    "sms_code": "OTP"
   },
   "header": {
     "create": "Create",
@@ -268,7 +268,7 @@
     "register": "Register",
     "send_code": "Send Code",
     "verification_code__placehoder": "Enter the verification code",
-    "verification_code_label": "Otp"
+    "verification_code_label": "OTP"
   },
   "reset_password_screen": {
     "cancel": "Cancel",
