@@ -50,7 +50,7 @@ router.beforeEach((to, from, next) => {
   if (store.getters['auth/loggedIn']) return next();
 
   // Auth is required and the user is NOT currently logged in
-  return next({ name: 'Login', query: { redirectFrom: to.fullPath } });
+  return next({ name: 'Login', params: { redirectFrom: to.fullPath } });
 });
 
 export default router;

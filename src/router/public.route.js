@@ -32,6 +32,7 @@ const publicRoute = [
     path: '/update-password',
     name: 'UpdatePassword',
     component: () => import('@view/UpdatePassword.vue'),
+    beforeEnter: (to, from, next) => (to.params?.token ? next() : next({ name: 'ForgotPassword' })),
   },
   {
     path: '/token-details/:id',

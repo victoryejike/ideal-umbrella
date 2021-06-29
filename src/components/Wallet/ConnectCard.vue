@@ -4,7 +4,7 @@
   >
     <div v-if="btn === 'true'">
       <BaseRoundButton
-        class="btn-outline-primary btn-sm"
+        class="btn-outline-primary btn-sm btn-unclickable"
         :text="btntext"
       />
     </div>

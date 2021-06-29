@@ -59,14 +59,8 @@ export default {
   components: { Field },
   data() {
     return {
-      token: this.$route.query.token,
+      token: this.$route.params.token,
     };
-  },
-  mounted() {
-    if (this.token === null || this.token === undefined
-    || this.token.length === 0) {
-      this.$router.push('/forgot-password');
-    }
   },
   methods: {
     async onSubmit(updatepasswordData) {

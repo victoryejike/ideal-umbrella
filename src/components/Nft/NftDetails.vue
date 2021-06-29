@@ -5,7 +5,7 @@
         <span class="token-text">   {{ $t('nft_details.token_text') }}</span>
         <div class="button-div">
           <BaseRoundButton
-            class="btn-outline-secondary button"
+            class="btn-outline-secondary button btn-unclickable"
             text="Art"
           >
             <template #icon>

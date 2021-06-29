@@ -143,7 +143,6 @@ export default {
     Field,
     ErrorMessage,
     Message,
-
   },
   data() {
     return {
@@ -179,7 +178,7 @@ export default {
       }
 
       if (response?.success) {
-        this.$store.dispatch('register', response.data);
+        // this.$store.dispatch('register', response.data);
         this.$router.push('/login');
         this.isLoading = false;
       } else {
@@ -190,7 +189,6 @@ export default {
         this.isLoading = false;
       }
     },
-
     showModal() {
       this.isModalVisible = true;
     },
