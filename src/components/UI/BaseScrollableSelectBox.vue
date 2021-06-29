@@ -53,8 +53,8 @@
           v-for="(item, index) in options"
           :key="index"
           class="selector-options"
-          :class="{'active': optionStatus[index]}"
-          :onClick="() => {selectItem(item, index)}"
+          :class="{'active': index === activeIndex}"
+          :onClick="() => {selectItem(index)}"
           :style="customCSS"
         >
           <img
@@ -115,7 +115,7 @@ export default {
       },
     },
     text: { type: String, required: false, default: null },
-    value: { type: Number, required: false, default: 0 },
+    value: { type: [String, Number], required: false, default: 0 },
     defaultSelected: { type: Boolean, required: false, default: true },
     name: { type: String, required: true },
     rules: { type: String, required: false, default: null },
@@ -125,8 +125,7 @@ export default {
     return {
       isPullDown: false,
       isError: false,
-      optionStatus: [],
-      activeIndex: (this.defaultSelected) ? this.value : null,
+      activeIndex: null,
       selectedValue: null,
     };
   },
@@ -147,21 +146,21 @@ export default {
       this.isError = (mutations[1]?.addedNodes[0]?.className === 'input-error-msg-effect');
     }));
     this.observer.observe(document.getElementById(`${this.name}-error-msg`), { childList: true });
-    this.selectedValue = this.options[this.activeIndex]?.key || this.activeIndex;
   },
   created() {
-    for (let i = 0; i < this.options.length; i += 1) {
-      this.optionStatus.push(i === this.activeIndex);
+    if (this.defaultSelected) {
+      this.activeIndex = typeof this.value === 'string'
+        ? this.options.findIndex((item) => item.key === this.value)
+        : this.value || 0;
     }
+    this.selectedValue = this.options[this.activeIndex]?.key || this.activeIndex;
   },
   methods: {
-    selectItem(item, index) {
+    selectItem(index) {
       this.toogleMenu();
       if (index !== this.activeIndex) {
-        this.$emit('selected', this.options[index]?.key || index);
         this.selectedValue = this.options[index]?.key || index;
-        this.optionStatus[this.activeIndex] = false;
-        this.optionStatus[index] = true;
+        this.$emit('selected', this.selectedValue);
         this.activeIndex = index;
       }
     },
