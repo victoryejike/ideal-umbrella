@@ -6,28 +6,42 @@
     @click="timeDelay(); forwardURL(); submit ? handleSubmit() : null"
   >
     <div
-      v-if="icon"
+      v-if="$slots.leftIcon"
       class="btn-left-icon"
     >
-      <slot name="icon" />
+      <slot name="leftIcon" />
     </div>
-    <span class="btn-text">
+    <span
+      v-if="text"
+      class="btn-text"
+    >
       {{ text }}
     </span>
-    <img
-      v-if="icon === 'arrow-right'"
+    <div
+      v-if="icon"
       class="btn-right-icon"
-      height="32"
-      src="@svg/arrow-right.svg"
-      width="32"
+      :style="(text) ? 'margin-left: 1.25rem;' : null"
     >
-    <img
-      v-if="icon === 'loading'"
-      class="btn-right-icon"
-      height="32"
-      src="@svg/loading.svg"
-      width="32"
-    >
+      <img
+        v-if="icon === 'arrow-right'"
+        height="32"
+        src="@svg/arrow-right.svg"
+        width="32"
+      >
+      <img
+        v-else-if="icon === 'loading'"
+        height="32"
+        src="@svg/loading.svg"
+        style=" background-color: #fff; border-radius: 50%;"
+        width="32"
+      >
+      <img
+        v-else-if="icon === 'transparent-loading'"
+        height="32"
+        src="@svg/loading.svg"
+        width="32"
+      >
+    </div>
   </button>
 </template>
 
@@ -37,7 +51,7 @@ export default {
   props: {
     icon: { type: String, required: false, default: null },
     submit: { type: Boolean, required: false, default: false },
-    text: { type: String, required: true },
+    text: { type: String, required: false, default: null },
     url: { type: String, required: false, default: null },
   },
   data() {
@@ -102,7 +116,6 @@ export default {
 
 .btn-right-icon {
   height: 2rem;
-  margin-left: 1.25rem;
   width: 2rem;
 }
 

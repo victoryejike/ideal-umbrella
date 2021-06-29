@@ -12,7 +12,7 @@
       :text="$t('reset_password_screen.new_password_label')"
       type="password"
     >
-      <template #icon>
+      <template #leftIcon>
         <img src="@svg/password-lock.svg">
       </template>
     </BaseUnderlinedInput>
@@ -25,7 +25,7 @@
       :text="$t('reset_password_screen.confirm_password_label')"
       type="password"
     >
-      <template #icon>
+      <template #leftIcon>
         <img src="@svg/password-lock.svg">
       </template>
     </BaseUnderlinedInput>

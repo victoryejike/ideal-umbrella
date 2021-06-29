@@ -8,7 +8,7 @@
             class="btn-outline-secondary button btn-unclickable"
             text="Art"
           >
-            <template #icon>
+            <template #leftIcon>
               <img
                 src="@img/art.png"
               >

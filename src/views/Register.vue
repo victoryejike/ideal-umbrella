@@ -38,7 +38,7 @@
         :text="$t('register_screen.login_password_label')"
         type="password"
       >
-        <template #icon>
+        <template #leftIcon>
           <img src="@svg/password-lock.svg">
         </template>
       </BaseUnderlinedInput>
@@ -51,7 +51,7 @@
         :text="$t('register_screen.confirm_password_label')"
         type="password"
       >
-        <template #icon>
+        <template #leftIcon>
           <img src="@svg/password-lock.svg">
         </template>
       </BaseUnderlinedInput>
