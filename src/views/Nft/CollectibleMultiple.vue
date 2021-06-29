@@ -128,7 +128,11 @@ export default {
         this.$t('collectible.tab.fixed_price'),
         this.$t('collectible.tab.unlimited_auction'),
       ],
-      royaltiesList: ['10 %', '20 %', '30 %'],
+      royaltiesList: [
+        { name: '10 %' },
+        { name: '20 %' },
+        { name: '30 %' },
+      ],
     };
   },
   methods: {

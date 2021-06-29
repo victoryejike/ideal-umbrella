@@ -61,7 +61,10 @@ export default {
   data() {
     return {
       countriesList: [],
-      idTypeList: ['Passport', 'National ID'],
+      idTypeList: [
+        { name: 'ID Card' },
+        { name: 'Passport' },
+      ],
       countryList: [
         { name: 'Singapore', image: 'https://www.countryflags.io/SG/flat/16.png' },
         { name: 'Japan', image: 'https://www.countryflags.io/JP/flat/16.png' },

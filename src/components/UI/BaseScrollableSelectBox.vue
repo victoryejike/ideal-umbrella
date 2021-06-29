@@ -9,7 +9,7 @@
       :class="{'label-error-effect': isError}"
     >{{ text }}</span>
     <Field
-      v-model="activeIndex"
+      v-model="selectedValue"
       :name="name"
       :rules="rules"
       type="hidden"
@@ -23,12 +23,12 @@
       @focusout="handleFocusout"
     >
       <img
-        v-if="selectedItem?.image"
+        v-if="options[activeIndex]?.image"
         class="options-image"
-        :src="selectedItem.image"
+        :src="options[activeIndex].image"
       >
       <span class="options-text">
-        {{ selectedItem?.name || selectedItem || $t('components.select_placeholder') }}
+        {{ options[activeIndex]?.name || $t('components.select_placeholder') }}
       </span>
       <i
         class="selector-arrow"
@@ -63,7 +63,7 @@
             :src="item.image"
           >
           <span class="options-text">
-            {{ item?.name || item }}
+            {{ item?.name }}
           </span>
         </div>
       </div>
@@ -92,24 +92,28 @@ export default {
       required: false,
       default: null,
       validator(value) {
-        const whiteList = [
-          'activeColor',
-          'arrowColor',
-          'bgColor',
-          'borderColor',
-          'hoverColor',
-          'width',
-        ];
+        const whiteList = ['activeColor', 'arrowColor', 'bgColor', 'borderColor', 'hoverColor', 'width'];
         const keys = Object.keys(value);
         for (let i = 0; i < keys.length; i += 1) {
-          if (!whiteList.includes(keys[i])) {
-            return false;
+          if (!whiteList.includes(keys[i])) { return false; }
+        }
+        return true;
+      },
+    },
+    options: {
+      type: Array,
+      required: true,
+      validator(value) {
+        const whiteList = ['key', 'name', 'image'];
+        for (let x = 0; x < value.length; x += 1) {
+          const keys = Object.keys(value[x]);
+          for (let i = 0; i < keys.length; i += 1) {
+            if (!whiteList.includes(keys[i])) { return false; }
           }
         }
         return true;
       },
     },
-    options: { type: [Array, Object], required: true },
     text: { type: String, required: false, default: null },
     value: { type: Number, required: false, default: 0 },
     defaultSelected: { type: Boolean, required: false, default: true },
@@ -122,8 +126,8 @@ export default {
       isPullDown: false,
       isError: false,
       optionStatus: [],
-      selectedItem: null,
       activeIndex: (this.defaultSelected) ? this.value : null,
+      selectedValue: null,
     };
   },
   computed: {
@@ -143,12 +147,9 @@ export default {
       this.isError = (mutations[1]?.addedNodes[0]?.className === 'input-error-msg-effect');
     }));
     this.observer.observe(document.getElementById(`${this.name}-error-msg`), { childList: true });
+    this.selectedValue = this.options[this.activeIndex]?.key || this.activeIndex;
   },
   created() {
-    if (this.activeIndex != null && this.activeIndex <= this.options.length) {
-      this.selectedItem = this.options[this.activeIndex];
-    }
-
     for (let i = 0; i < this.options.length; i += 1) {
       this.optionStatus.push(i === this.activeIndex);
     }
@@ -157,8 +158,8 @@ export default {
     selectItem(item, index) {
       this.toogleMenu();
       if (index !== this.activeIndex) {
-        this.$emit('selected', index);
-        this.selectedItem = item;
+        this.$emit('selected', this.options[index]?.key || index);
+        this.selectedValue = this.options[index]?.key || index;
         this.optionStatus[this.activeIndex] = false;
         this.optionStatus[index] = true;
         this.activeIndex = index;
