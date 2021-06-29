@@ -21,7 +21,9 @@
     </div>
     <BaseRoundButton
       class="load-more-btn btn-outline-primary btn-xl"
-      :text="$t('index_screen.more')"
+      :icon="isLoading ? 'transparent-loading' : null"
+      :text="isLoading ? null : $t('index_screen.more')"
+      @click="loadMore"
     />
   </div>
 </template>
@@ -37,6 +39,7 @@ export default {
   },
   data() {
     return {
+      isLoading: false,
       list: Array(this.number).fill({
         id: 'V3isglWtYb5qIy24QbTJeoJjuV35fEDd0RoL',
         avatar: 'avatar.png',
@@ -53,6 +56,23 @@ export default {
     this.$global.handleResponsive(62.5,
       () => { this.size = 190; },
       () => { this.size = 140; });
+  },
+  methods: {
+    loadMore() {
+      this.isLoading = true;
+      setTimeout(() => {
+        this.list.push(...Array(this.number).fill({
+          id: 'V3isglWtYb5qIy24QbTJeoJjuV35fEDd0RoL',
+          avatar: 'avatar.png',
+          author: 'Otha Davis III',
+          image: 'image.png',
+          name: 'Crypto Mask',
+          price: 67.456,
+          verified: true,
+        }));
+        this.isLoading = false;
+      }, 500);
+    },
   },
 };
 </script>

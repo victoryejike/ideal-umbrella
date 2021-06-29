@@ -45,8 +45,8 @@ const publicRoute = [
     component: () => import('@view/Discover.vue'),
   },
   {
-    path: '/404',
-    name: 'Error',
+    path: '/:pathMatch(.*)*',
+    name: 'PathNotFound',
     component: () => import('@view/404.vue'),
   },
 ];
