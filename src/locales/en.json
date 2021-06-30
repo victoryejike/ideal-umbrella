@@ -333,6 +333,6 @@
     "username_msg": "Invalid username, it should be an email address or a phone number."
   },
   "otp_disclaimer":{
-    "msg":"A 4-digit OTP code will be sent via SMS to your mobile device.Message and Data rates may apply."
+    "msg":"A 6-digit OTP code will be sent via Email or SMS. Message and Data rates may apply."
   }
 }
