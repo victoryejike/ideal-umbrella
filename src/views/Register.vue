@@ -102,6 +102,7 @@
         </div>
       </div>
       <ErrorMessage
+        as="div"
         class="input-error-msg-effect"
         name="agree-terms"
       />

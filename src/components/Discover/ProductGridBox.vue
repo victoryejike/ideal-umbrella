@@ -10,12 +10,11 @@
         :key="index"
         :author="item.author"
         :avatar="item.avatar"
-        :bg-color="null"
         class="gridbox-product-card"
+        :css="cardCSS"
         :image="item.image"
         :name="item.name"
         :price="item.price"
-        :size="size"
         :verified="item.verified"
       />
     </div>
@@ -49,13 +48,13 @@ export default {
         price: 67.456,
         verified: true,
       }),
-      size: null,
+      cardCSS: { bgColor: null },
     };
   },
   mounted() {
     this.$global.handleResponsive(62.5,
-      () => { this.size = 190; },
-      () => { this.size = 140; });
+      () => { this.cardCSS.size = 190; },
+      () => { this.cardCSS.size = 140; });
   },
   methods: {
     loadMore() {
