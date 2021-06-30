@@ -16,6 +16,19 @@
         {{ $t('components.country_code') }}
       </span>
       {{ text }}
+      <span
+        v-if="type === 'otp'"
+        @mouseenter="trigger"
+      >
+        <img
+          class="otp-icon"
+          height="16"
+          src="@svg/otp-icon.svg"
+        >
+        <BaseOtpText
+          v-if="hovered"
+        />
+      </span>
     </div>
     <div
       class="input-inline-block"
@@ -195,6 +208,7 @@ export default {
       isError: false,
       countryCode: CountryCode,
       messageType: '',
+      hovered: false,
     };
   },
   mounted() {
@@ -272,7 +286,12 @@ export default {
         setTimeout(() => { this.errorMessgae = ''; }, 2000);
       }
     },
+    trigger() {
+      this.hovered = true;
+      setTimeout(() => { this.hovered = false; }, 2000);
+    },
   },
+
 };
 </script>
 
