@@ -12,10 +12,10 @@
   background: #2c43ad;
   border-radius: 10px;
   color: #fff;
-  display: inline-block;
+  display: flex;
   height: 44px;
   line-height: 15px;
-  margin-left: 10px;
+  margin-top: 5px;
   mix-blend-mode: normal;
   white-space: normal;
   width: 305px;
@@ -26,7 +26,6 @@
   font-size: 12px;
   font-weight: 600;
   line-height: 15px;
-  margin-top: 7px;
   padding-left: 8px;
   padding-right: 8px;
 }
