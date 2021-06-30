@@ -41,8 +41,10 @@
             />
             <input
               id="select-profile"
+              ref="file"
               accept="image/*"
               type="file"
+              @change="uploadImage($event, index)"
             >
           </div>
         </div>
@@ -106,6 +108,7 @@ export default {
           handler: () => { this.isEmail = false; },
         },
       ],
+      ref: '',
     };
   },
   methods: {
@@ -114,6 +117,26 @@ export default {
     },
     selectProfile() {
       document.getElementById('select-profile').click();
+    },
+    async uploadImage() {
+      // eslint-disable-next-line prefer-destructuring
+      this.file = this.$refs.file.files[0];
+      console.log(this.file);
+      const formData = new FormData();
+      formData.append('image', this.file);
+      let response = null;
+      try {
+        const { data } = await this.$api.UPLOADAVATAR(formData);
+        response = data;
+      } catch (error) {
+        response = error.response.data;
+      }
+
+      if (response?.success) {
+        console.log(response);
+      } else {
+        console.log(response);
+      }
     },
   },
 };
