@@ -42,6 +42,13 @@
         class="selector-menu"
         :style="{'--border-color': customCSS['--border-color']}"
       >
+        <!-- <div class="selector-options">
+          <input
+            v-model="searchValue"
+            class="search-bar"
+            type="search"
+          >
+        </div> -->
         <div
           v-for="(item, index) in options"
           :key="index"
@@ -240,4 +247,13 @@ export default {
   transform: rotate(-180deg);
   transition: transform 150ms ease;
 }
+
+/* .search-bar {
+  background-color: transparent;
+  border: 0;
+  border-bottom: 0.1rem #fff solid;
+  color: #fff;
+  outline: 0;
+  padding: 0 0  0;
+} */
 </style>

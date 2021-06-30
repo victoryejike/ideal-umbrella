@@ -63,7 +63,7 @@ export default {
 .social-media {
   align-items: center;
   display: flex;
-  margin-right: -2.5rem;
+  margin-right: -2rem;
   margin-top: 2.5rem;
 }
 

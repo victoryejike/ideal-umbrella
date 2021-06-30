@@ -1,4 +1,10 @@
 {
+  "2fa_screen": {
+    "otp_placeholder": "Enter the verification code",
+    "otp_text": "OTP Code",
+    "submit": "Submit",
+    "title": "Two-factor Authentication"
+  },
   "axios": {
     "unexcepted_error": "Unexcepted Error"
   },
@@ -239,11 +245,11 @@
     "confirm": "Confirm",
     "email_verfication_label": "Email Verification Code",
     "email_verfication_placehoder": "Enter the verification code",
+    "new_email_label": "Enter new Email",
+    "new_email_placeholder": "Enter new Email Address",
     "new_phone_label": "New Phone",
     "new_phone_placeholder": "Enter new phone",
     "original_phone_label": "Original Phone",
-    "new_email_placeholder": "Enter new Email Address",
-    "new_email_label": "Enter new Email",
     "original_phone_placehoder": "Enter phone number",
     "phone_label": "Phone",
     "phone_label_label": "****4321",
