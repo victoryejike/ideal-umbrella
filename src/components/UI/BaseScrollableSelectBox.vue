@@ -69,7 +69,7 @@
       </div>
     </div>
     <div
-      :id="`${name}-error-msg`"
+      ref="error-msg"
       class="input-error-msg"
     >
       <ErrorMessage
@@ -142,10 +142,11 @@ export default {
     arrowColor() { return this.css?.arrowColor || '#9ba6d8'; },
   },
   mounted() {
+    // TODO: Better Implementation
     this.observer = new MutationObserver(((mutations) => {
       this.isError = (mutations[1]?.addedNodes[0]?.className === 'input-error-msg-effect');
     }));
-    this.observer.observe(document.getElementById(`${this.name}-error-msg`), { childList: true });
+    this.observer.observe(this.$refs['error-msg'], { childList: true });
   },
   created() {
     if (this.defaultSelected) {
@@ -191,7 +192,7 @@ export default {
   font-weight: bold;
   height: 2.5rem;
   padding: 0 1.2rem;
-  transition: background 0.3s ease-in-out;
+  transition: background 0.3s ease-in-out, width 0.5s;
   width: var(--width);
 }
 

@@ -40,7 +40,6 @@
               @click="selectProfile"
             />
             <input
-              id="select-profile"
               ref="file"
               accept="image/*"
               type="file"
@@ -92,7 +91,6 @@
 </template>
 
 <script>
-
 export default {
   name: 'EditProfile',
   data() {
@@ -116,12 +114,11 @@ export default {
       // call API...
     },
     selectProfile() {
-      document.getElementById('select-profile').click();
+      this.$refs.file.$el.click();
     },
     async uploadImage() {
       // eslint-disable-next-line prefer-destructuring
       this.file = this.$refs.file.files[0];
-      console.log(this.file);
       const formData = new FormData();
       formData.append('image', this.file);
       let response = null;
@@ -131,7 +128,6 @@ export default {
       } catch (error) {
         response = error.response.data;
       }
-
       if (response?.success) {
         console.log(response);
       } else {
@@ -141,7 +137,6 @@ export default {
   },
 };
 </script>
-
 <style scoped>
 .edit-profile-text {
   font-size: 2rem;

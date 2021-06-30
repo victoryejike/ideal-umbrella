@@ -166,7 +166,7 @@
       />
     </div>
     <div
-      :id="`${name}-error-msg`"
+      ref="error-msg"
       class="input-error-msg"
     >
       <ErrorMessage
@@ -217,7 +217,7 @@ export default {
     this.observer = new MutationObserver(((mutations) => {
       this.isError = (mutations[1]?.addedNodes[0]?.className === 'input-error-msg-effect');
     }));
-    this.observer.observe(document.getElementById(`${this.name}-error-msg`), { childList: true });
+    this.observer.observe(this.$refs['error-msg'], { childList: true });
   },
   methods: {
     async getCountries() {

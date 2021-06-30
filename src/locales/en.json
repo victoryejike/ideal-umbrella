@@ -17,7 +17,7 @@
     "discription_placeholder": "e.g. “After purchasing you’ll be able to get the real T-Shirt”",
     "file_type_text": "PNG, GIF, WEBP, MP4 or MP3. Max 100mb.",
     "number_of_copies_label": "Number of copies",
-    "number_of_copies_placeholder": "E.g. 10“ ",
+    "number_of_copies_placeholder": "e.g. 10“ ",
     "put_on_marketplace": "Put on marketplace",
     "received_amount_label": "Received Amount (Service fee: 2.5%)",
     "received_amount_placeholder": "Enter price for one piece",
@@ -27,7 +27,7 @@
       "timed_auction": "TIMED AUCTION",
       "unlimited_auction": "UNLIMITED AUCTION"
     },
-    "title": "Create Single Collectible",
+    "title_single": "Create Single Collectible",
     "title_label": "Title",
     "title_multiple": "Create Multiple Collectible",
     "title_placeholder": "e.g. “Redeemable Lady Gaga T-Shirt”",

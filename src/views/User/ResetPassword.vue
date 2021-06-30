@@ -163,7 +163,6 @@ export default {
         this.isLoading = false;
         this.messageType = 'error';
         this.message = response.error;
-        console.log('error message', this.message);
         // const { form } = this.$refs['reset-form'];
         // form.setFieldError('confirm_password', response.error);
       }

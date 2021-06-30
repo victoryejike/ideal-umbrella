@@ -52,7 +52,7 @@
           <img
             class="coins-icon"
             height="20"
-            src="@svg/ht.svg"
+            src="@svg/huobi-token.svg"
             width="20"
           >
           <span class="price">

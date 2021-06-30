@@ -30,14 +30,9 @@ const privateRoute = [
     component: () => import('@view/Nft/Index.vue'),
   },
   {
-    path: '/nft/single',
-    name: 'CollectibleSingle',
-    component: () => import('@view/Nft/CollectibleSingle.vue'),
-  },
-  {
-    path: '/nft/multiple',
-    name: 'CollectibleMultiple',
-    component: () => import('@view/Nft/CollectibleMultiple.vue'),
+    path: '/nft/create/:standard',
+    name: 'CreateNFT',
+    component: () => import('@view/Nft/CreateNFT.vue'),
   },
   {
     path: '/connect-wallet',

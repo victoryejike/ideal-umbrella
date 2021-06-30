@@ -1,10 +1,10 @@
 <template>
-  <div class="single-collectible-main">
+  <div class="create-nft-main">
     <BaseFrame
       url="/nft"
     />
     <Base
-      :title="$t('collectible.title_multiple')"
+      :title="title"
     >
       <UploadCard
         :text="$t('collectible.upload_file_label')"
@@ -29,40 +29,40 @@
           :width="10.6"
         />
       </div>
-      <BaseUnderlinedInput
-        v-if="selectedSwitch"
-        class="input-field"
-        name="amount"
-        :placeholder="$t('collectible.amount_placeholder')"
-        :text="$t('collectible.amount_label')"
-      >
-        <template #element>
-          <BaseScrollableSelectBox
-            v-if="selectedSwitch"
-            name="amountCoinType"
-            :options="coinList"
-          />
-        </template>
-      </BaseUnderlinedInput>
+      <template v-if="selectedSwitch">
+        <BaseUnderlinedInput
+          class="input-field"
+          name="amount"
+          :placeholder="$t('collectible.amount_placeholder')"
+          :text="$t('collectible.amount_label')"
+        >
+          <template #element>
+            <BaseScrollableSelectBox
+              :css="selectBoxCSS"
+              name="amountCoinType"
+              :options="coinList"
+            />
+          </template>
+        </BaseUnderlinedInput>
+        <BaseUnderlinedInput
+          class="input-field"
+          name="receivedAmount"
+          :placeholder="$t('collectible.received_amount_placeholder')"
+          :text="$t('collectible.received_amount_label')"
+        >
+          <template #element>
+            <BaseScrollableSelectBox
+              :css="selectBoxCSS"
+              name="receivedAmountCoinType"
+              :options="coinList"
+            />
+          </template>
+        </BaseUnderlinedInput>
+      </template>
 
-      <BaseUnderlinedInput
-        v-if="selectedSwitch"
-        class="input-field"
-        name="receivedAmount"
-        :placeholder="$t('collectible.received_amount_placeholder')"
-        :text="$t('collectible.received_amount_label')"
-      >
-        <template #element>
-          <BaseScrollableSelectBox
-            v-if="selectedSwitch"
-            name="receivedAmountCoinType"
-            :options="coinList"
-          />
-        </template>
-      </BaseUnderlinedInput>
       <BaseScrollableSelectBox
         class="input-div label"
-        name="collection"
+        name="collectible"
         :options="collectibleList"
         :text="$t('collectible.choose_collection_label')"
       />
@@ -78,15 +78,16 @@
         :placeholder="$t('collectible.discription_placeholder')"
         :text="$t('collectible.discription_label')"
       />
-      <div>
+      <div class="inline">
         <BaseScrollableSelectBox
-          class="input-div label"
+          class="input-div label royalties-selectbox"
           name="royalties"
           :options="royaltiesList"
           :text="$t('collectible.royalties_label')"
         />
         <BaseUnderlinedInput
-          class="input-field"
+          v-if="standard === 'erc1155'"
+          class="input-field copies-input"
           name="copies"
           :placeholder="$t('collectible.number_of_copies_placeholder')"
           :text="$t('collectible.number_of_copies_label')"
@@ -108,7 +109,7 @@ import UploadCard from '@/components/Nft/UploadCard.vue';
 import Base from './BaseFrame.vue';
 
 export default {
-  name: 'CollectibleSingle',
+  name: 'CreateNFT',
   components: {
     Base,
     UploadCard,
@@ -117,14 +118,19 @@ export default {
     return {
       selectedSwitch: true,
       coinList: [
-        { name: 'ETH' },
-        { name: 'HT' },
-        { name: 'FC' },
+        { name: 'ETH', image: require('@svg/ethereum.svg') },
+        { name: 'HT', image: require('@svg/huobi-token.svg') },
+        { name: 'BTC', image: require('@svg/bitcoin.svg') },
       ],
       collectibleList: [
         { name: 'ERC-721' },
       ],
-      tabTitle: [
+      singleTabTitle: [
+        this.$t('collectible.tab.fixed_price'),
+        this.$t('collectible.tab.timed_auction'),
+        this.$t('collectible.tab.unlimited_auction'),
+      ],
+      multipleTabTitle: [
         this.$t('collectible.tab.fixed_price'),
         this.$t('collectible.tab.unlimited_auction'),
       ],
@@ -133,7 +139,27 @@ export default {
         { name: '20 %' },
         { name: '30 %' },
       ],
+      selectBoxCSS: { width: 10 },
     };
+  },
+  computed: {
+    standard() { return this.$route.params?.standard; },
+    title() {
+      if (this.standard === 'erc721') {
+        return this.$t('collectible.title_single');
+      } if (this.standard === 'erc1155') {
+        return this.$t('collectible.title_multiple');
+      }
+      return null;
+    },
+    tabTitle() {
+      if (this.standard === 'erc721') {
+        return this.singleTabTitle;
+      } if (this.standard === 'erc1155') {
+        return this.multipleTabTitle;
+      }
+      return null;
+    },
   },
   methods: {
     toggleSwitch() {
@@ -145,7 +171,7 @@ export default {
 </script>
 
 <style scoped>
-.single-collectible-main {
+.create-nft-main {
   max-width: 32.5rem;
 }
 
@@ -156,6 +182,7 @@ export default {
 }
 
 .toggle-div {
+  align-items: center;
   display: flex;
   justify-content: space-between;
   margin-bottom: 1.25rem;
@@ -238,4 +265,18 @@ input:checked + .slider::before {
   line-height: 1.125rem;
 }
 
+.inline {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.royalties-selectbox {
+  margin-right: 2rem;
+}
+
+.copies-input {
+  max-width: 16.5rem;
+  min-width: 0;
+}
 </style>
