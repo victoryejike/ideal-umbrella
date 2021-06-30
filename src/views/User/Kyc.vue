@@ -60,6 +60,7 @@ export default {
   components: { BaseSettingFrame },
   data() {
     return {
+      countriesList: [],
       idTypeList: ['Passport', 'National ID'],
       countryList: [
         { name: 'Singapore', image: 'https://www.countryflags.io/SG/flat/16.png' },
@@ -77,6 +78,7 @@ export default {
   methods: {
     async getCountries() {
       let response = null;
+
       try {
         const { data } = await this.$api.GET_COUNTRIES();
         response = data;
@@ -85,7 +87,7 @@ export default {
       }
 
       if (response?.success) {
-        this.$store.dispatch('get countries', response.data);
+        this.countriesList = response.data;
       } else {
         this.messageType = 'error';
         this.message = response.error;
