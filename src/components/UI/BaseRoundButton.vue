@@ -5,12 +5,6 @@
     type="button"
     @click="timeDelay(); forwardURL(); submit ? handleSubmit() : null"
   >
-    <div
-      v-if="$slots.leftIcon"
-      class="btn-left-icon"
-    >
-      <slot name="leftIcon" />
-    </div>
     <span
       v-if="text"
       class="btn-text"

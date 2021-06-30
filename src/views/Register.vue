@@ -37,12 +37,7 @@
         rules="required|password"
         :text="$t('register_screen.login_password_label')"
         type="password"
-      >
-        <template #leftIcon>
-          <img src="@svg/password-lock.svg">
-        </template>
-      </BaseUnderlinedInput>
-
+      />
       <BaseUnderlinedInput
         class="input-field"
         name="password"
@@ -50,11 +45,7 @@
         rules="required|confirmed:loginPassword"
         :text="$t('register_screen.confirm_password_label')"
         type="password"
-      >
-        <template #leftIcon>
-          <img src="@svg/password-lock.svg">
-        </template>
-      </BaseUnderlinedInput>
+      />
       <BaseUnderlinedInput
         v-if="isEmail"
         class="input-field"

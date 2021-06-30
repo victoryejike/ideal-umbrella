@@ -25,6 +25,7 @@
           class="otp-icon"
           height="16"
           src="@svg/otp-icon.svg"
+          width="16"
         >
         <BaseOtpText
           v-if="hovered"
@@ -35,12 +36,17 @@
       class="input-inline-block"
     >
       <div
-        v-if="$slots.icon && type !== 'tel'"
+        v-if="$slots.icon"
         class="input-group-icon"
       >
         <slot name="icon" />
       </div>
       <template v-if="type === 'password'">
+        <img
+          class="input-group-icon"
+          src="@svg/password-lock.svg"
+          style="filter: saturate(100%) brightness(0); opacity: 0.5;"
+        >
         <Field
           v-model="value"
           v-bind="$attrs"
@@ -67,10 +73,8 @@
       <template v-else-if="type === 'tel'">
         <img
           class="input-group-icon"
-          height="20"
           src="@svg/phone.svg"
           style="filter: saturate(100%) brightness(0); opacity: 0.5;"
-          width="12"
         >
         <!-- TODO: Better UI -->
         <Field

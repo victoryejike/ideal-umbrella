@@ -6,14 +6,8 @@
         <div class="button-div">
           <BaseRoundButton
             class="btn-outline-secondary button btn-unclickable"
-            text="Art"
-          >
-            <template #leftIcon>
-              <img
-                src="@img/art.png"
-              >
-            </template>
-          </BaseRoundButton>
+            text="🎨 Art"
+          />
         </div>
       </div>
       <img

@@ -10,7 +10,7 @@
         <img
           v-if="icon === 'lock'"
           class="card-header-icon"
-          src="@svg/password-lock-blue.svg"
+          src="@svg/password-lock.svg"
         >
         <img
           v-else-if="icon === 'identity'"

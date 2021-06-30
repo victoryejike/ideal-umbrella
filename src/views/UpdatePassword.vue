@@ -11,12 +11,7 @@
       rules="required|password"
       :text="$t('reset_password_screen.new_password_label')"
       type="password"
-    >
-      <template #leftIcon>
-        <img src="@svg/password-lock.svg">
-      </template>
-    </BaseUnderlinedInput>
-
+    />
     <BaseUnderlinedInput
       class="input-field"
       name="confirm_password"
@@ -24,11 +19,7 @@
       rules="required|password"
       :text="$t('reset_password_screen.confirm_password_label')"
       type="password"
-    >
-      <template #leftIcon>
-        <img src="@svg/password-lock.svg">
-      </template>
-    </BaseUnderlinedInput>
+    />
     <Field
       name="token"
       type="hidden"
