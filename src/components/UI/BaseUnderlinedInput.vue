@@ -18,6 +18,7 @@
       {{ text }}
       <span
         v-if="type === 'otp'"
+        @click="trigger"
         @mouseenter="trigger"
       >
         <img

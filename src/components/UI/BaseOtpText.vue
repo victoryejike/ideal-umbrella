@@ -18,7 +18,7 @@
   margin-top: 5px;
   mix-blend-mode: normal;
   white-space: normal;
-  width: 305px;
+  width: 295px;
 }
 
 .on-hover p {
