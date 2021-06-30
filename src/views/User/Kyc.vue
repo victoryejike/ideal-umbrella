@@ -9,7 +9,7 @@
     >
       <BaseScrollableSelectBox
         class="input-div"
-        :css="{width: 17.5}"
+        :css="selectBoxCSS"
         :default-selected="false"
         name="nationality"
         :options="countryList"
@@ -73,10 +73,14 @@ export default {
         { name: 'United States', image: 'https://www.countryflags.io/US/flat/16.png' },
         { name: 'Germany', image: 'https://www.countryflags.io/DE/flat/16.png' },
       ],
+      selectBoxCSS: { width: null },
     };
   },
   mounted() {
     this.getCountries();
+    this.$global.handleResponsive(22.5,
+      () => { this.selectBoxCSS.width = 17.5; },
+      () => { this.selectBoxCSS.width = 14; });
   },
   methods: {
     async getCountries() {
