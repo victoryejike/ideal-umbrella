@@ -28,6 +28,8 @@ const API_SERVICES = {
   RESETPASSWORD: (params) => axios.post('auth/reset-password', params, false),
   REBINDEMAIL: (params, token) => axios.post('auth/rebind-mail', params, false),
   REBINDPHONE: (params, token) => axios.post('auth/rebind-phone', params, false),
+  GET_COUNTRIES: (params) => axios.get('countries', params, false),
+  KYC: (params) => axios.post('auth/kyc/submissions', params, false),
 };
 
 export default {

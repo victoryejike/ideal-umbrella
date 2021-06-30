@@ -18,7 +18,7 @@
       />
       <BaseUnderlinedInput
         class="input-div"
-        name="fullName"
+        name="full_name"
         :placeholder="$t('kyc_screen.name_placeholder')"
         rules="required"
         :text="$t('kyc_screen.name_label')"
@@ -26,14 +26,15 @@
       />
       <div class="user-id-div input-div">
         <BaseScrollableSelectBox
-          name="idType"
+          :default-selected="false"
+          name="id_type"
           :options="idTypeList"
           rules="required"
           :text="$t('kyc_screen.id_type_label')"
         />
         <BaseUnderlinedInput
           class="input-user-id"
-          name="idNumber"
+          name="id_number"
           :placeholder="$t('kyc_screen.id_number_placeholder')"
           rules="required"
           :text="$t('kyc_screen.id_number_label')"
@@ -59,7 +60,7 @@ export default {
   components: { BaseSettingFrame },
   data() {
     return {
-      idTypeList: ['ID Card'],
+      idTypeList: ['Passport', 'National ID'],
       countryList: [
         { name: 'Singapore', image: 'https://www.countryflags.io/SG/flat/16.png' },
         { name: 'Japan', image: 'https://www.countryflags.io/JP/flat/16.png' },
@@ -70,10 +71,46 @@ export default {
       ],
     };
   },
+  mounted() {
+    this.getCountries();
+  },
   methods: {
-    onSubmit(formData) {
+    async getCountries() {
+      let response = null;
+      try {
+        const { data } = await this.$api.GET_COUNTRIES();
+        response = data;
+      } catch (error) {
+        response = error.response.data;
+      }
 
+      if (response?.success) {
+        this.$store.dispatch('get countries', response.data);
+      } else {
+        this.messageType = 'error';
+        this.message = response.error;
+      }
     },
+    async  onSubmit(kycFormData) {
+      this.isLoading = true;
+      let response = null;
+      try {
+        const { data } = await this.$api.KYC(kycFormData);
+        response = data;
+      } catch (error) {
+        response = error.response.data;
+      }
+
+      if (response?.success) {
+        this.$store.dispatch('kyc', response.data);
+        this.isLoading = false;
+      } else {
+        this.messageType = 'error';
+        this.message = response.error;
+        this.isLoading = false;
+      }
+    },
+
   },
 };
 </script>
