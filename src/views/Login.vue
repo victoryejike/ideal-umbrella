@@ -25,7 +25,6 @@
       <BaseUnderlinedInput
         v-if="!isEmail"
         class="input-group"
-        country="country_code"
         name="phone"
         :placeholder="$t('login_screen.phone_placeholder')"
         :text="$t('login_screen.phone_text')"

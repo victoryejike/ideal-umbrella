@@ -8,7 +8,7 @@
     >
       <BaseUnderlinedInput
         class="input-field"
-        country="current_phone_country_code"
+        :extra-data="{countryField: 'current_phone_country_code'}"
         name="current_phone"
         :placeholder="$t('rabind_phone_screen.original_phone_placehoder')"
         :text="$t('rabind_phone_screen.original_phone_label')"
@@ -16,35 +16,28 @@
       />
       <BaseUnderlinedInput
         class="input-field"
-        country="current_phone_country_code"
-        field-name="current_phone"
-        :is-mail="isEmail"
+        :extra-data="{validateField: 'current_phone', countryField: 'current_phone_country_code'}"
         name="current_phone_code"
         :placeholder="$t('rabind_phone_screen.phone_verfication_placehoder')"
         :text="$t('rabind_phone_screen.original_phone_verfication')"
         type="otp"
       />
-
       <BaseUnderlinedInput
         class="input-field"
-        country="new_phone_country_code"
+        :extra-data="{countryField: 'new_phone_country_code'}"
         name="new_phone"
         :placeholder="$t('rabind_phone_screen.new_phone_placeholder')"
         :text="$t('rabind_phone_screen.new_phone_label')"
         type="tel"
       />
-
       <BaseUnderlinedInput
         class="input-field"
-        country="new_phone_country_code"
-        field-name="new_phone"
-        :is-mail="isEmail"
+        :extra-data="{validateField: 'new_phone', countryField: 'new_phone_country_code'}"
         name="new_phone_code"
         :placeholder="$t('rabind_phone_screen.phone_verfication_placehoder')"
         :text="$t('rabind_phone_screen.new_phone_verfication')"
         type="otp"
       />
-
       <div class="actions-div">
         <BaseRoundButton
           class="reset-button btn-primary btn-md btn-bold"
@@ -52,7 +45,6 @@
           :submit="true"
           :text="$t('rabind_phone_screen.confirm')"
         />
-
         <router-link
           class="cancel-link"
           to="/account-setting"

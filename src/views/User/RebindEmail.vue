@@ -14,44 +14,37 @@
         :text="$t('rabind_email_screen.original_email_label')"
         type="email"
       />
-
       <BaseUnderlinedInput
         class="input-field"
-        field-name="current_mail"
-        :is-mail="isEmail"
+        :extra-data="{validateField: 'current_mail'}"
         name="current_mail_code"
         :placeholder="$t('rabind_phone_screen.email_verfication_placehoder')"
         :text="$t('rabind_phone_screen.email_verfication_label')"
         type="otp"
       />
-
       <BaseUnderlinedInput
         class="input-field"
         name="new_mail"
         :placeholder="$t('rabind_phone_screen.new_email_placeholder')"
         rules="required|email"
         :text="$t('rabind_phone_screen.new_email_label')"
-        type="text"
+        type="email"
       />
-
       <BaseUnderlinedInput
         class="input-field"
-        field-name="new_mail"
-        :is-mail="isEmail"
+        :extra-data="{validateField: 'new_mail'}"
         name="new_mail_code"
         :placeholder="$t('rabind_phone_screen.email_verfication_placehoder')"
         :text="$t('rabind_phone_screen.email_verfication_label')"
         type="otp"
       />
-
       <div class="actions-div">
         <BaseRoundButton
           class="reset-button btn-primary btn-md btn-bold"
           :icon="isLoading ? 'loading' : 'arrow-right'"
-          submit="true"
+          :submit="true"
           :text="$t('rabind_phone_screen.confirm')"
         />
-
         <router-link
           class="cancel-link"
           to="/account-setting"

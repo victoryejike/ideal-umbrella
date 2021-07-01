@@ -33,6 +33,7 @@
       />
       <BaseUnderlinedInput
         class="input-field"
+        :extra-data="{validateField: ['email','phone']}"
         name="otp"
         :placeholder="$t('register_screen.verification_code__placehoder')"
         :text="$t('register_screen.verification_code_label')"

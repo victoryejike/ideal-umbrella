@@ -75,19 +75,17 @@
           style="filter: saturate(100%) brightness(0); opacity: 0.5;"
         >
         <!-- TODO: Better UI -->
+        <span>+</span>
         <Field
-          :id="country"
           as="select"
-          :class="country"
-          :name="country"
+          :name="countryField"
         >
           <option
             v-for="item in countryCode"
             :key="item.name"
-            :data-countryCode="item.code"
             :value="item.dial_code"
           >
-            ({{ item.code }}) +{{ item.dial_code }}
+            {{ item.dial_code }}
           </option>
         </Field>
         <Field
@@ -98,7 +96,7 @@
           minlength="8"
           :name="name"
           :placeholder="placeholder"
-          rules="required|phone"
+          :rules="`required:${countryField}|required|phone`"
           type="tel"
           :validate-on-change="false"
           @change="$emit('input', $event.target.value)"
@@ -124,6 +122,11 @@
           @focusout="isFocus = false"
           @keypress="isInteger($event)"
         />
+        <BaseRoundButton
+          class="input-group-button btn-outline-primary btn-sm send-otp"
+          :text="$t('register_screen.send_code')"
+          @click="sendCode"
+        />
       </template>
       <template v-else>
         <Field
@@ -142,29 +145,20 @@
         />
       </template>
       <div
-        v-if="$slots.element || type === 'otp'"
+        v-if="$slots.element"
         class="input-group-button"
       >
-        <template v-if="type === 'otp'">
-          <BaseRoundButton
-            class="btn-outline-primary btn-sm send-otp"
-            :text="$t('register_screen.send_code')"
-            @click="sendCode(fieldName)"
-          />
-        </template>
-        <template v-else>
-          <slot name="element" />
-        </template>
+        <slot name="element" />
       </div>
     </div>
     <div
       class="input-line"
       :class="[{focus: isFocus}, {'error-underline': isError}]"
     />
-    <div v-if="errorMessgae">
+    <div v-if="message.content">
       <Message
-        :message="errorMessgae"
-        :type="messageType"
+        :message="message.content"
+        :type="message.type"
       />
     </div>
     <div
@@ -183,7 +177,6 @@
 import PasswordEye from '@svg/password-eye.svg';
 import PasswordEyeClosed from '@svg/password-eye-closed.svg';
 import { Field, ErrorMessage } from 'vee-validate';
-// import CountryCode from '../../utils/country-code.json';
 import Message from './Message.vue';
 
 export default {
@@ -191,26 +184,25 @@ export default {
   components: { ErrorMessage, Field, Message },
   props: {
     name: { type: String, required: true },
-    fieldName: { type: String, required: false, default: null },
-    country: { type: String, required: false, default: null },
     placeholder: { type: String, required: false, default: null },
     rules: { type: String, required: false, default: null },
     text: { type: String, required: false, default: null },
     type: { type: String, required: false, default: 'text' },
     defaultValue: { type: String, required: false, default: '' },
+    extraData: { type: Object, required: false, default: null },
     width: { type: Number, required: false, default: null },
-    isMail: { type: Boolean, required: false, default: null },
   },
   emits: ['input'],
   data() {
     return {
-      errorMessgae: '',
+      message: { type: null, content: null },
       value: this.defaultValue,
       isDisplay: false,
       isFocus: false,
       isError: false,
+      isHover: false,
       countryCode: [],
-      messageType: '',
+      countryField: this.extraData?.countryField || 'country_code',
     };
   },
   mounted() {
@@ -223,7 +215,6 @@ export default {
   methods: {
     async getCountries() {
       let response = null;
-
       try {
         const { data } = await this.$api.GET_COUNTRIES();
         response = data;
@@ -233,10 +224,6 @@ export default {
 
       if (response?.success) {
         this.countryCode = response.data;
-      } else {
-        // this.messageType = 'error';
-        // this.message = response.error;
-        console.log(response.error);
       }
     },
     isInteger(e) {
@@ -257,54 +244,39 @@ export default {
       this.$refs['password-eye'].src = (this.isDisplay) ? PasswordEye : PasswordEyeClosed;
       this.isDisplay = !this.isDisplay;
     },
-    sendCode(name) {
-      if (this.isMail === true) {
-        const email = document.querySelector(`input[name=${name}]`).value;
-        if (email === '' || email === null) {
-          this.messageType = 'error';
-          this.errorMessgae = 'Enter an Email Address';
-          setTimeout(() => { this.errorMessgae = ''; }, 2000);
-        } else {
-          const params = { email };
-          this.callApi(params);
+    sendCode() {
+      let fieldName = this.extraData?.validateField;
+      let DOM = null;
+      if (typeof fieldName === 'object') {
+        for (let i = 0; i < fieldName.length; i += 1) {
+          DOM = document.querySelector(`input[name=${fieldName[i]}]`);
+          if (DOM) { fieldName = fieldName[i]; break; }
         }
       } else {
-        const phone = document.querySelector(`input[name=${name}]`).value;
-        const countryCode = document.getElementById(this.country).value;
-        if (phone === '' || phone === null) {
-          this.messageType = 'error';
-          this.errorMessgae = 'Enter a Phone Number';
-          setTimeout(() => { this.errorMessgae = ''; }, 2000);
-        } else {
-          const params = {
-            // eslint-disable-next-line camelcase
-            country_code: countryCode,
-            phone,
-          };
-          this.callApi(params);
+        DOM = document.querySelector(`input[name=${fieldName}]`);
+      }
+      this.$parent.validateField(fieldName).then(async ({ valid }) => {
+        if (valid && DOM) {
+          let params = null;
+          if (DOM.type === 'email') {
+            params = { email: DOM.value };
+          } else if (DOM.type === 'tel') {
+            const countryCode = document.querySelector(`select[name=${this.countryField}]`).value;
+            params = { country_code: countryCode, phone: DOM.value };
+          }
+          if (params) {
+            // TODO: No CSRF Token Implementaion
+            const response = await this.$api.REQUEST_OTP(params);
+            this.message = {
+              type: (response?.success) ? 'success' : 'error',
+              content: response?.message || response?.error,
+            };
+            setTimeout(() => { this.message.content = null; }, 2000);
+          }
         }
-      }
-    },
-    async callApi(params) {
-      let response;
-      try {
-        const { data } = await this.$api.REQUESTOTP(params);
-        response = data;
-      } catch (error) {
-        response = error.response.data;
-      }
-      if (response?.success) {
-        this.messageType = 'success';
-        this.errorMessgae = response.message;
-        setTimeout(() => { this.errorMessgae = ''; }, 2000);
-      } else {
-        this.messageType = 'error';
-        this.errorMessgae = response.error;
-        setTimeout(() => { this.errorMessgae = ''; }, 2000);
-      }
+      });
     },
   },
-
 };
 </script>
 
@@ -377,7 +349,7 @@ export default {
 }
 
 .input-phone {
-  margin-left: 2rem;
+  margin-left: 1rem;
 }
 
 .password-eye {

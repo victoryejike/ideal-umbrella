@@ -12,11 +12,19 @@ function isPhone(val) {
   return /^[0-9]{8,15}$/.test(String(val)) || $t('validator.phone_msg');
 }
 
-defineRule('required', (val) => {
+function isRequired(val) {
   if (typeof val === 'string') {
     return val.trim() !== '' || $t('validator.required_msg');
   }
   return val != null || $t('validator.required_msg');
+}
+
+defineRule('required', (val, [target], ctx) => {
+  if (target) {
+    if (isRequired(ctx.form[target]) === true) { return true; }
+    return 'Please Select the Country Code As well.';
+  }
+  return isRequired(val);
 });
 
 defineRule('email', (val) => isEmail(val));

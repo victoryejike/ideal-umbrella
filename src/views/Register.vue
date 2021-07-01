@@ -21,11 +21,11 @@
         :placeholder="$t('register_screen.email_placeholder')"
         rules="required|email"
         :text="$t('register_screen.email_label')"
+        type="email"
       />
       <BaseUnderlinedInput
         v-if="!isEmail"
         class="input-field"
-        country="country_code"
         name="phone"
         :placeholder="$t('register_screen.phone_placeholder')"
         :text="$t('register_screen.phone_label')"
@@ -48,21 +48,8 @@
         type="password"
       />
       <BaseUnderlinedInput
-        v-if="isEmail"
         class="input-field"
-        field-name="email"
-        :is-mail="isEmail"
-        name="otp_code"
-        :placeholder="$t('register_screen.verification_code__placehoder')"
-        :text="$t('register_screen.verification_code_label')"
-        type="otp"
-      />
-      <BaseUnderlinedInput
-        v-if="!isEmail"
-        class="input-field"
-        country="country_code"
-        field-name="phone"
-        :is-mail="isEmail"
+        :extra-data="{validateField: ['email','phone']}"
         name="otp_code"
         :placeholder="$t('register_screen.verification_code__placehoder')"
         :text="$t('register_screen.verification_code_label')"
