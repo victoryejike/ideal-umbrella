@@ -61,7 +61,9 @@ export default {
   data() {
     return {
       countriesList: [],
-      idTypeList: ['Passport', 'National ID'],
+      idTypeList: [
+        { name: 'Passport' },
+        { name: 'National ID' }],
 
       selectBoxCSS: { width: null },
     };
