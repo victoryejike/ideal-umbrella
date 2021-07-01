@@ -13,6 +13,8 @@
           :css="selectBoxCSS"
           name="currLang"
           :options="languageList"
+          :value="getLocale"
+          @selected="setLocale"
         />
       </div>
 
@@ -52,7 +54,13 @@ export default {
   components: { SocialAndCopyRightBlock },
   data() {
     return {
-      languageList: ['English', '中文', '日本語', '한국어'],
+      // ISO 639-1 two-letter codes
+      languageList: [
+        { name: 'English', key: 'en' },
+        { name: '中文', key: 'zh' },
+        { name: '日本語', key: 'jp' },
+        { name: '한국어', key: 'ko' },
+      ],
       selectBoxCSS: {
         activeColor: '#31459f',
         bgColor: '#374db1',
@@ -89,6 +97,11 @@ export default {
       ],
     };
   },
+  computed: {
+    getLocale() {
+      return localStorage.getItem('lang');
+    },
+  },
   watch: {
     $route() {
       /*
@@ -97,6 +110,14 @@ export default {
         so just set to FALSE when $route changed.
       */
       this.$refs['language-selectbox'].isPullDown = false;
+    },
+  },
+  methods: {
+    setLocale(lang) {
+      this.$root.$i18n.locale = lang;
+      localStorage.setItem('lang', lang);
+      this.$parent.reRenderUI();
+      this.$router.smoothlyScroll();
     },
   },
 };

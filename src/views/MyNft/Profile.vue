@@ -53,6 +53,27 @@ export default {
       }),
     };
   },
+  mounted() {
+    this.getProfile();
+  },
+  methods: {
+    async getProfile() {
+      let response = null;
+
+      try {
+        const { data } = await this.$api.GETPROFILE();
+        response = data;
+      } catch (error) {
+        response = error.response.data;
+      }
+
+      if (response?.success) {
+        console.log(response.data);
+      } else {
+        console.log(response.error);
+      }
+    },
+  },
 };
 
 </script>

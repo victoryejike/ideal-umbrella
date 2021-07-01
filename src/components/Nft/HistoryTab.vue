@@ -14,7 +14,7 @@
           v-if="history.price"
           class="coins-icon"
           height="16"
-          src="@svg/ht.svg"
+          src="@svg/huobi-token.svg"
           width="16"
         >
         {{ history.price }}

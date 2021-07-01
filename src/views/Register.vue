@@ -37,12 +37,7 @@
         rules="required|password"
         :text="$t('register_screen.login_password_label')"
         type="password"
-      >
-        <template #icon>
-          <img src="@svg/password-lock.svg">
-        </template>
-      </BaseUnderlinedInput>
-
+      />
       <BaseUnderlinedInput
         class="input-field"
         name="password"
@@ -50,11 +45,7 @@
         rules="required|confirmed:loginPassword"
         :text="$t('register_screen.confirm_password_label')"
         type="password"
-      >
-        <template #icon>
-          <img src="@svg/password-lock.svg">
-        </template>
-      </BaseUnderlinedInput>
+      />
       <BaseUnderlinedInput
         v-if="isEmail"
         class="input-field"
@@ -102,6 +93,7 @@
         </div>
       </div>
       <ErrorMessage
+        as="div"
         class="input-error-msg-effect"
         name="agree-terms"
       />
@@ -143,7 +135,6 @@ export default {
     Field,
     ErrorMessage,
     Message,
-
   },
   data() {
     return {
@@ -179,7 +170,7 @@ export default {
       }
 
       if (response?.success) {
-        this.$store.dispatch('register', response.data);
+        // this.$store.dispatch('register', response.data);
         this.$router.push('/login');
         this.isLoading = false;
       } else {
@@ -190,7 +181,6 @@ export default {
         this.isLoading = false;
       }
     },
-
     showModal() {
       this.isModalVisible = true;
     },

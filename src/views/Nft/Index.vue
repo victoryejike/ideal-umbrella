@@ -7,11 +7,11 @@
       <NftCard
         :btn="true"
         type="single"
-        url="/nft/single"
+        url="/nft/create/erc721"
       />
       <NftCard
         type="multiple"
-        url="/nft/multiple"
+        url="/nft/create/erc1155"
       />
     </div>
   </Base>

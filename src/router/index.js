@@ -13,7 +13,7 @@ const router = createRouter({
   routes,
 });
 
-const smoothlyScroll = (pos, time) => {
+router.smoothlyScroll = (pos = 0, time = 250) => {
   const currentPos = window.pageYOffset;
   let start = null;
   window.requestAnimationFrame(function step(currentTime) {
@@ -37,7 +37,7 @@ router.beforeEach((to, from, next) => {
    *  Here not using window.scrollTo({ top: 0, behavior: 'smooth' })
    *  because Safari and mobile broswer not support this feature.
    */
-  smoothlyScroll(0, 250);
+  router.smoothlyScroll();
   next();
 });
 
@@ -50,7 +50,7 @@ router.beforeEach((to, from, next) => {
   if (store.getters['auth/loggedIn']) return next();
 
   // Auth is required and the user is NOT currently logged in
-  return next({ name: 'Login', query: { redirectFrom: to.fullPath } });
+  return next({ name: 'Login', params: { redirectFrom: to.fullPath } });
 });
 
 export default router;

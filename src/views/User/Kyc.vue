@@ -9,7 +9,7 @@
     >
       <BaseScrollableSelectBox
         class="input-div"
-        :css="{width: 17.5}"
+        :css="selectBoxCSS"
         :default-selected="false"
         name="nationality"
         :options="countriesList"
@@ -62,10 +62,15 @@ export default {
     return {
       countriesList: [],
       idTypeList: ['Passport', 'National ID'],
+
+      selectBoxCSS: { width: null },
     };
   },
   mounted() {
     this.getCountries();
+    this.$global.handleResponsive(22.5,
+      () => { this.selectBoxCSS.width = 17.5; },
+      () => { this.selectBoxCSS.width = 14; });
   },
   methods: {
     async getCountries() {

@@ -35,19 +35,14 @@ const actions = {
     return true;
   },
   logout({ commit, state }) {
-    // ...
-    setTimeout(() => {
-      router.push('/');
-      localStorage.removeItem('userData');
-      commit('setUser', null);
-    }, 400);
+    localStorage.removeItem('userData');
+    commit('setUser', null);
+    router.push('/');
   },
   login({ commit, state }, userData) {
+    // TODO: When API complete, name should be removed.
     commit('setUser', { ...userData, name: 'Chris Torres' });
     localStorage.setItem('userData', JSON.stringify({ ...userData, name: 'Chris Torres' }));
-  },
-  register({ commit }) {
-    commit('registerSuccess');
   },
 };
 

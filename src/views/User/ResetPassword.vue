@@ -34,12 +34,7 @@
         rules="required|password"
         :text="$t('reset_password_screen.original_password_label')"
         type="password"
-      >
-        <template #icon>
-          <img src="@svg/password-lock.svg">
-        </template>
-      </BaseUnderlinedInput>
-
+      />
       <BaseUnderlinedInput
         class="input-field"
         name="new_password"
@@ -47,12 +42,7 @@
         rules="required|password"
         :text="$t('reset_password_screen.new_password_label')"
         type="password"
-      >
-        <template #icon>
-          <img src="@svg/password-lock.svg">
-        </template>
-      </BaseUnderlinedInput>
-
+      />
       <BaseUnderlinedInput
         class="input-field"
         name="confirm_password"
@@ -60,11 +50,7 @@
         rules="required|confirmed:new_password"
         :text="$t('reset_password_screen.confirm_password_label')"
         type="password"
-      >
-        <template #icon>
-          <img src="@svg/password-lock.svg">
-        </template>
-      </BaseUnderlinedInput>
+      />
       <BaseUnderlinedInput
         v-if="!isEmail"
         class="input-field"
@@ -163,7 +149,6 @@ export default {
         this.isLoading = false;
         this.messageType = 'error';
         this.message = response.error;
-        console.log('error message', this.message);
         // const { form } = this.$refs['reset-form'];
         // form.setFieldError('confirm_password', response.error);
       }

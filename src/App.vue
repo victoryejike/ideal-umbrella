@@ -1,5 +1,8 @@
 <template>
-  <AppMobileMenu id="menu" />
+  <AppMobileMenu
+    id="menu"
+    :key="key"
+  />
   <div
     id="root"
     :class="{'scroll-lock': $store.state.style.isMenuOpen}"
@@ -7,7 +10,10 @@
     <div
       id="wrapper"
     >
-      <AppHeader id="header" />
+      <AppHeader
+        id="header"
+        :key="key"
+      />
       <div id="content">
         <router-view v-slot="{ Component }">
           <Transition
@@ -19,7 +25,10 @@
         </router-view>
       </div>
     </div>
-    <AppFooter id="footer" />
+    <AppFooter
+      id="footer"
+      :key="key"
+    />
   </div>
 </template>
 
@@ -34,6 +43,17 @@ export default {
     AppFooter,
     AppHeader,
     AppMobileMenu,
+  },
+  data() {
+    return {
+      key: 0,
+    };
+  },
+  methods: {
+    reRenderUI() {
+      this.key += 1;
+      this.$forceUpdate();
+    },
   },
 };
 </script>

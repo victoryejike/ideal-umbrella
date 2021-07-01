@@ -37,11 +37,10 @@
             :author="item.author"
             :avatar="item.avatar"
             class="popular-product-card"
+            :css="popularCardCSS"
             :image="item.image"
             :name="item.name"
-            :padding="popularSection.padding"
             :price="item.price"
-            :size="popularSection.size"
             :verified="item.verified"
           />
         </div>
@@ -113,22 +112,18 @@ export default {
         this.$t('index_screen.seller_tab.month'),
         this.$t('index_screen.seller_tab.week'),
       ],
-      popularSection: {},
+      popularCardCSS: { bgColor: 'rgba(255, 255, 255, 0.25)' },
     };
   },
   mounted() {
     this.$global.handleResponsive(62.5,
       () => {
-        this.popularSection = {
-          padding: '1.25rem 1.875rem',
-          size: 220,
-        };
+        this.popularCardCSS.padding = '1.25rem 1.875rem';
+        this.popularCardCSS.size = 220;
       },
       () => {
-        this.popularSection = {
-          padding: '1rem 1.25rem',
-          size: 180,
-        };
+        this.popularCardCSS.padding = '1rem 1.25rem';
+        this.popularCardCSS.size = 180;
       });
   },
   methods: {

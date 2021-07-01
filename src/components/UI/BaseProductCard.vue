@@ -2,7 +2,7 @@
   <div
     class="card-container"
     :style="{background: bgColor, padding: padding}"
-    @click="$router.push({name: 'TokenDetails', params: {id: id}})"
+    @click="handleClick"
   >
     <div
       class="card-inner-div"
@@ -52,7 +52,7 @@
           <img
             class="coins-icon"
             height="20"
-            src="@svg/ht.svg"
+            src="@svg/huobi-token.svg"
             width="20"
           >
           <span class="price">
@@ -71,21 +71,39 @@ import NoImage from '@img/no-image.png';
 export default {
   name: 'BaseProductCard',
   props: {
+    css: {
+      type: Object,
+      required: false,
+      default: null,
+      validator(value) {
+        const whiteList = ['bgColor', 'padding', 'size'];
+        const keys = Object.keys(value);
+        for (let i = 0; i < keys.length; i += 1) {
+          if (!whiteList.includes(keys[i])) { return false; }
+        }
+        return true;
+      },
+    },
     author: { type: String, required: true },
     avatar: { type: String, required: true },
-    bgColor: { type: String, required: false, default: 'rgba(255, 255, 255, 0.25)' },
     id: { type: String, required: true },
     image: { type: String, required: true },
     name: { type: String, required: true },
-    padding: { type: String, required: false, default: null },
     price: { type: Number, required: true },
-    size: { type: Number, required: false, default: 220 },
     verified: { type: Boolean, required: false, default: false },
+  },
+  computed: {
+    bgColor() { return this.css?.bgColor; },
+    padding() { return this.css?.padding; },
+    size() { return this.css?.size || 220; },
   },
   methods: {
     handleImageError(event) {
       const { target } = event;
       target.src = NoImage;
+    },
+    handleClick() {
+      this.$router.push({ name: 'TokenDetails', params: { id: this.id } });
     },
   },
 };

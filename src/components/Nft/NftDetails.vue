@@ -5,15 +5,9 @@
         <span class="token-text">   {{ $t('nft_details.token_text') }}</span>
         <div class="button-div">
           <BaseRoundButton
-            class="btn-outline-secondary button"
-            text="Art"
-          >
-            <template #icon>
-              <img
-                src="@img/art.png"
-              >
-            </template>
-          </BaseRoundButton>
+            class="btn-outline-secondary button btn-unclickable"
+            text="🎨 Art"
+          />
         </div>
       </div>
       <img
@@ -46,7 +40,7 @@
             <img
               class="coins-icon"
               height="20"
-              src="@svg/ht.svg"
+              src="@svg/huobi-token.svg"
               width="20"
             >
             <span class="coin">0.15 ETH</span>

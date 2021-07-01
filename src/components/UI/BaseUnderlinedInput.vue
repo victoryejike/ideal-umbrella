@@ -25,6 +25,7 @@
           class="otp-icon"
           height="16"
           src="@svg/otp-icon.svg"
+          width="16"
         >
         <BaseOtpText
           v-if="hovered"
@@ -35,12 +36,17 @@
       class="input-inline-block"
     >
       <div
-        v-if="$slots.icon && type !== 'tel'"
+        v-if="$slots.icon"
         class="input-group-icon"
       >
         <slot name="icon" />
       </div>
       <template v-if="type === 'password'">
+        <img
+          class="input-group-icon"
+          src="@svg/password-lock.svg"
+          style="filter: saturate(100%) brightness(0); opacity: 0.5;"
+        >
         <Field
           v-model="value"
           v-bind="$attrs"
@@ -67,10 +73,8 @@
       <template v-else-if="type === 'tel'">
         <img
           class="input-group-icon"
-          height="20"
           src="@svg/phone.svg"
           style="filter: saturate(100%) brightness(0); opacity: 0.5;"
-          width="12"
         >
         <!-- TODO: Better UI -->
         <Field
@@ -166,7 +170,7 @@
       />
     </div>
     <div
-      :id="`${name}-error-msg`"
+      ref="error-msg"
       class="input-error-msg"
     >
       <ErrorMessage
@@ -181,7 +185,7 @@
 import PasswordEye from '@svg/password-eye.svg';
 import PasswordEyeClosed from '@svg/password-eye-closed.svg';
 import { Field, ErrorMessage } from 'vee-validate';
-import CountryCode from '../../utils/country-code.json';
+// import CountryCode from '../../utils/country-code.json';
 import Message from './Message.vue';
 
 export default {
@@ -207,18 +211,37 @@ export default {
       isDisplay: false,
       isFocus: false,
       isError: false,
-      countryCode: CountryCode,
+      countryCode: [],
       messageType: '',
       hovered: false,
     };
   },
   mounted() {
+    this.getCountries();
     this.observer = new MutationObserver(((mutations) => {
       this.isError = (mutations[1]?.addedNodes[0]?.className === 'input-error-msg-effect');
     }));
-    this.observer.observe(document.getElementById(`${this.name}-error-msg`), { childList: true });
+    this.observer.observe(this.$refs['error-msg'], { childList: true });
   },
   methods: {
+    async getCountries() {
+      let response = null;
+
+      try {
+        const { data } = await this.$api.GET_COUNTRIES();
+        response = data;
+      } catch (error) {
+        response = error.response.data;
+      }
+
+      if (response?.success) {
+        this.countryCode = response.data;
+      } else {
+        // this.messageType = 'error';
+        // this.message = response.error;
+        console.log(response.error);
+      }
+    },
     isInteger(e) {
       if (this.isNumber(e) && e.key !== '.') {
         return true;

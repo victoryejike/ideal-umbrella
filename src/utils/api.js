@@ -30,6 +30,8 @@ const API_SERVICES = {
   REBINDPHONE: (params, token) => axios.post('auth/rebind-phone', params, false),
   GET_COUNTRIES: (params) => axios.get('countries', params, false),
   KYC: (params) => axios.post('auth/kyc/submissions', params, false),
+  GETPROFILE: (params) => axios.get('users/profile', params, false),
+  UPLOADAVATAR: (params) => axios.put('users/update-profile-avatar', params, { headers: { 'Content-Type': 'multipart/form-data' } }),
 };
 
 export default {

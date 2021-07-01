@@ -99,7 +99,7 @@ export default {
 
         if (response?.success === true) {
           this.$store.dispatch('auth/login', response?.data);
-          this.$router.push(this.$route.query.redirectFrom || '/profile');
+          this.$router.push(this.$route.params.redirectFrom || '/profile');
         } else if (response?.success === false) {
           form.setFieldError('password', response?.error);
         } else {

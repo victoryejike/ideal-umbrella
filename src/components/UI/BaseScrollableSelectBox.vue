@@ -9,7 +9,7 @@
       :class="{'label-error-effect': isError}"
     >{{ text }}</span>
     <Field
-      v-model="activeIndex"
+      v-model="selectedValue"
       :name="name"
       :rules="rules"
       type="hidden"
@@ -23,12 +23,12 @@
       @focusout="handleFocusout"
     >
       <img
-        v-if="selectedItem?.image"
+        v-if="options[activeIndex]?.image"
         class="options-image"
-        :src="selectedItem.image"
+        :src="options[activeIndex].image"
       >
       <span class="options-text">
-        {{ selectedItem?.name || selectedItem || $t('components.select_placeholder') }}
+        {{ options[activeIndex]?.name || $t('components.select_placeholder') }}
       </span>
       <i
         class="selector-arrow"
@@ -53,8 +53,8 @@
           v-for="(item, index) in options"
           :key="index"
           class="selector-options"
-          :class="{'active': optionStatus[index]}"
-          :onClick="() => {selectItem(item, index)}"
+          :class="{'active': index === activeIndex}"
+          :onClick="() => {selectItem(index)}"
           :style="customCSS"
         >
           <img
@@ -63,13 +63,13 @@
             :src="item.image"
           >
           <span class="options-text">
-            {{ item?.name || item }}
+            {{ item?.name }}
           </span>
         </div>
       </div>
     </div>
     <div
-      :id="`${name}-error-msg`"
+      ref="error-msg"
       class="input-error-msg"
     >
       <ErrorMessage
@@ -92,26 +92,30 @@ export default {
       required: false,
       default: null,
       validator(value) {
-        const whiteList = [
-          'activeColor',
-          'arrowColor',
-          'bgColor',
-          'borderColor',
-          'hoverColor',
-          'width',
-        ];
+        const whiteList = ['activeColor', 'arrowColor', 'bgColor', 'borderColor', 'hoverColor', 'width'];
         const keys = Object.keys(value);
         for (let i = 0; i < keys.length; i += 1) {
-          if (!whiteList.includes(keys[i])) {
-            return false;
+          if (!whiteList.includes(keys[i])) { return false; }
+        }
+        return true;
+      },
+    },
+    options: {
+      type: Array,
+      required: true,
+      validator(value) {
+        const whiteList = ['key', 'name', 'image'];
+        for (let x = 0; x < value.length; x += 1) {
+          const keys = Object.keys(value[x]);
+          for (let i = 0; i < keys.length; i += 1) {
+            if (!whiteList.includes(keys[i])) { return false; }
           }
         }
         return true;
       },
     },
-    options: { type: [Array, Object], required: true },
     text: { type: String, required: false, default: null },
-    value: { type: Number, required: false, default: 0 },
+    value: { type: [String, Number], required: false, default: 0 },
     defaultSelected: { type: Boolean, required: false, default: true },
     name: { type: String, required: true },
     rules: { type: String, required: false, default: null },
@@ -121,9 +125,8 @@ export default {
     return {
       isPullDown: false,
       isError: false,
-      optionStatus: [],
-      selectedItem: null,
-      activeIndex: (this.defaultSelected) ? this.value : null,
+      activeIndex: null,
+      selectedValue: null,
     };
   },
   computed: {
@@ -139,28 +142,26 @@ export default {
     arrowColor() { return this.css?.arrowColor || '#9ba6d8'; },
   },
   mounted() {
+    // TODO: Better Implementation
     this.observer = new MutationObserver(((mutations) => {
       this.isError = (mutations[1]?.addedNodes[0]?.className === 'input-error-msg-effect');
     }));
-    this.observer.observe(document.getElementById(`${this.name}-error-msg`), { childList: true });
+    this.observer.observe(this.$refs['error-msg'], { childList: true });
   },
   created() {
-    if (this.activeIndex != null && this.activeIndex <= this.options.length) {
-      this.selectedItem = this.options[this.activeIndex];
+    if (this.defaultSelected) {
+      this.activeIndex = typeof this.value === 'string'
+        ? this.options.findIndex((item) => item.key === this.value)
+        : this.value || 0;
     }
-
-    for (let i = 0; i < this.options.length; i += 1) {
-      this.optionStatus.push(i === this.activeIndex);
-    }
+    this.selectedValue = this.options[this.activeIndex]?.key || this.activeIndex;
   },
   methods: {
-    selectItem(item, index) {
+    selectItem(index) {
       this.toogleMenu();
       if (index !== this.activeIndex) {
-        this.$emit('selected', index);
-        this.selectedItem = item;
-        this.optionStatus[this.activeIndex] = false;
-        this.optionStatus[index] = true;
+        this.selectedValue = this.options[index]?.key || index;
+        this.$emit('selected', this.selectedValue);
         this.activeIndex = index;
       }
     },
@@ -191,7 +192,7 @@ export default {
   font-weight: bold;
   height: 2.5rem;
   padding: 0 1.2rem;
-  transition: background 0.3s ease-in-out;
+  transition: background 0.3s ease-in-out, width 0.5s;
   width: var(--width);
 }
 

@@ -11,12 +11,7 @@
       rules="required|password"
       :text="$t('reset_password_screen.new_password_label')"
       type="password"
-    >
-      <template #icon>
-        <img src="@svg/password-lock.svg">
-      </template>
-    </BaseUnderlinedInput>
-
+    />
     <BaseUnderlinedInput
       class="input-field"
       name="confirm_password"
@@ -24,11 +19,7 @@
       rules="required|password"
       :text="$t('reset_password_screen.confirm_password_label')"
       type="password"
-    >
-      <template #icon>
-        <img src="@svg/password-lock.svg">
-      </template>
-    </BaseUnderlinedInput>
+    />
     <Field
       name="token"
       type="hidden"
@@ -59,14 +50,8 @@ export default {
   components: { Field },
   data() {
     return {
-      token: this.$route.query.token,
+      token: this.$route.params.token,
     };
-  },
-  mounted() {
-    if (this.token === null || this.token === undefined
-    || this.token.length === 0) {
-      this.$router.push('/forgot-password');
-    }
   },
   methods: {
     async onSubmit(updatepasswordData) {
