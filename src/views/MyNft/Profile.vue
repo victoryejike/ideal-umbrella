@@ -68,9 +68,9 @@ export default {
       }
 
       if (response?.success) {
-        console.log(response.data);
+        //
       } else {
-        console.log(response.error);
+        //
       }
     },
   },

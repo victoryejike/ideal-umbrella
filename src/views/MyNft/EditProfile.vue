@@ -117,10 +117,9 @@ export default {
       this.$refs.file.$el.click();
     },
     async uploadImage() {
-      // eslint-disable-next-line prefer-destructuring
-      this.file = this.$refs.file.files[0];
+      const file = this.$refs.file.files[0];
       const formData = new FormData();
-      formData.append('image', this.file);
+      formData.append('image', file);
       let response = null;
       try {
         const { data } = await this.$api.UPLOAD_AVATAR(formData);
@@ -129,9 +128,9 @@ export default {
         response = error.response.data;
       }
       if (response?.success) {
-        console.log(response);
+        //
       } else {
-        console.log(response);
+        //
       }
     },
   },

@@ -100,20 +100,8 @@ export default {
         return true;
       },
     },
-    options: {
-      type: Array,
-      required: true,
-      validator(value) {
-        const whiteList = ['key', 'name', 'image'];
-        for (let x = 0; x < value.length; x += 1) {
-          const keys = Object.keys(value[x]);
-          for (let i = 0; i < keys.length; i += 1) {
-            if (!whiteList.includes(keys[i])) { return false; }
-          }
-        }
-        return true;
-      },
-    },
+    options: { type: Array, required: true },
+    keyName: { type: String, required: false, default: null },
     text: { type: String, required: false, default: null },
     value: { type: [String, Number], required: false, default: 0 },
     defaultSelected: { type: Boolean, required: false, default: true },
@@ -151,16 +139,16 @@ export default {
   created() {
     if (this.defaultSelected) {
       this.activeIndex = typeof this.value === 'string'
-        ? this.options.findIndex((item) => item.key === this.value)
+        ? this.options.findIndex((item) => item.[this.keyName] === this.value)
         : this.value || 0;
     }
-    this.selectedValue = this.options[this.activeIndex]?.key || this.activeIndex;
+    this.selectedValue = this.options[this.activeIndex]?.[this.keyName] || this.activeIndex;
   },
   methods: {
     selectItem(index) {
       this.toogleMenu();
       if (index !== this.activeIndex) {
-        this.selectedValue = this.options[index]?.key || index;
+        this.selectedValue = this.options[index]?.[this.keyName] || index;
         this.$emit('selected', this.selectedValue);
         this.activeIndex = index;
       }

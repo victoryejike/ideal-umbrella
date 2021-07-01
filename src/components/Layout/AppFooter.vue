@@ -11,6 +11,7 @@
           ref="language-selectbox"
           class="select-language"
           :css="selectBoxCSS"
+          key-name="key"
           name="currLang"
           :options="languageList"
           :value="getLocale"

@@ -12,8 +12,9 @@
         class="input-div"
         :css="selectBoxCSS"
         :default-selected="false"
+        key-name="code"
         name="nationality"
-        :options="countriesList"
+        :options="$store.getters['data/countryList']"
         rules="required"
         :text="$t('kyc_screen.nationality_label')"
       />
