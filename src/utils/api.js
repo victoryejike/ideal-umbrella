@@ -22,16 +22,16 @@ const API_SERVICES = {
     return response;
   },
   REGISTER: (params) => axios.post('auth/sign-up', params, false),
-  REQUESTOTP: (params) => axios.post('auth/request-otp', params, false),
-  VERIFYFORGOTPASSWORDTOKEN: (params) => axios.post('auth/verify-forgot-password-code', params, false),
-  UPDATEPASSWORD: (params, token) => axios.post('auth/update-password-forgot-password', params, { headers: { Authorization: `Bearer ${token}` } }),
-  RESETPASSWORD: (params) => axios.post('auth/reset-password', params, false),
-  REBINDEMAIL: (params, token) => axios.post('auth/rebind-mail', params, false),
-  REBINDPHONE: (params, token) => axios.post('auth/rebind-phone', params, false),
+  REQUEST_OTP: (params) => axios.post('auth/request-otp', params, false),
+  VERIFY_FORGOT_PASSWORD_TOKEN: (params) => axios.post('auth/verify-forgot-password-code', params, false),
+  UPDATE_PASSWORD: (params, token) => axios.post('auth/update-password-forgot-password', params, { headers: { Authorization: `Bearer ${token}` } }),
+  RESET_PASSWORD: (params) => axios.post('auth/reset-password', params, false),
+  REBIND_EMAIL: (params, token) => axios.post('auth/rebind-mail', params, false),
+  REBIND_PHONE: (params, token) => axios.post('auth/rebind-phone', params, false),
   GET_COUNTRIES: (params) => axios.get('countries', params, false),
   KYC: (params) => axios.post('auth/kyc/submissions', params, false),
-  GETPROFILE: (params) => axios.get('users/profile', params, false),
-  UPLOADAVATAR: (params) => axios.put('users/update-profile-avatar', params, { headers: { 'Content-Type': 'multipart/form-data' } }),
+  GET_PROFILE: (params) => axios.get('users/profile', params, false),
+  UPLOAD_AVATAR: (params) => axios.put('users/update-profile-avatar', params, { headers: { 'Content-Type': 'multipart/form-data' } }),
 };
 
 export default {

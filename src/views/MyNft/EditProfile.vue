@@ -123,7 +123,7 @@ export default {
       formData.append('image', this.file);
       let response = null;
       try {
-        const { data } = await this.$api.UPLOADAVATAR(formData);
+        const { data } = await this.$api.UPLOAD_AVATAR(formData);
         response = data;
       } catch (error) {
         response = error.response.data;

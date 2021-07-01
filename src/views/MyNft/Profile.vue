@@ -61,7 +61,7 @@ export default {
       let response = null;
 
       try {
-        const { data } = await this.$api.GETPROFILE();
+        const { data } = await this.$api.GET_PROFILE();
         response = data;
       } catch (error) {
         response = error.response.data;

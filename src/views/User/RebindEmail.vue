@@ -78,7 +78,7 @@ export default {
     async onSubmit(rebindemailData) {
       let response = null;
       try {
-        const { data } = await this.$api.REBINDEMAIL(rebindemailData, this.token);
+        const { data } = await this.$api.REBIND_EMAIL(rebindemailData, this.token);
         response = data;
       } catch (error) {
         response = error.response.data;

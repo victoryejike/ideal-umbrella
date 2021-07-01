@@ -79,7 +79,7 @@ export default {
     async onSubmit(rebindPhoneData) {
       let response = null;
       try {
-        const { data } = await this.$api.REBINDPHONE(rebindPhoneData, this.token);
+        const { data } = await this.$api.REBIND_PHONE(rebindPhoneData, this.token);
         response = data;
       } catch (error) {
         response = error.response.data;

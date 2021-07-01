@@ -79,7 +79,7 @@ export default {
     async onSubmit(forgotPasswordData) {
       let response = null;
       try {
-        const { data } = await this.$api.VERIFYFORGOTPASSWORDTOKEN(forgotPasswordData);
+        const { data } = await this.$api.VERIFY_FORGOT_PASSWORD_TOKEN(forgotPasswordData);
         response = data;
       } catch (error) {
         response = error.response.data;

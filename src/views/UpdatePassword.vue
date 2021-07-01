@@ -58,7 +58,7 @@ export default {
       // call API...
       let response = null;
       try {
-        const { data } = await this.$api.UPDATEPASSWORD(updatepasswordData, this.token);
+        const { data } = await this.$api.UPDATE_PASSWORD(updatepasswordData, this.token);
         response = data;
       } catch (error) {
         response = error.response.data;

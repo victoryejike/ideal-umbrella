@@ -132,7 +132,7 @@ export default {
       this.message = ' ';
       let response = null;
       try {
-        const { data } = await this.$api.RESETPASSWORD(resetFormData);
+        const { data } = await this.$api.RESET_PASSWORD(resetFormData);
         response = data;
       } catch (error) {
         response = error.response.data;
