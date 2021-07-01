@@ -4,6 +4,7 @@
   >
     <BaseForm
       ref="kyc-form"
+      v-slot="{ isLoading }"
       class="kyc-form"
       @submit="onSubmit"
     >
@@ -43,7 +44,7 @@
       <div class="actions-div">
         <BaseRoundButton
           class="confirm-button btn-primary btn-md btn-bold"
-          icon="arrow-right"
+          :icon="isLoading ? 'loading' : 'arrow-right'"
           :submit="true"
           :text="$t('kyc_screen.confirm')"
         />
@@ -92,8 +93,7 @@ export default {
         this.message = response.error;
       }
     },
-    async  onSubmit(kycFormData) {
-      this.isLoading = true;
+    async onSubmit(kycFormData) {
       let response = null;
 
       try {
@@ -104,12 +104,10 @@ export default {
       }
 
       if (response?.success) {
-        // this.$store.dispatch('kyc', response.data);
-        this.isLoading = false;
+        this.$store.dispatch('kyc', response.data);
       } else {
         this.messageType = 'error';
         this.message = response.error;
-        this.isLoading = false;
       }
     },
 

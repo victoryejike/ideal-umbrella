@@ -2,6 +2,7 @@
   <BaseSettingFrame :title="$t('reset_password_screen.reset_password')">
     <BaseForm
       ref="reset-form"
+      v-slot="{ isLoading }"
       class="reset-form"
       @submit="onSubmit"
     >
@@ -113,7 +114,6 @@ export default {
       message: ' ',
       messageType: ' ',
       isEmail: true,
-      isLoading: false,
       resetTab: [
         {
           name: this.$t('tab_titles.email'),
@@ -130,7 +130,6 @@ export default {
   methods: {
     async onSubmit(resetFormData) {
       this.message = ' ';
-      this.isLoading = true;
       let response = null;
       try {
         const { data } = await this.$api.RESETPASSWORD(resetFormData);
@@ -140,17 +139,11 @@ export default {
       }
 
       if (response?.success) {
-        this.isLoading = false;
         this.messageType = 'success';
         this.message = response.message;
-        // this.$store.dispatch('reset', response.data);
-        // this.$router.push('/login');
       } else {
-        this.isLoading = false;
         this.messageType = 'error';
         this.message = response.error;
-        // const { form } = this.$refs['reset-form'];
-        // form.setFieldError('confirm_password', response.error);
       }
     },
   },

@@ -2,6 +2,7 @@
   <div class="container">
     <BaseForm
       ref="login-form"
+      v-slot="{ isLoading }"
       class="login-form"
       @submit="onSubmit"
     >
@@ -68,12 +69,10 @@
 </template>
 
 <script>
-
 export default {
   name: 'Login',
   data() {
     return {
-      isLoading: false,
       isEmail: true,
       LoginTab: [
         {
@@ -89,7 +88,6 @@ export default {
   },
   methods: {
     async onSubmit(formData) {
-      this.isLoading = true;
       const need2FA = await this.$api.IS_2FA_ENABLED(formData);
       if (need2FA === true) {
         this.$router.push({ name: '2FA', params: { formData: JSON.stringify(formData) } });
@@ -105,7 +103,6 @@ export default {
         } else {
           form.setFieldError('password', this.$t('axios.unexcepted_error'));
         }
-        this.isLoading = false;
       }
     },
   },

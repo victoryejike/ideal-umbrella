@@ -5,6 +5,7 @@
     </h1>
     <BaseForm
       ref="twofa-form"
+      v-slot="{ isLoading }"
       class="twofa-form"
       @submit="onSubmit"
     >
@@ -33,7 +34,6 @@ export default {
   name: '2FA',
   data() {
     return {
-      isLoading: false,
     };
   },
   computed: {
@@ -41,7 +41,7 @@ export default {
   },
   methods: {
     async onSubmit(formData) {
-      this.isLoading = true;
+      //
     },
   },
 };

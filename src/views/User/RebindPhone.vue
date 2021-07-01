@@ -2,6 +2,7 @@
   <BaseSettingFrame :title="$t('rabind_phone_screen.rebind_phone')">
     <BaseForm
       ref="rebind-phone-form"
+      v-slot="{ isLoading }"
       class="rebind-form"
       @submit="onSubmit"
     >
@@ -70,15 +71,12 @@ export default {
   components: { BaseSettingFrame },
   data() {
     return {
-      isLoading: false,
       isEmail: false,
       token: JSON.parse(localStorage.getItem('userData')).token,
     };
   },
   methods: {
     async onSubmit(rebindPhoneData) {
-      // call API...
-      this.isLoading = true;
       let response = null;
       try {
         const { data } = await this.$api.REBINDPHONE(rebindPhoneData, this.token);
@@ -92,7 +90,6 @@ export default {
       } else {
         const { form } = this.$refs['rebind-phone-form'];
         form.setFieldError('new_phone_code', response.error);
-        this.isLoading = false;
       }
     },
   },

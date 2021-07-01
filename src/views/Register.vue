@@ -2,6 +2,7 @@
   <div class="container">
     <BaseForm
       ref="register-form"
+      v-slot="{ isLoading }"
       class="register-form"
       @submit="onSubmit"
     >
@@ -138,7 +139,6 @@ export default {
   },
   data() {
     return {
-      isLoading: false,
       isModalVisible: false,
       isEmail: true,
       checkedTerms: false,
@@ -158,9 +158,7 @@ export default {
   },
 
   methods: {
-    // call API...
     async onSubmit(registerFormData) {
-      this.isLoading = true;
       let response = null;
       try {
         const { data } = await this.$api.REGISTER(registerFormData);
@@ -170,15 +168,10 @@ export default {
       }
 
       if (response?.success) {
-        // this.$store.dispatch('register', response.data);
         this.$router.push('/login');
-        this.isLoading = false;
       } else {
-        // const { form } = this.$refs['register-form'];
-        // form.setFieldError('otp_code', response.error);
         this.messageType = 'error';
         this.message = response.error;
-        this.isLoading = false;
       }
     },
     showModal() {
@@ -257,12 +250,6 @@ export default {
 
 .login-link {
   padding-left: 0.3125rem;
-}
-
-.input-error-msg-effect {
-  color: #ff3a31;
-  font-size: 0.85rem;
-  text-align: justify;
 }
 
 @media (max-width: 30em) {

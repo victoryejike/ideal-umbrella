@@ -2,6 +2,7 @@
   <Form
     ref="vee-validate-form"
     v-bind="$attrs"
+    v-slot="{ isSubmitting }"
     @submit="onSubmit"
   >
     <Field
@@ -10,7 +11,7 @@
       type="hidden"
       :value="csrfToken"
     />
-    <slot />
+    <slot :isLoading="isSubmitting" />
   </Form>
 </template>
 

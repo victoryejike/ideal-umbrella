@@ -2,6 +2,7 @@
   <BaseSettingFrame :title="$t('rabind_email_screen.rebind_email')">
     <BaseForm
       ref="rebind-email-form"
+      v-slot="{ isLoading }"
       class="rebind-form"
       @submit="onSubmit"
     >
@@ -69,15 +70,12 @@ export default {
   components: { BaseSettingFrame },
   data() {
     return {
-      isLoading: false,
       isEmail: true,
       token: JSON.parse(localStorage.getItem('userData')).token,
     };
   },
   methods: {
     async onSubmit(rebindemailData) {
-      // call API...
-      this.isLoading = true;
       let response = null;
       try {
         const { data } = await this.$api.REBINDEMAIL(rebindemailData, this.token);
@@ -88,12 +86,9 @@ export default {
 
       if (response?.success) {
         this.$store.dispatch('reset', response.data);
-        // const { form } = this.$refs['rebind-email-form'];
-        // form.setFieldError('new_mail_code', response.message);
       } else {
         const { form } = this.$refs['rebind-email-form'];
         form.setFieldError('new_mail_code', response.error);
-        this.isLoading = true;
       }
     },
   },

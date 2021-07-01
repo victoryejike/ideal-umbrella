@@ -2,6 +2,7 @@
   <div class="container">
     <BaseForm
       ref="forgot-password-form"
+      v-slot="{ isLoading }"
       class="forgot-password-form"
       @submit="onSubmit"
     >
@@ -12,50 +13,31 @@
         :list="forgotPasswordTab"
         :width="10.6"
       />
-      <div
+      <BaseUnderlinedInput
         v-if="isEmail"
-      >
-        <BaseUnderlinedInput
-          class="input-field"
-          name="email"
-          :placeholder="$t('register_screen.email_placeholder')"
-          rules="required|email"
-          :text="$t('register_screen.email_label')"
-        />
-        <BaseUnderlinedInput
-          class="input-field"
-          field-name="email"
-          :is-mail="isEmail"
-          name="otp"
-          :placeholder="$t('register_screen.verification_code__placehoder')"
-          :text="$t('register_screen.verification_code_label')"
-          type="otp"
-        />
-      </div>
-      <div
+        class="input-field"
+        name="email"
+        :placeholder="$t('register_screen.email_placeholder')"
+        rules="required|email"
+        :text="$t('register_screen.email_label')"
+        type="email"
+      />
+      <BaseUnderlinedInput
         v-if="!isEmail"
-      >
-        <BaseUnderlinedInput
-          class="input-field"
-          country="country_code"
-          name="phone"
-          :placeholder="$t('register_screen.phone_placeholder')"
-          rules="required|phone"
-          :text="$t('forgot_password.phone')"
-          type="tel"
-        />
-        <BaseUnderlinedInput
-          v-if="!isEmail"
-          class="input-field"
-          country="country_code"
-          field-name="phone"
-          :is-mail="isEmail"
-          name="otp"
-          :placeholder="$t('register_screen.verification_code__placehoder')"
-          :text="$t('register_screen.verification_code_label')"
-          type="otp"
-        />
-      </div>
+        class="input-field"
+        name="phone"
+        :placeholder="$t('register_screen.phone_placeholder')"
+        rules="required|phone"
+        :text="$t('forgot_password.phone')"
+        type="tel"
+      />
+      <BaseUnderlinedInput
+        class="input-field"
+        name="otp"
+        :placeholder="$t('register_screen.verification_code__placehoder')"
+        :text="$t('register_screen.verification_code_label')"
+        type="otp"
+      />
       <BaseRoundButton
         class="send-btn btn-primary btn-md btn-bold"
         :icon="isLoading ? 'loading' : 'arrow-right'"
@@ -76,12 +58,10 @@
 </template>
 
 <script>
-
 export default {
   name: 'ForgotPassword',
   data() {
     return {
-      isLoading: false,
       isEmail: true,
       forgotPasswordTab: [
         {
@@ -97,8 +77,6 @@ export default {
   },
   methods: {
     async onSubmit(forgotPasswordData) {
-      // call API...
-      this.isLoading = true;
       let response = null;
       try {
         const { data } = await this.$api.VERIFYFORGOTPASSWORDTOKEN(forgotPasswordData);
@@ -112,7 +90,6 @@ export default {
       } else {
         const { form } = this.$refs['forgot-password-form'];
         form.setFieldError('otp', response.error);
-        this.isLoading = false;
       }
     },
   },
