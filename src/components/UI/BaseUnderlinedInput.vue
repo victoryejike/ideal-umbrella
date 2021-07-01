@@ -122,6 +122,7 @@
           type="tel"
           :validate-on-change="false"
           @change="$emit('input', $event.target.value)"
+          @click="trigger"
           @focus="isFocus = true"
           @focusout="isFocus = false"
           @keypress="isInteger($event)"
@@ -308,7 +309,7 @@ export default {
     },
     trigger() {
       this.hovered = true;
-      setTimeout(() => { this.hovered = false; }, 2000);
+      setTimeout(() => { this.hovered = false; }, 5000);
     },
   },
 
