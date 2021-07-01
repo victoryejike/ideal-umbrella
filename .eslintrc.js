@@ -14,7 +14,7 @@ module.exports = {
     camelcase: [
       'error',
       {
-        properties: 'always',
+        properties: 'never',
       },
     ],
     'global-require': 'off',
