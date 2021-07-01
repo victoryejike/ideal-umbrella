@@ -18,8 +18,6 @@
       {{ text }}
       <span
         v-if="type === 'otp'"
-        @click="trigger"
-        @mouseenter="trigger"
       >
         <img
           class="otp-icon"
@@ -27,9 +25,9 @@
           src="@svg/otp-icon.svg"
           width="16"
         >
-        <BaseOtpText
-          v-if="hovered"
-        />
+        <span class="otp-msg">
+          {{ $t('otp_disclaimer.msg') }}
+        </span>
       </span>
     </div>
     <div
@@ -122,7 +120,6 @@
           type="tel"
           :validate-on-change="false"
           @change="$emit('input', $event.target.value)"
-          @click="trigger"
           @focus="isFocus = true"
           @focusout="isFocus = false"
           @keypress="isInteger($event)"
@@ -214,7 +211,6 @@ export default {
       isError: false,
       countryCode: [],
       messageType: '',
-      hovered: false,
     };
   },
   mounted() {
@@ -307,10 +303,6 @@ export default {
         setTimeout(() => { this.errorMessgae = ''; }, 2000);
       }
     },
-    trigger() {
-      this.hovered = true;
-      setTimeout(() => { this.hovered = false; }, 5000);
-    },
   },
 
 };
@@ -402,5 +394,23 @@ select {
 
 select::-ms-expand {
   display: none;
+}
+
+.otp-msg {
+  align-items: center;
+  background: #757580;
+  border-radius: 0.625rem;
+  color: #fff;
+  display: flex;
+  font-size: 0.75rem;
+  font-weight: 600;
+  height: 2.75rem;
+  line-height: 0.9375rem;
+  margin-top: 0.3125rem;
+  mix-blend-mode: normal;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  white-space: normal;
+  width: 18.4375rem;
 }
 </style>
