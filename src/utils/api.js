@@ -62,7 +62,8 @@ const API_SERVICES = {
   },
   KYC: (params) => axios.post('auth/kyc/submissions', params, false),
   GET_PROFILE: (params) => axios.get('users/profile', params, false),
-  UPLOAD_AVATAR: (params) => axios.put('users/update-profile-avatar', params, { headers: { 'Content-Type': 'multipart/form-data' } }),
+  UPLOADAVATAR: (params) => axios.post('users/update-profile-avatar', params, { headers: { 'Content-Type': 'multipart/form-data' } }),
+  UPDATEPROFILE: (params) => axios.post('users/update-profile', params, false),
 };
 
 export default {

@@ -38,6 +38,12 @@
         :text="$t('rabind_phone_screen.new_phone_verfication')"
         type="otp"
       />
+      <div v-if="message !== ' '">
+        <Message
+          :message="message"
+          :type="messageType"
+        />
+      </div>
       <div class="actions-div">
         <BaseRoundButton
           class="reset-button btn-primary btn-md btn-bold"
@@ -63,12 +69,16 @@ export default {
   components: { BaseSettingFrame },
   data() {
     return {
+      message: ' ',
+      messageType: ' ',
+      isLoading: false,
       isEmail: false,
       token: JSON.parse(localStorage.getItem('userData')).token,
     };
   },
   methods: {
     async onSubmit(rebindPhoneData) {
+      this.isLoading = true;
       let response = null;
       try {
         const { data } = await this.$api.REBIND_PHONE(rebindPhoneData, this.token);
@@ -78,10 +88,13 @@ export default {
       }
 
       if (response?.success) {
-        this.$store.dispatch('reset', response.data);
+        this.messageType = 'success';
+        this.message = response.message;
+        this.isLoading = false;
       } else {
         const { form } = this.$refs['rebind-phone-form'];
         form.setFieldError('new_phone_code', response.error);
+        this.isLoading = false;
       }
     },
   },

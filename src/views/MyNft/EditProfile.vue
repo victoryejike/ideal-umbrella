@@ -36,6 +36,7 @@
             <p>{{ $t('edit_profile.recommend') }}</p>
             <BaseRoundButton
               class="btn-outline-primary btn-sm"
+              :icon="isLoading ? 'loading' : 'arrow-right'"
               :text="$t('edit_profile.choose_file')"
               @click="selectProfile"
             />
@@ -74,7 +75,7 @@
       />
       <BaseRoundButton
         class="send-btn btn-primary btn-md btn-bold"
-        icon="arrow-right"
+        :icon="Loading ? 'loading' : 'arrow-right'"
         style="margin-bottom: 2rem;"
         :submit="true"
         :text="$t('edit_profile.update_btn')"
@@ -107,30 +108,74 @@ export default {
         },
       ],
       ref: '',
+      isLoading: false,
+      Loading: false,
     };
   },
+  mounted() {
+    this.getProfile();
+  },
   methods: {
-    onSubmit(data) {
+    async getProfile() {
+      let response = null;
+      try {
+        const { data } = await this.$api.GETPROFILE();
+        response = data;
+      } catch (error) {
+        response = error.response.data;
+      }
+
+      if (response?.success) {
+        if (response.data.display_name !== undefined) {
+          document.querySelector('input[name=display_name]').value = response.data.display_name;
+          document.querySelector('input[name=about]').value = response.data.about;
+          document.querySelector('input[name=portfolio_link]').value = response.data.portfolio_link;
+        }
+        this.profile = response.data.image;
+      } else {
+        console.log(response.error);
+      }
+    },
+    async onSubmit(editProileData) {
       // call API...
+      let response = null;
+      this.Loading = true;
+      try {
+        const { data } = await this.$api.UPDATEPROFILE(editProileData);
+        response = data;
+      } catch (error) {
+        response = error.response.data;
+      }
+
+      if (response?.success) {
+        // eslint-disable-next-line no-restricted-globals
+        location.reload();
+      } else {
+        console.log(response.error);
+      }
     },
     selectProfile() {
       this.$refs.file.$el.click();
     },
     async uploadImage() {
-      const file = this.$refs.file.files[0];
+      // eslint-disable-next-line prefer-destructuring
+      this.file = this.$refs.file.files[0];
+      this.isLoading = true;
       const formData = new FormData();
-      formData.append('image', file);
+      formData.append('image', this.file);
       let response = null;
       try {
-        const { data } = await this.$api.UPLOAD_AVATAR(formData);
+        const { data } = await this.$api.UPLOADAVATAR(formData);
         response = data;
       } catch (error) {
         response = error.response.data;
       }
+
       if (response?.success) {
-        //
+        this.profile = URL.createObjectURL(this.file);
+        this.isLoading = false;
       } else {
-        //
+        console.log(response);
       }
     },
   },

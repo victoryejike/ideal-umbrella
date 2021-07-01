@@ -38,6 +38,12 @@
         :text="$t('rabind_phone_screen.email_verfication_label')"
         type="otp"
       />
+      <div v-if="message !== ' '">
+        <Message
+          :message="message"
+          :type="messageType"
+        />
+      </div>
       <div class="actions-div">
         <BaseRoundButton
           class="reset-button btn-primary btn-md btn-bold"
@@ -63,12 +69,16 @@ export default {
   components: { BaseSettingFrame },
   data() {
     return {
+      message: ' ',
+      messageType: ' ',
+      isLoading: false,
       isEmail: true,
       token: JSON.parse(localStorage.getItem('userData')).token,
     };
   },
   methods: {
     async onSubmit(rebindemailData) {
+      this.isLoading = true;
       let response = null;
       try {
         const { data } = await this.$api.REBIND_EMAIL(rebindemailData, this.token);
@@ -78,10 +88,13 @@ export default {
       }
 
       if (response?.success) {
-        this.$store.dispatch('reset', response.data);
+        this.messageType = 'success';
+        this.message = response.message;
+        this.isLoading = false;
       } else {
         const { form } = this.$refs['rebind-email-form'];
         form.setFieldError('new_mail_code', response.error);
+        this.isLoading = true;
       }
     },
   },

@@ -1,6 +1,9 @@
 <template>
   <div>
-    <BaseFrame />
+    <BaseFrame
+      :profile="profile"
+      :username="username"
+    />
     <div class="section">
       <BaseNavigationTab
         :list="profileOption"
@@ -21,6 +24,8 @@ export default {
   components: { BaseFrame, OnSale, Created },
   data() {
     return {
+      username: '',
+      profile: '',
       visibleSale: true,
       visibleCreated: false,
       profileOption: [
@@ -61,16 +66,17 @@ export default {
       let response = null;
 
       try {
-        const { data } = await this.$api.GET_PROFILE();
+        const { data } = await this.$api.GETPROFILE();
         response = data;
       } catch (error) {
         response = error.response.data;
       }
 
       if (response?.success) {
-        //
+        this.username = response.data.display_name;
+        this.profile = response.data.image;
       } else {
-        //
+        console.log(response.error);
       }
     },
   },

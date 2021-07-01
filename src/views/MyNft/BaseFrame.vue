@@ -3,15 +3,25 @@
     <div class="top" />
     <div class="profile-img">
       <img
+        v-if="profile"
+        class="profile"
+        :onerror="$global.handleAvatarError"
+        :src="profile"
+      >
+      <img
+        v-else
         class="profile"
         :onerror="$global.handleAvatarError"
         src="@img/default-avatar.png"
       >
     </div>
     <div class="profile-details">
-      <div class="username">
+      <div
+        v-if="username"
+        class="username"
+      >
         <h3>
-          Chris Torres
+          {{ username }}
           <img
             src="@svg/tick.svg"
             width="12"
@@ -37,6 +47,10 @@
 <script>
 export default {
   name: 'MyNFTBaseframe',
+  props: {
+    username: { type: String, required: true },
+    profile: { type: String, required: false, default: null },
+  },
 };
 </script>
 
