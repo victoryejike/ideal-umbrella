@@ -58,7 +58,6 @@
           @focus="isFocus = true"
           @focusout="isFocus = false"
         />
-
         <img
           ref="password-eye"
           class="password-eye"
@@ -81,7 +80,7 @@
           :name="countryField"
         >
           <option
-            v-for="item in countryCode"
+            v-for="item in $store.getters['data/countryList']"
             :key="item.name"
             :value="item.dial_code"
           >
@@ -201,31 +200,16 @@ export default {
       isFocus: false,
       isError: false,
       isHover: false,
-      countryCode: [],
       countryField: this.extraData?.countryField || 'country_code',
     };
   },
   mounted() {
-    this.getCountries();
     this.observer = new MutationObserver(((mutations) => {
       this.isError = (mutations[1]?.addedNodes[0]?.className === 'input-error-msg-effect');
     }));
     this.observer.observe(this.$refs['error-msg'], { childList: true });
   },
   methods: {
-    async getCountries() {
-      let response = null;
-      try {
-        const { data } = await this.$api.GET_COUNTRIES();
-        response = data;
-      } catch (error) {
-        response = error.response.data;
-      }
-
-      if (response?.success) {
-        this.countryCode = response.data;
-      }
-    },
     isInteger(e) {
       if (this.isNumber(e) && e.key !== '.') {
         return true;

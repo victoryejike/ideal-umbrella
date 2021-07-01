@@ -70,32 +70,13 @@ export default {
     };
   },
   mounted() {
-    this.getCountries();
     this.$global.handleResponsive(22.5,
       () => { this.selectBoxCSS.width = 17.5; },
       () => { this.selectBoxCSS.width = 14; });
   },
   methods: {
-    async getCountries() {
-      let response = null;
-
-      try {
-        const { data } = await this.$api.GET_COUNTRIES();
-        response = data;
-      } catch (error) {
-        response = error.response.data;
-      }
-
-      if (response?.success) {
-        this.countriesList = response.data;
-      } else {
-        this.messageType = 'error';
-        this.message = response.error;
-      }
-    },
     async onSubmit(kycFormData) {
       let response = null;
-
       try {
         const { data } = await this.$api.KYC(kycFormData);
         response = data;

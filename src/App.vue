@@ -49,6 +49,9 @@ export default {
       key: 0,
     };
   },
+  async mounted() {
+    await this.$api.GET_COUNTRIES();
+  },
   methods: {
     reRenderUI() {
       this.key += 1;
