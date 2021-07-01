@@ -12,7 +12,7 @@
         :css="{width: 17.5}"
         :default-selected="false"
         name="nationality"
-        :options="countryList"
+        :options="countriesList"
         rules="required"
         :text="$t('kyc_screen.nationality_label')"
       />
@@ -62,14 +62,6 @@ export default {
     return {
       countriesList: [],
       idTypeList: ['Passport', 'National ID'],
-      countryList: [
-        { name: 'Singapore', image: 'https://www.countryflags.io/SG/flat/16.png' },
-        { name: 'Japan', image: 'https://www.countryflags.io/JP/flat/16.png' },
-        { name: 'Taiwan', image: 'https://www.countryflags.io/TW/flat/16.png' },
-        { name: 'Thailand', image: 'https://www.countryflags.io/TH/flat/16.png' },
-        { name: 'United States', image: 'https://www.countryflags.io/US/flat/16.png' },
-        { name: 'Germany', image: 'https://www.countryflags.io/DE/flat/16.png' },
-      ],
     };
   },
   mounted() {
@@ -96,6 +88,7 @@ export default {
     async  onSubmit(kycFormData) {
       this.isLoading = true;
       let response = null;
+
       try {
         const { data } = await this.$api.KYC(kycFormData);
         response = data;
@@ -104,7 +97,7 @@ export default {
       }
 
       if (response?.success) {
-        this.$store.dispatch('kyc', response.data);
+        // this.$store.dispatch('kyc', response.data);
         this.isLoading = false;
       } else {
         this.messageType = 'error';
