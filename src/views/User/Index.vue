@@ -22,7 +22,7 @@
         />
       </div>
       <BaseNavigationTab
-        :action-index="1"
+        :active-index="1"
         class="settings-tab"
         :list="tabTitle"
         :width="10"

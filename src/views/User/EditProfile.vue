@@ -1,8 +1,5 @@
 <template>
   <div class="container">
-    <BaseFrame
-      url="/profile"
-    />
     <div class="flex">
       <div class="w-50">
         <h1 class="edit-profile-text">
