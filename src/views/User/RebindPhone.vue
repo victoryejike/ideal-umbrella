@@ -71,30 +71,26 @@ export default {
     return {
       message: ' ',
       messageType: ' ',
-      isLoading: false,
       isEmail: false,
       token: JSON.parse(localStorage.getItem('userData')).token,
     };
   },
   methods: {
     async onSubmit(rebindPhoneData) {
-      this.isLoading = true;
       let response = null;
       try {
         const { data } = await this.$api.REBIND_PHONE(rebindPhoneData, this.token);
         response = data;
       } catch (error) {
-        response = error.response.data;
+        response = error?.response?.data;
       }
 
       if (response?.success) {
         this.messageType = 'success';
         this.message = response.message;
-        this.isLoading = false;
       } else {
         const { form } = this.$refs['rebind-phone-form'];
         form.setFieldError('new_phone_code', response.error);
-        this.isLoading = false;
       }
     },
   },

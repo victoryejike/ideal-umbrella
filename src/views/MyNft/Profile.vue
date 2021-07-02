@@ -69,14 +69,14 @@ export default {
         const { data } = await this.$api.GETPROFILE();
         response = data;
       } catch (error) {
-        response = error.response.data;
+        response = error?.response?.data;
       }
 
       if (response?.success) {
         this.username = response.data.display_name;
         this.profile = response.data.image;
       } else {
-        console.log(response.error);
+        //
       }
     },
   },

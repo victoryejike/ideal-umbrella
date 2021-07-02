@@ -92,7 +92,7 @@ export default {
         const { data } = await this.$api.KYC(kycFormData);
         response = data;
       } catch (error) {
-        response = error.response.data;
+        response = error?.response?.data;
       }
 
       if (response?.success) {

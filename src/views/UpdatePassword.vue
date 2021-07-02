@@ -55,13 +55,12 @@ export default {
   },
   methods: {
     async onSubmit(updatepasswordData) {
-      // call API...
       let response = null;
       try {
         const { data } = await this.$api.UPDATE_PASSWORD(updatepasswordData, this.token);
         response = data;
       } catch (error) {
-        response = error.response.data;
+        response = error?.response?.data;
       }
 
       if (response?.success) {

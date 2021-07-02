@@ -18,22 +18,23 @@
     >
       <img
         v-if="icon === 'arrow-right'"
-        height="32"
         src="@svg/arrow-right.svg"
-        width="32"
+        style="height: 2rem; width: 2rem;"
       >
       <img
         v-else-if="icon === 'loading'"
-        height="32"
         src="@svg/loading.svg"
-        style=" background-color: #fff; border-radius: 50%;"
-        width="32"
+        style=" background-color: #fff; border-radius: 50%; height: 2rem; width: 2rem;"
       >
       <img
         v-else-if="icon === 'transparent-loading'"
-        height="32"
         src="@svg/loading.svg"
-        width="32"
+        style="height: 2rem; width: 2rem;"
+      >
+      <img
+        v-else-if="icon === 'transparent-loading-sm'"
+        src="@svg/loading.svg"
+        style="height: 0.75rem; margin-left: -0.8rem; width: 0.75rem;"
       >
     </div>
   </button>
@@ -98,19 +99,13 @@ export default {
   transition: all 0.5s, filter 0s, transform 0s;
 }
 
-.btn-left-icon {
+.btn-right-icon {
   align-items: center;
   display: flex;
-  margin-right: 0.375rem;
 }
 
 .btn-text {
   white-space: nowrap;
-}
-
-.btn-right-icon {
-  height: 2rem;
-  width: 2rem;
 }
 
 .btn-bold {

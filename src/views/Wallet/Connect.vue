@@ -69,7 +69,6 @@ export default {
     async connectMetamask() {
       try {
         const web3 = new Web3(window.ethereum);
-        console.log(web3);
         await window.ethereum.request({
           method: 'wallet_requestPermissions',
           params: [
@@ -79,7 +78,6 @@ export default {
           ],
         });
         const [accounts] = await web3.eth.getAccounts();
-        console.log('Got accounts', accounts);
         this.accountAddress = accounts;
         this.$router.push('/discover');
       } catch (error) {
@@ -92,13 +90,12 @@ export default {
         const web3 = new Web3(ethereum);
         ethereum.send('eth_requestAccounts').then((accounts) => {
           const userAddress = accounts[0];
-          console.log(`User's address is ${accounts[0]}`);
           web3.eth.defaultAccount = userAddress;
           this.accountAddress = userAddress;
           this.$router.push('/discover');
         });
       } catch (error) {
-        console.log(error);
+        //
       }
     },
   },
