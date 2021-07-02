@@ -218,7 +218,7 @@ export default {
       return false;
     },
     isNumber(e) {
-      if ((Number.isNaN(Number(e.key)) || e.key === null || e.key === ' ') && e.key !== '.') {
+      if ((Number.isNaN(Number(e.key)) || e.key == null || e.key === ' ') && e.key !== '.') {
         e.preventDefault();
         return false;
       }

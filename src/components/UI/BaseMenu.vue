@@ -45,7 +45,7 @@ export default {
     },
     toogle(e) {
       this.isActive = !this.isActive;
-      if (this.host === null) { this.host = e.target; }
+      if (this.host == null) { this.host = e.target; }
       this.$refs['menu-container'].focus();
     },
     handleFocusout(e) {

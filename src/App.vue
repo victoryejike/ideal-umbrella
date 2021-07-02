@@ -49,7 +49,7 @@ export default {
       key: 0,
     };
   },
-  async mounted() {
+  async created() {
     await this.$api.GET_COUNTRIES();
   },
   methods: {

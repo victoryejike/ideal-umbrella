@@ -37,7 +37,7 @@ const API_SERVICES = {
   REBIND_EMAIL: (params) => axios.post('auth/rebind-mail', params, false),
   REBIND_PHONE: (params) => axios.post('auth/rebind-phone', params, false),
   GET_COUNTRIES: async () => {
-    if (store.getters['data/countryList'] == null) {
+    if (store.getters['data/countryList'].length === 0) {
       let response = null;
       try {
         response = (await axios.get('countries')).data;
@@ -70,6 +70,5 @@ export default {
   install: (app, options) => {
     const { globalProperties } = app.config;
     globalProperties.$api = API_SERVICES;
-    globalProperties.$store.$api = API_SERVICES;
   },
 };

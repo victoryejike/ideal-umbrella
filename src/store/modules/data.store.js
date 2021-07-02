@@ -1,5 +1,5 @@
 const initialState = () => ({
-  countryList: null,
+  countryList: [],
 });
 
 const getters = {
