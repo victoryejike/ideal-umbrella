@@ -4,17 +4,60 @@
   </div>
   <div class="upload-box">
     {{ $t('collectible.file_type_text') }}
+    <p>{{ fileName }}</p>
+    <input
+      class="file-uploads"
+      hidden
+      name="file-uploads"
+      type="file"
+      @change="fileChange"
+    >
     <BaseRoundButton
       class="upload-button btn-primary btn-md btn-bold"
       :text="$t('collectible.upload_button_text')"
+      @click="fileUpload"
     />
   </div>
 </template>
 <script>
+const { create } = require('ipfs-http-client');
+
+const ipfsClient = {
+  host: 'ipfs.infura.io',
+  port: 5001,
+  protocol: 'https',
+};
+
+const client = create(ipfsClient);
+
 export default {
   name: 'UploadCard',
   props: {
     text: { type: String, required: false, default: null },
+  },
+  data() {
+    return {
+      fileName: '',
+    };
+  },
+  methods: {
+    fileUpload() {
+      document.querySelector('.file-uploads').click();
+    },
+    async fileChange(event) {
+      try {
+        const [file] = event.target.files;
+        console.log(file);
+        this.fileName = file.name;
+        const { cid } = await client.add(file);
+        console.log(cid);
+        this.ipfsHash = cid.string;
+      } catch (error) {
+        console.log(error);
+      }
+      console.log(this.ipfsHash);
+      sessionStorage.setItem('ipfsHash', this.ipfsHash);
+    },
   },
 };
 </script>
@@ -38,7 +81,7 @@ export default {
 }
 
 .upload-button {
-  margin-top: 4rem;
+  margin-top: 0.5rem;
 }
 
 .label {
