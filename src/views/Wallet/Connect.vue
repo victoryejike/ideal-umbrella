@@ -10,6 +10,7 @@
         :img="huobi"
         text="Connect via app on your phone"
         type="HUOBI WALLET"
+        @click="connectHuobi"
       />
       <ConnectCard
         btn="true"
@@ -32,6 +33,7 @@
 </template>
 <script>
 
+import WalletConnectProvider from '@walletconnect/web3-provider';
 import Huobi from '@svg/huobi.svg';
 import MetaMask from '@img/metamask.png';
 import coinBase from '@svg/coinbase.svg';
@@ -42,7 +44,7 @@ import BaseFrame from './BaseFrame.vue';
 //  const Contract = require('web3-eth-contract')
 const Web3 = require('web3');
 
-const APP_NAME = 'My Awesome App';
+const APP_NAME = 'Naffiti';
 const APP_LOGO_URL = 'https://example.com/logo.png';
 const ETH_JSONRPC_URL = 'https://mainnet.infura.io/v3/<YOUR_INFURA_API_KEY>';
 const CHAIN_ID = 1;
@@ -66,6 +68,22 @@ export default {
     };
   },
   methods: {
+    async connectHuobi() {
+      try {
+        const provider = new WalletConnectProvider({
+          infuraId: '27e484dcd9e3efcfd25a83a78777cdf1',
+        });
+
+        //  Enable session (triggers QR Code modal)
+        await provider.enable();
+        const web3 = new Web3(provider);
+        const account = await web3.eth.getAccounts();
+        console.log('Got accounts', account);
+        this.accountAddress = localStorage.setItem('account', account);
+      } catch (error) {
+        console.log(error);
+      }
+    },
     async connectMetamask() {
       try {
         const web3 = new Web3(window.ethereum);
@@ -80,7 +98,7 @@ export default {
         });
         const [accounts] = await web3.eth.getAccounts();
         console.log('Got accounts', accounts);
-        this.accountAddress = accounts;
+        this.accountAddress = localStorage.setItem('account', accounts);
         this.$router.push('/discover');
       } catch (error) {
         console.error(error);
@@ -94,7 +112,7 @@ export default {
           const userAddress = accounts[0];
           console.log(`User's address is ${accounts[0]}`);
           web3.eth.defaultAccount = userAddress;
-          this.accountAddress = userAddress;
+          this.accountAddress = localStorage.setItem('account', userAddress);
           this.$router.push('/discover');
         });
       } catch (error) {
