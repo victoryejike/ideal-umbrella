@@ -66,17 +66,17 @@ export default {
       let response = null;
 
       try {
-        const { data } = await this.$api.GETPROFILE();
+        const { data } = await this.$api.GET_PROFILE();
         response = data;
       } catch (error) {
-        response = error.response.data;
+        response = error?.response?.data;
       }
 
       if (response?.success) {
-        this.username = response.data.display_name;
-        this.profile = response.data.image;
+        this.username = response?.data?.display_name || 'Chris Torres';
+        this.profile = response?.data?.image;
       } else {
-        console.log(response.error);
+        //
       }
     },
   },

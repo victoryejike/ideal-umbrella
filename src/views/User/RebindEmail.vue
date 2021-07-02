@@ -71,30 +71,26 @@ export default {
     return {
       message: ' ',
       messageType: ' ',
-      isLoading: false,
       isEmail: true,
       token: JSON.parse(localStorage.getItem('userData')).token,
     };
   },
   methods: {
     async onSubmit(rebindemailData) {
-      this.isLoading = true;
       let response = null;
       try {
         const { data } = await this.$api.REBIND_EMAIL(rebindemailData, this.token);
         response = data;
       } catch (error) {
-        response = error.response.data;
+        response = error?.response?.data;
       }
 
       if (response?.success) {
         this.messageType = 'success';
         this.message = response.message;
-        this.isLoading = false;
       } else {
         const { form } = this.$refs['rebind-email-form'];
         form.setFieldError('new_mail_code', response.error);
-        this.isLoading = true;
       }
     },
   },

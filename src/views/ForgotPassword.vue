@@ -83,7 +83,7 @@ export default {
         const { data } = await this.$api.VERIFY_FORGOT_PASSWORD_TOKEN(forgotPasswordData);
         response = data;
       } catch (error) {
-        response = error.response.data;
+        response = error?.response?.data;
       }
 
       if (response?.success) {
