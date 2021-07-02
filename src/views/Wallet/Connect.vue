@@ -96,8 +96,7 @@ export default {
           ],
         });
         const [accounts] = await web3.eth.getAccounts();
-        console.log('Got accounts', accounts);
-        //this.accountAddress = localStorage.setItem('account', accounts);
+        this.accountAddress = localStorage.setItem('account', accounts);
         this.$router.push('/discover');
       } catch (error) {
         console.error(error);
