@@ -41,7 +41,6 @@ import ConnectCard from '@/components/Wallet/ConnectCard.vue';
 import WalletLink from 'walletlink';
 import BaseFrame from './BaseFrame.vue';
 
-//  const Contract = require('web3-eth-contract')
 const Web3 = require('web3');
 
 const APP_NAME = 'Naffiti';
