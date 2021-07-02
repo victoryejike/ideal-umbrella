@@ -108,8 +108,8 @@ export default {
         name: this.$store.getters['auth/username'],
         avatar: this.$store.getters['auth/avatar'] || DefaultAvatar,
         child: [
-          { name: this.$t('menu.profile.edit_profile'), action: '/profile' },
-          { name: this.$t('menu.profile.setting'), action: '/account-setting' },
+          { name: this.$t('menu.profile.edit_profile'), action: '/account/profile' },
+          { name: this.$t('menu.profile.setting'), action: '/account/setting' },
           { name: this.$t('menu.profile.logout'), action: () => { this.$store.dispatch('auth/logout'); } },
         ],
       }];

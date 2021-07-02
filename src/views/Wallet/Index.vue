@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <BaseFrame
-      url="/connect-wallet"
+      url="/wallet/connect"
     />
     <div
       class="mt-2"
@@ -21,7 +21,7 @@
           :text="$t('wallet.copy')"
         />
         <router-link
-          to="/connect-wallet"
+          to="/wallet/connect"
         >
           <BaseRoundButton
             class="btn-outline-primary btn-sm other-wallet"

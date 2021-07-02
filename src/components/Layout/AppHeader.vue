@@ -84,7 +84,7 @@ export default {
         },
         {
           name: this.$t('header.my_nft'),
-          url: '/profile',
+          url: '/account/profile',
         },
         {
           name: this.$t('header.how_it_works'),
@@ -100,8 +100,8 @@ export default {
         },
       ],
       menuList: [
-        { name: this.$t('header.profile'), action: '/profile' },
-        { name: this.$t('header.setting'), action: '/account-setting' },
+        { name: this.$t('header.profile'), action: '/account/profile' },
+        { name: this.$t('header.setting'), action: '/account/setting' },
         { name: this.$t('header.logout'), action: () => { this.$store.dispatch('auth/logout'); } },
       ],
     };

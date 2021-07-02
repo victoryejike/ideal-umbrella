@@ -7,7 +7,7 @@
 <script>
 
 export default {
-  name: 'Default',
+  name: 'IndexContent',
   data() {
     return {
 

@@ -3,16 +3,9 @@
     <div class="top" />
     <div class="profile-img">
       <img
-        v-if="profile"
         class="profile"
         :onerror="$global.handleAvatarError"
         :src="profile"
-      >
-      <img
-        v-else
-        class="profile"
-        :onerror="$global.handleAvatarError"
-        src="@img/default-avatar.png"
       >
     </div>
     <div class="profile-details">
@@ -29,7 +22,7 @@
         </h3>
       </div>
       <div class="profile-actions">
-        <router-link to="/edit-profile">
+        <router-link to="/account/profile/edit">
           <BaseRoundButton
             class="btn-outline-primary btn-sm action"
             :text="$t('profile.edit_profile')"

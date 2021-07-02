@@ -130,7 +130,7 @@ a {
   }
 
   #content {
-    padding-top: 1.5rem;
+    padding-top: 2.5rem;
   }
 
   #footer {

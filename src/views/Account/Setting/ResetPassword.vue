@@ -76,7 +76,7 @@
 
         <router-link
           class="cancel-link"
-          to="/account-setting"
+          to="/account/setting"
         >
           {{ $t("reset_password_screen.cancel") }}
         </router-link>
@@ -85,8 +85,8 @@
   </BaseSettingFrame>
 </template>
 <script>
-import BaseSettingFrame from './BaseSettingFrame.vue';
-import Message from '../../components/UI/Message.vue';
+import Message from '@/components/UI/Message.vue';
+import BaseSettingFrame from '@/components/Setting/BaseSettingFrame.vue';
 
 export default {
   name: 'UserResetPassword',

@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <router-link to="/account-setting">
+    <router-link to="/account/setting">
       <img
         class="back-btn"
         src="@svg/arrow-back.svg"
