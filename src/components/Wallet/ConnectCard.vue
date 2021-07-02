@@ -44,6 +44,7 @@ export default {
 .nft-card {
   background: rgba(255, 255, 255, 0.25);
   border-radius: 1.4375rem;
+  cursor: pointer;
   margin-right: 1.875rem;
   margin-top: 1.875rem;
   padding: 1.25rem;

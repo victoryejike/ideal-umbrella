@@ -44,6 +44,11 @@
     "description": "Connect with one of available wallet providers or create a new wallet.",
     "title": "Connect your Wallet"
   },
+  "wallet": {
+    "address": "0xa4fcd1ae1...4eac",
+    "copy": " Copy",
+    "other_waalet": "Connect Other Wallet"
+  },
   "created": {
     "no_item": {
       "btn": "Create",
