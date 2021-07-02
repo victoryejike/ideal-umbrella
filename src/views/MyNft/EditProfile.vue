@@ -29,7 +29,7 @@
           <div class="profile-img">
             <img
               class="profile"
-              src="@img/default-avatar.png"
+              :src="avatarURL"
             >
           </div>
           <div class="recommend">
@@ -109,6 +109,7 @@ export default {
       ],
       isLoading: false,
       Loading: false,
+      avatarURL: null,
     };
   },
   mounted() {
@@ -118,19 +119,19 @@ export default {
     async getProfile() {
       let response = null;
       try {
-        const { data } = await this.$api.GETPROFILE();
+        const { data } = await this.$api.GET_PROFILE();
         response = data;
       } catch (error) {
         response = error?.response?.data;
       }
 
       if (response?.success) {
+        this.avatarURL = response?.data?.image; // Temporarily implementation, for demo
         if (response.data.display_name !== undefined) {
           document.querySelector('input[name=display_name]').value = response.data.display_name;
           document.querySelector('input[name=about]').value = response.data.about;
           document.querySelector('input[name=portfolio_link]').value = response.data.portfolio_link;
         }
-        this.profile = response.data.image;
       } else {
         //
       }
@@ -169,7 +170,7 @@ export default {
       }
 
       if (response?.success) {
-        this.profile = URL.createObjectURL(file);
+        this.avatarURL = URL.createObjectURL(file);
         this.isLoading = false;
       } else {
         //
