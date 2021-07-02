@@ -60,7 +60,13 @@ export default {
       phone: '****1234',
       uid: '884850286305316608',
       tabTitle: [
-        this.$t('user_index_screen.edit_profile'), this.$t('user_index_screen.account'),
+        {
+          name: this.$t('user_index_screen.account'),
+        },
+        {
+          name: this.$t('user_index_screen.edit_profile'),
+          handler: () => { this.$router.push({ name: 'EditProfile' }); },
+        },
       ],
       settingList: [
         {

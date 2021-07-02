@@ -11,7 +11,7 @@
       </div>
       <div class="w-50">
         <BaseNavigationTab
-          :list="forgotPasswordTab"
+          :list="ProfileTab"
           style="float: right; margin: 0.625rem;"
           :width="10.6"
         />
@@ -51,27 +51,21 @@
       </div>
       <BaseUnderlinedInput
         class="input-field"
-        name="username"
+        name="display_name"
         :placeholder="$t('edit_profile.display_name_placeholder')"
         :text="$t('edit_profile.display_name')"
       />
       <BaseUnderlinedInput
         class="input-field"
-        name="bio"
+        name="about"
         :placeholder="$t('edit_profile.bio')"
         :text="$t('edit_profile.bio_placeholder')"
       />
       <BaseUnderlinedInput
         class="input-field"
-        name="portfolio"
+        name="portfolio_link"
         :placeholder="$t('edit_profile.portfolio_placeholder')"
         :text="$t('edit_profile.portfolio')"
-      />
-      <BaseUnderlinedInput
-        class="input-field"
-        name="email"
-        :placeholder="$t('edit_profile.email_placeholder')"
-        :text="$t('edit_profile.email')"
       />
       <BaseRoundButton
         class="send-btn btn-primary btn-md btn-bold"
@@ -96,15 +90,13 @@ export default {
   name: 'EditProfile',
   data() {
     return {
-      isEmail: true,
-      forgotPasswordTab: [
+      ProfileTab: [
         {
           name: this.$t('edit_profile.edit_profile'),
-          handler: () => { this.isEmail = true; },
         },
         {
           name: this.$t('edit_profile.account'),
-          handler: () => { this.isEmail = false; },
+          handler: () => { this.$router.push({ name: 'AccountSetting' }); },
         },
       ],
       isLoading: false,
@@ -126,6 +118,7 @@ export default {
       }
 
       if (response?.success) {
+        console.log(response.data);
         this.avatarURL = response?.data?.image; // Temporarily implementation, for demo
         if (response.data.display_name !== undefined) {
           document.querySelector('input[name=display_name]').value = response.data.display_name;

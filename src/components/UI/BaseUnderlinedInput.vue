@@ -84,7 +84,7 @@
             :key="item.name"
             :value="item.dial_code"
           >
-            {{ item.dial_code }}
+            {{ item.code }} ({{ item.dial_code }})
           </option>
         </Field>
         <Field
