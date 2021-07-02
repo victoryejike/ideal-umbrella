@@ -6,100 +6,132 @@
     <Base
       :title="title"
     >
-      <UploadCard
-        :text="$t('collectible.upload_file_label')"
-      />
-      <div class="input-div">
-        <div class="toggle-div label">
-          <span>{{ $t('collectible.put_on_marketplace') }}</span>
+      <div id="error" />
+      <BaseForm
+        ref="collectible-nft"
+        class="nft-form"
+        @submit="onSubmit"
+      >
+        <UploadCard
+          :text="$t('collectible.upload_file_label')"
+        />
+        <div class="input-div">
+          <div class="toggle-div label">
+            <span>{{ $t('collectible.put_on_marketplace') }}</span>
 
-          <label class="switch">
-            <input
-              checked
-              type="checkbox"
-              @click="toggleSwitch"
-            >
-            <span class="slider round" />
-          </label>
+            <label class="switch">
+              <input
+                checked
+                type="checkbox"
+                @click="toggleSwitch"
+              >
+              <span class="slider round" />
+            </label>
+          </div>
+          <BaseNavigationTab
+            v-if="selectedSwitch"
+            class="tabs"
+            :list="tabTitle"
+            :width="10.6"
+          />
         </div>
-        <BaseNavigationTab
-          v-if="selectedSwitch"
-          class="tabs"
-          :list="tabTitle"
-          :width="10.6"
-        />
-      </div>
-      <template v-if="selectedSwitch">
-        <BaseUnderlinedInput
-          class="input-field"
-          name="amount"
-          :placeholder="$t('collectible.amount_placeholder')"
-          :text="$t('collectible.amount_label')"
-        >
-          <template #element>
-            <BaseScrollableSelectBox
-              :css="selectBoxCSS"
-              name="amountCoinType"
-              :options="coinList"
-            />
-          </template>
-        </BaseUnderlinedInput>
-        <BaseUnderlinedInput
-          class="input-field"
-          name="receivedAmount"
-          :placeholder="$t('collectible.received_amount_placeholder')"
-          :text="$t('collectible.received_amount_label')"
-        >
-          <template #element>
-            <BaseScrollableSelectBox
-              :css="selectBoxCSS"
-              name="receivedAmountCoinType"
-              :options="coinList"
-            />
-          </template>
-        </BaseUnderlinedInput>
-      </template>
+        <template v-if="selectedSwitch">
+          <BaseUnderlinedInput
+            ref="fee"
+            class="input-field"
+            name="amount"
+            :placeholder="$t('collectible.amount_placeholder')"
+            :text="$t('collectible.amount_label')"
+            @change="getServiceFee"
+          >
+            <template #element>
+              <BaseScrollableSelectBox
+                :css="selectBoxCSS"
+                name="amountCoinType"
+                :options="coinList"
+              />
+            </template>
+          </BaseUnderlinedInput>
+          <BaseUnderlinedInput
+            ref="receivedAmount"
+            class="input-field receivedAmount"
+            name="receivedAmount"
+            :placeholder="$t('collectible.received_amount_placeholder')"
+            :text="$t('collectible.received_amount_label')"
+          >
+            <template #element>
+              <BaseScrollableSelectBox
+                :css="selectBoxCSS"
+                name="receivedAmountCoinType"
+                :options="coinList"
+              />
+            </template>
+          </BaseUnderlinedInput>
+        </template>
 
-      <BaseScrollableSelectBox
-        class="input-div label"
-        name="collectible"
-        :options="collectibleList"
-        :text="$t('collectible.choose_collection_label')"
-      />
-      <BaseUnderlinedInput
-        class="input-field"
-        name="title"
-        :placeholder="$t('collectible.title_placeholder')"
-        :text="$t('collectible.title_label')"
-      />
-      <BaseUnderlinedInput
-        class="input-field"
-        name="description"
-        :placeholder="$t('collectible.discription_placeholder')"
-        :text="$t('collectible.discription_label')"
-      />
-      <div class="inline">
         <BaseScrollableSelectBox
-          class="input-div label royalties-selectbox"
-          name="royalties"
-          :options="royaltiesList"
-          :text="$t('collectible.royalties_label')"
+          class="input-div label"
+          name="collectible"
+          :options="collectibleList"
+          :text="$t('collectible.choose_collection_label')"
         />
         <BaseUnderlinedInput
-          v-if="standard === 'erc1155'"
-          class="input-field copies-input"
-          name="copies"
-          :placeholder="$t('collectible.number_of_copies_placeholder')"
-          :text="$t('collectible.number_of_copies_label')"
+          class="input-field"
+          name="title"
+          :placeholder="$t('collectible.title_placeholder')"
+          :text="$t('collectible.title_label')"
         />
-      </div>
-      <div>
-        <BaseRoundButton
-          class="btn-primary btn-md btn-bold"
-          icon="arrow-right"
-          :text="$t('collectible.create_button_text')"
+        <BaseUnderlinedInput
+          class="input-field"
+          name="description"
+          :placeholder="$t('collectible.discription_placeholder')"
+          :text="$t('collectible.discription_label')"
         />
-      </div>
+        <BaseUnderlinedInput
+          v-model="tokenid_value"
+          class="input-field show"
+          name="tokenid"
+          :placeholder="$t('collectible.discription_placeholder')"
+          :text="$t('collectible.discription_label')"
+        />
+        <div class="inline">
+          <BaseScrollableSelectBox
+            class="input-div label"
+            name="royalties[0].value"
+            :options="royaltiesList"
+            :text="$t('collectible.royalties_label')"
+          />
+          <BaseUnderlinedInput
+            v-model="value"
+            class="input-field show"
+            name="royalties[0].recipient"
+            :placeholder="$t('collectible.discription_placeholder')"
+            :text="$t('collectible.discription_label')"
+          />
+          <BaseUnderlinedInput
+            v-if="standard === 'erc1155'"
+            class="input-field copies-input"
+            name="copies"
+            :placeholder="$t('collectible.number_of_copies_placeholder')"
+            :text="$t('collectible.number_of_copies_label')"
+          />
+        </div>
+        <BaseUnderlinedInput
+          v-model="uri_value"
+          class="input-field show"
+          name="uri"
+          :placeholder="$t('collectible.discription_placeholder')"
+          :text="$t('collectible.discription_label')"
+        />
+        <div>
+          <BaseRoundButton
+            class="btn-primary btn-md btn-bold"
+            :icon="isLoading ? 'loading' : 'arrow-right'"
+            :submit="true"
+            :text="$t('collectible.create_button_text')"
+          />
+        </div>
+      </BaseForm>
     </Base>
   </div>
 </template>
@@ -140,6 +172,10 @@ export default {
         { name: '30 %' },
       ],
       selectBoxCSS: { width: 10 },
+      uri_value: sessionStorage.getItem('ipfsHash'),
+      value: localStorage.getItem('account'),
+      tokenid_value: '',
+      receivedAmount: '',
     };
   },
   computed: {
@@ -164,6 +200,40 @@ export default {
   methods: {
     toggleSwitch() {
       this.selectedSwitch = !this.selectedSwitch;
+    },
+    getServiceFee() {
+      console.log('works');
+      console.log(this.$refs.fee);
+      // const amount = document.querySelector('.fee');
+      // console.log(amount);
+      // const newAmount = (amount - (amount * 0.025));
+      // console.log(newAmount);
+      // document.querySelector('.receivedAmount').value = newAmount;
+    },
+    async onSubmit(CollectibleNftData) {
+      this.isLoading = true;
+      let response = null;
+      try {
+        const { data } = await this.$api.CREATENFT(CollectibleNftData);
+        response = data;
+        console.log(CollectibleNftData);
+      } catch (error) {
+        response = error.response.data;
+        console.log(response);
+        this.isLoading = false;
+      }
+
+      if (response?.success) {
+        // this.$store.dispatch('reset', response.data);
+        console.log('success', response.data);
+      } else {
+        // const { form } = this.$refs['collectible-nft'];
+        console.log(response.error);
+        document.getElementById('error').innerHTML = '*All fields are required';
+        document.getElementById('error').style.color = 'red';
+        // form.setFieldError('new_phone_code', response.error);
+        this.isLoading = false;
+      }
     },
   },
 };
@@ -253,6 +323,10 @@ input:checked + .slider::before {
   margin-bottom: 2.5rem;
 }
 
+.show{
+  display: none;
+}
+
 .collection-text {
   margin-bottom: 1.25rem;
 }
@@ -273,6 +347,10 @@ input:checked + .slider::before {
 
 .royalties-selectbox {
   margin-right: 2rem;
+}
+
+#error {
+  padding-bottom: 1rem;
 }
 
 .copies-input {

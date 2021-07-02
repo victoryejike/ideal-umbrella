@@ -36,6 +36,7 @@ const API_SERVICES = {
   RESET_PASSWORD: (params) => axios.post('auth/reset-password', params, false),
   REBIND_EMAIL: (params) => axios.post('auth/rebind-mail', params, false),
   REBIND_PHONE: (params) => axios.post('auth/rebind-phone', params, false),
+  CREATENFT: (params) => axios.post('nft', params, false),
   GET_COUNTRIES: async () => {
     if (store.getters['data/countryList'].length === 0) {
       let response = null;
