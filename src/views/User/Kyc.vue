@@ -29,6 +29,7 @@
       <div class="user-id-div input-div">
         <BaseScrollableSelectBox
           :default-selected="false"
+          key-name="id"
           name="id_type"
           :options="idTypeList"
           rules="required"
@@ -40,6 +41,12 @@
           :placeholder="$t('kyc_screen.id_number_placeholder')"
           rules="required"
           :text="$t('kyc_screen.id_number_label')"
+        />
+      </div>
+      <div v-if="message !== ' '">
+        <Message
+          :message="message"
+          :type="messageType"
         />
       </div>
       <div class="actions-div">
@@ -56,16 +63,19 @@
 
 <script>
 import BaseSettingFrame from './BaseSettingFrame.vue';
+import Message from '../../components/UI/Message.vue';
 
 export default {
   name: 'UserIDVerification',
-  components: { BaseSettingFrame },
+  components: { BaseSettingFrame, Message },
   data() {
     return {
+      message: ' ',
+      messageType: ' ',
       countriesList: [],
       idTypeList: [
-        { name: 'Passport' },
-        { name: 'National ID' }],
+        { name: 'Passport', id: 'PASSPORT' },
+        { name: 'National ID', id: 'NATIONAL_ID' }],
 
       selectBoxCSS: { width: null },
     };
@@ -86,7 +96,8 @@ export default {
       }
 
       if (response?.success) {
-        this.$store.dispatch('kyc', response.data);
+        this.messageType = 'success';
+        this.message = response.message;
       } else {
         this.messageType = 'error';
         this.message = response.error;
