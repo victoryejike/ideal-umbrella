@@ -51,7 +51,7 @@ export default {
 .title-div {
   font-size: 2rem;
   font-weight: bold;
-  width: 50%;
+  width: 45%;
 }
 
 .title {
@@ -65,7 +65,7 @@ export default {
   margin-top: 0.5rem;
 }
 
-@media (max-width: 46em) {
+@media (max-width: 60em) {
   .header {
     align-items: normal;
     flex-direction: column;
@@ -74,6 +74,7 @@ export default {
 
   .title-div {
     margin-bottom: 2rem;
+    width: 100%;
   }
 }
 </style>

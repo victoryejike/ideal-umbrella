@@ -62,12 +62,11 @@
 </template>
 
 <script>
-import Message from '@/components/UI/Message.vue';
 import BaseSettingFrame from '@/components/Setting/BaseSettingFrame.vue';
 
 export default {
   name: 'UserIDVerification',
-  components: { BaseSettingFrame, Message },
+  components: { BaseSettingFrame },
   data() {
     return {
       message: ' ',

@@ -24,6 +24,7 @@
 </template>
 <script>
 export default {
+  name: 'DetailsTab',
   props: {
     text: { type: String, required: false, default: null },
     value: { type: String, required: false, default: null },

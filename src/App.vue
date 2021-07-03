@@ -20,7 +20,10 @@
             mode="out-in"
             name="fade"
           >
-            <Component :is="Component" />
+            <Component
+              :is="Component"
+              :key="key"
+            />
           </Transition>
         </router-view>
       </div>
@@ -54,6 +57,11 @@ export default {
   },
   methods: {
     reRenderUI() {
+      /*
+        forceUpdate default will not rerender child components,
+        bind a key to child components and update the key is the offical
+        recommended implementation to rerender all components.
+      */
       this.key += 1;
       this.$forceUpdate();
     },

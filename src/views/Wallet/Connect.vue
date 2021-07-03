@@ -39,7 +39,7 @@ import MetaMask from '@img/metamask.png';
 import coinBase from '@svg/coinbase.svg';
 import ConnectCard from '@/components/Wallet/ConnectCard.vue';
 import WalletLink from 'walletlink';
-import BaseFrame from './ConnectFrame.vue';
+import BaseFrame from '@/components/Wallet/BaseFrame.vue';
 
 const Web3 = require('web3');
 
@@ -56,7 +56,7 @@ export const walletLink = new WalletLink({
 });
 
 export default {
-  name: 'NFT',
+  name: 'ConnectWallet',
   components: { BaseFrame, ConnectCard },
   data() {
     return {

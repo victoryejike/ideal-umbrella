@@ -33,7 +33,7 @@
 import Table from '@/components/Wallet/Table.vue';
 
 export default {
-  name: 'NFT',
+  name: 'WalletIndex',
   components: { Table },
   data() {
     return {

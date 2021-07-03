@@ -10,7 +10,7 @@
 
 <script>
 export default {
-  name: 'UserBaseSettingFrame',
+  name: 'NftBaseFrame',
   props: { title: { type: String, required: true }, description: { type: String, required: false, default: '' } },
 };
 </script>

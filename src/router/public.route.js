@@ -35,14 +35,14 @@ const publicRoute = [
     beforeEnter: (to, from, next) => (to.params?.token ? next() : next({ name: 'ForgotPassword' })),
   },
   {
-    path: '/token-details/:id',
-    name: 'TokenDetails',
-    component: () => import('@view/Nft/TokenDetails.vue'),
-  },
-  {
     path: '/discover',
     name: 'Discover',
     component: () => import('@view/Discover.vue'),
+  },
+  {
+    path: '/nft/:id',
+    name: 'TokenDetails',
+    component: () => import('@view/Nft/TokenDetails.vue'),
   },
   {
     path: '/:pathMatch(.*)*',

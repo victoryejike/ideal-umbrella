@@ -33,7 +33,7 @@
 <script>
 
 export default {
-  name: 'BaseSearchBar',
+  name: 'SearchBar',
   props: {
     width: { type: Number, required: true },
   },

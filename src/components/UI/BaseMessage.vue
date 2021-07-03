@@ -8,7 +8,7 @@
 </template>
 <script>
 export default {
-  name: 'Error',
+  name: 'BaseMessage',
   props: {
     message: { type: String, required: true },
     type: { type: String, required: true },

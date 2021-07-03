@@ -1,8 +1,13 @@
 <template>
   <div class="create-nft-main">
-    <BaseFrame
-      url="/nft"
-    />
+    <router-link
+      to="/nft"
+    >
+      <img
+        class="back-btn"
+        src="@svg/arrow-back.svg"
+      >
+    </router-link>
     <Base
       :title="title"
     >
@@ -138,7 +143,7 @@
 <script>
 
 import UploadCard from '@/components/Nft/UploadCard.vue';
-import Base from './BaseFrame.vue';
+import Base from '@/components/Nft/BaseFrame.vue';
 
 export default {
   name: 'CreateNFT',
@@ -323,7 +328,7 @@ input:checked + .slider::before {
   margin-bottom: 2.5rem;
 }
 
-.show{
+.show {
   display: none;
 }
 
