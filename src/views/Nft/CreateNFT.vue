@@ -202,7 +202,6 @@
 <script>
 
 import UploadCard from '@/components/Nft/UploadCard.vue';
-<<<<<<< HEAD
 // import WalletLink from 'walletlink';
 import Base from './BaseFrame.vue';
 // import { domain, Mint721, part } from '../../../signTypedData';
@@ -219,9 +218,6 @@ const Web3 = require('web3');
 //   appLogoUrl: APP_LOGO_URL,
 //   darkMode: false,
 // });
-=======
-import Base from '@/components/Nft/BaseFrame.vue';
->>>>>>> f24d2a09d8952fe4919638d95f0f42e9782ee279
 
 export default {
   name: 'CreateNFT',

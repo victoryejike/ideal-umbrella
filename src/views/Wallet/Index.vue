@@ -7,16 +7,8 @@
         src="@svg/huobi.svg"
         width="15"
       >
-<<<<<<< HEAD
-      <span v-if="account !== null">
-        {{ account }}
-      </span>
-      <span v-else>
-        0xa4fcd1ae1...4eac
-=======
       <span>
         {{ address.replace(address.substr(6, 32),'...') }}
->>>>>>> f24d2a09d8952fe4919638d95f0f42e9782ee279
       </span>
       <div class="flex">
         <BaseRoundButton
@@ -45,20 +37,9 @@ export default {
   components: { Table },
   data() {
     return {
-<<<<<<< HEAD
       account: localStorage.getItem('account'),
     };
   },
-=======
-      address: '0x27706FD0b52D7daDE02f0a9D5f77800695e6067D',
-    };
-  },
-  methods: {
-    async copyAddress() {
-      await navigator.clipboard.writeText(this.address);
-    },
-  },
->>>>>>> f24d2a09d8952fe4919638d95f0f42e9782ee279
 };
 
 </script>
