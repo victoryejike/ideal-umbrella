@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ProfileFrame
+    <BaseFrame
       :profile="profile"
       :username="username"
     />
@@ -17,11 +17,11 @@
 <script>
 import OnSale from '@/components/MyNft/OnSale.vue';
 import Created from '@/components/MyNft/Created.vue';
-import ProfileFrame from '@/components/Profile/ProfileFrame.vue';
+import BaseFrame from '@/components/Profile/BaseFrame.vue';
 
 export default {
   name: 'Profile',
-  components: { ProfileFrame, OnSale, Created },
+  components: { BaseFrame, OnSale, Created },
   data() {
     return {
       username: '',

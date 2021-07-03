@@ -15,6 +15,17 @@
   </div>
 </template>
 
+<script>
+export default {
+  name: '404',
+  data() {
+    return {
+
+    };
+  },
+};
+</script>
+
 <style scoped>
 .container {
   margin-top: -6rem;

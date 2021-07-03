@@ -80,6 +80,18 @@
     </p>
   </div>
 </template>
+
+<script>
+export default {
+  name: 'Agreement',
+  data() {
+    return {
+
+    };
+  },
+};
+</script>
+
 <style scoped>
 .container {
   height: 31.25rem;

@@ -61,7 +61,7 @@
         type="otp"
       />
       <div v-if="message !== ' '">
-        <Message
+        <BaseMessage
           :message="message"
           :type="messageType"
         />
@@ -85,15 +85,12 @@
   </BaseSettingFrame>
 </template>
 <script>
-import Message from '@/components/UI/Message.vue';
 import BaseSettingFrame from '@/components/Setting/BaseSettingFrame.vue';
 
 export default {
   name: 'UserResetPassword',
   components: {
     BaseSettingFrame,
-    Message,
-
   },
   data() {
     return {

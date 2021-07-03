@@ -86,7 +86,7 @@
         name="agree-terms"
       />
       <div v-if="message !== ' '">
-        <Message
+        <BaseMessage
           :message="message"
           :type="messageType"
         />
@@ -112,17 +112,14 @@
 
 <script>
 import { Field, ErrorMessage } from 'vee-validate';
-import Agreement from '../components/Agreement.vue';
-import Message from '../components/UI/Message.vue';
+import Agreement from '@/components/Register/Agreement.vue';
 
 export default {
-
   name: 'Register',
   components: {
     Agreement,
     Field,
     ErrorMessage,
-    Message,
   },
   data() {
     return {

@@ -31,10 +31,10 @@
       "timed_auction": "TIMED AUCTION",
       "unlimited_auction": "UNLIMITED AUCTION"
     },
-    "title_single": "Create Single Collectible",
     "title_label": "Title",
     "title_multiple": "Create Multiple Collectible",
     "title_placeholder": "e.g. “Redeemable Lady Gaga T-Shirt”",
+    "title_single": "Create Single Collectible",
     "upload_button_text": "UPLOAD",
     "upload_file_label": "Upload File"
   },
@@ -48,11 +48,6 @@
     "description": "Connect with one of available wallet providers or create a new wallet.",
     "title": "Connect your Wallet"
   },
-  "wallet": {
-    "address": "0xa4fcd1ae1...4eac",
-    "copy": " Copy",
-    "other_waalet": "Connect Other Wallet"
-  },
   "created": {
     "no_item": {
       "btn": "Create",
@@ -62,7 +57,7 @@
   },
   "default": "Default Template",
   "discover_screen": {
-    "search_result": "Searching results for: {0}",
+    "search_result": "Searching: {0}",
     "title": "Discover the latest NFT in the market"
   },
   "edit_profile": {
@@ -120,12 +115,12 @@
   "header": {
     "create": "Create",
     "discover": "Discover",
-    "profile": "Profile",
     "fanschain": "Fanschain",
     "how_it_works": "How it works",
     "login": "Login",
     "logout": "Logout",
     "my_nft": "My NFT",
+    "profile": "Profile",
     "register": "Register",
     "setting": "Account Setting",
     "wallet": "Wallet"
@@ -226,6 +221,9 @@
     "description": "Choose Single if you want your collectible to be one of a kind or Multiple if you want to sell one collectible multiple times. We do not own your private keys and cannot access your funds without your confirmation.",
     "title": "Create Collectible"
   },
+  "otp_disclaimer": {
+    "msg": "A 6-digit OTP code will be sent via Email or SMS. Message and Data rates may apply."
+  },
   "profile": {
     "created": "Created",
     "edit_profile": "Edit Profile",
@@ -258,12 +256,12 @@
     "new_email_placeholder": "Enter new Email Address",
     "new_phone_label": "New Phone",
     "new_phone_placeholder": "Enter new phone",
+    "new_phone_verfication": "New Phone Verification Code",
     "original_phone_label": "Original Phone",
     "original_phone_placehoder": "Enter phone number",
+    "original_phone_verfication": "Original Phone Verification Code",
     "phone_label": "Phone",
     "phone_label_label": "****4321",
-    "original_phone_verfication": "Original Phone Verification Code",
-    "new_phone_verfication": "New Phone Verification Code",
     "phone_verfication_placehoder": "Enter the verification code",
     "rebind_phone": "Rebind Phone"
   },
@@ -341,7 +339,9 @@
     "required_msg": "Field cannot be empty.",
     "username_msg": "Invalid username, it should be an email address or a phone number."
   },
-  "otp_disclaimer":{
-    "msg":"A 6-digit OTP code will be sent via Email or SMS. Message and Data rates may apply."
+  "wallet": {
+    "address": "0xa4fcd1ae1...4eac",
+    "copy": " Copy",
+    "other_waalet": "Connect Other Wallet"
   }
 }

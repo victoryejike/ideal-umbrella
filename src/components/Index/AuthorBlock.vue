@@ -28,7 +28,7 @@
 <script>
 
 export default {
-  name: 'AuthorInformationBlock',
+  name: 'AuthorBlock',
   props: {
     author: { type: String, required: true },
     avatar: { type: String, required: true },

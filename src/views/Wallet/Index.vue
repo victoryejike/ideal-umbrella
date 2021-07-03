@@ -1,8 +1,5 @@
 <template>
   <div class="container">
-    <BaseFrame
-      url="/wallet/connect"
-    />
     <div
       class="mt-2"
     >
@@ -10,18 +7,22 @@
         src="@svg/huobi.svg"
         width="15"
       >
+<<<<<<< HEAD
       <span v-if="account !== null">
         {{ account }}
       </span>
       <span v-else>
         0xa4fcd1ae1...4eac
+=======
+      <span>
+        {{ address.replace(address.substr(6, 32),'...') }}
+>>>>>>> f24d2a09d8952fe4919638d95f0f42e9782ee279
       </span>
-      <div
-        class="flex"
-      >
+      <div class="flex">
         <BaseRoundButton
           class="btn-outline-primary btn-sm copy"
           :text="$t('wallet.copy')"
+          @click="copyAddress"
         />
         <router-link
           to="/wallet/connect"
@@ -38,21 +39,32 @@
 </template>
 <script>
 import Table from '@/components/Wallet/Table.vue';
-// import BaseFrame from './BaseFrame.vue';
 
 export default {
-  name: 'NFT',
+  name: 'WalletIndex',
   components: { Table },
   data() {
     return {
+<<<<<<< HEAD
       account: localStorage.getItem('account'),
     };
   },
+=======
+      address: '0x27706FD0b52D7daDE02f0a9D5f77800695e6067D',
+    };
+  },
+  methods: {
+    async copyAddress() {
+      await navigator.clipboard.writeText(this.address);
+    },
+  },
+>>>>>>> f24d2a09d8952fe4919638d95f0f42e9782ee279
 };
 
 </script>
 <style scoped>
 .mt-2 {
+  align-items: center;
   display: flex;
   margin-top: 2rem;
 }
@@ -64,23 +76,26 @@ export default {
 
 .copy {
   height: 2rem;
-  margin-top: 1rem;
   width: 6rem;
 }
 
 .other-wallet {
   height: 2rem;
   margin-left: 0.5rem;
-  margin-top: 1rem;
 }
 
 .flex {
+  align-items: center;
   display: flex;
 }
 
 @media (max-width: 35em) {
   .mt-2 {
     display: block;
+  }
+
+  .flex {
+    margin-top: 1rem;
   }
 }
 </style>

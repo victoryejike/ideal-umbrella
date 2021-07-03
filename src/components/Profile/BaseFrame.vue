@@ -39,7 +39,7 @@
 
 <script>
 export default {
-  name: 'MyNFTBaseframe',
+  name: 'ProfileBaseframe',
   props: {
     username: { type: String, required: true },
     profile: { type: String, required: false, default: null },

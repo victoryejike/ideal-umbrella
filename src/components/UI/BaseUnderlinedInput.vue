@@ -156,7 +156,7 @@
       :class="[{focus: isFocus}, {'error-underline': isError}]"
     />
     <div v-if="message.content">
-      <Message
+      <BaseMessage
         :message="message.content"
         :type="message.type"
       />
@@ -177,11 +177,10 @@
 import PasswordEye from '@svg/password-eye.svg';
 import PasswordEyeClosed from '@svg/password-eye-closed.svg';
 import { Field, ErrorMessage } from 'vee-validate';
-import Message from './Message.vue';
 
 export default {
   name: 'BaseUnderlinedInput',
-  components: { ErrorMessage, Field, Message },
+  components: { ErrorMessage, Field },
   props: {
     name: { type: String, required: true },
     placeholder: { type: String, required: false, default: null },
