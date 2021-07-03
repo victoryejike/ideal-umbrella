@@ -44,7 +44,7 @@
         />
       </div>
       <div v-if="message !== ' '">
-        <Message
+        <BaseMessage
           :message="message"
           :type="messageType"
         />

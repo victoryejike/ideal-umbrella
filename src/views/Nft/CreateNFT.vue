@@ -14,6 +14,7 @@
       <div id="error" />
       <BaseForm
         ref="collectible-nft"
+        v-slot="{ isLoading}"
         class="nft-form"
         @submit="onSubmit"
       >

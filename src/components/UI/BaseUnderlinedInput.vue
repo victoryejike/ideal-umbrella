@@ -155,7 +155,7 @@
       :class="[{focus: isFocus}, {'error-underline': isError}]"
     />
     <div v-if="message.content">
-      <Message
+      <BaseMessage
         :message="message.content"
         :type="message.type"
       />

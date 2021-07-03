@@ -21,9 +21,11 @@
     <BaseRoundButton
       class="load-more-btn btn-outline-primary btn-xl"
       :icon="isLoading ? 'transparent-loading' : null"
+      :style="isAutoLoad ? 'display:none' : null"
       :text="isLoading ? null : $t('index_screen.more')"
       @click="loadMore"
     />
+    <div v-if="loadMore" />
   </div>
 </template>
 
@@ -39,6 +41,7 @@ export default {
   data() {
     return {
       isLoading: false,
+      isAutoLoad: false,
       list: Array(this.number).fill({
         id: 'V3isglWtYb5qIy24QbTJeoJjuV35fEDd0RoL',
         avatar: 'avatar.png',
@@ -70,6 +73,7 @@ export default {
           verified: true,
         }));
         this.isLoading = false;
+        this.isAutoLoad = true;
       }, 500);
     },
   },
