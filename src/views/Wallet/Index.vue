@@ -10,7 +10,10 @@
         src="@svg/huobi.svg"
         width="15"
       >
-      <span>
+      <span v-if="account !== null">
+        {{ account }}
+      </span>
+      <span v-else>
         0xa4fcd1ae1...4eac
       </span>
       <div
@@ -40,6 +43,11 @@ import Table from '@/components/Wallet/Table.vue';
 export default {
   name: 'NFT',
   components: { Table },
+  data() {
+    return {
+      account: localStorage.getItem('account'),
+    };
+  },
 };
 
 </script>

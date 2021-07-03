@@ -132,6 +132,7 @@
           v-model="value"
           v-bind="$attrs"
           class="input-box"
+          :class="name"
           :name="name"
           :placeholder="placeholder"
           :rules="rules"

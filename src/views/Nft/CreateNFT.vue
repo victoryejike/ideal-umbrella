@@ -33,13 +33,20 @@
             class="tabs"
             :list="tabTitle"
             :width="10.6"
+            @click="getActiveTabNav"
+          />
+          <BaseUnderlinedInput
+            v-model="pricing_type"
+            class="input-field show"
+            name="pricing_type"
+            :placeholder="$t('collectible.discription_placeholder')"
+            :text="$t('collectible.discription_label')"
           />
         </div>
-        <template v-if="selectedSwitch">
+        <template v-if="selectedSwitch && pricingType === 'FIXED PRICE'">
           <BaseUnderlinedInput
-            ref="fee"
             class="input-field"
-            name="amount"
+            name="price"
             :placeholder="$t('collectible.amount_placeholder')"
             :text="$t('collectible.amount_label')"
             @change="getServiceFee"
@@ -53,8 +60,7 @@
             </template>
           </BaseUnderlinedInput>
           <BaseUnderlinedInput
-            ref="receivedAmount"
-            class="input-field receivedAmount"
+            class="input-field"
             name="receivedAmount"
             :placeholder="$t('collectible.received_amount_placeholder')"
             :text="$t('collectible.received_amount_label')"
@@ -68,10 +74,40 @@
             </template>
           </BaseUnderlinedInput>
         </template>
-
+        <template v-if="selectedSwitch && pricingType !== 'FIXED PRICE'">
+          <BaseUnderlinedInput
+            class="input-field"
+            name="minimum_bid"
+            :placeholder="$t('collectible.auction_placeholder')"
+            :text="$t('collectible.auction_label')"
+          >
+            <template #element>
+              <BaseScrollableSelectBox
+                :css="selectBoxCSS"
+                name="receivedBidCoinType"
+                :options="coinList"
+              />
+            </template>
+          </BaseUnderlinedInput>
+          <BaseUnderlinedInput
+            class="input-field"
+            name="starting_date"
+            :placeholder="$t('collectible.auction_start_placeholder')"
+            :text="$t('collectible.auction_start_label')"
+          />
+          <BaseUnderlinedInput
+            class="input-field"
+            name="expiration_date"
+            :placeholder="$t('collectible.discription_placeholder')"
+            :text="$t('collectible.discription_label')"
+          />
+        </template>
         <BaseScrollableSelectBox
+          v-model="collectible_class"
           class="input-div label"
-          name="collectible"
+          :default-selected="false"
+          key-name="code"
+          name="collectible_class"
           :options="collectibleList"
           :text="$t('collectible.choose_collection_label')"
         />
@@ -88,9 +124,9 @@
           :text="$t('collectible.discription_label')"
         />
         <BaseUnderlinedInput
-          v-model="tokenid_value"
+          v-model="tokenId"
           class="input-field show"
-          name="tokenid"
+          name="tokenId"
           :placeholder="$t('collectible.discription_placeholder')"
           :text="$t('collectible.discription_label')"
         />
@@ -100,6 +136,7 @@
             name="royalties[0].value"
             :options="royaltiesList"
             :text="$t('collectible.royalties_label')"
+            @click="onSign"
           />
           <BaseUnderlinedInput
             v-model="value"
@@ -117,9 +154,30 @@
           />
         </div>
         <BaseUnderlinedInput
-          v-model="uri_value"
+          v-model="uri"
           class="input-field show"
           name="uri"
+          :placeholder="$t('collectible.discription_placeholder')"
+          :text="$t('collectible.discription_label')"
+        />
+        <BaseUnderlinedInput
+          v-model="r"
+          class="input-field show"
+          name="signatures.r"
+          :placeholder="$t('collectible.discription_placeholder')"
+          :text="$t('collectible.discription_label')"
+        />
+        <BaseUnderlinedInput
+          v-model="s"
+          class="input-field show"
+          name="signatures.s"
+          :placeholder="$t('collectible.discription_placeholder')"
+          :text="$t('collectible.discription_label')"
+        />
+        <BaseUnderlinedInput
+          v-model="v"
+          class="input-field show"
+          name="signatures.v"
           :placeholder="$t('collectible.discription_placeholder')"
           :text="$t('collectible.discription_label')"
         />
@@ -138,7 +196,22 @@
 <script>
 
 import UploadCard from '@/components/Nft/UploadCard.vue';
+// import WalletLink from 'walletlink';
 import Base from './BaseFrame.vue';
+// import { domain, Mint721, part } from '../../../signTypedData';
+
+const Web3 = require('web3');
+
+// const APP_NAME = 'Naffiti';
+// const APP_LOGO_URL = 'https://example.com/logo.png';
+// const ETH_JSONRPC_URL = 'https://mainnet.infura.io/v3/<YOUR_INFURA_API_KEY>';
+// const CHAIN_ID = 1;
+// // Initialize WalletLink
+// export const walletLink = new WalletLink({
+//   appName: APP_NAME,
+//   appLogoUrl: APP_LOGO_URL,
+//   darkMode: false,
+// });
 
 export default {
   name: 'CreateNFT',
@@ -149,13 +222,14 @@ export default {
   data() {
     return {
       selectedSwitch: true,
+      pricingType: 'FIXED PRICE',
       coinList: [
         { name: 'ETH', image: require('@svg/ethereum.svg') },
         { name: 'HT', image: require('@svg/huobi-token.svg') },
         { name: 'BTC', image: require('@svg/bitcoin.svg') },
       ],
       collectibleList: [
-        { name: 'ERC-721' },
+        { name: 'ERC-721', id: 'erc' },
       ],
       singleTabTitle: [
         this.$t('collectible.tab.fixed_price'),
@@ -172,10 +246,85 @@ export default {
         { name: '30 %' },
       ],
       selectBoxCSS: { width: 10 },
-      uri_value: sessionStorage.getItem('ipfsHash'),
+      uri: sessionStorage.getItem('ipfsHash'),
       value: localStorage.getItem('account'),
-      tokenid_value: '',
+      collectible_class: 'ERC-721',
+      tokenId: '',
       receivedAmount: '',
+      pricing_type: 'fixed',
+      r: localStorage.getItem('r'),
+      s: localStorage.getItem('s'),
+      v: localStorage.getItem('v'),
+      contractAddress: '0x219bd6D55d75CDf54De19eA4c5dF766B8881df1a',
+      abi: {
+        inputs: [
+          {
+            components: [
+              {
+                internalType: 'uint256',
+                name: 'tokenId',
+                type: 'uint256',
+              },
+              {
+                internalType: 'string',
+                name: 'uri',
+                type: 'string',
+              },
+              {
+                components: [
+                  {
+                    internalType: 'address payable',
+                    name: 'account',
+                    type: 'address',
+                  },
+                  {
+                    internalType: 'uint256',
+                    name: 'value',
+                    type: 'uint256',
+                  },
+                ],
+                internalType: 'struct LibPart.Part[]',
+                name: 'creators',
+                type: 'tuple[]',
+              },
+              {
+                components: [
+                  {
+                    internalType: 'address payable',
+                    name: 'account',
+                    type: 'address',
+                  },
+                  {
+                    internalType: 'uint256',
+                    name: 'value',
+                    type: 'uint256',
+                  },
+                ],
+                internalType: 'struct LibPart.Part[]',
+                name: 'royalties',
+                type: 'tuple[]',
+              },
+              {
+                internalType: 'bytes[]',
+                name: 'signatures',
+                type: 'bytes[]',
+              },
+            ],
+            internalType: 'struct LibERC721LazyMint.Mint721Data',
+            name: 'data',
+            type: 'tuple',
+          },
+          {
+            internalType: 'address',
+            name: 'to',
+            type: 'address',
+          },
+        ],
+        name: 'mintAndTransfer',
+        outputs: [],
+        stateMutability: 'nonpayable',
+        type: 'function',
+      },
     };
   },
   computed: {
@@ -202,38 +351,154 @@ export default {
       this.selectedSwitch = !this.selectedSwitch;
     },
     getServiceFee() {
-      console.log('works');
-      console.log(this.$refs.fee);
-      // const amount = document.querySelector('.fee');
-      // console.log(amount);
-      // const newAmount = (amount - (amount * 0.025));
-      // console.log(newAmount);
-      // document.querySelector('.receivedAmount').value = newAmount;
+      const amount = document.querySelector('.price').value;
+      const discountAmount = ((amount * 0.025).toFixed(4));
+      console.log(discountAmount);
+      const newAmount = (amount - discountAmount).toFixed(4);
+      document.querySelector('.receivedAmount').value = newAmount;
+    },
+    getActiveTabNav() {
+      const navTab = document.querySelectorAll('.navs');
+      navTab.forEach((nav) => {
+        if (nav.classList.contains('active')) {
+          console.log(nav);
+          const activeTabNavValue = nav.innerText;
+          this.pricingType = activeTabNavValue;
+          console.log(this.pricingType);
+          sessionStorage.setItem('pricing', this.pricingType);
+        }
+      });
+    },
+    onSign() {
+    // const ethereum = walletLink.makeWeb3Provider(ETH_JSONRPC_URL, CHAIN_ID);
+      const metamask = window.ethereum;
+      // const isMetamask = window.Web3.currentProvider;
+      // console.log(isMetamask);
+      const web3 = new Web3(metamask);
+      console.log(web3);
+      const dataToSign = JSON.stringify({
+        types: {
+          EIP712Domain: [
+            {
+              name: 'name',
+              type: 'string',
+            },
+            {
+              name: 'version',
+              type: 'string',
+            },
+            {
+              name: 'chainId',
+              type: 'uint256',
+            },
+            {
+              name: 'verifyingContract',
+              type: 'address',
+            },
+          ],
+          Mint721: [
+            {
+              name: 'tokenId',
+              type: 'uint256',
+            },
+            {
+              name: 'tokenURI',
+              type: 'string',
+            },
+            {
+              name: 'creators',
+              type: 'Part[]',
+            },
+            {
+              name: 'royalties',
+              type: 'Part[]',
+            },
+          ],
+          Part: [
+            {
+              name: 'account',
+              type: 'address',
+            },
+            {
+              name: 'value',
+              type: 'uint96',
+            },
+          ],
+        },
+        domain: {
+          name: 'Naffiti',
+          version: '1',
+          chainId: '3',
+          verifyingContract: '0x219bd6D55d75CDf54De19eA4c5dF766B8881df1a',
+        },
+        primaryType: 'Mint721',
+        message: {
+          '@type': 'ERC721',
+          contract: '0x219bd6D55d75CDf54De19eA4c5dF766B8881df1a',
+          tokenId: 'tokenId',
+          tokenURI: `/ipfs/${sessionStorage.getItem('ipfsHash')}`,
+          uri: `/ipfs/${sessionStorage.getItem('ipfsHash')}`,
+          creators: [
+            {
+              account: localStorage.getItem('account'),
+              value: '10000',
+            },
+          ],
+          royalties: [
+            {
+              account: localStorage.getItem('account'),
+              value: '2000',
+            },
+          ],
+        },
+      });
+      web3.currentProvider.sendAsync(
+        {
+          method: 'eth_signTypedData_v4',
+          params: [localStorage.getItem('account'), dataToSign],
+          from: localStorage.getItem('account'),
+        },
+        (err, result) => {
+          if (err) {
+            return console.error(err);
+          }
+          const signature = result.result.substring(2);
+          const r = `0x${signature}.substring(0, 64)`;
+          const s = `0x${signature}.substring(64, 128)`;
+          const v = parseInt(signature.substring(128, 130), 16);
+          // The signature is now comprised of r, s, and v.
+          console.log({ r, s, v });
+          localStorage.setItem('r', r);
+          localStorage.setItem('s', s);
+          localStorage.setItem('v', v);
+          return (r, s, v);
+        },
+      );
     },
     async onSubmit(CollectibleNftData) {
       this.isLoading = true;
-      let response = null;
+      // let response = null;
       try {
-        const { data } = await this.$api.CREATENFT(CollectibleNftData);
-        response = data;
+        // const { data } = await this.$api.CREATENFT(CollectibleNftData);
+        // response = data;
         console.log(CollectibleNftData);
       } catch (error) {
-        response = error.response.data;
-        console.log(response);
+        // response = error.response.data;
+        // console.log(response);
         this.isLoading = false;
       }
 
-      if (response?.success) {
-        // this.$store.dispatch('reset', response.data);
-        console.log('success', response.data);
-      } else {
-        // const { form } = this.$refs['collectible-nft'];
-        console.log(response.error);
-        document.getElementById('error').innerHTML = '*All fields are required';
-        document.getElementById('error').style.color = 'red';
-        // form.setFieldError('new_phone_code', response.error);
-        this.isLoading = false;
-      }
+      // if (response?.success) {
+      //   // this.$store.dispatch('reset', response.data);
+      //   console.log('success', response.data);
+      // } else {
+      //   // const { form } = this.$refs['collectible-nft'];
+      //   console.log(response.error);
+      //   document.getElementById('error').innerHTML = '*All fields are required';
+      //   document.getElementById('error').style.color = 'red';
+      //   // form.setFieldError('new_phone_code', response.error);
+      //   this.isLoading = false;
+      // }
     },
   },
 };

@@ -11,6 +11,10 @@
   "collectible": {
     "amount_label": "Amount",
     "amount_placeholder": "Enter price for one piece",
+    "auction_label": "Minimum Bid",
+    "auction_placeholder": "Enter minimum bid",
+    "auction_start_label": "Auction Start Date",
+    "auction_expiration_label": "Auction Expiration Date",
     "choose_collection_label": "Choose Collection",
     "create_button_text": "Create",
     "discription_label": "Description",
