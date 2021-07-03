@@ -1,8 +1,5 @@
 <template>
   <div class="container">
-    <BaseFrame
-      url="/wallet/connect"
-    />
     <div
       class="mt-2"
     >
@@ -11,14 +8,13 @@
         width="15"
       >
       <span>
-        0xa4fcd1ae1...4eac
+        {{ address.replace(address.substr(6, 32),'...') }}
       </span>
-      <div
-        class="flex"
-      >
+      <div class="flex">
         <BaseRoundButton
           class="btn-outline-primary btn-sm copy"
           :text="$t('wallet.copy')"
+          @click="copyAddress"
         />
         <router-link
           to="/wallet/connect"
@@ -35,16 +31,26 @@
 </template>
 <script>
 import Table from '@/components/Wallet/Table.vue';
-// import BaseFrame from './BaseFrame.vue';
 
 export default {
   name: 'NFT',
   components: { Table },
+  data() {
+    return {
+      address: '0x27706FD0b52D7daDE02f0a9D5f77800695e6067D',
+    };
+  },
+  methods: {
+    async copyAddress() {
+      await navigator.clipboard.writeText(this.address);
+    },
+  },
 };
 
 </script>
 <style scoped>
 .mt-2 {
+  align-items: center;
   display: flex;
   margin-top: 2rem;
 }
@@ -56,23 +62,26 @@ export default {
 
 .copy {
   height: 2rem;
-  margin-top: 1rem;
   width: 6rem;
 }
 
 .other-wallet {
   height: 2rem;
   margin-left: 0.5rem;
-  margin-top: 1rem;
 }
 
 .flex {
+  align-items: center;
   display: flex;
 }
 
 @media (max-width: 35em) {
   .mt-2 {
     display: block;
+  }
+
+  .flex {
+    margin-top: 1rem;
   }
 }
 </style>

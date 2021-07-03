@@ -39,7 +39,7 @@ import MetaMask from '@img/metamask.png';
 import coinBase from '@svg/coinbase.svg';
 import ConnectCard from '@/components/Wallet/ConnectCard.vue';
 import WalletLink from 'walletlink';
-import BaseFrame from './BaseFrame.vue';
+import BaseFrame from './ConnectFrame.vue';
 
 const Web3 = require('web3');
 
