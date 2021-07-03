@@ -14,6 +14,7 @@
           class="search-input"
           :placeholder="$t('components.search_placeholder')"
           type="text"
+          @keyup.enter="handleSearch"
         >
         <BaseRoundButton
           class="search-btn btn-primary btn-lg btn-bold"
