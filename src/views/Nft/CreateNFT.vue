@@ -203,7 +203,7 @@
 
 import UploadCard from '@/components/Nft/UploadCard.vue';
 // import WalletLink from 'walletlink';
-import Base from './BaseFrame.vue';
+// import Base from './BaseFrame.vue';
 // import { domain, Mint721, part } from '../../../signTypedData';
 
 const Web3 = require('web3');
@@ -222,7 +222,6 @@ const Web3 = require('web3');
 export default {
   name: 'CreateNFT',
   components: {
-    Base,
     UploadCard,
   },
   data() {
