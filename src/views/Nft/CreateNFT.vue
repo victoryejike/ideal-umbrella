@@ -1,20 +1,14 @@
 <template>
   <div class="create-nft-main">
-    <router-link
-      to="/nft"
-    >
-      <img
-        class="back-btn"
-        src="@svg/arrow-back.svg"
-      >
-    </router-link>
+    <BaseFrame
+      url="/nft"
+    />
     <Base
       :title="title"
     >
       <div id="error" />
       <BaseForm
         ref="collectible-nft"
-        v-slot="{ isLoading}"
         class="nft-form"
         @submit="onSubmit"
       >
@@ -203,7 +197,7 @@
 
 import UploadCard from '@/components/Nft/UploadCard.vue';
 // import WalletLink from 'walletlink';
-// import Base from './BaseFrame.vue';
+import Base from './BaseFrame.vue';
 // import { domain, Mint721, part } from '../../../signTypedData';
 
 const Web3 = require('web3');
@@ -222,6 +216,7 @@ const Web3 = require('web3');
 export default {
   name: 'CreateNFT',
   components: {
+    Base,
     UploadCard,
   },
   data() {
@@ -593,7 +588,7 @@ input:checked + .slider::before {
   margin-bottom: 2.5rem;
 }
 
-.show {
+.show{
   display: none;
 }
 

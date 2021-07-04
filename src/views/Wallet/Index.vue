@@ -7,8 +7,11 @@
         src="@svg/huobi.svg"
         width="15"
       >
-      <span>
-        {{ address.replace(address.substr(6, 32),'...') }}
+      <span v-if="account !== null">
+        {{ account }}
+      </span>
+      <span v-else>
+        0xa4fcd1ae1...4eac
       </span>
       <div class="flex">
         <BaseRoundButton
