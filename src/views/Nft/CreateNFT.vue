@@ -60,6 +60,7 @@
             <template #element>
               <BaseScrollableSelectBox
                 :css="selectBoxCSS"
+                key-name="name"
                 name="amountCoinType"
                 :options="coinList"
               />
@@ -74,6 +75,7 @@
             <template #element>
               <BaseScrollableSelectBox
                 :css="selectBoxCSS"
+                key-name="name"
                 name="receivedAmountCoinType"
                 :options="coinList"
               />
@@ -90,6 +92,7 @@
             <template #element>
               <BaseScrollableSelectBox
                 :css="selectBoxCSS"
+                key-name="name"
                 name="receivedBidCoinType"
                 :options="coinList"
               />
@@ -112,7 +115,7 @@
           v-model="collectible_class"
           class="input-div label"
           :default-selected="false"
-          key-name="code"
+          key-name="name"
           name="collectible_class"
           :options="collectibleList"
           :text="$t('collectible.choose_collection_label')"
@@ -139,6 +142,7 @@
         <div class="inline">
           <BaseScrollableSelectBox
             class="input-div label"
+            key-name="name"
             name="royalties[0].value"
             :options="royaltiesList"
             :text="$t('collectible.royalties_label')"
@@ -202,6 +206,7 @@
 <script>
 
 import UploadCard from '@/components/Nft/UploadCard.vue';
+import Base from '@/components/Nft/BaseFrame.vue';
 // import WalletLink from 'walletlink';
 // import Base from './BaseFrame.vue';
 // import { domain, Mint721, part } from '../../../signTypedData';
@@ -221,9 +226,7 @@ const Web3 = require('web3');
 
 export default {
   name: 'CreateNFT',
-  components: {
-    UploadCard,
-  },
+  components: { UploadCard, Base },
   data() {
     return {
       selectedSwitch: true,
