@@ -55,7 +55,7 @@
     />
     <div class="verified">
       <router-link
-        to="/"
+        to="/account/setting/id-verification"
       >
         {{ $t("edit_profile.need_verified_account") }}
       </router-link>

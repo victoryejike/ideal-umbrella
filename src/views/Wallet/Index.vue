@@ -1,6 +1,7 @@
 <template>
   <div class="container">
     <div
+      v-if="address"
       class="mt-2"
     >
       <img
