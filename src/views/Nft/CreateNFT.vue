@@ -724,15 +724,19 @@ export default {
     },
   },
   async mounted() {
-    let response = null;
-    try {
-      const { data } = await this.$api.GETCOLLECTIBLE(localStorage.getItem('account'));
-      response = data;
-      console.log(response);
-      this.collectible_class = response.data;
-      console.log(this.collectible_class);
-    } catch (error) {
-      response = error?.response?.data;
+    if (localStorage.getItem('account') === null || localStorage.getItem('account') === undefined) {
+      this.$router.push({ name: 'ConnectWallet' });
+    } else {
+      let response = null;
+      try {
+        const { data } = await this.$api.GETCOLLECTIBLE(localStorage.getItem('account'));
+        response = data;
+        console.log(response);
+        this.collectible_class = response.data;
+        console.log(this.collectible_class);
+      } catch (error) {
+        response = error?.response?.data;
+      }
     }
   },
   methods: {
@@ -1022,15 +1026,15 @@ input:checked + .slider::before {
   margin-bottom: 2.5rem;
 }
 
-.show{
+.show {
   display: none;
 }
 
-.modal-text{
-  text-align: center;
+.modal-text {
+  align-items: center;
   display: flex;
   justify-content: center;
-  align-items: center;
+  text-align: center;
 }
 
 .collection-text {

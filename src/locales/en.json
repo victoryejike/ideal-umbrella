@@ -208,6 +208,7 @@
     "creator": "Creator",
     "description": "Description",
     "highest_bid": "Highest Bid",
+    "price": "Price",
     "place_bid": "Place Bid",
     "read_more": "Read more",
     "tabs": {

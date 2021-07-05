@@ -1,8 +1,12 @@
 <template>
-  <div class="token-details">
+  <div
+    v-for="(item, index) in list"
+    :key="index"
+    class="token-details"
+  >
     <div class="display-token-image">
       <div class="token-text-div">
-        <span class="token-text">   {{ $t('nft_details.token_text') }}</span>
+        <span class="token-text">   {{ item.title }}</span>
         <div class="button-div">
           <BaseRoundButton
             class="btn-outline-secondary button btn-unclickable"
@@ -12,7 +16,7 @@
       </div>
       <img
         class="token-image"
-        src="@img/token-image.png"
+        :src="`https://ipfs.io/ipfs/${item.uri}`"
       >
     </div>
     <div class="display-token-details">
@@ -22,9 +26,10 @@
           <div class="creater-details">
             <img
               class="creater-image"
-              src="@img/default-avatar.png"
+              :src="item.owner.image"
+              width="40"
             >
-            <span class="creater-name">{{ creater.name }}</span>
+            <span class="creater-name">{{ item.owner.display_name }}</span>
             <img
               v-if="creater.verified"
               class="tick-icon"
@@ -35,7 +40,7 @@
           </div>
         </div>
         <div class="details-section">
-          <label>{{ $t('nft_details.highest_bid') }}</label>
+          <label>{{ $t('nft_details.price') }}</label>
           <div class="highest-bid-details">
             <img
               class="coins-icon"
@@ -44,7 +49,7 @@
               width="20"
             >
             <span class="coin">0.15 ETH</span>
-            <span class="coin-value">($479.45)</span>
+            <span class="coin-value">({{ item.price }})</span>
           </div>
         </div>
       </div>
@@ -52,12 +57,12 @@
       <div class="token-content details-section">
         <label> {{ $t('nft_details.description') }}</label>
         <div class="token-description">
-          {{ $t('nft_details.content') }}
+          {{ item.description }}
         </div>
-        <a
+        <!-- <a
           class="read-more"
           href=""
-        >{{ $t('nft_details.read_more') }}</a>
+        >{{ $t('nft_details.read_more') }}</a> -->
       </div>
       <BaseNavigationTab
         class="tab"
@@ -98,12 +103,12 @@
       <DetailsTab
         v-if="showDetails"
         :text="$t('nft_details.contact_details')"
-        :value="nftDetails.contactDetails"
+        :value="item.owner_address.slice(0, 15)+'...'"
       />
       <DetailsTab
         v-if="showDetails"
-        :id="nftDetails.tokenId"
-        :text="$t('nft_details.token_id')"
+        :id="item.price"
+        :text="$t('nft_details.price')"
       />
       <DetailsTab
         v-if="showDetails"
@@ -162,7 +167,7 @@ export default {
       showDetails: false,
       showHistory: false,
       isModalVisible: false,
-
+      list: '',
       tabTitleList: [
         {
           name: this.$t('nft_details.tabs.bids'),
@@ -236,7 +241,8 @@ export default {
     try {
       const { data } = await this.$api.GETNFTDETAILS(this.$route.params.id);
       response = data;
-      console.log(response);
+      this.list = [response.data];
+      console.log(this.list);
     } catch (error) {
       response = error?.response?.data;
     }
