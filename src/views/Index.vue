@@ -94,9 +94,9 @@ export default {
     return {
       popularList: Array(4).fill({
         id: 'V9pCCtpYT2fKHeXQjzwhCxXPTuyQEPID6oEJ',
-        avatar: 'avatar.png',
+        avatar: '',
         author: 'Otha Davis III - Abstract Test Display',
-        image: 'image.png',
+        image: '',
         name: 'Everydays - The First Crypto Art',
         price: 20.12412,
         verified: true,

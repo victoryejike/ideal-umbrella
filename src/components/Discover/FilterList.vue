@@ -15,6 +15,7 @@
 
 export default {
   name: 'FilterList',
+  emits: ['selected'],
   data() {
     return {
       filterBtn: [
@@ -32,6 +33,7 @@ export default {
       this.filterBtn[this.activeFilterIndex].isActive = false;
       this.filterBtn[index].isActive = true;
       this.activeFilterIndex = index;
+      this.$emit('selected', index);
     },
   },
 };
