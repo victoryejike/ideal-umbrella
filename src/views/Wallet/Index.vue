@@ -1,7 +1,6 @@
 <template>
   <div class="container">
     <div
-      v-if="address"
       class="mt-2"
     >
       <img
@@ -12,10 +11,11 @@
         {{ account }}
       </span>
       <span v-else>
-        0xa4fcd1ae1...4eac
+        Please Connect Wallet
       </span>
       <div class="flex">
         <BaseRoundButton
+          v-if="account"
           class="btn-outline-primary btn-sm copy"
           :text="$t('wallet.copy')"
           @click="copyAddress"
@@ -25,7 +25,7 @@
         >
           <BaseRoundButton
             class="btn-outline-primary btn-sm other-wallet"
-            :text="$t('wallet.other_waalet')"
+            :text="account ? $t('wallet.other_wallet') : $t('wallet.new_wallet')"
           />
         </router-link>
       </div>

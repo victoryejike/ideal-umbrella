@@ -231,6 +231,16 @@ export default {
       },
     };
   },
+  async mounted() {
+    let response = null;
+    try {
+      const { data } = await this.$api.GETNFTDETAILS(this.$route.params.id);
+      response = data;
+      console.log(response);
+    } catch (error) {
+      response = error?.response?.data;
+    }
+  },
   methods: {
     showModal() {
       this.isModalVisible = true;

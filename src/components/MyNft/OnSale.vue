@@ -4,17 +4,15 @@
       class="gridbox"
     >
       <BaseProductCard
-        v-for="(item, index) in list"
-        :id="item.id"
+        v-for="(item, index) in nft"
+        :id="item._id"
         :key="index"
-        :author="item.author"
-        :avatar="item.avatar"
+        avatar="avatar.png"
         class="gridbox-product-card"
         :css="cardCSS"
-        :image="item.image"
-        :name="item.name"
+        :image="`https://ipfs.io/ipfs/${item.uri}`"
+        :name="item.title"
         :price="item.price"
-        :verified="item.verified"
       />
     </div>
     <BaseRoundButton
@@ -39,12 +37,22 @@ export default {
         verified: true,
       }),
       cardCSS: { bgColor: null },
+      nft: '',
     };
   },
-  mounted() {
+  async mounted() {
     this.$global.handleResponsive(62.5,
       () => { this.cardCSS.size = 190; },
       () => { this.cardCSS.size = 140; });
+    let response = null;
+    try {
+      const { data } = await this.$api.GETOWNEDNFT(localStorage.getItem('account'));
+      response = data;
+      console.log(response);
+      this.nft = response.data;
+    } catch (error) {
+      response = error?.response?.data;
+    }
   },
 };
 </script>

@@ -101,17 +101,16 @@
           <BaseUnderlinedInput
             class="input-field"
             name="expiration_date"
-            :placeholder="$t('collectible.discription_placeholder')"
-            :text="$t('collectible.discription_label')"
+            :placeholder="$t('collectible.auction_expiration_placeholder')"
+            :text="$t('collectible.auction_expiration_label')"
           />
         </template>
         <BaseScrollableSelectBox
-          v-model="collectible_class"
           class="input-div label"
           :default-selected="false"
-          key-name="name"
-          name="collectible_class"
-          :options="collectibleList"
+          key-name="_id"
+          name="name"
+          :options="collectible_class"
           :text="$t('collectible.choose_collection_label')"
         />
         <BaseUnderlinedInput
@@ -136,11 +135,10 @@
         <div class="inline">
           <BaseScrollableSelectBox
             class="input-div label"
-            key-name="name"
+            key-name="value"
             name="royalties[0].value"
             :options="royaltiesList"
             :text="$t('collectible.royalties_label')"
-            @click="onSign"
           />
           <BaseUnderlinedInput
             v-model="value"
@@ -165,6 +163,13 @@
           :text="$t('collectible.discription_label')"
         />
         <BaseUnderlinedInput
+          v-model="value"
+          class="input-field show"
+          name="owner_address"
+          :placeholder="$t('collectible.discription_placeholder')"
+          :text="$t('collectible.discription_label')"
+        />
+        <BaseUnderlinedInput
           v-model="r"
           class="input-field show"
           name="signatures.r"
@@ -185,6 +190,16 @@
           :placeholder="$t('collectible.discription_placeholder')"
           :text="$t('collectible.discription_label')"
         />
+        <BaseModal
+          v-show="isModalVisible"
+          @close="closeModal"
+        >
+          <template #body>
+            <h4 class="modal-text">
+              Mint Successful!
+            </h4>
+          </template>
+        </BaseModal>
         <div>
           <BaseRoundButton
             class="btn-primary btn-md btn-bold"
@@ -201,35 +216,32 @@
 
 import UploadCard from '@/components/Nft/UploadCard.vue';
 import Base from '@/components/Nft/BaseFrame.vue';
-// import WalletLink from 'walletlink';
-import Base from './BaseFrame.vue';
+import WalletLink from 'walletlink';
+import WalletConnectProvider from '@walletconnect/web3-provider';
+// import Base from './BaseFrame.vue';
 // import { domain, Mint721, part } from '../../../signTypedData';
 
 const Web3 = require('web3');
 
-// const APP_NAME = 'Naffiti';
-// const APP_LOGO_URL = 'https://example.com/logo.png';
-// const ETH_JSONRPC_URL = 'https://mainnet.infura.io/v3/<YOUR_INFURA_API_KEY>';
-// const CHAIN_ID = 1;
-// // Initialize WalletLink
-// export const walletLink = new WalletLink({
-//   appName: APP_NAME,
-//   appLogoUrl: APP_LOGO_URL,
-//   darkMode: false,
-// });
+const ipfs = require('nano-ipfs-store').at('https://ipfs.infura.io:5001');
+
+const APP_NAME = 'Naffiti';
+const APP_LOGO_URL = 'https://example.com/logo.png';
+const ETH_JSONRPC_URL = 'https://ropsten.infura.io/v3/58bf1103531f4b858b31eb3c5c4ddd2f';
+const CHAIN_ID = 3;
+// Initialize WalletLink
+export const walletLink = new WalletLink({
+  appName: APP_NAME,
+  appLogoUrl: APP_LOGO_URL,
+  darkMode: false,
+});
 
 export default {
   name: 'CreateNFT',
-<<<<<<< HEAD
-  components: {
-    Base,
-    UploadCard,
-  },
-=======
   components: { UploadCard, Base },
->>>>>>> 1a0940c8365e055ea902cfbc3005a8b41aa9ee25
   data() {
     return {
+      isModalVisible: false,
       selectedSwitch: true,
       pricingType: 'FIXED PRICE',
       coinList: [
@@ -250,90 +262,446 @@ export default {
         this.$t('collectible.tab.unlimited_auction'),
       ],
       royaltiesList: [
-        { name: '10 %' },
-        { name: '20 %' },
-        { name: '30 %' },
+        { name: '10 %', value: '1000' },
+        { name: '20 %', value: '2000' },
+        { name: '30 %', value: '3000' },
       ],
       selectBoxCSS: { width: 10 },
       uri: sessionStorage.getItem('ipfsHash'),
       value: localStorage.getItem('account'),
-      collectible_class: 'ERC-721',
+      collectible_class: '',
       tokenId: '',
       receivedAmount: '',
       pricing_type: 'fixed',
       r: localStorage.getItem('r'),
       s: localStorage.getItem('s'),
       v: localStorage.getItem('v'),
-      contractAddress: '0x219bd6D55d75CDf54De19eA4c5dF766B8881df1a',
-      abi: {
-        inputs: [
-          {
-            components: [
-              {
-                internalType: 'uint256',
-                name: 'tokenId',
-                type: 'uint256',
-              },
-              {
-                internalType: 'string',
-                name: 'uri',
-                type: 'string',
-              },
-              {
-                components: [
-                  {
-                    internalType: 'address payable',
-                    name: 'account',
-                    type: 'address',
-                  },
-                  {
-                    internalType: 'uint256',
-                    name: 'value',
-                    type: 'uint256',
-                  },
-                ],
-                internalType: 'struct LibPart.Part[]',
-                name: 'creators',
-                type: 'tuple[]',
-              },
-              {
-                components: [
-                  {
-                    internalType: 'address payable',
-                    name: 'account',
-                    type: 'address',
-                  },
-                  {
-                    internalType: 'uint256',
-                    name: 'value',
-                    type: 'uint256',
-                  },
-                ],
-                internalType: 'struct LibPart.Part[]',
-                name: 'royalties',
-                type: 'tuple[]',
-              },
-              {
-                internalType: 'bytes[]',
-                name: 'signatures',
-                type: 'bytes[]',
-              },
-            ],
-            internalType: 'struct LibERC721LazyMint.Mint721Data',
-            name: 'data',
-            type: 'tuple',
-          },
-          {
-            internalType: 'address',
-            name: 'to',
-            type: 'address',
-          },
-        ],
-        name: 'mintAndTransfer',
-        outputs: [],
-        stateMutability: 'nonpayable',
-        type: 'function',
-      },
+      contractAddress: '0xDEa7Bec0EC439e7b5978b8C55Aa247AEcfc7a259',
+      abi: [
+        {
+          inputs: [],
+          stateMutability: 'nonpayable',
+          type: 'constructor',
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: 'address',
+              name: 'owner',
+              type: 'address',
+            },
+            {
+              indexed: true,
+              internalType: 'address',
+              name: 'approved',
+              type: 'address',
+            },
+            {
+              indexed: true,
+              internalType: 'uint256',
+              name: 'tokenId',
+              type: 'uint256',
+            },
+          ],
+          name: 'Approval',
+          type: 'event',
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: 'address',
+              name: 'owner',
+              type: 'address',
+            },
+            {
+              indexed: true,
+              internalType: 'address',
+              name: 'operator',
+              type: 'address',
+            },
+            {
+              indexed: false,
+              internalType: 'bool',
+              name: 'approved',
+              type: 'bool',
+            },
+          ],
+          name: 'ApprovalForAll',
+          type: 'event',
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: 'address',
+              name: 'from',
+              type: 'address',
+            },
+            {
+              indexed: true,
+              internalType: 'address',
+              name: 'to',
+              type: 'address',
+            },
+            {
+              indexed: true,
+              internalType: 'uint256',
+              name: 'tokenId',
+              type: 'uint256',
+            },
+          ],
+          name: 'Transfer',
+          type: 'event',
+        },
+        {
+          inputs: [
+            {
+              internalType: 'address',
+              name: 'to',
+              type: 'address',
+            },
+            {
+              internalType: 'uint256',
+              name: 'tokenId',
+              type: 'uint256',
+            },
+          ],
+          name: 'approve',
+          outputs: [],
+          stateMutability: 'nonpayable',
+          type: 'function',
+        },
+        {
+          inputs: [
+            {
+              internalType: 'address',
+              name: 'owner',
+              type: 'address',
+            },
+          ],
+          name: 'balanceOf',
+          outputs: [
+            {
+              internalType: 'uint256',
+              name: '',
+              type: 'uint256',
+            },
+          ],
+          stateMutability: 'view',
+          type: 'function',
+        },
+        {
+          inputs: [],
+          name: 'baseURI',
+          outputs: [
+            {
+              internalType: 'string',
+              name: '',
+              type: 'string',
+            },
+          ],
+          stateMutability: 'view',
+          type: 'function',
+        },
+        {
+          inputs: [
+            {
+              internalType: 'string',
+              name: 'tokenURI',
+              type: 'string',
+            },
+          ],
+          name: 'mint',
+          outputs: [
+            {
+              internalType: 'uint256',
+              name: '',
+              type: 'uint256',
+            },
+          ],
+          stateMutability: 'nonpayable',
+          type: 'function',
+        },
+        {
+          inputs: [
+            {
+              internalType: 'uint256',
+              name: 'tokenId',
+              type: 'uint256',
+            },
+          ],
+          name: 'getApproved',
+          outputs: [
+            {
+              internalType: 'address',
+              name: '',
+              type: 'address',
+            },
+          ],
+          stateMutability: 'view',
+          type: 'function',
+        },
+        {
+          inputs: [
+            {
+              internalType: 'address',
+              name: 'owner',
+              type: 'address',
+            },
+            {
+              internalType: 'address',
+              name: 'operator',
+              type: 'address',
+            },
+          ],
+          name: 'isApprovedForAll',
+          outputs: [
+            {
+              internalType: 'bool',
+              name: '',
+              type: 'bool',
+            },
+          ],
+          stateMutability: 'view',
+          type: 'function',
+        },
+        {
+          inputs: [],
+          name: 'name',
+          outputs: [
+            {
+              internalType: 'string',
+              name: '',
+              type: 'string',
+            },
+          ],
+          stateMutability: 'view',
+          type: 'function',
+        },
+        {
+          inputs: [
+            {
+              internalType: 'uint256',
+              name: 'tokenId',
+              type: 'uint256',
+            },
+          ],
+          name: 'ownerOf',
+          outputs: [
+            {
+              internalType: 'address',
+              name: '',
+              type: 'address',
+            },
+          ],
+          stateMutability: 'view',
+          type: 'function',
+        },
+        {
+          inputs: [
+            {
+              internalType: 'address',
+              name: 'from',
+              type: 'address',
+            },
+            {
+              internalType: 'address',
+              name: 'to',
+              type: 'address',
+            },
+            {
+              internalType: 'uint256',
+              name: 'tokenId',
+              type: 'uint256',
+            },
+          ],
+          name: 'TransferFrom',
+          outputs: [],
+          stateMutability: 'nonpayable',
+          type: 'function',
+        },
+        {
+          inputs: [
+            {
+              internalType: 'address',
+              name: 'from',
+              type: 'address',
+            },
+            {
+              internalType: 'address',
+              name: 'to',
+              type: 'address',
+            },
+            {
+              internalType: 'uint256',
+              name: 'tokenId',
+              type: 'uint256',
+            },
+            {
+              internalType: 'bytes',
+              name: '_data',
+              type: 'bytes',
+            },
+          ],
+          name: 'TransferFrom',
+          outputs: [],
+          stateMutability: 'nonpayable',
+          type: 'function',
+        },
+        {
+          inputs: [
+            {
+              internalType: 'address',
+              name: 'operator',
+              type: 'address',
+            },
+            {
+              internalType: 'bool',
+              name: 'approved',
+              type: 'bool',
+            },
+          ],
+          name: 'setApprovalForAll',
+          outputs: [],
+          stateMutability: 'nonpayable',
+          type: 'function',
+        },
+        {
+          inputs: [
+            {
+              internalType: 'bytes4',
+              name: 'interfaceId',
+              type: 'bytes4',
+            },
+          ],
+          name: 'supportsInterface',
+          outputs: [
+            {
+              internalType: 'bool',
+              name: '',
+              type: 'bool',
+            },
+          ],
+          stateMutability: 'view',
+          type: 'function',
+        },
+        {
+          inputs: [],
+          name: 'symbol',
+          outputs: [
+            {
+              internalType: 'string',
+              name: '',
+              type: 'string',
+            },
+          ],
+          stateMutability: 'view',
+          type: 'function',
+        },
+        {
+          inputs: [
+            {
+              internalType: 'uint256',
+              name: 'index',
+              type: 'uint256',
+            },
+          ],
+          name: 'tokenByIndex',
+          outputs: [
+            {
+              internalType: 'uint256',
+              name: '',
+              type: 'uint256',
+            },
+          ],
+          stateMutability: 'view',
+          type: 'function',
+        },
+        {
+          inputs: [
+            {
+              internalType: 'address',
+              name: 'owner',
+              type: 'address',
+            },
+            {
+              internalType: 'uint256',
+              name: 'index',
+              type: 'uint256',
+            },
+          ],
+          name: 'tokenOfOwnerByIndex',
+          outputs: [
+            {
+              internalType: 'uint256',
+              name: '',
+              type: 'uint256',
+            },
+          ],
+          stateMutability: 'view',
+          type: 'function',
+        },
+        {
+          inputs: [
+            {
+              internalType: 'uint256',
+              name: 'tokenId',
+              type: 'uint256',
+            },
+          ],
+          name: 'tokenURI',
+          outputs: [
+            {
+              internalType: 'string',
+              name: '',
+              type: 'string',
+            },
+          ],
+          stateMutability: 'view',
+          type: 'function',
+        },
+        {
+          inputs: [],
+          name: 'totalSupply',
+          outputs: [
+            {
+              internalType: 'uint256',
+              name: '',
+              type: 'uint256',
+            },
+          ],
+          stateMutability: 'view',
+          type: 'function',
+        },
+        {
+          inputs: [
+            {
+              internalType: 'address',
+              name: 'from',
+              type: 'address',
+            },
+            {
+              internalType: 'address',
+              name: 'to',
+              type: 'address',
+            },
+            {
+              internalType: 'uint256',
+              name: 'tokenId',
+              type: 'uint256',
+            },
+          ],
+          name: 'transferFrom',
+          outputs: [],
+          stateMutability: 'nonpayable',
+          type: 'function',
+        },
+      ],
     };
   },
   computed: {
@@ -354,6 +722,18 @@ export default {
       }
       return null;
     },
+  },
+  async mounted() {
+    let response = null;
+    try {
+      const { data } = await this.$api.GETCOLLECTIBLE(localStorage.getItem('account'));
+      response = data;
+      console.log(response);
+      this.collectible_class = response.data;
+      console.log(this.collectible_class);
+    } catch (error) {
+      response = error?.response?.data;
+    }
   },
   methods: {
     toggleSwitch() {
@@ -378,136 +758,181 @@ export default {
         }
       });
     },
-    onSign() {
-    // const ethereum = walletLink.makeWeb3Provider(ETH_JSONRPC_URL, CHAIN_ID);
-      const metamask = window.ethereum;
-      // const isMetamask = window.Web3.currentProvider;
-      // console.log(isMetamask);
-      const web3 = new Web3(metamask);
-      console.log(web3);
-      const dataToSign = JSON.stringify({
-        types: {
-          EIP712Domain: [
-            {
-              name: 'name',
-              type: 'string',
-            },
-            {
-              name: 'version',
-              type: 'string',
-            },
-            {
-              name: 'chainId',
-              type: 'uint256',
-            },
-            {
-              name: 'verifyingContract',
-              type: 'address',
-            },
-          ],
-          Mint721: [
-            {
-              name: 'tokenId',
-              type: 'uint256',
-            },
-            {
-              name: 'tokenURI',
-              type: 'string',
-            },
-            {
-              name: 'creators',
-              type: 'Part[]',
-            },
-            {
-              name: 'royalties',
-              type: 'Part[]',
-            },
-          ],
-          Part: [
-            {
-              name: 'account',
-              type: 'address',
-            },
-            {
-              name: 'value',
-              type: 'uint96',
-            },
-          ],
-        },
-        domain: {
-          name: 'Naffiti',
-          version: '1',
-          chainId: '3',
-          verifyingContract: '0x219bd6D55d75CDf54De19eA4c5dF766B8881df1a',
-        },
-        primaryType: 'Mint721',
-        message: {
-          '@type': 'ERC721',
-          contract: '0x219bd6D55d75CDf54De19eA4c5dF766B8881df1a',
-          tokenId: 'tokenId',
-          tokenURI: `/ipfs/${sessionStorage.getItem('ipfsHash')}`,
-          uri: `/ipfs/${sessionStorage.getItem('ipfsHash')}`,
-          creators: [
-            {
-              account: localStorage.getItem('account'),
-              value: '10000',
-            },
-          ],
-          royalties: [
-            {
-              account: localStorage.getItem('account'),
-              value: '2000',
-            },
-          ],
-        },
-      });
-      web3.currentProvider.sendAsync(
-        {
-          method: 'eth_signTypedData_v4',
-          params: [localStorage.getItem('account'), dataToSign],
-          from: localStorage.getItem('account'),
-        },
-        (err, result) => {
-          if (err) {
-            return console.error(err);
-          }
-          const signature = result.result.substring(2);
-          const r = `0x${signature}.substring(0, 64)`;
-          const s = `0x${signature}.substring(64, 128)`;
-          const v = parseInt(signature.substring(128, 130), 16);
-          // The signature is now comprised of r, s, and v.
-          console.log({ r, s, v });
-          localStorage.setItem('r', r);
-          localStorage.setItem('s', s);
-          localStorage.setItem('v', v);
-          return (r, s, v);
-        },
-      );
+    // onSign() {
+    // // const ethereum = walletLink.makeWeb3Provider(ETH_JSONRPC_URL, CHAIN_ID);
+    //   const metamask = window.ethereum;
+    //   // const isMetamask = window.Web3.currentProvider;
+    //   // console.log(isMetamask);
+    //   const web3 = new Web3(metamask);
+    //   console.log(web3);
+    //   const dataToSign = JSON.stringify({
+    //     types: {
+    //       EIP712Domain: [
+    //         {
+    //           name: 'name',
+    //           type: 'string',
+    //         },
+    //         {
+    //           name: 'version',
+    //           type: 'string',
+    //         },
+    //         {
+    //           name: 'chainId',
+    //           type: 'uint256',
+    //         },
+    //         {
+    //           name: 'verifyingContract',
+    //           type: 'address',
+    //         },
+    //       ],
+    //       Mint721: [
+    //         {
+    //           name: 'tokenId',
+    //           type: 'uint256',
+    //         },
+    //         {
+    //           name: 'tokenURI',
+    //           type: 'string',
+    //         },
+    //         {
+    //           name: 'creators',
+    //           type: 'Part[]',
+    //         },
+    //         {
+    //           name: 'royalties',
+    //           type: 'Part[]',
+    //         },
+    //       ],
+    //       Part: [
+    //         {
+    //           name: 'account',
+    //           type: 'address',
+    //         },
+    //         {
+    //           name: 'value',
+    //           type: 'uint96',
+    //         },
+    //       ],
+    //     },
+    //     domain: {
+    //       name: 'Naffiti',
+    //       version: '1',
+    //       chainId: '3',
+    //       verifyingContract: '0x219bd6D55d75CDf54De19eA4c5dF766B8881df1a',
+    //     },
+    //     primaryType: 'Mint721',
+    //     message: {
+    //       '@type': 'ERC721',
+    //       contract: '0x219bd6D55d75CDf54De19eA4c5dF766B8881df1a',
+    //       tokenId: 'tokenId',
+    //       tokenURI: `/ipfs/${sessionStorage.getItem('ipfsHash')}`,
+    //       uri: `/ipfs/${sessionStorage.getItem('ipfsHash')}`,
+    //       creators: [
+    //         {
+    //           account: localStorage.getItem('account'),
+    //           value: '10000',
+    //         },
+    //       ],
+    //       royalties: [
+    //         {
+    //           account: localStorage.getItem('account'),
+    //           value: '2000',
+    //         },
+    //       ],
+    //     },
+    //   });
+    //   web3.currentProvider.sendAsync(
+    //     {
+    //       method: 'eth_signTypedData_v4',
+    //       params: [localStorage.getItem('account'), dataToSign],
+    //       from: localStorage.getItem('account'),
+    //     },
+    //     (err, result) => {
+    //       if (err) {
+    //         return console.error(err);
+    //       }
+    //       const signature = result.result.substring(2);
+    //       const r = `0x${signature}.substring(0, 64)`;
+    //       const s = `0x${signature}.substring(64, 128)`;
+    //       const v = parseInt(signature.substring(128, 130), 16);
+    //       // The signature is now comprised of r, s, and v.
+    //       console.log({ r, s, v });
+    //       localStorage.setItem('r', r);
+    //       localStorage.setItem('s', s);
+    //       localStorage.setItem('v', v);
+    //       return (r, s, v);
+    //     },
+    //   );
+    // },
+    closeModal() {
+      this.isModalVisible = false;
     },
     async onSubmit(CollectibleNftData) {
       this.isLoading = true;
-      // let response = null;
-      try {
-        // const { data } = await this.$api.CREATENFT(CollectibleNftData);
-        // response = data;
-        console.log(CollectibleNftData);
-      } catch (error) {
-        // response = error.response.data;
-        // console.log(response);
-        this.isLoading = false;
-      }
+      let response = null;
+      const mint = async (provider) => {
+        const web3 = new Web3(provider);
+        const contract = new web3.eth.Contract(this.abi, this.contractAddress);
+        console.log(contract);
+        const desc = document.querySelectorAll('.description')[1].value;
+        const title = document.querySelectorAll('.title')[1].value;
+        const ipfsHash = `https://ipfs.io/ipfs/${sessionStorage.getItem('ipfsHash')}`;
+        console.log(ipfsHash, desc, title);
+        const metadata = {
+          description: desc,
+          name: title,
+          image: ipfsHash,
+        };
+        const doc = JSON.stringify({ metadata });
+        const cid = await ipfs.add(doc);
+        console.log('IPFS cid:', `https://${cid}.ipfs.dweb.link`);
+        console.log(await ipfs.cat(cid));
+        try {
+          contract.methods.mint(`https://${cid}.ipfs.dweb.link`).send({ from: localStorage.getItem('account') }).on('transactionHash', (hash) => {
+            console.log(hash);
+            this.isLoading = false;
+            // this.isModalVisible = true;
+            contract.methods.setApprovalForAll('0x560c6067b94048F92Bd89e44D205c3597A4fe82E', true).send({ from: localStorage.getItem('account') }).on('transactionHash', (hash2) => {
+              console.log(hash2);
+            });
+          });
+          this.isModalVisible = true;
+          const { data } = await this.$api.CREATENFT(CollectibleNftData);
+          response = data;
+          // console.log(CollectibleNftData);
+        } catch (error) {
+          response = error.response.data;
+          console.log(error);
+          this.isLoading = false;
+          this.isModalVisible = false;
+        }
 
-      // if (response?.success) {
-      //   // this.$store.dispatch('reset', response.data);
-      //   console.log('success', response.data);
-      // } else {
-      //   // const { form } = this.$refs['collectible-nft'];
-      //   console.log(response.error);
-      //   document.getElementById('error').innerHTML = '*All fields are required';
-      //   document.getElementById('error').style.color = 'red';
-      //   // form.setFieldError('new_phone_code', response.error);
-      //   this.isLoading = false;
-      // }
+        if (response?.success) {
+          // this.$store.dispatch('reset', response.data);
+          console.log('success', response.data);
+        } else {
+          const { form } = this.$refs['collectible-nft'];
+          console.log(response.error);
+          document.getElementById('error').innerHTML = '*All fields are required';
+          document.getElementById('error').style.color = 'red';
+          form.setFieldError('title', response.error);
+          this.isLoading = false;
+        }
+      };
+      const obj = JSON.parse(localStorage.getItem('walletconnect'));
+      // console.log(obj.accounts[0]);
+      if (obj === (localStorage.getItem('account'))) {
+        const provider = new WalletConnectProvider({
+          infuraId: '58bf1103531f4b858b31eb3c5c4ddd2f',
+        });
+        mint(provider);
+      } else if ((localStorage.getItem('-walletlink:https://www.walletlink.org:Addresses')) === (localStorage.getItem('account'))) {
+        const ethereum = walletLink.makeWeb3Provider(ETH_JSONRPC_URL, CHAIN_ID);
+        mint(ethereum);
+      } else {
+        const metamask = window.ethereum;
+        mint(metamask);
+      }
     },
   },
 };
@@ -599,6 +1024,13 @@ input:checked + .slider::before {
 
 .show{
   display: none;
+}
+
+.modal-text{
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .collection-text {

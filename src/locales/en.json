@@ -13,7 +13,9 @@
     "amount_placeholder": "Enter price for one piece",
     "auction_label": "Minimum Bid",
     "auction_placeholder": "Enter minimum bid",
+    "auction_start_placeholder": "Enter Auction Start Date",
     "auction_start_label": "Auction Start Date",
+    "auction_expiration_placeholder": "Enter Auction Expiration Date",
     "auction_expiration_label": "Auction Expiration Date",
     "choose_collection_label": "Choose Collection",
     "create_button_text": "Create",
@@ -342,6 +344,7 @@
   "wallet": {
     "address": "0xa4fcd1ae1...4eac",
     "copy": " Copy",
-    "other_waalet": "Connect Other Wallet"
+    "other_wallet": "Connect Other Wallet",
+    "new_wallet": "Connect Wallet"
   }
 }
