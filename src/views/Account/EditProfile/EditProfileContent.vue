@@ -91,7 +91,11 @@ export default {
         this.avatarURL = response?.data?.image; // Temporarily implementation, for demo
         if (response.data.display_name !== undefined) {
           document.querySelector('input[name=display_name]').value = response.data.display_name;
+        }
+        if (response.data.about !== undefined) {
           document.querySelector('input[name=about]').value = response.data.about;
+        }
+        if (response.data.portfolio_link !== undefined) {
           document.querySelector('input[name=portfolio_link]').value = response.data.portfolio_link;
         }
       } else {
