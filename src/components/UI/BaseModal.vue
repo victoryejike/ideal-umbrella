@@ -2,7 +2,6 @@
   <Transition name="modal-fade">
     <div
       class="modal-backdrop"
-      @click="close"
     >
       <img
         class="close-icon "

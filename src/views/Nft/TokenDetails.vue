@@ -1,12 +1,12 @@
 <template>
   <div
-    v-for="(item, index) in list"
+    v-for="(nft, index) in getNftDetails"
     :key="index"
     class="token-details"
   >
     <div class="display-token-image">
       <div class="token-text-div">
-        <span class="token-text">   {{ item.title }}</span>
+        <span class="token-text">   {{ nft.title }}</span>
         <div class="button-div">
           <BaseRoundButton
             class="btn-outline-secondary button btn-unclickable"
@@ -16,7 +16,7 @@
       </div>
       <img
         class="token-image"
-        :src="`https://ipfs.io/ipfs/${item.uri}`"
+        :src="`https://ipfs.io/ipfs/${nft.uri}`"
       >
     </div>
     <div class="display-token-details">
@@ -26,10 +26,10 @@
           <div class="creater-details">
             <img
               class="creater-image"
-              :src="item.owner.image"
+              :src="nft.owner.image"
               width="40"
             >
-            <span class="creater-name">{{ item.owner.display_name }}</span>
+            <span class="creater-name">{{ nft.owner.display_name }}</span>
             <img
               v-if="creater.verified"
               class="tick-icon"
@@ -40,7 +40,8 @@
           </div>
         </div>
         <div class="details-section">
-          <label>{{ $t('nft_details.price') }}</label>
+          <label v-if="nft.pricing_type=='fixed'">{{ $t('nft_details.price') }}</label>
+          <label v-else>{{ $t('nft_details.highest_bid') }}</label>
           <div class="highest-bid-details">
             <img
               class="coins-icon"
@@ -48,8 +49,10 @@
               src="@svg/huobi-token.svg"
               width="20"
             >
-            <span class="coin">0.15 ETH</span>
-            <span class="coin-value">({{ item.price }})</span>
+            <span
+              v-if="nft.pricing_type=='fixed'"
+              class="coin"
+            >{{ nft.price }} ETH</span>
           </div>
         </div>
       </div>
@@ -57,7 +60,7 @@
       <div class="token-content details-section">
         <label> {{ $t('nft_details.description') }}</label>
         <div class="token-description">
-          {{ item.description }}
+          {{ nft.description }}
         </div>
         <!-- <a
           class="read-more"
@@ -65,8 +68,9 @@
         >{{ $t('nft_details.read_more') }}</a> -->
       </div>
       <BaseNavigationTab
+        v-if="nft.pricing_type=='fixed'"
         class="tab"
-        :list="tabTitleList"
+        :list="tabFixedNft"
         :width="10"
       />
 
@@ -103,20 +107,22 @@
       <DetailsTab
         v-if="showDetails"
         :text="$t('nft_details.contact_details')"
-        :value="item.owner_address.slice(0, 15)+'...'"
+        :value="nft.owner_address.slice(0, 15)+'...'"
       />
       <DetailsTab
         v-if="showDetails"
-        :id="item.price"
+        :id="nft.price"
         :text="$t('nft_details.price')"
       />
       <DetailsTab
         v-if="showDetails"
-        :id="nftDetails.blockchain"
         :text="$t('nft_details.blockchain')"
+        :value="nft.blockchain"
       />
 
-      <HistoryTab v-if="showHistory" />
+      <HistoryTab
+        v-if="showHistory"
+      />
       <div class="actions">
         <BaseRoundButton
           class="buy-button btn-primary btn-md btn-bold"
@@ -167,7 +173,25 @@ export default {
       showDetails: false,
       showHistory: false,
       isModalVisible: false,
-      list: '',
+      getNftDetails: [],
+      tabFixedNft: [
+        {
+          name: this.$t('nft_details.tabs.details'),
+          handler: () => {
+            this.showBids = false;
+            this.showDetails = true;
+            this.showHistory = false;
+          },
+        },
+        {
+          name: this.$t('nft_details.tabs.history'),
+          handler: () => {
+            this.showBids = false;
+            this.showDetails = false;
+            this.showHistory = true;
+          },
+        },
+      ],
       tabTitleList: [
         {
           name: this.$t('nft_details.tabs.bids'),
@@ -241,8 +265,13 @@ export default {
     try {
       const { data } = await this.$api.GETNFTDETAILS(this.$route.params.id);
       response = data;
-      this.list = [response.data];
-      console.log(this.list);
+      this.getNftDetails = [response.data];
+      if (this.getNftDetails[0].pricing_type === 'fixed') {
+        this.showBids = false;
+        this.showDetails = true;
+        this.showHistory = false;
+      }
+      console.log('list', this.getNftDetails);
     } catch (error) {
       response = error?.response?.data;
     }
@@ -276,10 +305,6 @@ export default {
   font-size: 1.625em;
   font-weight: bold;
   line-height: 150%;
-}
-
-.button-div {
-  margin: auto;
 }
 
 .token-image {
