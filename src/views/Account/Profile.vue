@@ -84,7 +84,7 @@ export default {
       }
 
       if (response?.success) {
-        this.username = response?.data?.display_name || 'Chris Torres';
+        this.username = response?.data?.display_name;
         this.profile = response?.data?.image;
       } else {
         //

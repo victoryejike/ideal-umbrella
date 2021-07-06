@@ -63,6 +63,9 @@ export default {
 </script>
 
 <style scoped>
+.container {
+  overflow-anchor: none;
+}
 
 .discover-banner {
   background-image: url('~@img/banner-bg.png');

@@ -1,11 +1,14 @@
 <template>
-  <div class="gridbox-root">
-    <FilterList />
+  <div
+    ref="gridbox-root"
+    class="gridbox-root"
+  >
+    <FilterList @selected="handleSelected" />
     <div
       class="gridbox"
     >
       <BaseProductCard
-        v-for="(item, index) in list"
+        v-for="(item, index) in activeList"
         :id="item.id"
         :key="index"
         :author="item.author"
@@ -18,14 +21,23 @@
         :verified="item.verified"
       />
     </div>
+    <div
+      v-if="isPageLoading"
+      class="page-loading"
+    >
+      <img
+        height="128"
+        src="@svg/loading.svg"
+        width="128"
+      >
+    </div>
     <BaseRoundButton
+      v-if="!isAutoLoad"
       class="load-more-btn btn-outline-primary btn-xl"
-      :icon="isLoading ? 'transparent-loading' : null"
-      :style="isAutoLoad ? 'display:none' : null"
-      :text="isLoading ? null : $t('index_screen.more')"
-      @click="loadMore"
+      :icon="isBtnLoading ? 'transparent-loading' : null"
+      :text="isBtnLoading ? null : $t('index_screen.more')"
+      @click="handleClick"
     />
-    <div v-if="loadMore" />
   </div>
 </template>
 
@@ -40,41 +52,64 @@ export default {
   },
   data() {
     return {
-      isLoading: false,
+      isBtnLoading: false,
+      isPageLoading: true,
       isAutoLoad: false,
-      list: Array(this.number).fill({
-        id: 'V3isglWtYb5qIy24QbTJeoJjuV35fEDd0RoL',
-        avatar: 'avatar.png',
-        author: 'Otha Davis III',
-        image: 'image.png',
-        name: 'Crypto Mask',
-        price: 67.456,
-        verified: true,
-      }),
+      activeIndex: 0,
       cardCSS: { bgColor: null },
+      list: [[], [], [], [], []],
     };
+  },
+  computed: {
+    activeList() {
+      return this.list[this.activeIndex];
+    },
   },
   mounted() {
     this.$global.handleResponsive(62.5,
       () => { this.cardCSS.size = 190; },
       () => { this.cardCSS.size = 140; });
+    this.loadMore();
   },
   methods: {
-    loadMore() {
-      this.isLoading = true;
+    handleClick() {
+      this.isBtnLoading = true;
+      this.loadMore();
       setTimeout(() => {
-        this.list.push(...Array(this.number).fill({
+        this.isBtnLoading = false;
+        this.isAutoLoad = true;
+        window.addEventListener('scroll', this.autoLoad);
+      }, 1100);
+    },
+    loadMore() {
+      // TODO: Call API
+      setTimeout(() => {
+        this.list[this.activeIndex].push(...Array(this.number).fill({
           id: 'V3isglWtYb5qIy24QbTJeoJjuV35fEDd0RoL',
-          avatar: 'avatar.png',
+          avatar: '',
           author: 'Otha Davis III',
-          image: 'image.png',
+          image: '',
           name: 'Crypto Mask',
           price: 67.456,
           verified: true,
         }));
-        this.isLoading = false;
-        this.isAutoLoad = true;
-      }, 500);
+        this.isPageLoading = false;
+      }, 1000);
+    },
+    handleSelected(index) {
+      this.activeIndex = index;
+      if (this.list[index].length === 0) {
+        this.isPageLoading = true;
+        this.isAutoLoad = false;
+        this.loadMore();
+        window.removeEventListener('scroll', this.autoLoad);
+      }
+    },
+    autoLoad() {
+      if (!this.isPageLoading && this.$refs['gridbox-root'].getBoundingClientRect().bottom < window.innerHeight) {
+        this.isPageLoading = true;
+        this.loadMore();
+      }
     },
   },
 };
@@ -92,6 +127,13 @@ export default {
 
 .gridbox-product-card {
   margin-top: 0.3rem;
+}
+
+.page-loading {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 5rem;
+  margin-top: 5rem;
 }
 
 .load-more-btn {
