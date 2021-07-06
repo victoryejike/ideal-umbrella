@@ -14,6 +14,7 @@
     </div>
   </div>
   <BaseForm
+    ref="bid-form"
     class="bid-form"
     @submit="onSubmit"
   >
@@ -116,6 +117,7 @@ export default {
   },
   methods: {
     async onSubmit(formData) {
+      this.isLoading = true;
       let response = null;
       try {
         const { data } = await this.$api.CREATEBIDS(formData);
@@ -125,9 +127,12 @@ export default {
       }
 
       if (response?.success) {
-        console.log(response);
+        // location.reload();
+        this.$router.go();
       } else {
-        //
+        const { form } = this.$refs['bid-form'];
+        form.setFieldError('amount', response.error);
+        this.isLoading = false;
       }
     },
   },

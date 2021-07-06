@@ -127,6 +127,22 @@
           @click="sendCode"
         />
       </template>
+      <template v-else-if="type === 'date'">
+        <Field
+          v-model="value"
+          v-bind="$attrs"
+          class="input-box"
+          :name="name"
+          :placeholder="placeholder"
+          rules="required"
+          type="date"
+          :validate-on-change="false"
+          @change="$emit('input', $event.target.value)"
+          @focus="isFocus = true"
+          @focusout="isFocus = false"
+          @keypress="isInteger($event)"
+        />
+      </template>
       <template v-else>
         <Field
           v-model="value"

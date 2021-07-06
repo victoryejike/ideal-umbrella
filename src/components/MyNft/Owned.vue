@@ -11,6 +11,7 @@
         class="gridbox-product-card"
         :css="cardCSS"
         :image="`https://ipfs.io/ipfs/${item.uri}`"
+        :mininum="item.minimum_bid"
         :name="item.title"
         :price="item.price"
         :verified="true"

@@ -53,6 +53,10 @@
               v-if="nft.pricing_type=='fixed'"
               class="coin"
             >{{ nft.price }} ETH</span>
+            <span
+              v-else
+              class="coin"
+            >{{ nft.minimum_bid }} ETH</span>
           </div>
         </div>
       </div>
@@ -75,34 +79,38 @@
       />
 
       <div
-        v-for="(item, index) in bidsList"
-        v-show="showBids"
-        :key="index"
-        class="bids-main-div"
+        v-if="nft.pricing_type!='fixed'"
       >
-        <div class="bids-inner-div">
-          <div>
-            <div class="author">
-              {{ item.author }}
-              <img
-                v-if="creater.verified"
-                class="tick-icon"
-                height="16"
-                src="@svg/tick.svg"
-                width="16"
-              >
-            </div>
-            <div class="date-time">
-              {{ item.timestamp }}
-            </div>
-          </div>
-          <div class="price">
-            {{ item.bidPrice }}
-          </div>
-        </div>
         <div
-          class="input-line"
-        />
+          v-for="(item, i) in bidsList"
+          v-show="showBids"
+          :key="i"
+          class="bids-main-div"
+        >
+          <div class="bids-inner-div">
+            <div>
+              <div class="author">
+                {{ item.user_id.display_name }}
+                <img
+                  v-if="creater.verified"
+                  class="tick-icon"
+                  height="16"
+                  src="@svg/tick.svg"
+                  width="16"
+                >
+              </div>
+              <div class="date-time">
+                {{ new Date(item.created_at).toDateString() }}
+              </div>
+            </div>
+            <div class="price">
+              {{ item.amount }} ETH
+            </div>
+          </div>
+          <div
+            class="input-line"
+          />
+        </div>
       </div>
       <DetailsTab
         v-if="showDetails"
@@ -125,11 +133,13 @@
       />
       <div class="actions">
         <BaseRoundButton
+          v-if="nft.pricing_type == 'fixed'"
           class="buy-button btn-primary btn-md btn-bold"
           icon="arrow-right"
           :text="$t('nft_details.buy_now')"
         />
         <div
+          v-else
           class="bid-button-div"
         >
           <BaseRoundButton
@@ -229,36 +239,37 @@ export default {
         verified: true,
       },
       // Todo: fetch api
-      bidsList: [
-        {
-          author: 'CryptoPunks',
-          bidPrice: '0.15 ETH',
-          verified: true,
-          timestamp: '6/3/2021, 7:09 PM',
+      bidsList: [],
+      // bidsList: [
+      //   {
+      //     author: 'CryptoPunks',
+      //     bidPrice: '0.15 ETH',
+      //     verified: true,
+      //     timestamp: '6/3/2021, 7:09 PM',
 
-        },
-        {
-          author: 'Metaverse',
-          bidPrice: '0.14 ETH',
-          verified: true,
-          timestamp: '6/3/2021, 5:28 PM',
+      //   },
+      //   {
+      //     author: 'Metaverse',
+      //     bidPrice: '0.14 ETH',
+      //     verified: true,
+      //     timestamp: '6/3/2021, 5:28 PM',
 
-        },
-        {
-          author: 'CryptoPunks',
-          bidPrice: '0.13 ETH',
-          verified: true,
-          timestamp: '2/3/2021, 2:09 AM',
+      //   },
+      //   {
+      //     author: 'CryptoPunks',
+      //     bidPrice: '0.13 ETH',
+      //     verified: true,
+      //     timestamp: '2/3/2021, 2:09 AM',
 
-        },
-        {
-          author: 'Metaverse',
-          bidPrice: '0.14 ETH',
-          verified: true,
-          timestamp: '6/3/2021, 5:28 PM',
+      //   },
+      //   {
+      //     author: 'Metaverse',
+      //     bidPrice: '0.14 ETH',
+      //     verified: true,
+      //     timestamp: '6/3/2021, 5:28 PM',
 
-        },
-      ],
+      //   },
+      // ],
       nftDetails: {
         contactDetails: '0x3bdb...6d4a',
         tokenId: 28473,
@@ -270,20 +281,8 @@ export default {
     if (this.$route.params.id == null || this.$route.params.id === undefined || this.$route.params.id === '') {
       this.$router.push('/');
     } else {
-      let response = null;
-      try {
-        const { data } = await this.$api.GETNFTDETAILS(this.$route.params.id);
-        response = data;
-        this.getNftDetails = [response.data];
-        if (this.getNftDetails[0].pricing_type === 'fixed') {
-          this.showBids = false;
-          this.showDetails = true;
-          this.showHistory = false;
-        }
-        console.log('list', this.getNftDetails);
-      } catch (error) {
-        response = error?.response?.data;
-      }
+      this.GetNFTDetails();
+      this.GetBids();
     }
   },
   methods: {
@@ -311,6 +310,34 @@ export default {
         } else {
           this.$router.push({ name: 'EditProfile' });
         }
+      }
+    },
+    // eslint-disable-next-line consistent-return
+    async GetNFTDetails() {
+      let response = null;
+      try {
+        const { data } = await this.$api.GETNFTDETAILS(this.$route.params.id);
+        response = data;
+        this.getNftDetails = [response.data];
+        if (this.getNftDetails[0].pricing_type === 'fixed') {
+          this.showBids = false;
+          this.showDetails = true;
+          this.showHistory = false;
+        }
+        console.log('list', this.getNftDetails);
+      } catch (error) {
+        response = error?.response?.data;
+      }
+    },
+    // eslint-disable-next-line consistent-return
+    async GetBids() {
+      let response = null;
+      try {
+        const { data } = await this.$api.GETBIDS(this.$route.params.id);
+        response = data;
+        this.bidsList = response.data;
+      } catch (error) {
+        response = error?.response?.data;
       }
     },
   },
@@ -393,6 +420,7 @@ label {
 
 .bids-main-div {
   margin-bottom: 1.4688rem;
+  margin-top: 3rem;
 }
 
 .bids-inner-div {

@@ -35,12 +35,10 @@
             :width="10.6"
             @click="getActiveTabNav"
           />
-          <BaseUnderlinedInput
+          <Field
             v-model="pricing_type"
             class="input-field show"
             name="pricing_type"
-            :placeholder="$t('collectible.discription_placeholder')"
-            :text="$t('collectible.discription_label')"
           />
         </div>
         <template v-if="selectedSwitch && pricingType === 'FIXED PRICE'">
@@ -97,12 +95,14 @@
             name="starting_date"
             :placeholder="$t('collectible.auction_start_placeholder')"
             :text="$t('collectible.auction_start_label')"
+            type="date"
           />
           <BaseUnderlinedInput
             class="input-field"
             name="expiration_date"
             :placeholder="$t('collectible.auction_expiration_placeholder')"
             :text="$t('collectible.auction_expiration_label')"
+            type="date"
           />
         </template>
         <BaseScrollableSelectBox
@@ -116,7 +116,7 @@
         <BaseScrollableSelectBox
           class="input-div label"
           :default-selected="false"
-          key-name="title"
+          key-name="_id"
           name="title"
           :options="categories"
           :text="$t('collectible.category')"
@@ -226,6 +226,7 @@ import UploadCard from '@/components/Nft/UploadCard.vue';
 import Base from '@/components/Nft/BaseFrame.vue';
 import WalletLink from 'walletlink';
 import WalletConnectProvider from '@walletconnect/web3-provider';
+import { Field } from 'vee-validate';
 // import Base from './BaseFrame.vue';
 // import { domain, Mint721, part } from '../../../signTypedData';
 
@@ -246,7 +247,7 @@ export const walletLink = new WalletLink({
 
 export default {
   name: 'CreateNFT',
-  components: { UploadCard, Base },
+  components: { UploadCard, Base, Field },
   data() {
     return {
       categories: '',
@@ -792,8 +793,15 @@ export default {
           console.log(nav);
           const activeTabNavValue = nav.innerText;
           this.pricingType = activeTabNavValue;
-          console.log(this.pricingType);
-          sessionStorage.setItem('pricing', this.pricingType);
+          if (this.pricingType === 'Fixed') {
+            this.pricing_type = 'fixed';
+          } else if (this.pricingType === 'TIMED AUCTION') {
+            this.pricing_type = 'timed_auction';
+          } else if (this.pricingType === 'UNLIMITED AUCTION') {
+            this.pricing_type = 'unlimited_auction';
+            console.log(this.pricingType);
+          }
+          // sessionStorage.setItem('pricing', this.pricingType);
         }
       });
     },

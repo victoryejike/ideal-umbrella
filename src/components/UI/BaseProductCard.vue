@@ -55,9 +55,18 @@
             src="@svg/huobi-token.svg"
             width="20"
           >
-          <span class="price">
+          <span
+            v-if="price"
+            class="price"
+          >
             <!-- Correct to 2 decimal places -->
             {{ Math.round(price * 1e2) / 1e2 }}
+          </span>
+          <span
+            v-else-if="mininum"
+            class="price"
+          >
+            {{ Math.round(mininum * 1e2) / 1e2 }}
           </span>
         </div>
       </div>
@@ -90,6 +99,7 @@ export default {
     image: { type: String, required: true },
     name: { type: String, required: true },
     price: { type: Number, required: true },
+    mininum: { type: Number, required: true },
     verified: { type: Boolean, required: false, default: false },
   },
   computed: {
