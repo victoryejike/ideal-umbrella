@@ -113,14 +113,14 @@
           :options="collectible_class"
           :text="$t('collectible.choose_collection_label')"
         />
-        <BaseScrollableSelectBox
+        <!-- <BaseScrollableSelectBox
           class="input-div label"
           :default-selected="false"
           key-name="_id"
           name="title"
           :options="categories"
           :text="$t('collectible.category')"
-        />
+        /> -->
         <BaseUnderlinedInput
           class="input-field"
           name="title"
@@ -265,7 +265,7 @@ export default {
       singleTabTitle: [
         this.$t('collectible.tab.fixed_price'),
         this.$t('collectible.tab.timed_auction'),
-        this.$t('collectible.tab.unlimited_auction'),
+        // this.$t('collectible.tab.unlimited_auction'),
       ],
       multipleTabTitle: [
         this.$t('collectible.tab.fixed_price'),

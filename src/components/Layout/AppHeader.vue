@@ -90,10 +90,10 @@ export default {
           name: this.$t('header.how_it_works'),
           url: '/',
         },
-        {
-          name: this.$t('header.fanschain'),
-          url: '/',
-        },
+        // {
+        //   name: this.$t('header.fanschain'),
+        //   url: '/',
+        // },
         {
           name: this.$t('header.login'),
           url: '/login',

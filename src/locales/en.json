@@ -25,7 +25,7 @@
     "file_type_text": "PNG, GIF, WEBP, MP4 or MP3. Max 100mb.",
     "number_of_copies_label": "Number of copies",
     "number_of_copies_placeholder": "e.g. 10“ ",
-    "put_on_marketplace": "Put on marketplace",
+    "put_on_marketplace": "List on marketplace",
     "received_amount_label": "Received Amount (Service fee: 2.5%)",
     "received_amount_placeholder": "Enter price for one piece",
     "royalties_label": "Royalties",
@@ -55,6 +55,7 @@
     "no_item": {
       "btn": "Create",
       "found": "No items found",
+      "bid": "No Bid Made for this NFT",
       "text": "Do you want to create one to sell now?"
     }
   },
@@ -144,7 +145,7 @@
     "title": {
       "discover": "Discover",
       "popular": "Popular",
-      "top_seller": "Top Seller"
+      "top_seller": "Top Sellers"
     }
   },
   "kyc_screen": {
@@ -229,7 +230,7 @@
     "msg": "A 6-digit OTP code will be sent via Email or SMS. Message and Data rates may apply."
   },
   "profile": {
-    "created": "Created",
+    "created": "CREATED",
     "edit_profile": "Edit Profile",
     "onsale": "ON SALES",
     "owned": "OWNED",

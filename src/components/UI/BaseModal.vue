@@ -89,6 +89,7 @@ export default {
 .modal-body {
   margin-bottom: 2.8125rem;
   overflow-y: auto;
+  padding: 1rem;
   position: relative;
 }
 

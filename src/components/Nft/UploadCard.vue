@@ -4,8 +4,14 @@
   </div>
   <div class="upload-box">
     {{ $t('collectible.file_type_text') }}
-    <p>{{ fileName }}</p>
+    <img
+      class="p1"
+      :src="img"
+      width="200"
+    >
+    <!-- <p>{{ fileName }}</p> -->
     <input
+      ref="file"
       class="file-uploads"
       hidden
       name="file-uploads"
@@ -38,6 +44,7 @@ export default {
   data() {
     return {
       fileName: '',
+      img: '',
     };
   },
   methods: {
@@ -46,9 +53,11 @@ export default {
     },
     async fileChange(event) {
       try {
+        const img = this.$refs.file.files[0];
         const [file] = event.target.files;
         console.log(file);
-        this.fileName = file.name;
+        // this.fileName = file.name;
+        this.img = URL.createObjectURL(img);
         const { cid } = await client.add(file);
         console.log(cid);
         this.ipfsHash = cid.string;
@@ -72,16 +81,20 @@ export default {
   display: flex;
   flex-direction: column;
   font-weight: bold;
-  height: 11.25rem;
+  height: inherit;
   line-height: 150%;
   margin-bottom: 2.5rem;
   margin-top: 1.375rem;
-  padding-top: 1.875rem;
+  padding: 1.8rem;
   width: 32.5rem;
 }
 
 .upload-button {
   margin-top: 0.5rem;
+}
+
+.p1 {
+  padding: 1rem;
 }
 
 .label {

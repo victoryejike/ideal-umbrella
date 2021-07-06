@@ -111,6 +111,9 @@
             class="input-line"
           />
         </div>
+        <NoBid
+          v-show="nobid"
+        />
       </div>
       <DetailsTab
         v-if="showDetails"
@@ -179,14 +182,18 @@
 import DetailsTab from '@/components/Nft/DetailsTab.vue';
 import HistoryTab from '@/components/Nft/HistoryTab.vue';
 import BidModal from '@/components/Nft/BidModal.vue';
+import NoBid from './NoBid.vue';
 
 export default {
   name: 'TokenDetails',
-  components: { DetailsTab, HistoryTab, BidModal },
+  components: {
+    DetailsTab, HistoryTab, BidModal, NoBid,
+  },
   data() {
     return {
       showBids: true,
       showDetails: false,
+      nobid: false,
       showHistory: false,
       isModalVisible: false,
       getNftDetails: [],
@@ -335,9 +342,14 @@ export default {
       try {
         const { data } = await this.$api.GETBIDS(this.$route.params.id);
         response = data;
-        this.bidsList = response.data;
+        if (response.data.length === 0) {
+          this.nobid = true;
+        } else {
+          this.bidsList = response.data;
+        }
       } catch (error) {
         response = error?.response?.data;
+        this.nobid = true;
       }
     },
   },

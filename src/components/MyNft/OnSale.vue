@@ -11,22 +11,33 @@
         class="gridbox-product-card"
         :css="cardCSS"
         :image="`https://ipfs.io/ipfs/${item.uri}`"
+        :mininum="item.minimum_bid"
         :name="item.title"
         :price="item.price"
+        :verified="true"
       />
     </div>
-    <BaseRoundButton
+    <!-- <BaseRoundButton
       class="load-more-btn btn-outline-primary btn-xl"
       :text="$t('index_screen.more')"
+    /> -->
+    <NoNFT
+      v-show="nonft"
     />
   </div>
 </template>
 
 <script>
+import NoNFT from './NoNFT.vue';
+
 export default {
   name: 'OnSale',
+  components: {
+    NoNFT,
+  },
   data() {
     return {
+      nonft: false,
       list: Array(10).fill({
         id: 'V3isglWtYb5qIy24QbTJeoJjuV35fEDd0RoL',
         avatar: 'avatar.png',
@@ -46,10 +57,14 @@ export default {
       () => { this.cardCSS.size = 140; });
     let response = null;
     try {
-      const { data } = await this.$api.GETOWNEDNFT(localStorage.getItem('account'));
+      const { data } = await this.$api.GETONSALESNFT();
       response = data;
       console.log(response);
-      this.nft = response.data;
+      if (response.data.length === 0) {
+        this.nonft = true;
+      } else {
+        this.nft = response.data;
+      }
     } catch (error) {
       response = error?.response?.data;
     }
