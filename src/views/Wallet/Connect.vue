@@ -46,8 +46,8 @@ const Web3 = require('web3');
 
 const APP_NAME = 'Naffiti';
 const APP_LOGO_URL = 'https://example.com/logo.png';
-const ETH_JSONRPC_URL = 'https://mainnet.infura.io/v3/<YOUR_INFURA_API_KEY>';
-const CHAIN_ID = 1;
+const ETH_JSONRPC_URL = 'https://mainnet.infura.io/v3/58bf1103531f4b858b31eb3c5c4ddd2f';
+const CHAIN_ID = 3;
 
 // Initialize WalletLink
 export const walletLink = new WalletLink({
@@ -71,7 +71,7 @@ export default {
     async connectHuobi() {
       try {
         const provider = new WalletConnectProvider({
-          infuraId: '27e484dcd9e3efcfd25a83a78777cdf1',
+          infuraId: '58bf1103531f4b858b31eb3c5c4ddd2f',
         });
 
         //  Enable session (triggers QR Code modal)
@@ -80,6 +80,7 @@ export default {
         const account = await web3.eth.getAccounts();
         console.log('Got accounts', account);
         this.accountAddress = localStorage.setItem('account', account);
+        this.$router.push('/discover');
       } catch (error) {
         console.log(error);
       }

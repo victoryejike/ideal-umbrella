@@ -9,6 +9,7 @@
         :list="profileOption"
         :width="10.6"
       />
+      <Owned v-show="visibleOnwed" />
       <OnSale v-show="visibleSale" />
       <Created v-show="visibleCreated" />
     </div>
@@ -16,35 +17,45 @@
 </template>
 <script>
 import OnSale from '@/components/MyNft/OnSale.vue';
+import Owned from '@/components/MyNft/Owned.vue';
 import Created from '@/components/MyNft/Created.vue';
 import BaseFrame from '@/components/Profile/BaseFrame.vue';
 
 export default {
   name: 'Profile',
-  components: { BaseFrame, OnSale, Created },
+  components: {
+    BaseFrame, OnSale, Created, Owned,
+  },
   data() {
     return {
       username: '',
       profile: '',
-      visibleSale: true,
+      visibleOnwed: true,
+      visibleSale: false,
       visibleCreated: false,
       profileOption: [
+        {
+          name: this.$t('profile.owned'),
+          handler: () => {
+            this.visibleOnwed = true;
+            this.visibleSale = false;
+            this.visibleCreated = false;
+          },
+        },
         {
           name: this.$t('profile.onsale'),
           handler: () => {
             this.visibleSale = true;
             this.visibleCreated = false;
+            this.visibleOnwed = false;
           },
-        },
-        {
-          name: this.$t('profile.owned'),
-          handler: () => {},
         },
         {
           name: this.$t('profile.created'),
           handler: () => {
             this.visibleSale = false;
             this.visibleCreated = true;
+            this.visibleOnwed = false;
           },
         },
       ],

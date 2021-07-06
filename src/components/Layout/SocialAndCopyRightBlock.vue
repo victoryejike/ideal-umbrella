@@ -1,7 +1,7 @@
 <template>
   <div class="social-and-copyright-root">
     <div class="copyright-text">
-      ©2021 Naffiti by Huobi. All rights reserved
+      ©2021 Naffiti. All rights reserved.
     </div>
     <div class="social-media">
       <a

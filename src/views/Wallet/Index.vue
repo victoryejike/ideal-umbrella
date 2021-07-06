@@ -1,18 +1,21 @@
 <template>
   <div class="container">
     <div
-      v-if="address"
       class="mt-2"
     >
       <img
         src="@svg/huobi.svg"
         width="15"
       >
-      <span>
-        {{ address.replace(address.substr(6, 32),'...') }}
+      <span v-if="account !== null">
+        {{ account }}
+      </span>
+      <span v-else>
+        Please Connect Wallet
       </span>
       <div class="flex">
         <BaseRoundButton
+          v-if="account"
           class="btn-outline-primary btn-sm copy"
           :text="$t('wallet.copy')"
           @click="copyAddress"
@@ -22,7 +25,7 @@
         >
           <BaseRoundButton
             class="btn-outline-primary btn-sm other-wallet"
-            :text="$t('wallet.other_waalet')"
+            :text="account ? $t('wallet.other_wallet') : $t('wallet.new_wallet')"
           />
         </router-link>
       </div>

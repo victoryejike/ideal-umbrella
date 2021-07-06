@@ -15,18 +15,27 @@
         :price="item.price"
       />
     </div>
-    <BaseRoundButton
+    <!-- <BaseRoundButton
       class="load-more-btn btn-outline-primary btn-xl"
       :text="$t('index_screen.more')"
+    /> -->
+    <NoNFT
+      v-show="nonft"
     />
   </div>
 </template>
 
 <script>
+import NoNFT from './NoNFT.vue';
+
 export default {
   name: 'OnSale',
+  components: {
+    NoNFT,
+  },
   data() {
     return {
+      nonft: false,
       list: Array(10).fill({
         id: 'V3isglWtYb5qIy24QbTJeoJjuV35fEDd0RoL',
         avatar: 'avatar.png',
@@ -49,7 +58,11 @@ export default {
       const { data } = await this.$api.GETOWNEDNFT(localStorage.getItem('account'));
       response = data;
       console.log(response);
-      this.nft = response.data;
+      if (response.data.length === 0) {
+        this.nonft = true;
+      } else {
+        this.nft = response.data;
+      }
     } catch (error) {
       response = error?.response?.data;
     }

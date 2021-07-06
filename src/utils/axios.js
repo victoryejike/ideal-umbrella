@@ -19,9 +19,10 @@ axios.interceptors.request.use((config) => {
 }, (error) => Promise.error(error));
 
 axios.interceptors.response.use((response) => Promise.resolve(response), (error) => {
-  if (error.status === 401) {
+  // TODO: Temporarily implementation, should check error.status === 401
+  if (error?.response?.data?.error === 'Jwt expired') {
     store.dispatch('auth/logout');
-    router.push('/login');
+    router.push({ name: 'Login', params: { errorMsg: 'Login Expried, please login again.' } });
   }
   return Promise.reject(error);
 });
