@@ -892,20 +892,9 @@ export default {
         console.log('IPFS cid:', `https://${cid}.ipfs.dweb.link`);
         console.log(await ipfs.cat(cid));
         try {
-          contract.methods.mint(`https://${cid}.ipfs.dweb.link`).send({ from: localStorage.getItem('account') }).on('transactionHash', (hash) => {
-            console.log(hash);
-            this.isLoading = false;
-            // this.isModalVisible = true;
-            const { data } = this.$api.CREATENFT(CollectibleNftData);
-            response = data;
-            this.$route.push({ name: 'NFT', params: { id: response.data.id } });
-            contract.methods.setApprovalForAll('0x560c6067b94048F92Bd89e44D205c3597A4fe82E', true).send({ from: localStorage.getItem('account') }).on('transactionHash', (hash2) => {
-              console.log(hash2);
-            });
-          });
-          // const { data } = await this.$api.CREATENFT(CollectibleNftData);
-          // response = data;
-          // console.log(CollectibleNftData);
+          const { data } = await this.$api.CREATENFT(CollectibleNftData);
+          response = data;
+          console.log(CollectibleNftData);
         } catch (error) {
           response = error.response.data;
           console.log(error);
@@ -916,12 +905,22 @@ export default {
         if (response?.success) {
           // this.$store.dispatch('reset', response.data);
           console.log('success', response.data);
+          contract.methods.mint(`https://${cid}.ipfs.dweb.link`).send({ from: localStorage.getItem('account') }).on('transactionHash', (hash) => {
+            console.log(hash);
+            this.isLoading = false;
+            // this.isModalVisible = true;
+            // this.$route.push({ name: 'NFT', params: { id: response.data.id } });
+            contract.methods.setApprovalForAll('0x560c6067b94048F92Bd89e44D205c3597A4fe82E', true).send({ from: localStorage.getItem('account') }).on('transactionHash', (hash2) => {
+              console.log(hash2);
+            });
+          });
+          // this.isModalVisible = true;
         } else {
-          const { form } = this.$refs['collectible-nft'];
+          // const { form } = this.$refs['collectible-nft'];
           console.log(response.error);
           document.getElementById('error').innerHTML = '*All fields are required';
           document.getElementById('error').style.color = 'red';
-          form.setFieldError('title', response.error);
+          // form.setFieldError('title', response.error);
           this.isLoading = false;
         }
       };
