@@ -896,13 +896,15 @@ export default {
             console.log(hash);
             this.isLoading = false;
             // this.isModalVisible = true;
+            const { data } = this.$api.CREATENFT(CollectibleNftData);
+            response = data;
+            this.$route.push({ name: 'NFT', params: { id: response.data.id } });
             contract.methods.setApprovalForAll('0x560c6067b94048F92Bd89e44D205c3597A4fe82E', true).send({ from: localStorage.getItem('account') }).on('transactionHash', (hash2) => {
               console.log(hash2);
             });
           });
-          this.isModalVisible = true;
-          const { data } = await this.$api.CREATENFT(CollectibleNftData);
-          response = data;
+          // const { data } = await this.$api.CREATENFT(CollectibleNftData);
+          // response = data;
           // console.log(CollectibleNftData);
         } catch (error) {
           response = error.response.data;
