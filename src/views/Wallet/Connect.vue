@@ -39,7 +39,7 @@ import MetaMask from '@img/metamask.png';
 import coinBase from '@svg/coinbase.svg';
 import ConnectCard from '@/components/Wallet/ConnectCard.vue';
 import WalletLink from 'walletlink';
-import BaseFrame from '@/components/Wallet/BaseFrame.vue';
+import BaseFrame from '@/components/Nft/BaseFrame.vue';
 
 //  const Contract = require('web3-eth-contract')
 const Web3 = require('web3');
