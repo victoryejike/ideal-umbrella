@@ -897,14 +897,14 @@ export default {
             const { data } = this.$api.CREATENFT(CollectibleNftData);
             response = data;
             console.log(CollectibleNftData);
+            // eslint-disable-next-line no-underscore-dangle
+            this.$router.push({ name: 'Profile' });
           } catch (error) {
             response = error.response.data;
             console.log(error);
             this.isLoading = false;
             this.isModalVisible = false;
           }
-          // eslint-disable-next-line no-underscore-dangle
-          this.$route.push({ name: 'NFT', params: { id: response.data._id } });
           this.isLoading = false;
           contract.methods.setApprovalForAll('0x560c6067b94048F92Bd89e44D205c3597A4fe82E', true).send({ from: localStorage.getItem('account') }).on('transactionHash', (hash2) => {
             console.log(hash2);
