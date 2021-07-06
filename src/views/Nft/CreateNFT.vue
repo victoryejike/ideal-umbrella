@@ -113,6 +113,14 @@
           :options="collectible_class"
           :text="$t('collectible.choose_collection_label')"
         />
+        <BaseScrollableSelectBox
+          class="input-div label"
+          :default-selected="false"
+          key-name="title"
+          name="title"
+          :options="categories"
+          :text="$t('collectible.choose_collection_label')"
+        />
         <BaseUnderlinedInput
           class="input-field"
           name="title"
@@ -241,6 +249,7 @@ export default {
   components: { UploadCard, Base },
   data() {
     return {
+      categories: '',
       isModalVisible: false,
       selectedSwitch: true,
       pricingType: 'FIXED PRICE',
@@ -731,9 +740,14 @@ export default {
       try {
         const { data } = await this.$api.GETCOLLECTIBLE(localStorage.getItem('account'));
         response = data;
-        console.log(response);
-        this.collectible_class = response.data;
-        console.log(this.collectible_class);
+      } catch (error) {
+        response = error?.response?.data;
+      }
+      try {
+        const { data } = await this.$api.GETCATEGORIES();
+        response = data;
+        this.categories = [response.data];
+        console.log(this.categories);
       } catch (error) {
         response = error?.response?.data;
       }

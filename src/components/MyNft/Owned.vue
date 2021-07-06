@@ -13,6 +13,7 @@
         :image="`https://ipfs.io/ipfs/${item.uri}`"
         :name="item.title"
         :price="item.price"
+        :verified="true"
       />
     </div>
     <!-- <BaseRoundButton
