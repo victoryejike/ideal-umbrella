@@ -69,6 +69,7 @@ const API_SERVICES = {
   GETOWNEDNFT: (params) => axios.get(`nft/owned/${params}`),
   GETNFTDETAILS: (params) => axios.get(`nft/${params}`),
   GETCATEGORIES: () => axios.get('category'),
+  CREATEBIDS: (params) => axios.post('bids', params, false),
 };
 
 export default {

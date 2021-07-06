@@ -119,7 +119,7 @@
           key-name="title"
           name="title"
           :options="categories"
-          :text="$t('collectible.choose_collection_label')"
+          :text="$t('collectible.category')"
         />
         <BaseUnderlinedInput
           class="input-field"
@@ -733,6 +733,7 @@ export default {
     },
   },
   async mounted() {
+    this.verifyUser();
     if (localStorage.getItem('account') === null || localStorage.getItem('account') === undefined) {
       this.$router.push({ name: 'ConnectWallet' });
     } else {
@@ -740,13 +741,14 @@ export default {
       try {
         const { data } = await this.$api.GETCOLLECTIBLE(localStorage.getItem('account'));
         response = data;
+        this.collectible_class = response.data;
+        console.log(response);
       } catch (error) {
         response = error?.response?.data;
       }
       try {
         const { data } = await this.$api.GETCATEGORIES();
-        response = data;
-        this.categories = [response.data];
+        this.categories = data.data;
         console.log(this.categories);
       } catch (error) {
         response = error?.response?.data;
@@ -756,6 +758,25 @@ export default {
   methods: {
     toggleSwitch() {
       this.selectedSwitch = !this.selectedSwitch;
+    },
+    // eslint-disable-next-line consistent-return
+    async verifyUser() {
+      let response = null;
+      try {
+        const { data } = await this.$api.GET_PROFILE();
+        response = data;
+      } catch (error) {
+        response = error?.response?.data;
+      }
+
+      if (response?.success) {
+        if (response.data.display_name !== undefined) {
+          return true;
+        // eslint-disable-next-line no-else-return
+        } else {
+          this.$router.push({ name: 'EditProfile' });
+        }
+      }
     },
     getServiceFee() {
       const amount = document.querySelector('.price').value;

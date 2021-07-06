@@ -13,6 +13,7 @@
     "amount_placeholder": "Enter price for one piece",
     "auction_label": "Minimum Bid",
     "auction_placeholder": "Enter minimum bid",
+    "category": "Choose Category",
     "auction_start_placeholder": "Enter Auction Start Date",
     "auction_start_label": "Auction Start Date",
     "auction_expiration_placeholder": "Enter Auction Expiration Date",

@@ -7,77 +7,129 @@
       >
     </div>
     <div class="bid-text">
-      <div> {{ $t('nft_details.bid.bid-content') }} </div>
+      <div> {{ $t('nft_details.bid.bid-content') }} {{ title }} NFT</div>
       <div class="token-description">
-        token description
+        {{ description }}
       </div>
     </div>
   </div>
-  <BaseUnderlinedInput
-    class="input-field"
-    name="amount"
-    :placeholder="$t('nft_details.bid.user_bid_placeholder')"
-    :text="$t('nft_details.bid.user_bid_label')"
+  <BaseForm
+    class="bid-form"
+    @submit="onSubmit"
   >
-    <template #element>
-      <BaseScrollableSelectBox
-        name="coin"
-        :options="coinList"
-      />
-    </template>
-  </BaseUnderlinedInput>
-  <BaseUnderlinedInput
-    class="input-field"
-    name="quantity"
-    :text="$t('nft_details.bid.quantity_label')"
-    type="number"
-  />
-  <div class="details-section">
-    <div class="bidding-details">
-      <div class="label">
-        {{ $t('nft_details.bid.user_bidding_balance') }}
+    <BaseUnderlinedInput
+      class="input-field"
+      name="amount"
+      :placeholder="$t('nft_details.bid.user_bid_placeholder')"
+      rules="required"
+      :text="$t('nft_details.bid.user_bid_label')"
+      type="number"
+    >
+      <template #element>
+        <BaseScrollableSelectBox
+          name="coin"
+          :options="coinList"
+        />
+      </template>
+    </BaseUnderlinedInput>
+    <Field
+      name="nft_id"
+      type="hidden"
+      :value="NftId"
+    />
+    <Field
+      name="user_address"
+      type="hidden"
+      :value="Address"
+    />
+    <BaseUnderlinedInput
+      v-if="nfttype"
+      class="input-field"
+      name="quantity"
+      :text="$t('nft_details.bid.quantity_label')"
+      type="number"
+    />
+    <div class="details-section">
+      <div class="bidding-details">
+        <div class="label">
+          {{ $t('nft_details.bid.user_bidding_balance') }}
+        </div>
+        <div class="value">
+          0.16 ETH
+        </div>
       </div>
-      <div class="value">
-        0.16 ETH
+      <div class="bidding-details">
+        <div class="label">
+          {{ $t('nft_details.bid.user_balance') }}
+        </div>
+        <div class="value">
+          0.16 ETH
+        </div>
+      </div>
+      <div class="bidding-details">
+        <div class="label">
+          {{ $t('nft_details.bid.service_fee') }}
+        </div>
+        <div class="value">
+          0.16 ETH
+        </div>
+      </div>
+      <div class="bidding-details">
+        <div class="label">
+          {{ $t('nft_details.bid.total_bid_amount') }}
+        </div>
+        <div class="value">
+          0.16 ETH
+        </div>
       </div>
     </div>
-    <div class="bidding-details">
-      <div class="label">
-        {{ $t('nft_details.bid.user_balance') }}
-      </div>
-      <div class="value">
-        0.16 ETH
-      </div>
-    </div>
-    <div class="bidding-details">
-      <div class="label">
-        {{ $t('nft_details.bid.service_fee') }}
-      </div>
-      <div class="value">
-        0.16 ETH
-      </div>
-    </div>
-    <div class="bidding-details">
-      <div class="label">
-        {{ $t('nft_details.bid.total_bid_amount') }}
-      </div>
-      <div class="value">
-        0.16 ETH
-      </div>
-    </div>
-  </div>
+    <BaseRoundButton
+      class="buy-button btn-primary btn-md btn-bold"
+      :icon="isLoading ? 'loading' : 'arrow-right'"
+      :submit="true"
+      :text="$t('nft_details.place_bid')"
+    />
+  </BaseForm>
 </template>
 <script>
+import { Field } from 'vee-validate';
+
 export default {
   name: 'BidModal',
+  components: { Field },
+  props: {
+    nfttype: { type: String, required: false, default: null },
+    description: { type: String, required: false, default: null },
+    title: { type: String, required: false, default: null },
+  },
   data() {
     return {
+      NftId: this.$route.params.id,
+      Address: localStorage.getItem('account'),
+      isLoading: false,
       coinList: [
         { name: 'ETH' },
         { name: 'HT' },
         { name: 'FC' },
       ],
     };
+  },
+  methods: {
+    async onSubmit(formData) {
+      let response = null;
+      try {
+        const { data } = await this.$api.CREATEBIDS(formData);
+        response = data;
+      } catch (error) {
+        response = error?.response?.data;
+      }
+
+      if (response?.success) {
+        console.log(response);
+      } else {
+        //
+      }
+    },
   },
 };
 </script>

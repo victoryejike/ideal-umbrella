@@ -129,7 +129,9 @@
           icon="arrow-right"
           :text="$t('nft_details.buy_now')"
         />
-        <div class="bid-button-div">
+        <div
+          class="bid-button-div"
+        >
           <BaseRoundButton
             class="bid-button btn-outline-primary btn-bold btn-xl"
             :text="$t('nft_details.place_bid')"
@@ -144,14 +146,18 @@
             </template>
 
             <template #body>
-              <BidModal />
+              <BidModal
+                :description="nft.description"
+                :nfttype="nft.supply"
+                :title="nft.title"
+              />
             </template>
             <template #footer>
-              <BaseRoundButton
+              <!-- <BaseRoundButton
                 class="buy-button btn-primary btn-md btn-bold"
                 icon="arrow-right"
                 :text="$t('nft_details.place_bid')"
-              />
+              /> -->
             </template>
           </BaseModal>
         </div>
@@ -261,27 +267,51 @@ export default {
     };
   },
   async mounted() {
-    let response = null;
-    try {
-      const { data } = await this.$api.GETNFTDETAILS(this.$route.params.id);
-      response = data;
-      this.getNftDetails = [response.data];
-      if (this.getNftDetails[0].pricing_type === 'fixed') {
-        this.showBids = false;
-        this.showDetails = true;
-        this.showHistory = false;
+    if (this.$route.params.id == null || this.$route.params.id === undefined || this.$route.params.id === '') {
+      this.$router.push('/');
+    } else {
+      let response = null;
+      try {
+        const { data } = await this.$api.GETNFTDETAILS(this.$route.params.id);
+        response = data;
+        this.getNftDetails = [response.data];
+        if (this.getNftDetails[0].pricing_type === 'fixed') {
+          this.showBids = false;
+          this.showDetails = true;
+          this.showHistory = false;
+        }
+        console.log('list', this.getNftDetails);
+      } catch (error) {
+        response = error?.response?.data;
       }
-      console.log('list', this.getNftDetails);
-    } catch (error) {
-      response = error?.response?.data;
     }
   },
   methods: {
     showModal() {
+      this.verifyUser();
       this.isModalVisible = true;
     },
     closeModal() {
       this.isModalVisible = false;
+    },
+    // eslint-disable-next-line consistent-return
+    async verifyUser() {
+      let response = null;
+      try {
+        const { data } = await this.$api.GET_PROFILE();
+        response = data;
+      } catch (error) {
+        response = error?.response?.data;
+      }
+
+      if (response?.success) {
+        if (response.data.display_name !== undefined) {
+          return true;
+        // eslint-disable-next-line no-else-return
+        } else {
+          this.$router.push({ name: 'EditProfile' });
+        }
+      }
     },
   },
 };
