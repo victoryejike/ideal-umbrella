@@ -896,7 +896,7 @@ export default {
           try {
             const { data } = this.$api.CREATENFT(CollectibleNftData);
             response = data;
-            console.log(CollectibleNftData);
+            console.log(response);
             // eslint-disable-next-line no-underscore-dangle
             this.$router.push({ name: 'Profile' });
           } catch (error) {
