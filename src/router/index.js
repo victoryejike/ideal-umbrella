@@ -1,5 +1,4 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
-import store from '@/store';
 import publicRoute from './public.route';
 import privateRoute from './private.route';
 
@@ -41,16 +40,15 @@ router.beforeEach((to, from, next) => {
   next();
 });
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   const requiresAuth = to.matched.some((route) => route.meta.requiresAuth);
 
   // Auth isn't required for the route, just continue.
   if (!requiresAuth) return next();
 
-  if (store.getters['auth/loggedIn']) return next();
-
-  // Auth is required and the user is NOT currently logged in
-  return next({ name: 'Login', params: { redirectFrom: to.fullPath } });
+  // Async check is token expired or not, if yes Axios interceptors will handle redirection
+  router.$api.CHECK_TOKEN();
+  return next();
 });
 
 export default router;

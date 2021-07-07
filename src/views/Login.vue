@@ -85,6 +85,11 @@ export default {
       ],
     };
   },
+  mounted() {
+    if (this.$route.params?.errorMsg) {
+      this.$refs['login-form'].form.setFieldError('password', this.$route.params?.errorMsg);
+    }
+  },
   methods: {
     async onSubmit(formData) {
       const need2FA = await this.$api.IS_2FA_ENABLED(formData);
@@ -96,7 +101,9 @@ export default {
 
         if (response?.success === true) {
           this.$store.dispatch('auth/login', response?.data);
-          this.$router.push(this.$route.params.redirectFrom || '/account/profile');
+          setTimeout(() => {
+            this.$router.push(this.$route.params?.redirectFrom || '/account/profile');
+          }, 100);
         } else if (response?.success === false) {
           form.setFieldError('password', response?.error);
         } else {

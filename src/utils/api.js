@@ -73,11 +73,20 @@ const API_SERVICES = {
   GETCATEGORIES: () => axios.get('category'),
   CREATEBIDS: (params) => axios.post('bids', params, false),
   GETBIDS: (params) => axios.get(`bids/${params}`),
+  CHECK_TOKEN: () => {
+    // Temporarily implementation, should be a OPTIONS request
+    try {
+      axios.post('bids');
+    } catch (error) {
+      //
+    }
+  },
 };
 
 export default {
   install: (app, options) => {
     const { globalProperties } = app.config;
     globalProperties.$api = API_SERVICES;
+    globalProperties.$router.$api = API_SERVICES;
   },
 };

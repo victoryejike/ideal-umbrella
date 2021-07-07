@@ -6,18 +6,19 @@
     "title": "Two-factor Authentication"
   },
   "axios": {
+    "expired": "Login Session is expired, please login again",
     "unexcepted_error": "Unexcepted Error"
   },
   "collectible": {
     "amount_label": "Amount",
     "amount_placeholder": "Enter price for one piece",
+    "auction_expiration_label": "Auction Expiration Date",
+    "auction_expiration_placeholder": "Enter Auction Expiration Date",
     "auction_label": "Minimum Bid",
     "auction_placeholder": "Enter minimum bid",
-    "category": "Choose Category",
-    "auction_start_placeholder": "Enter Auction Start Date",
     "auction_start_label": "Auction Start Date",
-    "auction_expiration_placeholder": "Enter Auction Expiration Date",
-    "auction_expiration_label": "Auction Expiration Date",
+    "auction_start_placeholder": "Enter Auction Start Date",
+    "category": "Choose Category",
     "choose_collection_label": "Choose Collection",
     "create_button_text": "Create",
     "discription_label": "Description",
@@ -53,9 +54,9 @@
   },
   "created": {
     "no_item": {
+      "bid": "No Bid Made for this NFT",
       "btn": "Create",
       "found": "No items found",
-      "bid": "No Bid Made for this NFT",
       "text": "Do you want to create one to sell now?"
     }
   },
@@ -210,8 +211,8 @@
     "creator": "Creator",
     "description": "Description",
     "highest_bid": "Highest Bid",
-    "price": "Price",
     "place_bid": "Place Bid",
+    "price": "Price",
     "read_more": "Read more",
     "tabs": {
       "bids": "BIDS",
@@ -347,7 +348,7 @@
   "wallet": {
     "address": "0xa4fcd1ae1...4eac",
     "copy": " Copy",
-    "other_wallet": "Connect Other Wallet",
-    "new_wallet": "Connect Wallet"
+    "new_wallet": "Connect Wallet",
+    "other_wallet": "Connect Other Wallet"
   }
 }

@@ -40,9 +40,8 @@ const actions = {
     router.push('/');
   },
   login({ commit, state }, userData) {
-    // TODO: When API complete, name should be removed.
-    commit('setUser', { ...userData, name: 'Chris Torres' });
-    localStorage.setItem('userData', JSON.stringify({ ...userData, name: 'Chris Torres' }));
+    commit('setUser', { ...userData });
+    localStorage.setItem('userData', JSON.stringify({ ...userData }));
   },
 };
 
