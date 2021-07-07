@@ -224,6 +224,11 @@ export default {
         {
           name: this.$t('nft_details.tabs.bids'),
           handler: () => {
+            if (this.bidsList.length === 0) {
+              this.nobid = true;
+            } else {
+              this.nobid = false;
+            }
             this.showBids = true;
             this.showDetails = false;
             this.showHistory = false;
@@ -235,6 +240,7 @@ export default {
             this.showBids = false;
             this.showDetails = true;
             this.showHistory = false;
+            this.nobid = false;
           },
         },
         {
@@ -243,6 +249,7 @@ export default {
             this.showBids = false;
             this.showDetails = false;
             this.showHistory = true;
+            this.nobid = false;
           },
         },
       ],
@@ -343,17 +350,17 @@ export default {
     },
     // eslint-disable-next-line consistent-return
     async GetBids() {
-      let response = null;
+      let getBidData = null;
       try {
         const { data } = await this.$api.GETBIDS(this.$route.params.id);
-        response = data;
-        if (response.data.length === 0) {
+        getBidData = data;
+        if (getBidData.data.length === 0) {
           this.nobid = true;
         } else {
-          this.bidsList = response.data;
+          this.bidsList = getBidData.data;
         }
       } catch (error) {
-        response = error?.response?.data;
+        getBidData = error?.response?.data;
         this.nobid = true;
       }
     },
