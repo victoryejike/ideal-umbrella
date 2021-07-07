@@ -101,6 +101,7 @@
             type="date"
           />
           <BaseUnderlinedInput
+            v-if="pricingType == 'TIMED AUCTION'"
             class="input-field"
             name="expiration_date"
             :placeholder="$t('collectible.auction_expiration_placeholder')"
@@ -154,31 +155,31 @@
             :options="royaltiesList"
             :text="$t('collectible.royalties_label')"
           />
-          <BaseUnderlinedInput
-            v-model="value"
-            class="input-field show"
-            name="royalties[0].recipient"
-            :placeholder="$t('collectible.discription_placeholder')"
-            :text="$t('collectible.discription_label')"
-          />
-          <BaseUnderlinedInput
-            v-if="standard === 'erc1155'"
-            class="input-field copies-input"
-            name="copies"
-            :placeholder="$t('collectible.number_of_copies_placeholder')"
-            rules="required"
-            :text="$t('collectible.number_of_copies_label')"
-          />
-          <BaseUnderlinedInput
-            v-if="standard === 'erc1155'"
-            v-model="ipfsUrl"
-            class="input-field show"
-
-            name="ipfsUrl"
-            :placeholder="$t('collectible.number_of_copies_placeholder')"
-            :text="$t('collectible.number_of_copies_label')"
-          />
         </div>
+        <BaseUnderlinedInput
+          v-model="value"
+          class="input-field show"
+          name="royalties[0].recipient"
+          :placeholder="$t('collectible.discription_placeholder')"
+          :text="$t('collectible.discription_label')"
+        />
+        <BaseUnderlinedInput
+          v-if="standard === 'erc1155'"
+          class="input-field copies-input"
+          name="copies"
+          :placeholder="$t('collectible.number_of_copies_placeholder')"
+          rules="required"
+          :text="$t('collectible.number_of_copies_label')"
+        />
+        <BaseUnderlinedInput
+          v-if="standard === 'erc1155'"
+          v-model="ipfsUrl"
+          class="input-field show"
+
+          name="ipfsUrl"
+          :placeholder="$t('collectible.number_of_copies_placeholder')"
+          :text="$t('collectible.number_of_copies_label')"
+        />
         <BaseUnderlinedInput
           v-model="uri"
           class="input-field show"
@@ -233,7 +234,6 @@
           />
           <BaseRoundButton
             class="btn-primary btn-md btn-bold submit-btn"
-            :icon="isLoading ? 'loading' : 'arrow-right'"
             :submit="true"
             :text="$t('collectible.create_button_text')"
           />
@@ -272,6 +272,7 @@ export default {
   components: { UploadCard, Base, Field },
   data() {
     return {
+      isLoading: false,
       categories: '',
       isModalVisible: false,
       selectedSwitch: true,
@@ -287,10 +288,11 @@ export default {
       singleTabTitle: [
         this.$t('collectible.tab.fixed_price'),
         this.$t('collectible.tab.timed_auction'),
-        // this.$t('collectible.tab.unlimited_auction'),
+        this.$t('collectible.tab.unlimited_auction'),
       ],
       multipleTabTitle: [
         this.$t('collectible.tab.fixed_price'),
+        this.$t('collectible.tab.timed_auction'),
         this.$t('collectible.tab.unlimited_auction'),
       ],
       royaltiesList: [
@@ -1153,8 +1155,16 @@ export default {
     } else {
       let response = null;
       try {
-        const { data } = await this.$api.GETCOLLECTIBLE(localStorage.getItem('account'));
-        response = data;
+        let type = null;
+        if (this.standard === 'erc1155') {
+          type = false;
+          const { data } = await this.$api.GETCOLLECTIBLE(localStorage.getItem('account'), type);
+          response = data;
+        } else {
+          type = true;
+          const { data } = await this.$api.GETCOLLECTIBLE(localStorage.getItem('account'), type);
+          response = data;
+        }
         this.collectible_class = response.data;
         console.log(response);
       } catch (error) {
@@ -1333,8 +1343,9 @@ export default {
       const title = document.querySelectorAll('.title')[1].value;
       const ipfsHash = `https://ipfs.io/ipfs/${sessionStorage.getItem('ipfsHash')}`;
       let cid;
-      const qty = document.querySelector('.copies').value;
       if (this.standard === 'erc1155') {
+        this.isLoading = true;
+        const qty = document.querySelector('.copies').value;
         const metadata = {
           description: desc,
           name: title,
@@ -1346,7 +1357,9 @@ export default {
         this.ipfsUrl = `https://${cid}.ipfs.dweb.link`;
         console.log('IPFS cid:', `https://${cid}.ipfs.dweb.link`);
         console.log(await ipfs.cat(cid));
+        this.minting(qty, cid);
       } else {
+        this.isLoading = true;
         const metadata = {
           description: desc,
           name: title,
@@ -1356,8 +1369,8 @@ export default {
         cid = await ipfs.add(doc);
         console.log('IPFS cid:', `https://${cid}.ipfs.dweb.link`);
         console.log(await ipfs.cat(cid));
+        this.minting(null, cid);
       }
-      this.minting(qty, cid);
     },
     async minting(qty, cid) {
       let provider;
@@ -1380,25 +1393,45 @@ export default {
         const result = await contract.methods
           .mint(qty)
           .send({ from: localStorage.getItem('account') });
-        console.log('Transaction sent');
-        // Get return value of the event
-        console.log(result);
         this.ipfsUrl = cid;
-        this.tokenId = result.events.TokenMinted.id;
-        document.getElementsByClassName('submit-btn').click();
+        this.tokenId = result.events.TokenMinted.returnValues.tokenType;
+        document.getElementsByClassName('submit-btn')[0].click();
       } else {
         const contract = new web3.eth.Contract(this.erc721abi, this.erc721ContractAddress);
-        console.log(contract);
-        contract.methods.mint(`https://${cid}.ipfs.dweb.link`).send({ from: localStorage.getItem('account') }).on('transactionHash', (hash) => {
-          console.log(hash);
-          contract.methods.setApprovalForAll('0x560c6067b94048F92Bd89e44D205c3597A4fe82E', true).send({ from: localStorage.getItem('account') }).on('transactionHash', (hash2) => {
-            console.log(hash2);
-          });
-        });
+        const result = await contract.methods
+          .mint(`https://${cid}.ipfs.dweb.link`)
+          .send({ from: localStorage.getItem('account') });
+        this.ipfsUrl = cid;
+        console.log(result);
+        this.tokenId = result.events.Transfer.returnValues.tokenId;
+        console.log(this.tokenId);
+        document.getElementsByClassName('submit-btn')[0].click();
+        // console.log(contract);
+        // contract.methods.mint(`https://${cid}.ipfs.dweb.link`).send({
+        // from: localStorage.getItem('account') }).on('transactionHash', (hash) => {
+        //   console.log(hash);
+        //   contract.methods.setApprovalForAll('0x560c6067b94048F92Bd89e44D205c3597A
+        // 4fe82E', true).send({ from: localStorage.getItem('account') }).on('trans
+        // actionHash', (hash2) => {
+        //     console.log(hash2);
+        //   });
+        // });
       }
     },
     async onSubmit(CollectibleNftData) {
-      console.log(CollectibleNftData);
+      let response = null;
+      try {
+        const { data } = this.$api.CREATENFT(CollectibleNftData);
+        response = data;
+        console.log(response);
+        this.$router.push({ name: 'Profile' });
+      } catch (error) {
+        response = error.response.data;
+        console.log(error);
+        this.isLoading = false;
+        this.isModalVisible = false;
+      }
+      this.isLoading = false;
     },
   },
 };

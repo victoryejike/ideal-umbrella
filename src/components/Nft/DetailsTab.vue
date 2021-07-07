@@ -10,7 +10,7 @@
         <div
           v-if="id"
         >
-          {{ id }}
+          {{ id }} ETH
         </div>
         <div>
           {{ value }}

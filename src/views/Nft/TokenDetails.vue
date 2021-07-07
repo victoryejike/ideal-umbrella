@@ -125,11 +125,24 @@
         :text="$t('nft_details.contact_details')"
         :value="nft.owner_address.slice(0, 15)+'...'"
       />
-      <DetailsTab
-        v-if="showDetails"
-        :id="nft.price"
-        :text="$t('nft_details.price')"
-      />
+      <div
+        v-if="nft.price"
+      >
+        <DetailsTab
+          v-if="showDetails"
+          :id="nft.price"
+          :text="$t('nft_details.price')"
+        />
+      </div>
+      <div
+        v-if="nft.minimum_bid"
+      >
+        <DetailsTab
+          v-if="showDetails"
+          :id="nft.minimum_bid"
+          :text="$t('nft_details.price')"
+        />
+      </div>
       <DetailsTab
         v-if="showDetails"
         :text="$t('nft_details.blockchain')"

@@ -65,7 +65,7 @@ const API_SERVICES = {
   GET_PROFILE: (params) => axios.get('users/profile', params, false),
   UPLOADAVATAR: (params) => axios.post('users/update-profile-avatar', params, { headers: { 'Content-Type': 'multipart/form-data' } }),
   UPDATEPROFILE: (params) => axios.post('users/update-profile', params, false),
-  GETCOLLECTIBLE: (params) => axios.get(`collectible/user/${params}`),
+  GETCOLLECTIBLE: (params, type) => axios.get(`collectible/user/${params}?single=${type}`),
   GETOWNEDNFT: (params) => axios.get(`nft/owned/${params}`),
   GETONSALESNFT: () => axios.get('nft/on-sale'),
   GETOCREATEDNFT: () => axios.get('nft/created'),
