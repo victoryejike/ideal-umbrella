@@ -3,7 +3,10 @@
     ref="gridbox-root"
     class="gridbox-root"
   >
-    <FilterList @selected="handleSelected" />
+    <FilterList
+      v-if="hasFilter || activeIndex === activeList.length - 1"
+      @selected="handleSelected"
+    />
     <div
       class="gridbox"
     >
@@ -49,6 +52,8 @@ export default {
   components: { FilterList },
   props: {
     number: { type: Number, required: false, default: 10 },
+    hasFilter: { type: Boolean, required: false, default: true },
+    sortMethod: { type: String, required: true },
   },
   data() {
     return {
@@ -57,12 +62,22 @@ export default {
       isAutoLoad: false,
       activeIndex: 0,
       cardCSS: { bgColor: null },
-      list: [[], [], [], [], []],
+      list: {
+        latest: [[], [], [], [], []],
+        cheapest: [[], [], [], [], []],
+        highest: [[], [], [], [], []],
+        search: [],
+      },
     };
   },
   computed: {
     activeList() {
-      return this.list[this.activeIndex];
+      return this.list[this.sortMethod][this.activeIndex];
+    },
+  },
+  watch: {
+    sortMethod() {
+      this.handleSelected(this.activeIndex);
     },
   },
   mounted() {
@@ -72,6 +87,33 @@ export default {
     this.loadMore();
   },
   methods: {
+    // Fake data generator, should be removed after integrating API
+    randomStr(length, str = '') {
+      let result = str;
+      result += Math.random().toString(20).substr(2, length);
+      if (str.length > length) return result.slice(0, length);
+      return this.randomStr(length, result);
+    },
+    // Fake data generator, should be removed after integrating API
+    async getData() {
+      const result = [];
+      const filter = ['art', 'music', 'sport', 'photo', 'collect'];
+      const avatars = await this.$api.FAKE_DATA('avatar');
+      const images = await this.$api.FAKE_DATA('image', Math.floor(Math.random() * 39) + 1);
+      for (let i = 0; i < this.number; i += 1) {
+        result.push({
+          id: this.randomStr(36),
+          avatar: avatars[i % 12].avatars[0].url,
+          author: `Author ${this.randomStr(10)}`,
+          image: images[i % 25].download_url,
+          name: `${this.sortMethod}_${filter[this.activeIndex]}_${this.randomStr(10)}`,
+          price: Math.random() * 60 + 5,
+          type: 'HT', // do it later
+          verified: Math.random() > 0.5,
+        });
+      }
+      return result;
+    },
     handleClick() {
       this.isBtnLoading = true;
       this.loadMore();
@@ -83,22 +125,14 @@ export default {
     },
     loadMore() {
       // TODO: Call API
-      setTimeout(() => {
-        this.list[this.activeIndex].push(...Array(this.number).fill({
-          id: 'V3isglWtYb5qIy24QbTJeoJjuV35fEDd0RoL',
-          avatar: '',
-          author: 'Otha Davis III',
-          image: '',
-          name: 'Crypto Mask',
-          price: 67.456,
-          verified: true,
-        }));
+      setTimeout(async () => {
+        this.activeList.push(...await this.getData());
         this.isPageLoading = false;
       }, 1000);
     },
     handleSelected(index) {
       this.activeIndex = index;
-      if (this.list[index].length === 0) {
+      if (this.activeList.length === 0) {
         this.isPageLoading = true;
         this.isAutoLoad = false;
         this.loadMore();

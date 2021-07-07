@@ -10,7 +10,7 @@
         <SearchBar
           class="searchbar"
           :width="36.25"
-          @click="updateGridBox($event)"
+          @click="handleSearch($event)"
         />
       </div>
       <img
@@ -19,6 +19,7 @@
       >
     </div>
     <DiscoverSection
+      ref="discover-section"
       :number="25"
       :title="title"
       :underlined="isUnderline"
@@ -30,12 +31,31 @@
 import SearchBar from '@/components/Index/SearchBar.vue';
 import DiscoverSection from '@/components/Discover/DiscoverSection.vue';
 
+/**
+ *  In order to show the NFT item greatly, I designed three layer, which is
+ *  Discover -> DiscoverSection -> ProductGridBox.
+ *
+ *  Discover: focus on searching (interacts with SearchBar)
+ *  searching cache would be store here (prototype, may put it to Vuex if acceptable)
+ *
+ *  DiscoverSection: focus on sorting (interacts with BaseNavigationTab)
+ *  Landing Page can reuse this components
+ *
+ *  ProductGridBox: focus on filtering (interacts with FilterList)
+ *  Profile Page can reuse this components
+ *
+ *  It may have a bit tortuous to passing searching data to ProductGridBox, but it follows SRP.
+ *  (better maintaining + readable)
+ *
+ */
+
 export default {
   name: 'Discover',
   components: { SearchBar, DiscoverSection },
   data() {
     return {
       searchValue: null,
+      searchingCache: {},
     };
   },
   computed: {
@@ -52,11 +72,26 @@ export default {
     this.searchValue = this.$route.query.value;
   },
   methods: {
-    updateGridBox(value) {
+    handleSearch(value) {
       this.searchValue = value;
       if (this.$route.query.value) {
         this.$router.replace({ query: null });
       }
+      // Call API...
+      this.$refs['discover-section'].gridbox.isPageLoading = true;
+      // setTimeout(() => {
+      //   const data = Array(40).fill({
+      //     id: '06d355e371c5448b92b0016795950b08',
+      //     avatar: '',
+      //     author: 'Tester',
+      //     image: '',
+      //     name: 'Hello World',
+      //     price: 34,
+      //     verified: false,
+      //   });
+      //   this.$refs['discover-section'].pushDataToGridBox(data);
+      //   this.$refs['discover-section'].gridbox.isPageLoading = false;
+      // }, 500);
     },
   },
 };

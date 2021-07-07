@@ -12,8 +12,10 @@
     </template>
     <template #content>
       <ProductGridBox
+        ref="grid-box"
         class="discover-section"
         :number="number"
+        :sort-method="sortMethod"
       />
     </template>
   </IndexSection>
@@ -33,12 +35,30 @@ export default {
   },
   data() {
     return {
+      sortMethod: 'latest',
       discoverTab: [
-        this.$t('index_screen.discover_tab.recent'),
-        this.$t('index_screen.discover_tab.cheap'),
-        this.$t('index_screen.discover_tab.high'),
+        {
+          name: this.$t('index_screen.discover_tab.recent'),
+          handler: () => { this.sortMethod = 'latest'; },
+        },
+        {
+          name: this.$t('index_screen.discover_tab.cheap'),
+          handler: () => { this.sortMethod = 'cheapest'; },
+        },
+        {
+          name: this.$t('index_screen.discover_tab.high'),
+          handler: () => { this.sortMethod = 'highest'; },
+        },
       ],
     };
+  },
+  computed: {
+    gridbox() { return this.$refs['grid-box']; },
+  },
+  methods: {
+    pushDataToGridBox(data) {
+
+    },
   },
 };
 </script>

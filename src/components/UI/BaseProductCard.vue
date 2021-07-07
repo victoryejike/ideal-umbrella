@@ -99,7 +99,7 @@ export default {
     image: { type: String, required: true },
     name: { type: String, required: true },
     price: { type: Number, required: true },
-    mininum: { type: Number, required: true },
+    mininum: { type: Number, required: false, default: null },
     verified: { type: Boolean, required: false, default: false },
   },
   computed: {

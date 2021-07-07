@@ -73,6 +73,15 @@ const API_SERVICES = {
   GETCATEGORIES: () => axios.get('category'),
   CREATEBIDS: (params) => axios.post('bids', params, false),
   GETBIDS: (params) => axios.get(`bids/${params}`),
+  FAKE_DATA: async (type, page) => {
+    let response = null;
+    if (type === 'avatar') {
+      response = (await axios.get('https://tinyfac.es/api/users')).data;
+    } else if (type === 'image') {
+      response = (await axios.get(`https://picsum.photos/v2/list?page=${page}&limit=25`)).data;
+    }
+    return response;
+  },
   CHECK_TOKEN: () => {
     // Temporarily implementation, should be a OPTIONS request
     try {
