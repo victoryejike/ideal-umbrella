@@ -76,6 +76,11 @@
         class="tab"
         :list="tabFixedNft"
         :width="10"
+      /> <BaseNavigationTab
+        v-else
+        class="tab"
+        :list="tabTitleList"
+        :width="10"
       />
 
       <div
