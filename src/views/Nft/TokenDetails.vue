@@ -41,7 +41,7 @@
         </div>
         <div class="details-section">
           <label v-if="nft.pricing_type=='fixed'">{{ $t('nft_details.price') }}</label>
-          <label v-else>{{ $t('nft_details.highest_bid') }}</label>
+          <label v-else>{{ $t('nft_details.minimum_bid') }}</label>
           <div class="highest-bid-details">
             <img
               class="coins-icon"
