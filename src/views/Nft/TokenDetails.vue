@@ -26,10 +26,10 @@
           <div class="creater-details">
             <img
               class="creater-image"
-              :src="nft.owner.image"
+              :src="nft.creator.image"
               width="40"
             >
-            <span class="creater-name">{{ nft.owner.display_name }}</span>
+            <span class="creater-name">{{ nft.creator.display_name }}</span>
             <img
               v-if="creater.verified"
               class="tick-icon"
