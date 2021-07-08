@@ -96,7 +96,7 @@
             :text="$t('collectible.auction_label')"
           >
             <template #element>
-              <!-- <BaseScrollableSelectBox
+              <!-- <BaseUnderlinedInput
                 :css="selectBoxCSS"
                 key-name="name"
                 name="receivedBidCoinType"
@@ -1168,8 +1168,17 @@ export default {
   },
   async mounted() {
     this.verifyUser();
-    if (localStorage.getItem('account') === null || localStorage.getItem('account') === undefined) {
-      this.$router.push({ name: 'ConnectWallet' });
+    const web3 = new Web3(window.ethereum);
+
+    if ((window.ethereum)) {
+      console.log('true');
+      web3.eth.getAccounts((err, accounts) => {
+        if (err !== null) console.error(`An error occurred: ${err}`);
+        else if (accounts.length === 0 || localStorage.getItem('account') === null) {
+          console.log('User is not logged in to MetaMask');
+          this.$router.push({ name: 'ConnectWallet' });
+        } else console.log('User is logged in to MetaMask');
+      });
     } else {
       let response = null;
       try {
@@ -1201,6 +1210,7 @@ export default {
     toggleSwitch() {
       this.selectedSwitch = !this.selectedSwitch;
     },
+    // eslint-disable-next-line consistent-return
     async verifyUser() {
       let response = null;
       try {
@@ -1211,7 +1221,10 @@ export default {
       }
 
       if (response?.success) {
-        if (response?.data?.display_name === null) {
+        if (response.data.display_name !== undefined) {
+          return true;
+        // eslint-disable-next-line no-else-return
+        } else {
           this.$router.push({ name: 'EditProfile' });
         }
       }
@@ -1527,8 +1540,7 @@ input:checked + .slider::before {
   margin-bottom: 2.5rem;
 }
 
-.show,
-.submit-btn {
+.show, .submit-btn {
   display: none;
 }
 
@@ -1558,11 +1570,12 @@ input:checked + .slider::before {
 }
 
 .input-disabled {
-  background-color: inherit;
   border: none;
+  outline: none;
+  background-color: inherit;
   color: inherit;
   font-weight: 700;
-  outline: none;
+  text-align: right;
 }
 
 .royalties-selectbox {
