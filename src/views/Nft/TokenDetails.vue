@@ -1,224 +1,225 @@
 <template>
-  <div
-    v-for="(nft, index) in getNftDetails"
-    :key="index"
-    class="token-details"
-  >
-    <div class="display-token-image">
-      <div class="token-text-div">
-        <span class="token-text">   {{ nft.title }}</span>
-        <div class="button-div">
-          <BaseRoundButton
-            class="btn-outline-secondary button btn-unclickable"
-            text="🎨 Art"
-          />
-        </div>
-      </div>
-      <img
-        class="token-image"
-        :src="`https://ipfs.io/ipfs/${nft.uri}`"
-      >
-    </div>
-    <div class="display-token-details">
-      <div class="user-details">
-        <div class="details-section">
-          <label> {{ $t('nft_details.creator') }}</label>
-          <div class="creater-details">
-            <img
-              class="creater-image"
-              :src="nft.creator.image"
-              width="40"
-            >
-            <span class="creater-name">{{ nft.creator.display_name }}</span>
-            <img
-              v-if="creater.verified"
-              class="tick-icon"
-              height="16"
-              src="@svg/tick.svg"
-              width="16"
-            >
+  <div>
+    <div
+      v-for="(nft, index) in getNftDetails"
+      :key="index"
+      class="token-details"
+    >
+      <div class="display-token-image">
+        <div class="token-text-div">
+          <span class="token-text">   {{ nft.title }}</span>
+          <div class="button-div">
+            <BaseRoundButton
+              class="btn-outline-secondary button btn-unclickable"
+              text="🎨 Art"
+            />
           </div>
         </div>
-        <div class="details-section">
-          <label v-if="nft.pricing_type=='fixed'">{{ $t('nft_details.price') }}</label>
-          <label v-else>{{ $t('nft_details.minimum_bid') }}</label>
-          <div class="highest-bid-details">
-            <img
-              class="coins-icon"
-              height="20"
-              src="@svg/ethereum.svg"
-              width="20"
-            >
-            <span
-              v-if="nft.pricing_type=='fixed'"
-              class="coin"
-            >{{ nft.price }} ETH</span>
-            <span
-              v-else
-              class="coin"
-            >{{ nft.minimum_bid }} ETH</span>
+        <img
+          class="token-image"
+          :src="`https://ipfs.io/ipfs/${nft.uri}`"
+        >
+      </div>
+      <div class="display-token-details">
+        <div class="user-details">
+          <div class="details-section">
+            <label> {{ $t('nft_details.creator') }}</label>
+            <div class="creater-details">
+              <img
+                class="creater-image"
+                :src="nft.creator.image"
+                width="40"
+              >
+              <span class="creater-name">{{ nft.creator.display_name }}</span>
+              <img
+                v-if="creater.verified"
+                class="tick-icon"
+                height="16"
+                src="@svg/tick.svg"
+                width="16"
+              >
+            </div>
+          </div>
+          <div class="details-section">
+            <label v-if="nft.pricing_type=='fixed'">{{ $t('nft_details.price') }}</label>
+            <label v-else>{{ $t('nft_details.minimum_bid') }}</label>
+            <div class="highest-bid-details">
+              <img
+                class="coins-icon"
+                height="20"
+                src="@svg/huobi-token.svg"
+                width="20"
+              >
+              <span
+                v-if="nft.pricing_type=='fixed'"
+                class="coin"
+              >{{ nft.price }} ETH</span>
+              <span
+                v-else
+                class="coin"
+              >{{ nft.minimum_bid }} ETH</span>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div class="token-content details-section">
-        <label> {{ $t('nft_details.description') }}</label>
-        <div class="token-description">
-          {{ nft.description }}
-        </div>
+        <div class="token-content details-section">
+          <label> {{ $t('nft_details.description') }}</label>
+          <div class="token-description">
+            {{ nft.description }}
+          </div>
         <!-- <a
           class="read-more"
           href=""
         >{{ $t('nft_details.read_more') }}</a> -->
-      </div>
-      <BaseNavigationTab
-        v-if="nft.pricing_type=='fixed'"
-        class="tab"
-        :list="tabFixedNft"
-        :width="10"
-      /> <BaseNavigationTab
-        v-else
-        class="tab"
-        :list="tabTitleList"
-        :width="10"
-      />
+        </div>
+        <BaseNavigationTab
+          v-if="nft.pricing_type=='fixed'"
+          class="tab"
+          :list="tabFixedNft"
+          :width="10"
+        /> <BaseNavigationTab
+          v-else
+          class="tab"
+          :list="tabTitleList"
+          :width="10"
+        />
 
-      <div
-        v-if="nft.pricing_type!='fixed'"
-      >
         <div
-          v-for="(item, i) in bidsList"
-          v-show="showBids"
-          :key="i"
-          class="bids-main-div"
+          v-if="nft.pricing_type!='fixed'"
         >
-          <div class="bids-inner-div">
-            <div>
-              <div class="author">
-                {{ item.user_id.display_name }}
-                <img
-                  v-if="creater.verified"
-                  class="tick-icon"
-                  height="16"
-                  src="@svg/tick.svg"
-                  width="16"
-                >
+          <div
+            v-for="(item, i) in bidsList"
+            v-show="showBids"
+            :key="i"
+            class="bids-main-div"
+          >
+            <div class="bids-inner-div">
+              <div>
+                <div class="author">
+                  {{ item.user_id.display_name }}
+                  <img
+                    v-if="creater.verified"
+                    class="tick-icon"
+                    height="16"
+                    src="@svg/tick.svg"
+                    width="16"
+                  >
+                </div>
+                <div class="date-time">
+                  {{ new Date(item.created_at).toDateString() }}
+                </div>
               </div>
-              <div class="date-time">
-                {{ new Date(item.created_at).toDateString() }}
+              <div class="price">
+                {{ item.amount }} ETH
               </div>
             </div>
-            <div class="price">
-              {{ item.amount }} ETH
-            </div>
+            <div
+              class="input-line"
+            />
+          </div>
+          <NoBid
+            v-show="nobid"
+          />
+        </div>
+        <DetailsTab
+          v-if="showDetails"
+          :text="$t('nft_details.contact_details')"
+          :value="nft.owner_address.slice(0, 15)+'...'"
+        />
+        <div
+          v-if="nft.price"
+        >
+          <DetailsTab
+            v-if="showDetails"
+            :id="nft.price"
+            :text="$t('nft_details.price')"
+          />
+        </div>
+        <div
+          v-if="nft.minimum_bid"
+        >
+          <DetailsTab
+            v-if="showDetails"
+            :id="nft.minimum_bid"
+            :text="$t('nft_details.price')"
+          />
+        </div>
+        <DetailsTab
+          v-if="showDetails"
+          :text="$t('nft_details.blockchain')"
+          :value="nft.blockchain"
+        />
+        <div
+          v-if="showHistory"
+        >
+          <HistoryTab
+            v-if="nft.pricing_type=='fixed'"
+            :owner="nft.creator.display_name"
+            :price="nft.price"
+            type="fixed"
+          />
+        </div>
+        <div class="actions">
+          <div
+            v-if="nft.pricing_type == 'fixed'"
+            class="actions"
+          >
+            <BaseRoundButton
+              class="buy-button btn-primary btn-md btn-bold"
+              icon="arrow-right"
+              :text="$t('nft_details.buy_now')"
+              @click="showFixedModal"
+            />
+            <BaseModal
+              v-show="isModalVisiblefixed"
+              @close="closeModal"
+            >
+              <template #header>
+                Buy NFT
+              </template>
+
+              <template #body>
+                <BuyModal
+                  :description="nft.description"
+                  :nfttype="nft.supply"
+                  :title="nft.title"
+                />
+              </template>
+            </BaseModal>
           </div>
           <div
-            class="input-line"
-          />
-        </div>
-        <NoBid
-          v-show="nobid"
-        />
-      </div>
-      <DetailsTab
-        v-if="showDetails"
-        :text="$t('nft_details.contact_details')"
-        :value="nft.owner_address.slice(0, 15)+'...'"
-      />
-      <div
-        v-if="nft.price"
-      >
-        <DetailsTab
-          v-if="showDetails"
-          :id="nft.price"
-          :text="$t('nft_details.price')"
-        />
-      </div>
-      <div
-        v-if="nft.minimum_bid"
-      >
-        <DetailsTab
-          v-if="showDetails"
-          :id="nft.minimum_bid"
-          :text="$t('nft_details.price')"
-        />
-      </div>
-      <DetailsTab
-        v-if="showDetails"
-        :text="$t('nft_details.blockchain')"
-        :value="nft.blockchain"
-      />
-      <div
-        v-if="showHistory"
-      >
-        <HistoryTab
-          v-if="nft.pricing_type=='fixed'"
-          :creater="nft.creator.display_name"
-          :date="nft.creator.created_at"
-          :price="nft.price"
-          type="fixed"
-        />
-      </div>
-      <div class="actions">
-        <div
-          v-if="nft.pricing_type == 'fixed'"
-          class="actions"
-        >
-          <BaseRoundButton
-            class="buy-button btn-primary btn-md btn-bold"
-            icon="arrow-right"
-            :text="$t('nft_details.buy_now')"
-            @click="showFixedModal"
-          />
-          <BaseModal
-            v-show="isModalVisiblefixed"
-            @close="closeModal"
+            v-else
+            class="bid-button-div"
           >
-            <template #header>
-              Buy NFT
-            </template>
+            <BaseRoundButton
+              class="bid-button btn-outline-primary btn-bold btn-xl"
+              :text="$t('nft_details.place_bid')"
+              @click="showModal"
+            />
+            <BaseModal
+              v-show="isModalVisible"
+              @close="closeModal"
+            >
+              <template #header>
+                Place a bid
+              </template>
 
-            <template #body>
-              <BuyModal
-                :description="nft.description"
-                :nfttype="nft.supply"
-                :title="nft.title"
-              />
-            </template>
-          </BaseModal>
-        </div>
-        <div
-          v-else
-          class="bid-button-div"
-        >
-          <BaseRoundButton
-            class="bid-button btn-outline-primary btn-bold btn-xl"
-            :text="$t('nft_details.place_bid')"
-            @click="showModal"
-          />
-          <BaseModal
-            v-show="isModalVisible"
-            @close="closeModal"
-          >
-            <template #header>
-              Place a bid
-            </template>
-
-            <template #body>
-              <BidModal
-                :description="nft.description"
-                :nfttype="nft.supply"
-                :title="nft.title"
-              />
-            </template>
-            <template #footer>
+              <template #body>
+                <BidModal
+                  :description="nft.description"
+                  :nfttype="nft.supply"
+                  :title="nft.title"
+                />
+              </template>
+              <template #footer>
               <!-- <BaseRoundButton
                 class="buy-button btn-primary btn-md btn-bold"
                 icon="arrow-right"
                 :text="$t('nft_details.place_bid')"
               /> -->
-            </template>
-          </BaseModal>
+              </template>
+            </BaseModal>
+          </div>
         </div>
       </div>
     </div>
@@ -342,9 +343,10 @@ export default {
   async mounted() {
     if (this.$route.params.id == null || this.$route.params.id === undefined || this.$route.params.id === '') {
       this.$router.push('/');
-    } else {
-      this.GetNFTDetails();
+    } else if (await this.GetNFTDetails()) {
       this.GetBids();
+    } else {
+      this.$router.push({ name: 'PathNotFound' });
     }
   },
   methods: {
@@ -359,7 +361,6 @@ export default {
     showFixedModal() {
       this.isModalVisiblefixed = true;
     },
-    // eslint-disable-next-line consistent-return
     async verifyUser() {
       let response = null;
       try {
@@ -370,15 +371,11 @@ export default {
       }
 
       if (response?.success) {
-        if (response.data.display_name !== undefined) {
-          return true;
-        // eslint-disable-next-line no-else-return
-        } else {
+        if (response?.data?.display_name === null) {
           this.$router.push({ name: 'EditProfile' });
         }
       }
     },
-    // eslint-disable-next-line consistent-return
     async GetNFTDetails() {
       let response = null;
       try {
@@ -390,12 +387,11 @@ export default {
           this.showDetails = true;
           this.showHistory = false;
         }
-        console.log('list', this.getNftDetails);
       } catch (error) {
         response = error?.response?.data;
       }
+      return response?.success === true;
     },
-    // eslint-disable-next-line consistent-return
     async GetBids() {
       let getBidData = null;
       try {

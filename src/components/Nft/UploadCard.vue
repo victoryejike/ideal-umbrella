@@ -55,16 +55,13 @@ export default {
       try {
         const img = this.$refs.file.files[0];
         const [file] = event.target.files;
-        console.log(file);
         // this.fileName = file.name;
         this.img = URL.createObjectURL(img);
         const { cid } = await client.add(file);
-        console.log(cid);
         this.ipfsHash = cid.string;
       } catch (error) {
-        console.log(error);
+        //
       }
-      console.log(this.ipfsHash);
       sessionStorage.setItem('ipfsHash', this.ipfsHash);
     },
   },

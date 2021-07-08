@@ -34,11 +34,20 @@
             class="links-div"
           >
             <router-link
+              v-if="link.url.startsWith('/')"
               class="links"
               :to="link.url"
             >
               {{ link.name }}
             </router-link>
+            <a
+              v-else
+              class="links"
+              :href="link.url"
+              target="_blank"
+            >
+              {{ link.name }}
+            </a>
           </div>
         </div>
       </div>
@@ -73,16 +82,16 @@ export default {
           header: this.$t('footer.nft.title'),
           content: [
             { name: this.$t('footer.nft.discover'), url: '/discover' },
-            { name: this.$t('footer.nft.create'), url: '/' },
-            { name: this.$t('footer.nft.profile'), url: '/' },
-            { name: this.$t('footer.nft.wallet'), url: '/' },
+            { name: this.$t('footer.nft.create'), url: '/nft' },
+            { name: this.$t('footer.nft.profile'), url: '/account/profile' },
+            { name: this.$t('footer.nft.wallet'), url: '/wallet' },
             { name: this.$t('footer.nft.how_it_works'), url: '/' },
           ],
         },
         {
           header: this.$t('footer.fanschain.title'),
           content: [
-            { name: this.$t('footer.fanschain.exchange'), url: '/' },
+            { name: this.$t('footer.fanschain.exchange'), url: 'http://fanschain.net' },
             { name: this.$t('footer.fanschain.fto'), url: '/' },
             { name: this.$t('footer.fanschain.community'), url: '/' },
           ],

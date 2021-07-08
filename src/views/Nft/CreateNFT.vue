@@ -1201,7 +1201,6 @@ export default {
     toggleSwitch() {
       this.selectedSwitch = !this.selectedSwitch;
     },
-    // eslint-disable-next-line consistent-return
     async verifyUser() {
       let response = null;
       try {
@@ -1212,10 +1211,7 @@ export default {
       }
 
       if (response?.success) {
-        if (response.data.display_name !== undefined) {
-          return true;
-        // eslint-disable-next-line no-else-return
-        } else {
+        if (response?.data?.display_name === null) {
           this.$router.push({ name: 'EditProfile' });
         }
       }
@@ -1531,7 +1527,8 @@ input:checked + .slider::before {
   margin-bottom: 2.5rem;
 }
 
-.show, .submit-btn {
+.show,
+.submit-btn {
   display: none;
 }
 
@@ -1561,11 +1558,11 @@ input:checked + .slider::before {
 }
 
 .input-disabled {
-  border: none;
-  outline: none;
   background-color: inherit;
+  border: none;
   color: inherit;
   font-weight: 700;
+  outline: none;
 }
 
 .royalties-selectbox {
