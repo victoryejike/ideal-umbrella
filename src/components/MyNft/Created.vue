@@ -59,7 +59,6 @@ export default {
     try {
       const { data } = await this.$api.GETOCREATEDNFT();
       response = data;
-      console.log(response);
       if (response.data.length === 0) {
         this.nonft = true;
       } else {

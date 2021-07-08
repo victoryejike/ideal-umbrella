@@ -59,7 +59,6 @@ export default {
     try {
       const { data } = await this.$api.GETOWNEDNFT(localStorage.getItem('account'));
       response = data;
-      console.log(response);
       if (response.data.length === 0) {
         this.nonft = true;
       } else {

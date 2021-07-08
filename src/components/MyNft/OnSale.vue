@@ -59,7 +59,6 @@ export default {
     try {
       const { data } = await this.$api.GETONSALESNFT();
       response = data;
-      console.log(response);
       if (response.data.length === 0) {
         this.nonft = true;
       } else {

@@ -78,11 +78,10 @@ export default {
         await provider.enable();
         const web3 = new Web3(provider);
         const account = await web3.eth.getAccounts();
-        console.log('Got accounts', account);
         this.accountAddress = localStorage.setItem('account', account);
         this.$router.push('/discover');
       } catch (error) {
-        console.log(error);
+        //
       }
     },
     async connectMetamask() {
@@ -97,7 +96,6 @@ export default {
           ],
         });
         const [accounts] = await web3.eth.getAccounts();
-        console.log('Got accounts', accounts);
         this.accountAddress = localStorage.setItem('account', accounts);
         this.$router.push('/discover');
       } catch (error) {

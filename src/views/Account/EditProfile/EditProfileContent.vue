@@ -87,7 +87,6 @@ export default {
       }
 
       if (response?.success) {
-        console.log(response.data);
         this.avatarURL = response?.data?.image; // Temporarily implementation, for demo
         if (response.data.display_name !== undefined) {
           document.querySelector('input[name=display_name]').value = response.data.display_name;
