@@ -72,6 +72,7 @@ const API_SERVICES = {
   GETNFTDETAILS: (params) => axios.get(`nft/${params}`),
   GETCATEGORIES: () => axios.get('category'),
   CREATEBIDS: (params) => axios.post('bids', params, false),
+  BUYNFT: (params) => axios.post('nft/buy-now', params, false),
   GETBIDS: (params) => axios.get(`bids/${params}`),
   FAKE_DATA: async (type, page) => {
     let response = null;

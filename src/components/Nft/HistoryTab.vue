@@ -1,82 +1,121 @@
 <template>
   <div
-    v-for="(history, index) in historyDetailsList"
-    :key="index"
-    class="history-main-div"
+    v-if="type != 'fixed'"
   >
-    <div class="history-inner-div">
-      <div class="history-action">
-        {{ history.action }}
-        <span v-if="history.action=='Listed'">for</span>
-      </div>
-      <div class="price">
-        <img
-          v-if="history.price"
-          class="coins-icon"
-          height="16"
-          src="@svg/huobi-token.svg"
-          width="16"
-        >
-        {{ history.price }}
-        <span>by</span>
-      </div>
-      <div class="author">
-        {{ history.author }}
-        <img
-          v-if="history.verified"
-          class="tick-icon"
-          height="16"
-          src="@svg/tick.svg"
-          width="16"
-        >
-      </div>
-    </div>
-    <div class="date-time">
-      at {{ history.timestamp }}
-    </div>
-
     <div
-      class="input-line"
-    />
+      v-for="(history, index) in historyDetailsList"
+      :key="index"
+      class="history-main-div"
+    >
+      <div class="history-inner-div">
+        <div class="history-action">
+          {{ history.action }}
+          <span v-if="history.action=='Listed'">for</span>
+        </div>
+        <div class="price">
+          <img
+            v-if="history.price"
+            class="coins-icon"
+            height="16"
+            src="@svg/huobi-token.svg"
+            width="16"
+          >
+          {{ history.price }}
+          <span>by</span>
+        </div>
+        <div class="author">
+          {{ history.author }}
+          <img
+            v-if="history.verified"
+            class="tick-icon"
+            height="16"
+            src="@svg/tick.svg"
+            width="16"
+          >
+        </div>
+      </div>
+      <div class="date-time">
+        at {{ history.timestamp }}
+      </div>
+
+      <div
+        class="input-line"
+      />
+    </div>
+  </div>
+  <div
+    v-else
+  >
+    <div
+      class="history-main-div"
+    >
+      <div class="history-inner-div">
+        <div class="history-action">
+          Minted
+          <span>by</span>
+        </div>
+        <div class="author">
+          {{ owner }} at
+        </div>
+        <div class="price">
+          <img
+            class="coins-icon"
+            height="16"
+            src="@svg/huobi-token.svg"
+            width="16"
+          >
+          {{ price }}
+          <span>ETH</span>
+        </div>
+      </div>
+      <div
+        class="input-line"
+      />
+    </div>
   </div>
 </template>
 <script>
 export default {
   name: 'HistoryTab',
+  props: {
+    type: { type: String, required: false, default: null },
+    owner: { type: String, required: false, default: null },
+    price: { type: String, required: false, default: null },
+  },
   data() {
     return {
 
-      historyDetailsList: [{
-        author: 'Metaverse',
-        action: 'Bid',
-        price: '0.14 ETH',
-        timestamp: '6/3/2021, 7:09 PM',
-        verified: true,
-      },
-      {
-        author: 'CryptoPunks',
-        action: 'Bid',
-        price: '0.15 ETH',
-        timestamp: '6/3/2021, 7:09 PM',
-        verified: true,
-      },
+      // historyDetailsList: [{
+      //   author: 'Metaverse',
+      //   action: 'Bid',
+      //   price: '0.14 ETH',
+      //   timestamp: '6/3/2021, 7:09 PM',
+      //   verified: true,
+      // },
+      // {
+      //   author: 'CryptoPunks',
+      //   action: 'Bid',
+      //   price: '0.15 ETH',
+      //   timestamp: '6/3/2021, 7:09 PM',
+      //   verified: true,
+      // },
 
-      {
-        author: 'Crypto Art',
-        action: 'Listed',
-        price: '0.15 ETH',
-        timestamp: '6/3/2021, 7:09 PM',
-        verified: true,
+      // {
+      //   author: 'Crypto Art',
+      //   action: 'Listed',
+      //   price: '0.15 ETH',
+      //   timestamp: '6/3/2021, 7:09 PM',
+      //   verified: true,
 
-      },
+      // },
 
-      {
-        author: 'Crypto Art',
-        verified: true,
-        action: 'Minted',
-        timestamp: '6/3/2021, 7:09 PM',
+      // {
+      //   author: 'Crypto Art',
+      //   verified: true,
+      //   action: 'Minted',
+      //   timestamp: '6/3/2021, 7:09 PM',
 
-      }],
+      // }],
     };
   },
 };

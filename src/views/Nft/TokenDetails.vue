@@ -148,17 +148,44 @@
         :text="$t('nft_details.blockchain')"
         :value="nft.blockchain"
       />
-
-      <HistoryTab
+      <div
         v-if="showHistory"
-      />
-      <div class="actions">
-        <BaseRoundButton
-          v-if="nft.pricing_type == 'fixed'"
-          class="buy-button btn-primary btn-md btn-bold"
-          icon="arrow-right"
-          :text="$t('nft_details.buy_now')"
+      >
+        <HistoryTab
+          v-if="nft.pricing_type=='fixed'"
+          :owner="nft.creator.display_name"
+          :price="nft.price"
+          type="fixed"
         />
+      </div>
+      <div class="actions">
+        <div
+          v-if="nft.pricing_type == 'fixed'"
+          class="actions"
+        >
+          <BaseRoundButton
+            class="buy-button btn-primary btn-md btn-bold"
+            icon="arrow-right"
+            :text="$t('nft_details.buy_now')"
+            @click="showFixedModal"
+          />
+          <BaseModal
+            v-show="isModalVisiblefixed"
+            @close="closeModal"
+          >
+            <template #header>
+              Buy NFT
+            </template>
+
+            <template #body>
+              <BuyModal
+                :description="nft.description"
+                :nfttype="nft.supply"
+                :title="nft.title"
+              />
+            </template>
+          </BaseModal>
+        </div>
         <div
           v-else
           class="bid-button-div"
@@ -200,15 +227,17 @@
 import DetailsTab from '@/components/Nft/DetailsTab.vue';
 import HistoryTab from '@/components/Nft/HistoryTab.vue';
 import BidModal from '@/components/Nft/BidModal.vue';
+import BuyModal from '@/components/Nft/BuyModal.vue';
 import NoBid from './NoBid.vue';
 
 export default {
   name: 'TokenDetails',
   components: {
-    DetailsTab, HistoryTab, BidModal, NoBid,
+    DetailsTab, HistoryTab, BidModal, NoBid, BuyModal,
   },
   data() {
     return {
+      isModalVisiblefixed: false,
       showBids: true,
       showDetails: false,
       nobid: false,
@@ -323,7 +352,11 @@ export default {
       this.isModalVisible = true;
     },
     closeModal() {
+      this.isModalVisiblefixed = false;
       this.isModalVisible = false;
+    },
+    showFixedModal() {
+      this.isModalVisiblefixed = true;
     },
     // eslint-disable-next-line consistent-return
     async verifyUser() {
@@ -527,7 +560,7 @@ label {
 }
 
 .buy-button {
-  width: 46%;
+  width: 100%;
 }
 
 .bid-button-div {
