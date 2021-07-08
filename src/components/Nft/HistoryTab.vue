@@ -55,18 +55,21 @@
           <span>by</span>
         </div>
         <div class="author">
-          {{ owner }} at
+          {{ creater }} for
         </div>
         <div class="price">
           <img
             class="coins-icon"
             height="16"
-            src="@svg/huobi-token.svg"
+            src="@svg/ethereum.svg"
             width="16"
           >
           {{ price }}
           <span>ETH</span>
         </div>
+      </div>
+      <div class="date-time">
+        at {{ getDate }}
       </div>
       <div
         class="input-line"
@@ -79,8 +82,9 @@ export default {
   name: 'HistoryTab',
   props: {
     type: { type: String, required: false, default: null },
-    owner: { type: String, required: false, default: null },
+    creater: { type: String, required: false, default: null },
     price: { type: String, required: false, default: null },
+    date: { type: String, required: false, default: null },
   },
   data() {
     return {
@@ -117,6 +121,13 @@ export default {
 
       // }],
     };
+  },
+  computed: {
+    getDate() {
+      const d = new Date(this.date);
+      const timestamp = d.toLocaleString();
+      return timestamp;
+    },
   },
 };
 </script>

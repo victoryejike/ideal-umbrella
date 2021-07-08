@@ -46,7 +46,7 @@
             <img
               class="coins-icon"
               height="20"
-              src="@svg/huobi-token.svg"
+              src="@svg/ethereum.svg"
               width="20"
             >
             <span
@@ -153,7 +153,8 @@
       >
         <HistoryTab
           v-if="nft.pricing_type=='fixed'"
-          :owner="nft.creator.display_name"
+          :creater="nft.creator.display_name"
+          :date="nft.creator.created_at"
           :price="nft.price"
           type="fixed"
         />
