@@ -384,6 +384,7 @@ export default {
         const { data } = await this.$api.GETNFTDETAILS(this.$route.params.id);
         response = data;
         this.getNftDetails = [response.data];
+        console.log([response.data]);
         if (this.getNftDetails[0].pricing_type === 'fixed') {
           this.showBids = false;
           this.showDetails = true;

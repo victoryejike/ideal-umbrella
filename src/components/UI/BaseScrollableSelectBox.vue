@@ -27,8 +27,22 @@
         class="options-image"
         :src="options[activeIndex].image"
       >
-      <span class="options-text">
+      <span
+        v-if="options[activeIndex]?.name"
+        class="options-text"
+      >
         {{ options[activeIndex]?.name || $t('components.select_placeholder') }}
+      </span>
+      <span
+        v-else-if="options[activeIndex]?.category"
+        class="options-text"
+      >
+        {{ options[activeIndex]?.category || $t('components.select_placeholder') }}
+      </span>
+      <span
+        v-else
+      >
+        {{ $t('components.select_placeholder') }}
       </span>
       <i
         class="selector-arrow"
@@ -207,7 +221,9 @@ export default {
   border-left: 0.4rem solid transparent;
   border-right: 0.4rem solid transparent;
   border-top: 0.4rem solid var(--arrow-color);
+  left: 216px;
   margin-left: 0.4rem;
+  position: absolute;
   transform: rotate(-360deg);
   transition: transform 150ms ease;
 }
