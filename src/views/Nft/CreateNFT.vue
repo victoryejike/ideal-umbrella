@@ -46,6 +46,7 @@
             class="input-field"
             name="price"
             :placeholder="$t('collectible.amount_placeholder')"
+            rules="required"
             :text="$t('collectible.amount_label')"
             @change="getServiceFee"
           >
@@ -79,6 +80,7 @@
             class="input-field"
             name="minimum_bid"
             :placeholder="$t('collectible.auction_placeholder')"
+            rules="required"
             :text="$t('collectible.auction_label')"
           >
             <template #element>
@@ -94,6 +96,7 @@
             class="input-field"
             name="starting_date"
             :placeholder="$t('collectible.auction_start_placeholder')"
+            rules="required"
             :text="$t('collectible.auction_start_label')"
             type="date"
           />
@@ -101,6 +104,7 @@
             class="input-field"
             name="expiration_date"
             :placeholder="$t('collectible.auction_expiration_placeholder')"
+            rules="required"
             :text="$t('collectible.auction_expiration_label')"
             type="date"
           />
@@ -125,12 +129,14 @@
           class="input-field"
           name="title"
           :placeholder="$t('collectible.title_placeholder')"
+          rules="required"
           :text="$t('collectible.title_label')"
         />
         <BaseUnderlinedInput
           class="input-field"
           name="description"
           :placeholder="$t('collectible.discription_placeholder')"
+          rules="required"
           :text="$t('collectible.discription_label')"
         />
         <BaseUnderlinedInput
@@ -160,6 +166,16 @@
             class="input-field copies-input"
             name="copies"
             :placeholder="$t('collectible.number_of_copies_placeholder')"
+            rules="required"
+            :text="$t('collectible.number_of_copies_label')"
+          />
+          <BaseUnderlinedInput
+            v-if="standard === 'erc1155'"
+            v-model="ipfsUrl"
+            class="input-field show"
+
+            name="ipfsUrl"
+            :placeholder="$t('collectible.number_of_copies_placeholder')"
             :text="$t('collectible.number_of_copies_label')"
           />
         </div>
@@ -177,7 +193,7 @@
           :placeholder="$t('collectible.discription_placeholder')"
           :text="$t('collectible.discription_label')"
         />
-        <BaseUnderlinedInput
+        <!-- <BaseUnderlinedInput
           v-model="r"
           class="input-field show"
           name="signatures.r"
@@ -197,7 +213,7 @@
           name="signatures.v"
           :placeholder="$t('collectible.discription_placeholder')"
           :text="$t('collectible.discription_label')"
-        />
+        /> -->
         <BaseModal
           v-show="isModalVisible"
           @close="closeModal"
@@ -211,6 +227,12 @@
         <div>
           <BaseRoundButton
             class="btn-primary btn-md btn-bold"
+            :icon="isLoading ? 'loading' : 'arrow-right'"
+            :text="$t('collectible.create_button_text')"
+            @click="metaData"
+          />
+          <BaseRoundButton
+            class="btn-primary btn-md btn-bold submit-btn"
             :icon="isLoading ? 'loading' : 'arrow-right'"
             :submit="true"
             :text="$t('collectible.create_button_text')"
@@ -283,11 +305,13 @@ export default {
       tokenId: '',
       receivedAmount: '',
       pricing_type: 'fixed',
+      ipfsUrl: '',
       r: localStorage.getItem('r'),
       s: localStorage.getItem('s'),
       v: localStorage.getItem('v'),
-      contractAddress: '0xDEa7Bec0EC439e7b5978b8C55Aa247AEcfc7a259',
-      abi: [
+      erc721ContractAddress: '0xDEa7Bec0EC439e7b5978b8C55Aa247AEcfc7a259',
+      erc1155ContractAddress: '0x24d5CaBE5A68653c1a6d10f65679839a5CD4a42A',
+      erc721abi: [
         {
           inputs: [],
           stateMutability: 'nonpayable',
@@ -712,6 +736,395 @@ export default {
           type: 'function',
         },
       ],
+      erc1155abi: [
+        {
+          inputs: [],
+          stateMutability: 'nonpayable',
+          type: 'constructor',
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: 'address',
+              name: 'account',
+              type: 'address',
+            },
+            {
+              indexed: true,
+              internalType: 'address',
+              name: 'operator',
+              type: 'address',
+            },
+            {
+              indexed: false,
+              internalType: 'bool',
+              name: 'approved',
+              type: 'bool',
+            },
+          ],
+          name: 'ApprovalForAll',
+          type: 'event',
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: 'uint256',
+              name: 'tokenType',
+              type: 'uint256',
+            },
+            {
+              indexed: false,
+              internalType: 'uint256',
+              name: 'quantity',
+              type: 'uint256',
+            },
+            {
+              indexed: false,
+              internalType: 'address',
+              name: 'minter',
+              type: 'address',
+            },
+          ],
+          name: 'TokenMinted',
+          type: 'event',
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: 'address',
+              name: 'operator',
+              type: 'address',
+            },
+            {
+              indexed: true,
+              internalType: 'address',
+              name: 'from',
+              type: 'address',
+            },
+            {
+              indexed: true,
+              internalType: 'address',
+              name: 'to',
+              type: 'address',
+            },
+            {
+              indexed: false,
+              internalType: 'uint256[]',
+              name: 'ids',
+              type: 'uint256[]',
+            },
+            {
+              indexed: false,
+              internalType: 'uint256[]',
+              name: 'values',
+              type: 'uint256[]',
+            },
+          ],
+          name: 'TransferBatch',
+          type: 'event',
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: 'address',
+              name: 'operator',
+              type: 'address',
+            },
+            {
+              indexed: true,
+              internalType: 'address',
+              name: 'from',
+              type: 'address',
+            },
+            {
+              indexed: true,
+              internalType: 'address',
+              name: 'to',
+              type: 'address',
+            },
+            {
+              indexed: false,
+              internalType: 'uint256',
+              name: 'id',
+              type: 'uint256',
+            },
+            {
+              indexed: false,
+              internalType: 'uint256',
+              name: 'value',
+              type: 'uint256',
+            },
+          ],
+          name: 'TransferSingle',
+          type: 'event',
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: 'string',
+              name: 'value',
+              type: 'string',
+            },
+            {
+              indexed: true,
+              internalType: 'uint256',
+              name: 'id',
+              type: 'uint256',
+            },
+          ],
+          name: 'URI',
+          type: 'event',
+        },
+        {
+          inputs: [],
+          name: 'NAFI_MULT',
+          outputs: [
+            {
+              internalType: 'uint256',
+              name: '',
+              type: 'uint256',
+            },
+          ],
+          stateMutability: 'view',
+          type: 'function',
+        },
+        {
+          inputs: [
+            {
+              internalType: 'address',
+              name: 'account',
+              type: 'address',
+            },
+            {
+              internalType: 'uint256',
+              name: 'id',
+              type: 'uint256',
+            },
+          ],
+          name: 'balanceOf',
+          outputs: [
+            {
+              internalType: 'uint256',
+              name: '',
+              type: 'uint256',
+            },
+          ],
+          stateMutability: 'view',
+          type: 'function',
+        },
+        {
+          inputs: [
+            {
+              internalType: 'address[]',
+              name: 'accounts',
+              type: 'address[]',
+            },
+            {
+              internalType: 'uint256[]',
+              name: 'ids',
+              type: 'uint256[]',
+            },
+          ],
+          name: 'balanceOfBatch',
+          outputs: [
+            {
+              internalType: 'uint256[]',
+              name: '',
+              type: 'uint256[]',
+            },
+          ],
+          stateMutability: 'view',
+          type: 'function',
+        },
+        {
+          inputs: [
+            {
+              internalType: 'address',
+              name: 'account',
+              type: 'address',
+            },
+            {
+              internalType: 'address',
+              name: 'operator',
+              type: 'address',
+            },
+          ],
+          name: 'isApprovedForAll',
+          outputs: [
+            {
+              internalType: 'bool',
+              name: '',
+              type: 'bool',
+            },
+          ],
+          stateMutability: 'view',
+          type: 'function',
+        },
+        {
+          inputs: [
+            {
+              internalType: 'uint256',
+              name: 'quantity',
+              type: 'uint256',
+            },
+          ],
+          name: 'mint',
+          outputs: [
+            {
+              internalType: 'uint256',
+              name: '',
+              type: 'uint256',
+            },
+          ],
+          stateMutability: 'nonpayable',
+          type: 'function',
+        },
+        {
+          inputs: [
+            {
+              internalType: 'address',
+              name: 'from',
+              type: 'address',
+            },
+            {
+              internalType: 'address',
+              name: 'to',
+              type: 'address',
+            },
+            {
+              internalType: 'uint256[]',
+              name: 'ids',
+              type: 'uint256[]',
+            },
+            {
+              internalType: 'uint256[]',
+              name: 'amounts',
+              type: 'uint256[]',
+            },
+            {
+              internalType: 'bytes',
+              name: 'data',
+              type: 'bytes',
+            },
+          ],
+          name: 'safeBatchTransferFrom',
+          outputs: [],
+          stateMutability: 'nonpayable',
+          type: 'function',
+        },
+        {
+          inputs: [
+            {
+              internalType: 'address',
+              name: 'from',
+              type: 'address',
+            },
+            {
+              internalType: 'address',
+              name: 'to',
+              type: 'address',
+            },
+            {
+              internalType: 'uint256',
+              name: 'id',
+              type: 'uint256',
+            },
+            {
+              internalType: 'uint256',
+              name: 'amount',
+              type: 'uint256',
+            },
+            {
+              internalType: 'bytes',
+              name: 'data',
+              type: 'bytes',
+            },
+          ],
+          name: 'safeTransferFrom',
+          outputs: [],
+          stateMutability: 'nonpayable',
+          type: 'function',
+        },
+        {
+          inputs: [
+            {
+              internalType: 'address',
+              name: 'operator',
+              type: 'address',
+            },
+            {
+              internalType: 'bool',
+              name: 'approved',
+              type: 'bool',
+            },
+          ],
+          name: 'setApprovalForAll',
+          outputs: [],
+          stateMutability: 'nonpayable',
+          type: 'function',
+        },
+        {
+          inputs: [
+            {
+              internalType: 'bytes4',
+              name: 'interfaceId',
+              type: 'bytes4',
+            },
+          ],
+          name: 'supportsInterface',
+          outputs: [
+            {
+              internalType: 'bool',
+              name: '',
+              type: 'bool',
+            },
+          ],
+          stateMutability: 'view',
+          type: 'function',
+        },
+        {
+          inputs: [],
+          name: 'totalTokens',
+          outputs: [
+            {
+              internalType: 'uint256',
+              name: '',
+              type: 'uint256',
+            },
+          ],
+          stateMutability: 'view',
+          type: 'function',
+        },
+        {
+          inputs: [
+            {
+              internalType: 'uint256',
+              name: '',
+              type: 'uint256',
+            },
+          ],
+          name: 'uri',
+          outputs: [
+            {
+              internalType: 'string',
+              name: '',
+              type: 'string',
+            },
+          ],
+          stateMutability: 'view',
+          type: 'function',
+        },
+      ],
     };
   },
   computed: {
@@ -914,60 +1327,78 @@ export default {
     closeModal() {
       this.isModalVisible = false;
     },
-    async onSubmit(CollectibleNftData) {
+    async metaData() {
       this.isLoading = true;
-      let response = null;
-      const mint = async (provider) => {
-        const web3 = new Web3(provider);
-        const contract = new web3.eth.Contract(this.abi, this.contractAddress);
-        console.log(contract);
-        const desc = document.querySelectorAll('.description')[1].value;
-        const title = document.querySelectorAll('.title')[1].value;
-        const ipfsHash = `https://ipfs.io/ipfs/${sessionStorage.getItem('ipfsHash')}`;
-        console.log(ipfsHash, desc, title);
+      const desc = document.querySelectorAll('.description')[1].value;
+      const title = document.querySelectorAll('.title')[1].value;
+      const ipfsHash = `https://ipfs.io/ipfs/${sessionStorage.getItem('ipfsHash')}`;
+      let cid;
+      const qty = document.querySelector('.copies').value;
+      if (this.standard === 'erc1155') {
+        const metadata = {
+          description: desc,
+          name: title,
+          image: ipfsHash,
+          quantity: qty,
+        };
+        const doc = JSON.stringify({ metadata });
+        cid = await ipfs.add(doc);
+        this.ipfsUrl = `https://${cid}.ipfs.dweb.link`;
+        console.log('IPFS cid:', `https://${cid}.ipfs.dweb.link`);
+        console.log(await ipfs.cat(cid));
+      } else {
         const metadata = {
           description: desc,
           name: title,
           image: ipfsHash,
         };
         const doc = JSON.stringify({ metadata });
-        const cid = await ipfs.add(doc);
+        cid = await ipfs.add(doc);
         console.log('IPFS cid:', `https://${cid}.ipfs.dweb.link`);
         console.log(await ipfs.cat(cid));
+      }
+      this.minting(qty, cid);
+    },
+    async minting(qty, cid) {
+      let provider;
+      const obj = JSON.parse(localStorage.getItem('walletconnect'));
+      // console.log(obj.accounts[0]);
+      if (obj === (localStorage.getItem('account'))) {
+        provider = new WalletConnectProvider({
+          infuraId: '58bf1103531f4b858b31eb3c5c4ddd2f',
+        });
+      } else if ((localStorage.getItem('-walletlink:https://www.walletlink.org:Addresses')) === (localStorage.getItem('account'))) {
+        provider = walletLink.makeWeb3Provider(ETH_JSONRPC_URL, CHAIN_ID);
+      } else {
+        provider = window.ethereum;
+      }
+      const web3 = new Web3(provider);
+      if (this.standard === 'erc1155') {
+        // return this.$t('collectible.title_single');
+        console.log('works for only erc1155');
+        const contract = new web3.eth.Contract(this.erc1155abi, this.erc1155ContractAddress);
+        const result = await contract.methods
+          .mint(qty)
+          .send({ from: localStorage.getItem('account') });
+        console.log('Transaction sent');
+        // Get return value of the event
+        console.log(result);
+        this.ipfsUrl = cid;
+        this.tokenId = result.events.TokenMinted.id;
+        document.getElementsByClassName('submit-btn').click();
+      } else {
+        const contract = new web3.eth.Contract(this.erc721abi, this.erc721ContractAddress);
+        console.log(contract);
         contract.methods.mint(`https://${cid}.ipfs.dweb.link`).send({ from: localStorage.getItem('account') }).on('transactionHash', (hash) => {
           console.log(hash);
-          try {
-            const { data } = this.$api.CREATENFT(CollectibleNftData);
-            response = data;
-            console.log(response);
-            // eslint-disable-next-line no-underscore-dangle
-            this.$router.push({ name: 'Profile' });
-          } catch (error) {
-            response = error.response.data;
-            console.log(error);
-            this.isLoading = false;
-            this.isModalVisible = false;
-          }
-          this.isLoading = false;
           contract.methods.setApprovalForAll('0x560c6067b94048F92Bd89e44D205c3597A4fe82E', true).send({ from: localStorage.getItem('account') }).on('transactionHash', (hash2) => {
             console.log(hash2);
           });
         });
-      };
-      const obj = JSON.parse(localStorage.getItem('walletconnect'));
-      // console.log(obj.accounts[0]);
-      if (obj === (localStorage.getItem('account'))) {
-        const provider = new WalletConnectProvider({
-          infuraId: '58bf1103531f4b858b31eb3c5c4ddd2f',
-        });
-        mint(provider);
-      } else if ((localStorage.getItem('-walletlink:https://www.walletlink.org:Addresses')) === (localStorage.getItem('account'))) {
-        const ethereum = walletLink.makeWeb3Provider(ETH_JSONRPC_URL, CHAIN_ID);
-        mint(ethereum);
-      } else {
-        const metamask = window.ethereum;
-        mint(metamask);
       }
+    },
+    async onSubmit(CollectibleNftData) {
+      console.log(CollectibleNftData);
     },
   },
 };
@@ -1057,7 +1488,7 @@ input:checked + .slider::before {
   margin-bottom: 2.5rem;
 }
 
-.show {
+.show, .submit-btn {
   display: none;
 }
 
