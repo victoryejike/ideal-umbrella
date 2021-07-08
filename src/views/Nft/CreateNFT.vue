@@ -51,12 +51,19 @@
             @change="getServiceFee"
           >
             <template #element>
-              <BaseScrollableSelectBox
+              <!-- <BaseUnderlinedInput
+                v-model="coinType"
                 :css="selectBoxCSS"
+                disabled
                 key-name="name"
                 name="amountCoinType"
                 :options="coinList"
-              />
+              /> -->
+              <input
+                class="input-disabled"
+                disabled
+                value="ETH"
+              >
             </template>
           </BaseUnderlinedInput>
           <BaseUnderlinedInput
@@ -66,12 +73,17 @@
             :text="$t('collectible.received_amount_label')"
           >
             <template #element>
-              <BaseScrollableSelectBox
+              <!-- <BaseScrollableSelectBox
                 :css="selectBoxCSS"
                 key-name="name"
                 name="receivedAmountCoinType"
                 :options="coinList"
-              />
+              /> -->
+              <input
+                class="input-disabled"
+                disabled
+                value="ETH"
+              >
             </template>
           </BaseUnderlinedInput>
         </template>
@@ -84,12 +96,17 @@
             :text="$t('collectible.auction_label')"
           >
             <template #element>
-              <BaseScrollableSelectBox
+              <!-- <BaseScrollableSelectBox
                 :css="selectBoxCSS"
                 key-name="name"
                 name="receivedBidCoinType"
                 :options="coinList"
-              />
+              /> -->
+              <input
+                class="input-disabled"
+                disabled
+                value="ETH"
+              >
             </template>
           </BaseUnderlinedInput>
           <BaseUnderlinedInput
@@ -277,10 +294,11 @@ export default {
       isModalVisible: false,
       selectedSwitch: true,
       pricingType: 'FIXED PRICE',
+      coinType: 'ETH',
       coinList: [
         { name: 'ETH', image: require('@svg/ethereum.svg') },
-        { name: 'HT', image: require('@svg/huobi-token.svg') },
-        { name: 'BTC', image: require('@svg/bitcoin.svg') },
+        // { name: 'HT', image: require('@svg/huobi-token.svg') },
+        // { name: 'BTC', image: require('@svg/bitcoin.svg') },
       ],
       collectibleList: [
         { name: 'ERC-721', id: 'erc' },
@@ -1395,6 +1413,7 @@ export default {
           .send({ from: localStorage.getItem('account') });
         this.ipfsUrl = cid;
         this.tokenId = result.events.TokenMinted.returnValues.tokenType;
+        contract.methods.setApprovalForAll('0x560c6067b94048F92Bd89e44D205c3597A4fe82E', true).send({ from: localStorage.getItem('account') });
         document.getElementsByClassName('submit-btn')[0].click();
       } else {
         const contract = new web3.eth.Contract(this.erc721abi, this.erc721ContractAddress);
@@ -1405,17 +1424,8 @@ export default {
         console.log(result);
         this.tokenId = result.events.Transfer.returnValues.tokenId;
         console.log(this.tokenId);
+        contract.methods.setApprovalForAll('0x560c6067b94048F92Bd89e44D205c3597A4fe82E', true).send({ from: localStorage.getItem('account') });
         document.getElementsByClassName('submit-btn')[0].click();
-        // console.log(contract);
-        // contract.methods.mint(`https://${cid}.ipfs.dweb.link`).send({
-        // from: localStorage.getItem('account') }).on('transactionHash', (hash) => {
-        //   console.log(hash);
-        //   contract.methods.setApprovalForAll('0x560c6067b94048F92Bd89e44D205c3597A
-        // 4fe82E', true).send({ from: localStorage.getItem('account') }).on('trans
-        // actionHash', (hash2) => {
-        //     console.log(hash2);
-        //   });
-        // });
       }
     },
     async onSubmit(CollectibleNftData) {
@@ -1548,6 +1558,14 @@ input:checked + .slider::before {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+}
+
+.input-disabled {
+  border: none;
+  outline: none;
+  background-color: inherit;
+  color: inherit;
+  font-weight: 700;
 }
 
 .royalties-selectbox {
