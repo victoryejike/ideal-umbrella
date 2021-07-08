@@ -92,21 +92,8 @@ export default {
   data() {
     // TODO: Fake data to real data
     return {
-      popularList: Array(4).fill({
-        id: 'V9pCCtpYT2fKHeXQjzwhCxXPTuyQEPID6oEJ',
-        avatar: '',
-        author: 'Otha Davis III - Abstract Test Display',
-        image: '',
-        name: 'Everydays - The First Crypto Art',
-        price: 20.12412,
-        verified: true,
-      }),
-      topSellerList: Array(8).fill({
-        avatar: 'avatar.png',
-        author: 'CryptoPunks - Abstract Test Display',
-        totalCoin: 867.00012,
-        verified: true,
-      }),
+      popularList: [],
+      topSellerList: [],
       sellerTab: [
         this.$t('index_screen.seller_tab.day'),
         this.$t('index_screen.seller_tab.month'),
@@ -115,7 +102,7 @@ export default {
       popularCardCSS: { bgColor: 'rgba(255, 255, 255, 0.25)' },
     };
   },
-  mounted() {
+  async mounted() {
     this.$global.handleResponsive(62.5,
       () => {
         this.popularCardCSS.padding = '1.25rem 1.875rem';
@@ -125,6 +112,15 @@ export default {
         this.popularCardCSS.padding = '1rem 1.25rem';
         this.popularCardCSS.size = 180;
       });
+    this.popularList = await this.$global.getFakeData(4);
+    for (let i = 0; i < 8; i += 1) {
+      this.topSellerList.push({
+        avatar: `https://i.pravatar.cc/64?img=${Math.floor(Math.random() * 70) + 1}`,
+        author: `Author ${Math.random().toString(20).substr(2, 13)}`,
+        totalCoin: Math.random() * 1e7 + 1e5,
+        verified: Math.random() > 0.5,
+      });
+    }
   },
   methods: {
     handleSearch(value) {

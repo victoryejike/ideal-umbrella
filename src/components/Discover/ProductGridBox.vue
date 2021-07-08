@@ -87,33 +87,6 @@ export default {
     this.loadMore();
   },
   methods: {
-    // Fake data generator, should be removed after integrating API
-    randomStr(length, str = '') {
-      let result = str;
-      result += Math.random().toString(20).substr(2, length);
-      if (str.length > length) return result.slice(0, length);
-      return this.randomStr(length, result);
-    },
-    // Fake data generator, should be removed after integrating API
-    async getData() {
-      const result = [];
-      const filter = ['art', 'music', 'sport', 'photo', 'collect'];
-      const avatars = await this.$api.FAKE_DATA('avatar');
-      const images = await this.$api.FAKE_DATA('image', Math.floor(Math.random() * 39) + 1);
-      for (let i = 0; i < this.number; i += 1) {
-        result.push({
-          id: this.randomStr(36),
-          avatar: avatars[i % 12].avatars[0].url,
-          author: `Author ${this.randomStr(10)}`,
-          image: images[i % 25].download_url,
-          name: `${this.sortMethod}_${filter[this.activeIndex]}_${this.randomStr(10)}`,
-          price: Math.random() * 60 + 5,
-          type: 'HT', // do it later
-          verified: Math.random() > 0.5,
-        });
-      }
-      return result;
-    },
     handleClick() {
       this.isBtnLoading = true;
       this.loadMore();
@@ -126,7 +99,9 @@ export default {
     loadMore() {
       // TODO: Call API
       setTimeout(async () => {
-        this.activeList.push(...await this.getData());
+        this.activeList.push(...await this.$global.getFakeData(
+          this.number, this.sortMethod, this.activeIndex,
+        ));
         this.isPageLoading = false;
       }, 1000);
     },
