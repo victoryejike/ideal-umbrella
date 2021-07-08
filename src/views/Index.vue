@@ -68,10 +68,6 @@
             :verified="item.verified"
           />
         </div>
-        <BaseRoundButton
-          class="load-more-btn btn-outline-primary btn-xl"
-          :text="$t('index_screen.more')"
-        />
       </template>
     </IndexSection>
     <DiscoverSection :title="$t('index_screen.title.discover')" />
