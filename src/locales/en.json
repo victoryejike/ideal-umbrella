@@ -211,6 +211,7 @@
     "creator": "Creator",
     "description": "Description",
     "highest_bid": "Highest Bid",
+    "minimum_bid": "Minimum Bid",
     "place_bid": "Place Bid",
     "price": "Price",
     "read_more": "Read more",

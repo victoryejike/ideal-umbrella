@@ -135,14 +135,14 @@
           :options="collectible_class"
           :text="$t('collectible.choose_collection_label')"
         />
-        <!-- <BaseScrollableSelectBox
+        <BaseScrollableSelectBox
           class="input-div label"
           :default-selected="false"
           key-name="_id"
           name="title"
           :options="categories"
           :text="$t('collectible.category')"
-        /> -->
+        />
         <BaseUnderlinedInput
           class="input-field"
           name="title"
