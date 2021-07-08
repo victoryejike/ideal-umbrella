@@ -139,7 +139,7 @@
           class="input-div label"
           :default-selected="false"
           key-name="_id"
-          name="title"
+          name="category"
           :options="categories"
           :text="$t('collectible.category')"
         />
@@ -1166,8 +1166,9 @@ export default {
       return null;
     },
   },
-  async mounted() {
+  mounted() {
     this.verifyUser();
+    this.fetchDetails();
     const web3 = new Web3(window.ethereum);
 
     if ((window.ethereum)) {
@@ -1177,9 +1178,14 @@ export default {
         else if (accounts.length === 0 || localStorage.getItem('account') === null) {
           console.log('User is not logged in to MetaMask');
           this.$router.push({ name: 'ConnectWallet' });
-        } else console.log('User is logged in to MetaMask');
+        } else {
+          console.log('User is logged in to MetaMask');
+        }
       });
-    } else {
+    }
+  },
+  methods: {
+    async fetchDetails() {
       let response = null;
       try {
         let type = null;
@@ -1204,9 +1210,7 @@ export default {
       } catch (error) {
         response = error?.response?.data;
       }
-    }
-  },
-  methods: {
+    },
     toggleSwitch() {
       this.selectedSwitch = !this.selectedSwitch;
     },

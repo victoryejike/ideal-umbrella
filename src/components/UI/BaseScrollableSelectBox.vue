@@ -62,8 +62,17 @@
             class="options-image"
             :src="item.image"
           >
-          <span class="options-text">
+          <span
+            v-if="item?.name"
+            class="options-text"
+          >
             {{ item?.name }}
+          </span>
+          <span
+            v-if="item?.category"
+            class="options-text"
+          >
+            {{ item?.category }}
           </span>
         </div>
       </div>
