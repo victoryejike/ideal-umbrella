@@ -17,6 +17,7 @@
         :author="item.author"
         :avatar="item.avatar"
         class="gridbox-product-card"
+        :coin-type="item.coinType"
         :css="cardCSS"
         :image="item.image"
         :name="item.name"

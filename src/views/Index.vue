@@ -37,6 +37,7 @@
             :author="item.author"
             :avatar="item.avatar"
             class="popular-product-card"
+            :coin-type="item.coinType"
             :css="popularCardCSS"
             :image="item.image"
             :name="item.name"
@@ -64,6 +65,7 @@
             :author="item.author"
             :avatar="item.avatar"
             class="seller-block"
+            :coin-type="item.coinType"
             :total-coin="item.totalCoin"
             :verified="item.verified"
           />
@@ -113,7 +115,8 @@ export default {
       this.topSellerList.push({
         avatar: `https://i.pravatar.cc/64?img=${Math.floor(Math.random() * 70) + 1}`,
         author: `Author ${Math.random().toString(20).substr(2, 13)}`,
-        totalCoin: Math.random() * 1e7 + 1e5,
+        totalCoin: Math.random() * 1e5 + 1e4,
+        coinType: 0, // Math.floor(Math.random() * 3),
         verified: Math.random() > 0.5,
       });
     }

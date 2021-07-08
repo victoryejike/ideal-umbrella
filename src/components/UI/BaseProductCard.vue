@@ -50,9 +50,24 @@
           class="coins-and-price-div"
         >
           <img
+            v-if="coinType === 0"
+            class="coins-icon"
+            height="20"
+            src="@svg/ethereum.svg"
+            width="20"
+          >
+          <img
+            v-else-if="coinType === 1"
             class="coins-icon"
             height="20"
             src="@svg/huobi-token.svg"
+            width="20"
+          >
+          <img
+            v-else-if="coinType === 2"
+            class="coins-icon"
+            height="20"
+            src="@svg/bitcoin.svg"
             width="20"
           >
           <span
@@ -99,6 +114,7 @@ export default {
     image: { type: String, required: true },
     name: { type: String, required: true },
     price: { type: Number, required: true },
+    coinType: { type: Number, required: false, default: 0 },
     mininum: { type: Number, required: false, default: null },
     verified: { type: Boolean, required: false, default: false },
   },

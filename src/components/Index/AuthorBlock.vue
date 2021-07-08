@@ -20,7 +20,9 @@
           width="16"
         >
       </div>
-      <span class="total-coins">{{ `${Math.round(totalCoin * 1e5) / 1e5} ${coinType}` }}</span>
+      <span class="total-coins">
+        {{ `${Math.round(totalCoin * 1e5) / 1e5} ${coinTypeString[coinType]}` }}
+      </span>
     </div>
   </div>
 </template>
@@ -32,9 +34,14 @@ export default {
   props: {
     author: { type: String, required: true },
     avatar: { type: String, required: true },
-    coinType: { type: String, required: false, default: 'HT' },
+    coinType: { type: Number, required: false, default: 0 },
     totalCoin: { type: Number, required: true },
     verified: { type: Boolean, required: false, default: false },
+  },
+  data() {
+    return {
+      coinTypeString: ['ETH', 'HT', 'BTC'],
+    };
   },
 };
 </script>

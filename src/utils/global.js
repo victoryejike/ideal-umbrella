@@ -56,7 +56,7 @@ const GLOBAL_FUNCTION = {
         image: images[i % 25].download_url,
         name: `${sortMethod}_${filter[activeIndex]}_${randomStr(10)}`,
         price: Math.random() * 60 + 5,
-        type: 'ETH',
+        coinType: 0, // Math.floor(Math.random() * 3)
         verified: Math.random() > 0.5,
       });
     }
