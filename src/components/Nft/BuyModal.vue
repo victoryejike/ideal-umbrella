@@ -45,7 +45,7 @@
           {{ $t('nft_details.bid.user_balance') }}
         </div>
         <div class="value">
-          0.16 ETH
+          {{ buyingBalance }} ETH
         </div>
       </div>
       <div class="bidding-details">
@@ -76,6 +76,8 @@
 <script>
 import { Field } from 'vee-validate';
 
+const Web3 = require('web3');
+
 export default {
   name: 'BidModal',
   components: { Field },
@@ -90,12 +92,20 @@ export default {
       NftId: this.$route.params.id,
       Address: localStorage.getItem('account'),
       isLoading: false,
+      buyingBalance: '',
       coinList: [
         { name: 'ETH' },
         { name: 'HT' },
         { name: 'FC' },
       ],
     };
+  },
+  async mounted() {
+    const provider = window.ethereum;
+    const web3 = new Web3(provider);
+    const balance = await web3.eth.getBalance(localStorage.getItem('account'));
+    const ethBalance = (balance / 1000000000000000000).toFixed(2);
+    this.buyingBalance = ethBalance;
   },
   methods: {
     async onSubmit(formData) {

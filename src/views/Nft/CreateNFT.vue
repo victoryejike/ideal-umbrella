@@ -310,7 +310,7 @@ export default {
       ],
       multipleTabTitle: [
         this.$t('collectible.tab.fixed_price'),
-        this.$t('collectible.tab.timed_auction'),
+        // this.$t('collectible.tab.timed_auction'),
         this.$t('collectible.tab.unlimited_auction'),
       ],
       royaltiesList: [
@@ -1426,7 +1426,7 @@ export default {
           .send({ from: localStorage.getItem('account') });
         this.ipfsUrl = cid;
         this.tokenId = result.events.TokenMinted.returnValues.tokenType;
-        contract.methods.setApprovalForAll('0x560c6067b94048F92Bd89e44D205c3597A4fe82E', true).send({ from: localStorage.getItem('account') });
+        contract.methods.setApprovalForAll('0x560c6067b94048F92Bd89e44D205c3597A4fe82E', true).send({ from: localStorage.getItem('account'), gas: 2000000, gasPrice: '20000000000' });
         document.getElementsByClassName('submit-btn')[0].click();
       } else {
         const contract = new web3.eth.Contract(this.erc721abi, this.erc721ContractAddress);
@@ -1437,7 +1437,7 @@ export default {
         console.log(result);
         this.tokenId = result.events.Transfer.returnValues.tokenId;
         console.log(this.tokenId);
-        contract.methods.setApprovalForAll('0x560c6067b94048F92Bd89e44D205c3597A4fe82E', true).send({ from: localStorage.getItem('account') });
+        contract.methods.setApprovalForAll('0x560c6067b94048F92Bd89e44D205c3597A4fe82E', true).send({ from: localStorage.getItem('account'), gas: 2000000, gasPrice: '20000000000' });
         document.getElementsByClassName('submit-btn')[0].click();
       }
     },
