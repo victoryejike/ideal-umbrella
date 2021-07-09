@@ -1,8 +1,5 @@
 <template>
   <div class="create-nft-main">
-    <BaseFrame
-      url="/nft"
-    />
     <Base
       :title="title"
     >
@@ -142,6 +139,7 @@
           name="category"
           :options="categories"
           :text="$t('collectible.category')"
+          value-name="category"
         />
         <BaseUnderlinedInput
           class="input-field"
@@ -290,7 +288,7 @@ export default {
   data() {
     return {
       isLoading: false,
-      categories: '',
+      categories: [],
       isModalVisible: false,
       selectedSwitch: true,
       pricingType: 'FIXED PRICE',
@@ -321,7 +319,7 @@ export default {
       selectBoxCSS: { width: 10 },
       uri: sessionStorage.getItem('ipfsHash'),
       value: localStorage.getItem('account'),
-      collectible_class: '',
+      collectible_class: [],
       tokenId: '',
       receivedAmount: '',
       pricing_type: 'fixed',
@@ -1199,14 +1197,13 @@ export default {
           response = data;
         }
         this.collectible_class = response.data;
-        console.log(response);
+        console.log(this.collectible_class);
       } catch (error) {
         response = error?.response?.data;
       }
       try {
         const { data } = await this.$api.GETCATEGORIES();
         this.categories = data.data;
-        console.log(this.categories);
       } catch (error) {
         response = error?.response?.data;
       }
@@ -1543,7 +1540,8 @@ input:checked + .slider::before {
   margin-bottom: 2.5rem;
 }
 
-.show, .submit-btn {
+.show,
+.submit-btn {
   display: none;
 }
 
@@ -1573,11 +1571,11 @@ input:checked + .slider::before {
 }
 
 .input-disabled {
-  border: none;
-  outline: none;
   background-color: inherit;
+  border: none;
   color: inherit;
   font-weight: 700;
+  outline: none;
   text-align: right;
 }
 
