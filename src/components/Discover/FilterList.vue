@@ -31,8 +31,10 @@ export default {
   methods: {
     toogleFilterBtn(index) {
       this.filterBtn[this.activeFilterIndex].isActive = false;
-      this.filterBtn[index].isActive = true;
-      this.activeFilterIndex = index;
+      if (index < this.filterBtn.length) {
+        this.filterBtn[index].isActive = true;
+        this.activeFilterIndex = index;
+      }
       this.$emit('selected', index);
     },
   },

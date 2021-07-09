@@ -36,6 +36,19 @@ const API_SERVICES = {
   RESET_PASSWORD: (params) => axios.post('auth/reset-password', params, false),
   REBIND_EMAIL: (params) => axios.post('auth/rebind-mail', params, false),
   REBIND_PHONE: (params) => axios.post('auth/rebind-phone', params, false),
+  GET_NFT_LIST: async (params) => {
+    let response = null;
+    try {
+      response = (await axios.get('nft/search', { params })).data;
+    } catch (error) {
+      response = error?.response?.data;
+    }
+
+    if (response?.success) {
+      return response?.data;
+    }
+    return response;
+  },
   CREATENFT: (params) => axios.post('nft', params, false),
   GET_COUNTRIES: async () => {
     if (store.getters['data/countryList'].length === 0) {

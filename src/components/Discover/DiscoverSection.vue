@@ -56,9 +56,7 @@ export default {
     gridbox() { return this.$refs['grid-box']; },
   },
   methods: {
-    pushDataToGridBox(data) {
 
-    },
   },
 };
 </script>

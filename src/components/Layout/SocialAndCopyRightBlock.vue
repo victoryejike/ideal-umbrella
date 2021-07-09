@@ -8,6 +8,7 @@
         v-for="(item, index) in socialMediaList"
         :key="index"
         :href="item.url"
+        target="_blank"
       >
         <img
           class="social-media-icons"
@@ -33,19 +34,19 @@ export default {
       socialMediaList: [
         {
           icon: Facebook,
-          url: '#',
+          url: 'https://www.facebook.com/naffiti',
         },
         {
           icon: Instagram,
-          url: '#',
+          url: 'https://www.instagram.com/naffiti/',
         },
         {
           icon: Youtube,
-          url: '#',
+          url: 'https://www.youtube.com/channel/naffiti',
         },
         {
           icon: Twitter,
-          url: '#',
+          url: 'https://twitter.com/naffiti',
         },
       ],
     };

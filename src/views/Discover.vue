@@ -1,30 +1,32 @@
 <template>
-  <div
-    class="container"
-  >
-    <div class="discover-banner">
-      <div class="discover-title-and-searchbar">
-        <h1 class="discover-title">
-          {{ $t('discover_screen.title') }}
-        </h1>
-        <SearchBar
-          class="searchbar"
-          :width="36.25"
-          @click="handleSearch($event)"
-        />
+  <KeepAlive>
+    <div
+      class="container"
+    >
+      <div class="discover-banner">
+        <div class="discover-title-and-searchbar">
+          <h1 class="discover-title">
+            {{ $t('discover_screen.title') }}
+          </h1>
+          <SearchBar
+            class="searchbar"
+            :width="36.25"
+            @click="handleSearch($event)"
+          />
+        </div>
+        <img
+          class="discover-hero"
+          src="@img/discover-hero.png"
+        >
       </div>
-      <img
-        class="discover-hero"
-        src="@img/discover-hero.png"
-      >
+      <DiscoverSection
+        ref="discover-section"
+        :number="25"
+        :title="title"
+        :underlined="isUnderline"
+      />
     </div>
-    <DiscoverSection
-      ref="discover-section"
-      :number="25"
-      :title="title"
-      :underlined="isUnderline"
-    />
-  </div>
+  </KeepAlive>
 </template>
 
 <script>
@@ -69,29 +71,12 @@ export default {
     },
   },
   created() {
-    this.searchValue = this.$route.query.value;
+    this.searchValue = this.$route.params.searchValue;
   },
   methods: {
     handleSearch(value) {
       this.searchValue = value;
-      if (this.$route.query.value) {
-        this.$router.replace({ query: null });
-      }
-      // Call API...
-      this.$refs['discover-section'].gridbox.isPageLoading = true;
-      // setTimeout(() => {
-      //   const data = Array(40).fill({
-      //     id: '06d355e371c5448b92b0016795950b08',
-      //     avatar: '',
-      //     author: 'Tester',
-      //     image: '',
-      //     name: 'Hello World',
-      //     price: 34,
-      //     verified: false,
-      //   });
-      //   this.$refs['discover-section'].pushDataToGridBox(data);
-      //   this.$refs['discover-section'].gridbox.isPageLoading = false;
-      // }, 500);
+      this.$refs['discover-section'].gridbox.search(value);
     },
   },
 };

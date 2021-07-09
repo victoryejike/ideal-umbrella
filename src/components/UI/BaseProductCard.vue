@@ -15,7 +15,7 @@
           class="avatar"
           height="30"
           :onerror="$global.handleAvatarError"
-          :src="avatar"
+          :src="avatarImage"
           width="30"
         >
         <span
@@ -91,6 +91,7 @@
 
 <script>
 import NoImage from '@img/no-image.png';
+import DefaultAvatar from '@img/default-avatar.png';
 
 export default {
   name: 'BaseProductCard',
@@ -109,7 +110,7 @@ export default {
       },
     },
     author: { type: String, required: true },
-    avatar: { type: String, required: true },
+    avatar: { type: String, required: false, default: null },
     id: { type: String, required: true },
     image: { type: String, required: true },
     name: { type: String, required: true },
@@ -121,6 +122,7 @@ export default {
   computed: {
     bgColor() { return this.css?.bgColor; },
     padding() { return this.css?.padding; },
+    avatarImage() { return this.avatar || DefaultAvatar; },
     size() { return this.css?.size || 220; },
   },
   methods: {

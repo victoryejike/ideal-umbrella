@@ -43,12 +43,9 @@ router.beforeEach((to, from, next) => {
 router.beforeEach(async (to, from, next) => {
   const requiresAuth = to.matched.some((route) => route.meta.requiresAuth);
 
-  // Auth isn't required for the route, just continue.
-  if (!requiresAuth) return next();
-
-  // Async check is token expired or not, if yes Axios interceptors will handle redirection
-  router.$api.CHECK_TOKEN();
-  return next();
+  // Async check the token is expired or not, if yes Axios interceptors will handle redirection
+  if (requiresAuth) { router.$api.CHECK_TOKEN(); }
+  next();
 });
 
 export default router;
