@@ -27,10 +27,7 @@
       type="number"
     >
       <template #element>
-        <BaseScrollableSelectBox
-          name="coin"
-          :options="coinList"
-        />
+        <span class="coin">ETH</span>
       </template>
     </BaseUnderlinedInput>
     <Field
@@ -188,6 +185,10 @@ export default {
   font-size: 0.875rem;
   font-weight: 600;
   line-height: 1.125rem;
+}
+
+.coin {
+  margin-right: 0.5rem;
 }
 
 .value {
