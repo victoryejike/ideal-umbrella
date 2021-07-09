@@ -75,13 +75,13 @@
             class="price"
           >
             <!-- Correct to 2 decimal places -->
-            {{ Math.round(price * 1e2) / 1e2 }}
+            {{ Math.round(price * 1e3) / 1e3 }}
           </span>
           <span
             v-else-if="mininum"
             class="price"
           >
-            {{ Math.round(mininum * 1e2) / 1e2 }}
+            {{ Math.round(mininum * 1e3) / 1e3 }}
           </span>
         </div>
       </div>
