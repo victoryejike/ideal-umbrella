@@ -126,7 +126,7 @@ export default {
           name: item.title,
           price: item.price || item.bid?.highest_bid || item.minimum_bid,
           image: `https://ipfs.io/ipfs/${item.uri}`,
-          author: item.creator?.name || `Author ${Math.random().toString(20).substr(2, 10)}`,
+          author: item.creator?.name || item.creator.display_name || `Author ${Math.random().toString(20).substr(2, 10)}`,
           avatar: item.creator?.image,
         }));
 
