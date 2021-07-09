@@ -3,7 +3,7 @@
     <div>
       <img
         class="token-image"
-        src="@img/token-image.png"
+        :src="`https://ipfs.io/ipfs/${image}`"
       >
     </div>
     <div class="bid-text">
@@ -95,6 +95,7 @@ export default {
     nfttype: { type: String, required: false, default: null },
     description: { type: String, required: false, default: null },
     title: { type: String, required: false, default: null },
+    image: { type: String, required: false, default: null },
   },
   data() {
     return {
