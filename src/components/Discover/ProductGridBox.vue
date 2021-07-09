@@ -126,8 +126,8 @@ export default {
           name: item.title,
           price: item.price || Math.random() * 60 + 5,
           image: `https://ipfs.io/ipfs/${item.uri}`,
-          author: `Author ${Math.random().toString(20).substr(2, 10)}`,
-          avatar: null,
+          author: item?.creator?.name || `Author ${Math.random().toString(20).substr(2, 10)}`,
+          avatar: item?.creator?.image,
         }));
 
         this.activeList.push(...matchKeyResponse);
