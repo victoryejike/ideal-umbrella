@@ -207,7 +207,9 @@
     },
     "blockchain": "Blockchain",
     "buy": {
-      "buy-content": "You are about to purchase"
+      "buy-content": "You are about to purchase",
+      "total_buy_amount": "Total buy amount",
+      "user_buy_label": "Amount"
     },
     "buy_now": "Buy Now",
     "contact_details": "Contact Details",

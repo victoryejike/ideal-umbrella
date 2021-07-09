@@ -23,7 +23,7 @@
       name="amount"
       :placeholder="$t('nft_details.bid.user_bid_placeholder')"
       rules="required"
-      :text="$t('nft_details.bid.user_bid_label')"
+      :text="$t('nft_details.buy.user_buy_label')"
     >
       <template #element>
         <span class="coin">ETH</span>
@@ -53,15 +53,15 @@
           {{ $t('nft_details.bid.service_fee') }}
         </div>
         <div class="value">
-          0.16 ETH
+          2.5 %
         </div>
       </div>
       <div class="bidding-details">
         <div class="label">
-          {{ $t('nft_details.bid.total_bid_amount') }}
+          {{ $t('nft_details.buy.total_buy_amount') }}
         </div>
         <div class="value">
-          0.16 ETH
+          {{ finalValue }} ETH
         </div>
       </div>
     </div>
@@ -86,6 +86,7 @@ export default {
     description: { type: String, required: false, default: null },
     title: { type: String, required: false, default: null },
     image: { type: String, required: false, default: null },
+    amount: { type: Number, required: false, default: null },
   },
   data() {
     return {
@@ -93,6 +94,7 @@ export default {
       Address: localStorage.getItem('account'),
       isLoading: false,
       buyingBalance: '',
+      finalValue: '',
       coinList: [
         { name: 'ETH' },
         { name: 'HT' },
@@ -106,6 +108,9 @@ export default {
     const balance = await web3.eth.getBalance(localStorage.getItem('account'));
     const ethBalance = (balance / 1000000000000000000).toFixed(2);
     this.buyingBalance = ethBalance;
+    document.querySelector('.amount').value = this.amount;
+    const finalBuyValue = (this.amount * 0.025).toFixed(4);
+    this.finalValue = (parseFloat(this.amount) + parseFloat(finalBuyValue));
   },
   methods: {
     async onSubmit(formData) {
