@@ -10,6 +10,7 @@
           </h1>
           <SearchBar
             class="searchbar"
+            :search-value="searchValue"
             :width="36.25"
             @click="handleSearch($event)"
           />
