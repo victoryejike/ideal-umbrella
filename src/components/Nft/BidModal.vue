@@ -179,7 +179,8 @@ export default {
 }
 
 .details-section {
-  margin-top: 2.5rem;
+  margin-bottom: 2.5rem;
+  margin-top: 2rem;
 }
 
 .bid-text {
