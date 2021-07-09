@@ -7,9 +7,9 @@
       >
     </div>
     <div class="bid-text">
-      <div> {{ $t('nft_details.bid.bid-content') }} {{ title }} NFT</div>
+      <div> {{ $t('nft_details.buy.buy-content') }}</div>
       <div class="token-description">
-        {{ description }}
+        {{ title }}
       </div>
     </div>
   </div>
@@ -24,13 +24,9 @@
       :placeholder="$t('nft_details.bid.user_bid_placeholder')"
       rules="required"
       :text="$t('nft_details.bid.user_bid_label')"
-      type="number"
     >
       <template #element>
-        <BaseScrollableSelectBox
-          name="coin"
-          :options="coinList"
-        />
+        <span class="coin">ETH</span>
       </template>
     </BaseUnderlinedInput>
     <Field
@@ -44,14 +40,6 @@
       :value="Address"
     />
     <div class="details-section">
-      <div class="bidding-details">
-        <div class="label">
-          {{ $t('nft_details.bid.user_bidding_balance') }}
-        </div>
-        <div class="value">
-          0.16 ETH
-        </div>
-      </div>
       <div class="bidding-details">
         <div class="label">
           {{ $t('nft_details.bid.user_balance') }}
@@ -81,7 +69,7 @@
       class="buy-button btn-primary btn-md btn-bold"
       :icon="isLoading ? 'loading' : 'arrow-right'"
       :submit="true"
-      :text="$t('nft_details.place_bid')"
+      :text="$t('nft_details.buy_now')"
     />
   </BaseForm>
 </template>
@@ -155,7 +143,7 @@ export default {
 }
 
 .details-section {
-  margin-top: 2.5rem;
+  margin-top: 2rem;
 }
 
 .bid-text {
@@ -188,5 +176,9 @@ export default {
   font-size: 0.9375rem;
   font-weight: bold;
   line-height: 1.75rem;
+}
+
+.coin {
+  margin-right: 0.5rem;
 }
 </style>

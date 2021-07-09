@@ -204,6 +204,9 @@
       "user_bid_placeholder": "Enter bid",
       "user_bidding_balance": "Your bidding balance"
     },
+    "buy": {
+      "buy-content": "You are about to purchase"
+    },
     "blockchain": "Blockchain",
     "buy_now": "Buy Now",
     "contact_details": "Contact Details",
