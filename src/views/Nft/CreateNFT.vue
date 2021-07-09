@@ -1236,7 +1236,6 @@ export default {
     getServiceFee() {
       const amount = document.querySelector('.price').value;
       const discountAmount = ((amount * 0.025).toFixed(4));
-      console.log(discountAmount);
       const newAmount = (amount - discountAmount).toFixed(4);
       document.querySelector('.receivedAmount').value = newAmount;
     },

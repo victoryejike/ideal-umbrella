@@ -7,9 +7,9 @@
       >
     </div>
     <div class="bid-text">
-      <div> {{ $t('nft_details.bid.bid-content') }}</div>
+      <div> {{ $t('nft_details.bid.bid-content') }} {{ title }} NFT</div>
       <div class="token-description">
-        {{ title }}
+        {{ description }}
       </div>
     </div>
   </div>
@@ -130,7 +130,8 @@ export default {
   methods: {
     getFinalBidAmount() {
       const discountAmount = ((this.initialBidValue * 0.025).toFixed(4));
-      this.finalBidValue = (this.initialBidValue + discountAmount).toFixed(4);
+      this.finalBidValue = (parseFloat(this.initialBidValue)
+      + parseFloat(discountAmount));
     },
     async onSubmit(formData) {
       this.isLoading = true;
@@ -178,7 +179,6 @@ export default {
 }
 
 .details-section {
-  margin-bottom: 2.5rem;
   margin-top: 2.5rem;
 }
 
