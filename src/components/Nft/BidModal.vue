@@ -7,9 +7,9 @@
       >
     </div>
     <div class="bid-text">
-      <div> {{ $t('nft_details.bid.bid-content') }} {{ title }} NFT</div>
+      <div> {{ $t('nft_details.bid.bid-content') }}</div>
       <div class="token-description">
-        {{ description }}
+        {{ title }}
       </div>
     </div>
   </div>
@@ -178,6 +178,7 @@ export default {
 }
 
 .details-section {
+  margin-bottom: 2.5rem;
   margin-top: 2.5rem;
 }
 
