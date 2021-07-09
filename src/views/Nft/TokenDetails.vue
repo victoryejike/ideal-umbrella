@@ -32,7 +32,7 @@
               >
               <span class="creater-name">{{ nft.creator.display_name }}</span>
               <img
-                v-if="creater.verified"
+                v-if="nft.creator.is_kyc_verified"
                 class="tick-icon"
                 height="16"
                 src="@svg/tick.svg"
@@ -98,7 +98,7 @@
                 <div class="author">
                   {{ item.user_id.display_name }}
                   <img
-                    v-if="creater.verified"
+                    v-if="item.user_id.is_kyc_verified"
                     class="tick-icon"
                     height="16"
                     src="@svg/tick.svg"
@@ -106,7 +106,7 @@
                   >
                 </div>
                 <div class="date-time">
-                  {{ new Date(item.created_at).toDateString() }}
+                  {{ new Date(item.created_at).toLocaleString() }}
                 </div>
               </div>
               <div class="price">
@@ -153,11 +153,21 @@
           v-if="showHistory"
         >
           <HistoryTab
+            v-if="nft.pricing_type=='timed_auction'"
+            :creater="nft.creator.display_name"
+            :date="nft.createdAt"
+            :history-details-list="bidsList"
+            :price="nft.minimum_bid"
+            type="timed_auction"
+            :verified="nft.creator.is_kyc_verified"
+          />
+          <HistoryTab
             v-if="nft.pricing_type=='fixed'"
             :creater="nft.creator.display_name"
-            :date="nft.creator.created_at"
+            :date="nft.createdAt"
             :price="nft.price"
             type="fixed"
+            :verified="nft.creator.is_kyc_verified"
           />
         </div>
         <div class="actions">
@@ -299,10 +309,7 @@ export default {
           },
         },
       ],
-      creater: {
-        name: 'Beeple',
-        verified: true,
-      },
+
       // Todo: fetch api
       bidsList: [],
       // bidsList: [
@@ -404,6 +411,7 @@ export default {
           this.nobid = true;
         } else {
           this.bidsList = getBidData.data;
+          console.log('this.bidsList', this.bidsList);
         }
       } catch (error) {
         getBidData = error?.response?.data;

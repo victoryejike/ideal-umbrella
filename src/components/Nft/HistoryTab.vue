@@ -1,32 +1,37 @@
 <template>
   <div
     v-if="type != 'fixed'"
+    class="history-main-div"
   >
     <div
       v-for="(history, index) in historyDetailsList"
       :key="index"
-      class="history-main-div"
     >
-      <div class="history-inner-div">
-        <div class="history-action">
-          {{ history.action }}
-          <span v-if="history.action=='Listed'">for</span>
+      <div
+        v-if="history.amount"
+        class="history-inner-div"
+      >
+        <div
+
+          class="history-action"
+        >
+          Bid
         </div>
         <div class="price">
           <img
-            v-if="history.price"
+
             class="coins-icon"
             height="16"
-            src="@svg/huobi-token.svg"
+            src="@svg/ethereum.svg"
             width="16"
           >
-          {{ history.price }}
+          {{ history.amount }}
           <span>by</span>
         </div>
         <div class="author">
-          {{ history.author }}
+          {{ history.user_id.display_name }}
           <img
-            v-if="history.verified"
+            v-if="history.user_id.is_kyc_verified"
             class="tick-icon"
             height="16"
             src="@svg/tick.svg"
@@ -34,14 +39,53 @@
           >
         </div>
       </div>
+
       <div class="date-time">
-        at {{ history.timestamp }}
+        at {{ new Date(history.created_at).toLocaleString() }}
       </div>
 
       <div
         class="input-line"
       />
     </div>
+    <div
+
+      class="history-inner-div"
+    >
+      <div
+
+        class="history-action"
+      >
+        Minted for
+      </div>
+      <div class="price">
+        <img
+
+          class="coins-icon"
+          height="16"
+          src="@svg/ethereum.svg"
+          width="16"
+        >
+        {{ price }}
+        <span>by</span>
+      </div>
+      <div class="author">
+        {{ creater }}
+        <img
+          v-if="verified"
+          class="tick-icon"
+          height="16"
+          src="@svg/tick.svg"
+          width="16"
+        >
+      </div>
+    </div>
+    <div class="date-time">
+      at {{ getDate }}
+    </div>
+    <div
+      class="input-line"
+    />
   </div>
   <div
     v-else
@@ -85,6 +129,8 @@ export default {
     creater: { type: String, required: false, default: null },
     price: { type: String, required: false, default: null },
     date: { type: String, required: false, default: null },
+    historyDetailsList: { type: Array, required: false, default: null },
+    verified: { type: Boolean, required: false, default: false },
   },
   data() {
     return {
@@ -166,6 +212,7 @@ export default {
 
 .input-line {
   border-bottom: 0.0625rem solid rgba(0, 0, 0, 0.25);
+  margin-bottom: 1.5313rem;
   transition: border-bottom 0.3s ease-in-out;
   width: 100%;
 }
