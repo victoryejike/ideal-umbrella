@@ -130,7 +130,7 @@ export default {
   methods: {
     getFinalBidAmount() {
       const discountAmount = ((this.initialBidValue * 0.025).toFixed(4));
-      this.finalBidValue = (this.initialBidValue - discountAmount).toFixed(4);
+      this.finalBidValue = (this.initialBidValue + discountAmount).toFixed(4);
     },
     async onSubmit(formData) {
       this.isLoading = true;
