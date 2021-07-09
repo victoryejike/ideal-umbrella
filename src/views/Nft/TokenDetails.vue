@@ -219,6 +219,7 @@
               <template #body>
                 <BidModal
                   :description="nft.description"
+                  :image="nft.uri"
                   :nfttype="nft.supply"
                   :title="nft.title"
                 />
