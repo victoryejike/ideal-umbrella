@@ -19,12 +19,14 @@
     @submit="onSubmit"
   >
     <BaseUnderlinedInput
+      v-model="initialBidValue"
       class="input-field"
       name="amount"
       :placeholder="$t('nft_details.bid.user_bid_placeholder')"
       rules="required"
       :text="$t('nft_details.bid.user_bid_label')"
       type="number"
+      @change="getFinalBidAmount"
     >
       <template #element>
         <span class="coin">ETH</span>
@@ -53,7 +55,7 @@
           {{ $t('nft_details.bid.user_bidding_balance') }}
         </div>
         <div class="value">
-          0.16 ETH
+          {{ initialBidValue }} ETH
         </div>
       </div>
       <div class="bidding-details">
@@ -69,7 +71,7 @@
           {{ $t('nft_details.bid.service_fee') }}
         </div>
         <div class="value">
-          0.16 ETH
+          2.5%
         </div>
       </div>
       <div class="bidding-details">
@@ -77,7 +79,7 @@
           {{ $t('nft_details.bid.total_bid_amount') }}
         </div>
         <div class="value">
-          0.16 ETH
+          {{ finalBidValue }}
         </div>
       </div>
     </div>
@@ -109,6 +111,8 @@ export default {
       Address: localStorage.getItem('account'),
       isLoading: false,
       biddingBalance: '',
+      initialBidValue: '',
+      finalBidValue: '',
       coinList: [
         { name: 'ETH' },
         { name: 'HT' },
@@ -124,6 +128,10 @@ export default {
     this.biddingBalance = ethBalance;
   },
   methods: {
+    getFinalBidAmount() {
+      const discountAmount = ((this.initialBidValue * 0.025).toFixed(4));
+      this.finalBidValue = (this.initialBidValue - discountAmount).toFixed(4);
+    },
     async onSubmit(formData) {
       this.isLoading = true;
       let response = null;
