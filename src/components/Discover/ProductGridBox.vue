@@ -4,7 +4,8 @@
     class="gridbox-root"
   >
     <FilterList
-      v-if="hasFilter || activeFilterIndex === activeList.length - 1"
+      v-if="hasFilter"
+      ref="filterList"
       @selected="handleSelected"
     />
     <div
@@ -71,12 +72,12 @@ export default {
       isEndOfContent: false,
       isReady: false,
       activeFilterIndex: 0,
+      searchValue: null,
       cardCSS: { bgColor: null },
       list: {
-        latest: [[], [], [], [], []],
-        cheapest: [[], [], [], [], []],
-        highest: [[], [], [], [], []],
-        search: [],
+        latest: [[], [], [], [], [], []],
+        cheapest: [[], [], [], [], [], []],
+        highest: [[], [], [], [], [], []],
       },
     };
   },
@@ -112,6 +113,11 @@ export default {
         cheapest: this.sortMethod === 'cheapest',
         highest_price: this.sortMethod === 'highest',
       };
+
+      if (this.searchValue) {
+        params.search_word = this.searchValue;
+      }
+
       const response = await this.$api.GET_NFT_LIST(params);
       if (response.length > 0) {
         const matchKeyResponse = response.map((item) => ({
@@ -123,9 +129,8 @@ export default {
           author: `Author ${Math.random().toString(20).substr(2, 10)}`,
           avatar: null,
         }));
+
         this.activeList.push(...matchKeyResponse);
-        this.isPageLoading = false;
-        this.isReady = true;
 
         if (response.length < this.number) {
           this.handleEndOfContent();
@@ -135,15 +140,22 @@ export default {
       } else {
         this.handleEndOfContent();
       }
+
+      this.isPageLoading = false;
+      this.isReady = true;
     },
     async handleSelected(index) {
-      this.activeFilterIndex = index;
+      if (index < 5) {
+        this.searchValue = null;
+        this.$parent.$parent.searchValue = null;
+      }
 
+      this.activeFilterIndex = index;
       this.isAutoLoad = false;
       window.removeEventListener('scroll', this.autoLoad);
-
       this.isPageLoading = true;
       this.isReady = false;
+
       if (this.activeList.length === 0) {
         await this.loadMore();
       } else {
@@ -162,6 +174,12 @@ export default {
         this.isPageLoading = true;
         this.loadMore();
       }
+    },
+    search(value) {
+      this.searchValue = value;
+      this.$refs.filterList.toogleFilterBtn(5);
+      this.list[this.sortMethod][this.activeFilterIndex] = [];
+      this.handleSelected(this.activeFilterIndex);
     },
   },
 };

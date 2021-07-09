@@ -76,9 +76,7 @@ export default {
   methods: {
     handleSearch(value) {
       this.searchValue = value;
-      // Call API...
-      this.$refs['discover-section'].gridbox.isReady = false;
-      this.$refs['discover-section'].gridbox.isLoading = true;
+      this.$refs['discover-section'].gridbox.search(value);
     },
   },
 };
