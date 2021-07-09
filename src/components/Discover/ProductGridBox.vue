@@ -126,10 +126,9 @@ export default {
           name: item.title,
           price: item.price || item.bid?.highest_bid || item.minimum_bid,
           image: `https://ipfs.io/ipfs/${item.uri}`,
-          author: item.creator?.name || item.creator.display_name || `Author ${Math.random().toString(20).substr(2, 10)}`,
+          author: item.creator?.name || item.creator?.display_name,
           avatar: item.creator?.image,
         }));
-
         this.activeList.push(...matchKeyResponse);
 
         if (response.length < this.number) {
@@ -147,7 +146,7 @@ export default {
     async handleSelected(index) {
       if (index < 5) {
         this.searchValue = null;
-        this.$parent.$parent.searchValue = null;
+        this.$parent.$parent.$parent.$parent.searchValue = null;
       }
 
       this.activeFilterIndex = index;
@@ -177,9 +176,8 @@ export default {
     },
     search(value) {
       this.searchValue = value;
+      this.list[this.sortMethod][5] = [];
       this.$refs.filterList.toogleFilterBtn(5);
-      this.list[this.sortMethod][this.activeFilterIndex] = [];
-      this.handleSelected(this.activeFilterIndex);
     },
   },
 };
