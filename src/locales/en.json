@@ -137,6 +137,7 @@
       "high": "HIGHEST",
       "recent": "LATEST"
     },
+    "end_of_content": "End of Content",
     "more": "More",
     "seller_tab": {
       "day": "DAY",
@@ -204,10 +205,10 @@
       "user_bid_placeholder": "Enter bid",
       "user_bidding_balance": "Your bidding balance"
     },
+    "blockchain": "Blockchain",
     "buy": {
       "buy-content": "You are about to purchase"
     },
-    "blockchain": "Blockchain",
     "buy_now": "Buy Now",
     "contact_details": "Contact Details",
     "content": "Symbiotic refers to a failed lab experiment, a reaction of two different organisms. Symbiotic refers to a failed lab experiment, a reaction of ...",

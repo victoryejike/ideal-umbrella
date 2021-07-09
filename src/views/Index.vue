@@ -123,7 +123,7 @@ export default {
   },
   methods: {
     handleSearch(value) {
-      this.$router.push({ path: '/discover', query: { value } });
+      this.$router.push({ name: 'Discover', params: { searchValue: value } });
     },
   },
 };

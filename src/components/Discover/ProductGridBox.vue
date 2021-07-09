@@ -4,10 +4,11 @@
     class="gridbox-root"
   >
     <FilterList
-      v-if="hasFilter || activeIndex === activeList.length - 1"
+      v-if="hasFilter || activeFilterIndex === activeList.length - 1"
       @selected="handleSelected"
     />
     <div
+      v-if="isReady"
       class="gridbox"
     >
       <BaseProductCard
@@ -36,12 +37,18 @@
       >
     </div>
     <BaseRoundButton
-      v-if="!isAutoLoad"
+      v-if="!isAutoLoad && !isEndOfContent"
       class="load-more-btn btn-outline-primary btn-xl"
       :icon="isBtnLoading ? 'transparent-loading' : null"
       :text="isBtnLoading ? null : $t('index_screen.more')"
       @click="handleClick"
     />
+    <div
+      v-if="isEndOfContent"
+      class="end-of-content"
+    >
+      {{ $t('index_screen.end_of_content') }}
+    </div>
   </div>
 </template>
 
@@ -61,7 +68,9 @@ export default {
       isBtnLoading: false,
       isPageLoading: true,
       isAutoLoad: false,
-      activeIndex: 0,
+      isEndOfContent: false,
+      isReady: false,
+      activeFilterIndex: 0,
       cardCSS: { bgColor: null },
       list: {
         latest: [[], [], [], [], []],
@@ -73,12 +82,12 @@ export default {
   },
   computed: {
     activeList() {
-      return this.list[this.sortMethod][this.activeIndex];
+      return this.list[this.sortMethod][this.activeFilterIndex];
     },
   },
   watch: {
     sortMethod() {
-      this.handleSelected(this.activeIndex);
+      this.handleSelected(this.activeFilterIndex);
     },
   },
   mounted() {
@@ -88,32 +97,65 @@ export default {
     this.loadMore();
   },
   methods: {
-    handleClick() {
+    async handleClick() {
       this.isBtnLoading = true;
-      this.loadMore();
-      setTimeout(() => {
-        this.isBtnLoading = false;
-        this.isAutoLoad = true;
-        window.addEventListener('scroll', this.autoLoad);
-      }, 1100);
+      await this.loadMore();
+      this.isAutoLoad = true;
+      window.addEventListener('scroll', this.autoLoad);
+      this.isBtnLoading = false;
     },
-    loadMore() {
-      // TODO: Call API
-      setTimeout(async () => {
-        this.activeList.push(...await this.$global.getFakeData(
-          this.number, this.sortMethod, this.activeIndex,
-        ));
+    async loadMore() {
+      const params = {
+        skip: this.activeList.length,
+        limit: this.number,
+        recently_added: this.sortMethod === 'latest',
+        cheapest: this.sortMethod === 'cheapest',
+        highest_price: this.sortMethod === 'highest',
+      };
+      const response = await this.$api.GET_NFT_LIST(params);
+      if (response.length > 0) {
+        const matchKeyResponse = response.map((item) => ({
+          // eslint-disable-next-line no-underscore-dangle
+          id: item._id,
+          name: item.title,
+          price: item.price || Math.random() * 60 + 5,
+          image: `https://ipfs.io/ipfs/${item.uri}`,
+          author: `Author ${Math.random().toString(20).substr(2, 10)}`,
+          avatar: null,
+        }));
+        this.activeList.push(...matchKeyResponse);
         this.isPageLoading = false;
-      }, 1000);
-    },
-    handleSelected(index) {
-      this.activeIndex = index;
-      if (this.activeList.length === 0) {
-        this.isPageLoading = true;
-        this.isAutoLoad = false;
-        this.loadMore();
-        window.removeEventListener('scroll', this.autoLoad);
+        this.isReady = true;
+
+        if (response.length < this.number) {
+          this.handleEndOfContent();
+        } else {
+          this.isEndOfContent = false;
+        }
+      } else {
+        this.handleEndOfContent();
       }
+    },
+    async handleSelected(index) {
+      this.activeFilterIndex = index;
+
+      this.isAutoLoad = false;
+      window.removeEventListener('scroll', this.autoLoad);
+
+      this.isPageLoading = true;
+      this.isReady = false;
+      if (this.activeList.length === 0) {
+        await this.loadMore();
+      } else {
+        setTimeout(() => {
+          this.isPageLoading = false;
+          this.isReady = true;
+        }, 500);
+      }
+    },
+    handleEndOfContent() {
+      this.isEndOfContent = true;
+      window.removeEventListener('scroll', this.autoLoad);
     },
     autoLoad() {
       if (!this.isPageLoading && this.$refs['gridbox-root'].getBoundingClientRect().bottom < window.innerHeight) {
@@ -149,6 +191,13 @@ export default {
 .load-more-btn {
   margin: auto auto;
   margin-top: 3.5rem;
+}
+
+.end-of-content {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-top: 3.5rem;
+  text-align: center;
 }
 
 @media (max-width: 62.5em) {
