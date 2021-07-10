@@ -329,6 +329,181 @@ export default {
       v: localStorage.getItem('v'),
       erc721ContractAddress: '0xDEa7Bec0EC439e7b5978b8C55Aa247AEcfc7a259',
       erc1155ContractAddress: '0x24d5CaBE5A68653c1a6d10f65679839a5CD4a42A',
+      singleAuctionContractAddress: '0x8F5d0Aacb1D1686b47ED43dB6D48d29b783e1Ad0',
+      singleAuctionAbi: [
+        {
+          inputs: [
+            {
+              internalType: 'address',
+              name: 'erc20TokenAddress',
+              type: 'address',
+            },
+          ],
+          stateMutability: 'nonpayable',
+          type: 'constructor',
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: 'address',
+              name: 'seller',
+              type: 'address',
+            },
+            {
+              indexed: false,
+              internalType: 'enum NafitiAuction.AuctionType',
+              name: 'auctionType',
+              type: 'uint8',
+            },
+            {
+              indexed: false,
+              internalType: 'address',
+              name: 'collectible',
+              type: 'address',
+            },
+            {
+              indexed: false,
+              internalType: 'uint256',
+              name: 'tokenId',
+              type: 'uint256',
+            },
+            {
+              indexed: false,
+              internalType: 'uint256',
+              name: 'amount',
+              type: 'uint256',
+            },
+          ],
+          name: 'AuctionCreated',
+          type: 'event',
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: 'address',
+              name: 'highestBidder',
+              type: 'address',
+            },
+            {
+              indexed: false,
+              internalType: 'uint256',
+              name: 'highestBid',
+              type: 'uint256',
+            },
+            {
+              indexed: false,
+              internalType: 'address',
+              name: 'seller',
+              type: 'address',
+            },
+          ],
+          name: 'BidClosed',
+          type: 'event',
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: 'address',
+              name: 'bidder',
+              type: 'address',
+            },
+            {
+              indexed: false,
+              internalType: 'uint256',
+              name: 'tokenId',
+              type: 'uint256',
+            },
+            {
+              indexed: false,
+              internalType: 'address',
+              name: 'collectible',
+              type: 'address',
+            },
+          ],
+          name: 'BidPlaced',
+          type: 'event',
+        },
+        {
+          inputs: [
+            {
+              internalType: 'address',
+              name: 'collectible',
+              type: 'address',
+            },
+            {
+              internalType: 'uint256',
+              name: 'tokenId',
+              type: 'uint256',
+            },
+          ],
+          name: 'CloseBid',
+          outputs: [],
+          stateMutability: 'nonpayable',
+          type: 'function',
+        },
+        {
+          inputs: [
+            {
+              internalType: 'address',
+              name: 'collectible',
+              type: 'address',
+            },
+            {
+              internalType: 'uint256',
+              name: 'tokenId',
+              type: 'uint256',
+            },
+            {
+              internalType: 'enum NafitiAuction.AuctionType',
+              name: 'auctionType',
+              type: 'uint8',
+            },
+            {
+              internalType: 'uint256',
+              name: '_duration',
+              type: 'uint256',
+            },
+            {
+              internalType: 'uint256',
+              name: '_startingPrice',
+              type: 'uint256',
+            },
+          ],
+          name: 'CreateAuctionForSingle',
+          outputs: [],
+          stateMutability: 'payable',
+          type: 'function',
+        },
+        {
+          inputs: [
+            {
+              internalType: 'address',
+              name: 'collectible',
+              type: 'address',
+            },
+            {
+              internalType: 'uint256',
+              name: 'tokenId',
+              type: 'uint256',
+            },
+            {
+              internalType: 'uint256',
+              name: 'amount',
+              type: 'uint256',
+            },
+          ],
+          name: 'PlaceBid',
+          outputs: [],
+          stateMutability: 'nonpayable',
+          type: 'function',
+        },
+      ],
       erc721abi: [
         {
           inputs: [],
@@ -1419,7 +1594,7 @@ export default {
         const contract = new web3.eth.Contract(this.erc1155abi, this.erc1155ContractAddress);
         const result = await contract.methods
           .mint(qty)
-          .send({ from: localStorage.getItem('account') });
+          .send({ from: localStorage.getItem('account'), gas: 2000000, gasPrice: '20000000000' });
         this.ipfsUrl = cid;
         this.tokenId = result.events.TokenMinted.returnValues.tokenType;
         contract.methods.setApprovalForAll('0x560c6067b94048F92Bd89e44D205c3597A4fe82E', true).send({ from: localStorage.getItem('account'), gas: 2000000, gasPrice: '20000000000' });
@@ -1428,12 +1603,25 @@ export default {
         const contract = new web3.eth.Contract(this.erc721abi, this.erc721ContractAddress);
         const result = await contract.methods
           .mint(`https://${cid}.ipfs.dweb.link`)
-          .send({ from: localStorage.getItem('account') });
+          .send({ from: localStorage.getItem('account'), gas: 2900000, gasPrice: '29000000000' });
         this.ipfsUrl = cid;
         console.log(result);
         this.tokenId = result.events.Transfer.returnValues.tokenId;
         console.log(this.tokenId);
-        contract.methods.setApprovalForAll('0x560c6067b94048F92Bd89e44D205c3597A4fe82E', true).send({ from: localStorage.getItem('account'), gas: 2000000, gasPrice: '20000000000' });
+        contract.methods.setApprovalForAll('0x560c6067b94048F92Bd89e44D205c3597A4fe82E', true).send({ from: localStorage.getItem('account'), gas: 3000000, gasPrice: '30000000000' });
+        if (this.pricing_type === 'timed_auction') {
+          console.log('works for only timed_auction');
+          const newContract = new web3.eth.Contract(this.singleAuctionAbi,
+            this.singleAuctionContractAddress);
+          const startPrice = document.querySelector('.minimum_bid').value;
+          const auctionStartdate = document.querySelector('.starting_date').value;
+          const auctionExpirationdate = document.querySelector('.expiration_date').value;
+          const startDate = new Date(auctionStartdate);
+          const endDate = new Date(auctionExpirationdate);
+          const timeDuration = (endDate.getTime() - startDate.getTime()) / 1000;
+          console.log(timeDuration);
+          newContract.methods.CreateAuctionForSingle(this.erc721ContractAddress, this.tokenId, (1), timeDuration, web3.utils.toWei(startPrice, 'ether')).send({ from: localStorage.getItem('account'), gas: 3500000, gasPrice: '35000000000' });
+        }
         document.getElementsByClassName('submit-btn')[0].click();
       }
     },

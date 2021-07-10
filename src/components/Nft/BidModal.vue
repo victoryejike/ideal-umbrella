@@ -133,6 +133,7 @@ export default {
         { name: 'FC' },
       ],
       contractAddress: '0x8F5d0Aacb1D1686b47ED43dB6D48d29b783e1Ad0',
+      erc721ContractAddress: '0xDEa7Bec0EC439e7b5978b8C55Aa247AEcfc7a259',
       abi: [
         {
           inputs: [
@@ -360,7 +361,7 @@ export default {
       const { BN } = web3.utils;
       const contract = new web3.eth.Contract(this.abi, this.contractAddress);
       console.log(contract);
-      contract.methods.PlaceBid(address, this.tokenid, new BN(this.finalBidValue)).send({ from: address, gas: 2000000, gasPrice: '20000000000' });
+      contract.methods.PlaceBid(this.erc721ContractAddress, this.tokenid, new BN(this.finalBidValue)).send({ from: address, gas: 2000000, gasPrice: '20000000000' });
     },
   },
 };
