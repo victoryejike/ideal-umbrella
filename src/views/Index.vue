@@ -72,7 +72,10 @@
         </div>
       </template>
     </IndexSection>
-    <DiscoverSection :title="$t('index_screen.title.discover')" />
+    <DiscoverSection
+      ref="discover-section"
+      :title="$t('index_screen.title.discover')"
+    />
   </div>
 </template>
 
@@ -118,7 +121,9 @@ export default {
           id: item._id,
           name: item.title,
           price: item.price || item.bid?.highest_bid || item.minimum_bid,
-          image: `https://ipfs.io/ipfs/${item.uri}`,
+          image: (item.uri.startsWith('ipfs://'))
+            ? `https://ipfs.io/ipfs/${item.uri.replace('ipfs://', '')}`
+            : `https://ipfs.io/ipfs/${item.uri}`,
           author: item.creator?.name || item.creator?.display_name,
           avatar: item.creator?.image,
         }));
@@ -148,6 +153,8 @@ export default {
         verified: Math.random() > 0.5,
       });
     }
+
+    this.$refs['discover-section'].gridbox.loadMore();
   },
   methods: {
     handleSearch(value) {
