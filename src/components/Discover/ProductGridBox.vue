@@ -95,7 +95,6 @@ export default {
     this.$global.handleResponsive(62.5,
       () => { this.cardCSS.size = 190; },
       () => { this.cardCSS.size = 140; });
-    this.loadMore();
   },
   methods: {
     async handleClick() {

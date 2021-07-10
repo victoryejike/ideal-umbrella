@@ -72,6 +72,8 @@ export default {
   mounted() {
     if (this.$route.params?.searchValue) {
       this.handleSearch(this.$route.params?.searchValue);
+    } else {
+      this.$refs['discover-section'].gridbox.loadMore();
     }
   },
   methods: {
