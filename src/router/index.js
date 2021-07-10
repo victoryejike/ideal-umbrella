@@ -9,7 +9,7 @@ const routes = [
 
 Object.keys(routes).forEach((key) => {
   if (routes[key]?.meta?.nickname !== null) {
-    routes[key].meta = {};
+    if (routes[key].meta == null) { routes[key].meta = {}; }
     routes[key].meta.nickname = routes[key].name;
   }
 });
