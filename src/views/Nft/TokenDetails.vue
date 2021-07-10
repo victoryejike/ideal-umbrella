@@ -176,6 +176,8 @@
             class="actions"
           >
             <BaseRoundButton
+              v-if="username === null
+                || nft.creator.display_name !== username.display_name"
               class="buy-button btn-primary btn-md btn-bold"
               icon="arrow-right"
               :text="$t('nft_details.buy_now')"
@@ -205,6 +207,8 @@
             class="bid-button-div"
           >
             <BaseRoundButton
+              v-if="username === null
+                || nft.creator.display_name !== username.display_name"
               class="bid-button btn-outline-primary btn-bold btn-xl"
               :text="$t('nft_details.place_bid')"
               @click="showModal"
@@ -262,6 +266,7 @@ export default {
       nobid: false,
       showHistory: false,
       isModalVisible: false,
+      username: JSON.parse(localStorage.getItem('userData')),
       getNftDetails: [],
       tabFixedNft: [
         {
@@ -374,6 +379,8 @@ export default {
       this.isModalVisible = false;
     },
     showFixedModal() {
+      this.verifyUser();
+      this.isWalletConnected();
       this.isModalVisiblefixed = true;
     },
     isWalletConnected() {
