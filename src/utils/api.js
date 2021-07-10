@@ -49,6 +49,32 @@ const API_SERVICES = {
     }
     return response;
   },
+  GET_POPULAR_NFT: async () => {
+    let response = null;
+    try {
+      response = (await axios.get('nft/search', { params: { skip: 0, limit: 4 } })).data;
+    } catch (error) {
+      response = error?.response?.data;
+    }
+
+    if (response?.success) {
+      return response?.data;
+    }
+    return response;
+  },
+  GET_TOP_SELLERS: async () => {
+    let response = null;
+    try {
+      response = (await axios.get('nft/top_sellers', { params: { skip: 0, limit: 8 } })).data;
+    } catch (error) {
+      response = error?.response?.data;
+    }
+
+    if (response?.success) {
+      return response?.data;
+    }
+    return response;
+  },
   CREATENFT: (params) => axios.post('nft', params, false),
   GET_COUNTRIES: async () => {
     if (store.getters['data/countryList'].length === 0) {

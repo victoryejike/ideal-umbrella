@@ -101,9 +101,11 @@ export default {
     async handleClick() {
       this.isBtnLoading = true;
       await this.loadMore();
-      this.isAutoLoad = true;
-      window.addEventListener('scroll', this.autoLoad);
       this.isBtnLoading = false;
+      if (!this.isEndOfContent) {
+        this.isAutoLoad = true;
+        window.addEventListener('scroll', this.autoLoad);
+      }
     },
     async loadMore() {
       const params = {
@@ -130,23 +132,20 @@ export default {
           avatar: item.creator?.image,
         }));
         this.activeList.push(...matchKeyResponse);
-
-        if (response.length < this.number) {
-          this.handleEndOfContent();
-        } else {
-          this.isEndOfContent = false;
-        }
-      } else {
-        this.handleEndOfContent();
       }
 
       this.isPageLoading = false;
       this.isReady = true;
+      if (response.length < this.number) {
+        this.handleEndOfContent();
+      } else {
+        this.isEndOfContent = false;
+      }
     },
     async handleSelected(index) {
       if (index < 5) {
         this.searchValue = null;
-        this.$parent.$parent.$parent.$parent.searchValue = null;
+        this.$parent.$parent.$parent.searchValue = null;
       }
 
       this.activeFilterIndex = index;
@@ -166,7 +165,6 @@ export default {
     },
     handleEndOfContent() {
       this.isEndOfContent = true;
-      window.removeEventListener('scroll', this.autoLoad);
     },
     autoLoad() {
       if (!this.isPageLoading && this.$refs['gridbox-root'].getBoundingClientRect().bottom < window.innerHeight) {

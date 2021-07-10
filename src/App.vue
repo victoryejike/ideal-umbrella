@@ -15,14 +15,14 @@
         :key="key"
       />
       <div id="content">
-        <router-view v-slot="{ Component }">
+        <router-view v-slot="{ Component, route }">
           <Transition
             mode="out-in"
             name="fade"
           >
             <Component
               :is="Component"
-              :key="key"
+              :key="`${route.name}_${key}`"
             />
           </Transition>
         </router-view>

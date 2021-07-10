@@ -1,33 +1,31 @@
 <template>
-  <KeepAlive>
-    <div
-      class="container"
-    >
-      <div class="discover-banner">
-        <div class="discover-title-and-searchbar">
-          <h1 class="discover-title">
-            {{ $t('discover_screen.title') }}
-          </h1>
-          <SearchBar
-            class="searchbar"
-            :search-value="searchValue"
-            :width="36.25"
-            @click="handleSearch($event)"
-          />
-        </div>
-        <img
-          class="discover-hero"
-          src="@img/discover-hero.png"
-        >
+  <div
+    class="container"
+  >
+    <div class="discover-banner">
+      <div class="discover-title-and-searchbar">
+        <h1 class="discover-title">
+          {{ $t('discover_screen.title') }}
+        </h1>
+        <SearchBar
+          class="searchbar"
+          :search-value="searchValue"
+          :width="36.25"
+          @click="handleSearch($event)"
+        />
       </div>
-      <DiscoverSection
-        ref="discover-section"
-        :number="25"
-        :title="title"
-        :underlined="isUnderline"
-      />
+      <img
+        class="discover-hero"
+        src="@img/discover-hero.png"
+      >
     </div>
-  </KeepAlive>
+    <DiscoverSection
+      ref="discover-section"
+      :number="25"
+      :title="title"
+      :underlined="isUnderline"
+    />
+  </div>
 </template>
 
 <script>
@@ -71,8 +69,9 @@ export default {
       return !this.searchValue;
     },
   },
-  created() {
-    this.searchValue = this.$route.params.searchValue;
+  activated() {
+    this.searchValue = this.$route.params?.searchValue;
+    // this.handleSearch(this.searchValue);
   },
   methods: {
     handleSearch(value) {

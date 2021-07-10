@@ -1,11 +1,11 @@
 <template>
   <div
     class="searchbar-container"
-    :style="{width: `${width}rem`}"
+    :style="{width: cssWidth}"
   >
     <div
       class="searchbar-bg"
-      :style="{width: `${width}rem`}"
+      :style="{width: cssWidth}"
     >
       <div class="padding">
         <img src="@svg/search.svg">
@@ -45,12 +45,14 @@ export default {
       value: this.searchValue,
     };
   },
+  computed: {
+    cssWidth() { return `${this.width}rem`; },
+  },
   watch: {
     searchValue(newValue) { this.value = newValue; },
   },
   methods: {
-    handleSearch(e) {
-      console.log(e);
+    handleSearch() {
       this.$emit('click', this.value.trim());
     },
   },

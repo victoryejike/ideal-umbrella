@@ -94,8 +94,8 @@ export default {
       topSellerList: [],
       sellerTab: [
         this.$t('index_screen.seller_tab.day'),
-        this.$t('index_screen.seller_tab.month'),
         this.$t('index_screen.seller_tab.week'),
+        this.$t('index_screen.seller_tab.month'),
       ],
       popularCardCSS: { bgColor: 'rgba(255, 255, 255, 0.25)' },
     };
@@ -110,7 +110,35 @@ export default {
         this.popularCardCSS.padding = '1rem 1.25rem';
         this.popularCardCSS.size = 180;
       });
-    this.popularList = await this.$global.getFakeData(4);
+
+    this.$api.GET_POPULAR_NFT().then((response) => {
+      if (response.length > 0) {
+        const matchKeyResponse = response.map((item) => ({
+        // eslint-disable-next-line no-underscore-dangle
+          id: item._id,
+          name: item.title,
+          price: item.price || item.bid?.highest_bid || item.minimum_bid,
+          image: `https://ipfs.io/ipfs/${item.uri}`,
+          author: item.creator?.name || item.creator?.display_name,
+          avatar: item.creator?.image,
+        }));
+        this.popularList.push(...matchKeyResponse);
+      }
+    });
+
+    // this.$api.GET_TOP_SELLERS().then((response) => {
+    //   if (response.length > 0) {
+    //     // eslint-disable-next-line camelcase
+    //     const matchKeyResponse = response.map(({ _top_sellers }) => ({
+    //       avatar: _top_sellers.image,
+    //       author: _top_sellers.name || _top_sellers.display_name,
+    //       totalCoin: Math.random() * 800 + 100,
+    //       verified: _top_sellers.is_kyc_verified,
+    //     }));
+    //     this.topSellerList.push(...matchKeyResponse);
+    //   }
+    // });
+
     for (let i = 0; i < 8; i += 1) {
       this.topSellerList.push({
         avatar: `https://i.pravatar.cc/64?img=${Math.floor(Math.random() * 70) + 1}`,
