@@ -38,17 +38,8 @@ export default {
   data() {
     return {
       nonft: false,
-      list: Array(10).fill({
-        id: 'V3isglWtYb5qIy24QbTJeoJjuV35fEDd0RoL',
-        avatar: 'avatar.png',
-        author: 'Otha Davis III',
-        image: 'image.png',
-        name: 'Crypto Mask',
-        price: 67.456,
-        verified: true,
-      }),
       cardCSS: { bgColor: null },
-      nft: '',
+      nft: [],
     };
   },
   async mounted() {

@@ -17,7 +17,7 @@
         </div>
         <img
           class="token-image"
-          :src="`https://ipfs.io/ipfs/${nft.uri}`"
+          :src="`https://ipfs.io/ipfs/${nft.uri.replace('ipfs://', '')}`"
         >
       </div>
       <div class="display-token-details">

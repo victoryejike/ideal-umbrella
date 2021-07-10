@@ -31,13 +31,26 @@
           width="16"
         >
       </div>
-      <img
-        class="product-image"
-        :height="size"
-        :onerror="handleImageError"
-        :src="image"
-        :width="size"
+      <div
+        class="product-div"
+        :style="[{height: `${size}px`}, {width: `${size}px`}]"
       >
+        <img
+          class="product-image"
+          :height="size"
+          :onerror="handleImageError"
+          :src="image"
+          :width="size"
+          @load="onImgLoaded"
+        >
+        <img
+          class="product-placeholder"
+          :height="size"
+          src="@img/no-image.png"
+          :style="{opacity: (isLoading) ? 1 : 0}"
+          :width="size"
+        >
+      </div>
       <div
         class="description"
       >
@@ -119,6 +132,11 @@ export default {
     mininum: { type: Number, required: false, default: null },
     verified: { type: Boolean, required: false, default: false },
   },
+  data() {
+    return {
+      isLoading: true,
+    };
+  },
   computed: {
     bgColor() { return this.css?.bgColor; },
     padding() { return this.css?.padding; },
@@ -132,6 +150,9 @@ export default {
     },
     handleClick() {
       this.$router.push({ name: 'TokenDetails', params: { id: this.id } });
+    },
+    onImgLoaded() {
+      this.isLoading = false;
     },
   },
 };
@@ -186,10 +207,19 @@ export default {
   margin-right: 0.3rem;
 }
 
-.product-image {
-  border-radius: 1rem;
+.product-div {
   margin-bottom: 1.25rem;
   margin-top: 0.625rem;
+  position: relative;
+}
+
+.product-div img {
+  border-radius: 1rem;
+  position: absolute;
+  -webkit-transition: opacity 1s ease-in-out;
+  -moz-transition: opacity 1s ease-in-out;
+  -o-transition: opacity 1s ease-in-out;
+  transition: opacity 1s ease-in-out;
 }
 
 .coins-and-price-div {
