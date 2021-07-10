@@ -69,9 +69,10 @@ export default {
       return !this.searchValue;
     },
   },
-  activated() {
-    this.searchValue = this.$route.params?.searchValue;
-    // this.handleSearch(this.searchValue);
+  mounted() {
+    if (this.$route.params?.searchValue) {
+      this.handleSearch(this.$route.params?.searchValue);
+    }
   },
   methods: {
     handleSearch(value) {
