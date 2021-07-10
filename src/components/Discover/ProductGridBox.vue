@@ -38,10 +38,9 @@
       >
     </div>
     <BaseRoundButton
-      v-if="!isAutoLoad && !isEndOfContent"
+      v-if="!isAutoLoad && !isEndOfContent && !isPageLoading"
       class="load-more-btn btn-outline-primary btn-xl"
-      :icon="isBtnLoading ? 'transparent-loading' : null"
-      :text="isBtnLoading ? null : $t('index_screen.more')"
+      :text="$t('index_screen.more')"
       @click="handleClick"
     />
     <div
@@ -56,6 +55,8 @@
 <script>
 import FilterList from '@/components/Discover/FilterList.vue';
 
+const SEARCH_INDEX = 5;
+
 export default {
   name: 'ProductGridBox',
   components: { FilterList },
@@ -66,13 +67,11 @@ export default {
   },
   data() {
     return {
-      isBtnLoading: false,
       isPageLoading: true,
       isAutoLoad: false,
       isEndOfContent: false,
-      isReady: false,
+      isReady: true,
       activeFilterIndex: 0,
-      searchValue: null,
       cardCSS: { bgColor: null },
       list: {
         latest: [[], [], [], [], [], []],
@@ -82,31 +81,52 @@ export default {
     };
   },
   computed: {
-    activeList() {
-      return this.list[this.sortMethod][this.activeFilterIndex];
-    },
+    searchValue() { return this.$store.getters['data/searchValue']; },
+    activeList() { return this.list[this.sortMethod][this.activeFilterIndex]; },
   },
   watch: {
-    sortMethod() {
-      this.handleSelected(this.activeFilterIndex);
+    sortMethod() { this.handleSelected(this.activeFilterIndex); },
+    searchValue(value) {
+      if (value) {
+        this.list[this.sortMethod][SEARCH_INDEX] = [];
+        // Let filterList update UI and trigger handleSelected
+        this.$refs.filterList.toogleFilterBtn(SEARCH_INDEX);
+      }
     },
+  },
+  deactivated() {
+    /**
+     * Since this page will be cached in KeepAlive, I want to reset to 'Art' filter
+     * if user forward to another page (also clear search value), so toogleFilterBtn
+     * can update filter UI + trigger handleSelected, handleSelected will clear search value
+     * since the activeIndex is 0, details can see the second line of handleSelected function.
+     * IMPORTANT: Dont cache Index Page at the moment, it will cause a bug in searching
+     */
+    this.$refs.filterList.toogleFilterBtn(0);
   },
   mounted() {
     this.$global.handleResponsive(62.5,
       () => { this.cardCSS.size = 190; },
       () => { this.cardCSS.size = 140; });
+    if (this.activeList.length === 0) {
+      this.loadMore();
+    }
   },
   methods: {
     async handleClick() {
-      this.isBtnLoading = true;
       await this.loadMore();
-      this.isBtnLoading = false;
       if (!this.isEndOfContent) {
+        /**
+         * If these still have content, auto load will enable, no 'More' button
+         * will be shown. (like Rarible.com)
+         */
         this.isAutoLoad = true;
         window.addEventListener('scroll', this.autoLoad);
       }
     },
     async loadMore() {
+      this.isPageLoading = true;
+
       const params = {
         skip: this.activeList.length,
         limit: this.number,
@@ -129,52 +149,38 @@ export default {
           image: `https://ipfs.io/ipfs/${item.uri.replace('ipfs://', '')}`,
           author: item.creator?.name || item.creator?.display_name,
           avatar: item.creator?.image,
+          verified: item.creator?.is_kyc_verified,
         }));
         this.activeList.push(...matchKeyResponse);
       }
 
       this.isPageLoading = false;
-      this.isReady = true;
-      if (response.length < this.number) {
-        this.handleEndOfContent();
-      } else {
-        this.isEndOfContent = false;
-      }
+      this.isEndOfContent = (response.length < this.number);
     },
     async handleSelected(index) {
-      if (index < 5) {
-        this.searchValue = null;
-        this.$parent.$parent.$parent.searchValue = null;
-      }
-
       this.activeFilterIndex = index;
+      if (index < SEARCH_INDEX) { this.$store.commit('data/setSearchValue', null); }
+
+      /**
+       * When new filter option selected, auto load will disable, user have to click 'More'
+       * button again to enable auto load.
+       */
       this.isAutoLoad = false;
       window.removeEventListener('scroll', this.autoLoad);
-      this.isPageLoading = true;
-      this.isReady = false;
 
+      this.isReady = false;
       if (this.activeList.length === 0) {
         await this.loadMore();
       } else {
-        setTimeout(() => {
-          this.isPageLoading = false;
-          this.isReady = true;
-        }, 500);
+        await setTimeout(() => { this.isEndOfContent = false; }, 400);
       }
-    },
-    handleEndOfContent() {
-      this.isEndOfContent = true;
+      this.isReady = true;
     },
     autoLoad() {
+      // Check isPageLoading is to prevent trigger loadMore multiple times in a short time
       if (!this.isPageLoading && this.$refs['gridbox-root'].getBoundingClientRect().bottom < window.innerHeight) {
-        this.isPageLoading = true;
         this.loadMore();
       }
-    },
-    search(value) {
-      this.searchValue = value;
-      this.list[this.sortMethod][5] = [];
-      this.$refs.filterList.toogleFilterBtn(5);
     },
   },
 };

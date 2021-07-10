@@ -9,9 +9,7 @@
         </h1>
         <SearchBar
           class="searchbar"
-          :search-value="searchValue"
           :width="36.25"
-          @click="handleSearch($event)"
         />
       </div>
       <img
@@ -45,42 +43,19 @@ import DiscoverSection from '@/components/Discover/DiscoverSection.vue';
  *  ProductGridBox: focus on filtering (interacts with FilterList)
  *  Profile Page can reuse this components
  *
- *  It may have a bit tortuous to passing searching data to ProductGridBox, but it follows SRP.
- *  (better maintaining + readable)
- *
  */
 
 export default {
   name: 'Discover',
   components: { SearchBar, DiscoverSection },
-  data() {
-    return {
-      searchValue: null,
-      searchingCache: {},
-    };
-  },
   computed: {
+    searchValue() { return this.$store.getters['data/searchValue']; },
     title() {
       return this.searchValue
         ? this.$t('discover_screen.search_result', [this.searchValue])
         : this.$t('index_screen.title.discover');
     },
-    isUnderline() {
-      return !this.searchValue;
-    },
-  },
-  mounted() {
-    if (this.$route.params?.searchValue) {
-      this.handleSearch(this.$route.params?.searchValue);
-    } else {
-      this.$refs['discover-section'].gridbox.loadMore();
-    }
-  },
-  methods: {
-    handleSearch(value) {
-      this.searchValue = value;
-      this.$refs['discover-section'].gridbox.search(value);
-    },
+    isUnderline() { return !this.searchValue; },
   },
 };
 </script>

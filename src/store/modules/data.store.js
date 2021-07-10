@@ -1,10 +1,14 @@
 const initialState = () => ({
   countryList: [],
+  searchValue: null,
 });
 
 const getters = {
   countryList(state) {
     return state.countryList;
+  },
+  searchValue(state) {
+    return state.searchValue;
   },
 };
 
@@ -21,6 +25,9 @@ const mutations = {
   },
   setCountryList(state, list) {
     state.countryList = list;
+  },
+  setSearchValue(state, value) {
+    state.searchValue = value;
   },
 };
 

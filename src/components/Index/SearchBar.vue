@@ -37,23 +37,29 @@ export default {
   name: 'SearchBar',
   props: {
     width: { type: Number, required: true },
-    searchValue: { type: String, required: false, default: '' },
   },
-  emits: ['click'],
+  emits: ['search'],
   data() {
     return {
-      value: this.searchValue,
+      value: null,
     };
   },
   computed: {
     cssWidth() { return `${this.width}rem`; },
+    searchValue() { return this.$store.getters['data/searchValue']; },
   },
   watch: {
-    searchValue(newValue) { this.value = newValue; },
+    searchValue(value) {
+      this.value = value;
+    },
+  },
+  mounted() {
+    this.value = this.searchValue;
   },
   methods: {
     handleSearch() {
-      this.$emit('click', this.value.trim());
+      this.$store.commit('data/setSearchValue', this.value);
+      this.$emit('search');
     },
   },
 };

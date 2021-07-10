@@ -52,11 +52,5 @@ export default {
       ],
     };
   },
-  computed: {
-    gridbox() { return this.$refs['grid-box']; },
-  },
-  methods: {
-
-  },
 };
 </script>

@@ -21,7 +21,7 @@
         </h1>
         <SearchBar
           :width="36.25"
-          @click="handleSearch($event)"
+          @search="handleSearch"
         />
       </div>
     </div>
@@ -72,10 +72,7 @@
         </div>
       </template>
     </IndexSection>
-    <DiscoverSection
-      ref="discover-section"
-      :title="$t('index_screen.title.discover')"
-    />
+    <DiscoverSection :title="$t('index_screen.title.discover')" />
   </div>
 </template>
 
@@ -124,6 +121,7 @@ export default {
           image: `https://ipfs.io/ipfs/${item.uri.replace('ipfs://', '')}`,
           author: item.creator?.name || item.creator?.display_name,
           avatar: item.creator?.image,
+          verified: item.creator?.is_kyc_verified,
         }));
         this.popularList.push(...matchKeyResponse);
       }
@@ -151,12 +149,10 @@ export default {
         verified: Math.random() > 0.5,
       });
     }
-
-    this.$refs['discover-section'].gridbox.loadMore();
   },
   methods: {
     handleSearch(value) {
-      this.$router.push({ name: 'Discover', params: { searchValue: value } });
+      this.$router.push({ name: 'Discover' });
     },
   },
 };

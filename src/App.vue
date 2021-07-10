@@ -20,10 +20,12 @@
             mode="out-in"
             name="fade"
           >
-            <Component
-              :is="Component"
-              :key="`${route.name}_${key}`"
-            />
+            <KeepAlive :include="cacheList">
+              <Component
+                :is="Component"
+                :key="`${route.meta.nickname}_${key}`"
+              />
+            </KeepAlive>
           </Transition>
         </router-view>
       </div>
@@ -50,6 +52,7 @@ export default {
   data() {
     return {
       key: 0,
+      cacheList: ['Discover'],
     };
   },
   async created() {

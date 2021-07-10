@@ -7,6 +7,13 @@ const routes = [
   ...privateRoute,
 ];
 
+Object.keys(routes).forEach((key) => {
+  if (routes[key]?.meta?.nickname !== null) {
+    routes[key].meta = {};
+    routes[key].meta.nickname = routes[key].name;
+  }
+});
+
 const router = createRouter({
   history: createWebHashHistory(),
   routes,
@@ -36,8 +43,8 @@ router.beforeEach((to, from, next) => {
    *  Here not using window.scrollTo({ top: 0, behavior: 'smooth' })
    *  because Safari and mobile broswer not support this feature.
    */
-  router.smoothlyScroll();
   next();
+  router.smoothlyScroll();
 });
 
 router.beforeEach(async (to, from, next) => {

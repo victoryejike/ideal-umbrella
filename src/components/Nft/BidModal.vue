@@ -347,7 +347,6 @@ export default {
       let provider;
       const address = localStorage.getItem('account');
       const obj = JSON.parse(localStorage.getItem('walletconnect'));
-      // console.log(obj.accounts[0]);
       if (obj === (address)) {
         provider = new WalletConnectProvider({
           infuraId: '58bf1103531f4b858b31eb3c5c4ddd2f',
@@ -360,7 +359,6 @@ export default {
       const web3 = new Web3(provider);
       const { BN } = web3.utils;
       const contract = new web3.eth.Contract(this.abi, this.contractAddress);
-      console.log(contract);
       contract.methods.PlaceBid(this.erc721ContractAddress, this.tokenid, new BN(this.finalBidValue)).send({ from: address, gas: 2000000, gasPrice: '20000000000' });
     },
   },
