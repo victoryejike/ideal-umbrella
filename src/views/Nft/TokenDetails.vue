@@ -223,6 +223,7 @@
                   :image="nft.uri"
                   :nfttype="nft.supply"
                   :title="nft.title"
+                  :tokenid="nft.tokenId"
                 />
               </template>
               <template #footer>
@@ -245,6 +246,8 @@ import HistoryTab from '@/components/Nft/HistoryTab.vue';
 import BidModal from '@/components/Nft/BidModal.vue';
 import BuyModal from '@/components/Nft/BuyModal.vue';
 import NoBid from './NoBid.vue';
+
+const Web3 = require('web3');
 
 export default {
   name: 'TokenDetails',
@@ -363,6 +366,7 @@ export default {
   methods: {
     showModal() {
       this.verifyUser();
+      this.isWalletConnected();
       this.isModalVisible = true;
     },
     closeModal() {
@@ -371,6 +375,18 @@ export default {
     },
     showFixedModal() {
       this.isModalVisiblefixed = true;
+    },
+    isWalletConnected() {
+      const web3 = new Web3(window.ethereum);
+      web3.eth.getAccounts((err, accounts) => {
+        if (err !== null) console.error(`An error occurred: ${err}`);
+        else if (accounts.length === 0 || localStorage.getItem('account') === null) {
+          console.log('User is not logged in to MetaMask');
+          this.$router.push({ name: 'ConnectWallet' });
+        } else {
+          console.log('User is logged in to MetaMask');
+        }
+      });
     },
     async verifyUser() {
       let response = null;
@@ -385,6 +401,8 @@ export default {
         if (response?.data?.display_name === null) {
           this.$router.push({ name: 'EditProfile' });
         }
+      } else {
+        this.$router.push({ name: 'Login' });
       }
     },
     async GetNFTDetails() {

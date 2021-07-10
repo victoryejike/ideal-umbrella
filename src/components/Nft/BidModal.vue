@@ -93,8 +93,21 @@
 </template>
 <script>
 import { Field } from 'vee-validate';
+import WalletLink from 'walletlink';
+import WalletConnectProvider from '@walletconnect/web3-provider';
 
 const Web3 = require('web3');
+
+const APP_NAME = 'Naffiti';
+const APP_LOGO_URL = 'https://example.com/logo.png';
+const ETH_JSONRPC_URL = 'https://ropsten.infura.io/v3/58bf1103531f4b858b31eb3c5c4ddd2f';
+const CHAIN_ID = 3;
+// Initialize WalletLink
+export const walletLink = new WalletLink({
+  appName: APP_NAME,
+  appLogoUrl: APP_LOGO_URL,
+  darkMode: false,
+});
 
 export default {
   name: 'BidModal',
@@ -104,6 +117,7 @@ export default {
     description: { type: String, required: false, default: null },
     title: { type: String, required: false, default: null },
     image: { type: String, required: false, default: null },
+    tokenid: { type: Number, required: false, default: null },
   },
   data() {
     return {
@@ -117,6 +131,181 @@ export default {
         { name: 'ETH' },
         { name: 'HT' },
         { name: 'FC' },
+      ],
+      contractAddress: '0x8F5d0Aacb1D1686b47ED43dB6D48d29b783e1Ad0',
+      abi: [
+        {
+          inputs: [
+            {
+              internalType: 'address',
+              name: 'erc20TokenAddress',
+              type: 'address',
+            },
+          ],
+          stateMutability: 'nonpayable',
+          type: 'constructor',
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: 'address',
+              name: 'seller',
+              type: 'address',
+            },
+            {
+              indexed: false,
+              internalType: 'enum NafitiAuction.AuctionType',
+              name: 'auctionType',
+              type: 'uint8',
+            },
+            {
+              indexed: false,
+              internalType: 'address',
+              name: 'collectible',
+              type: 'address',
+            },
+            {
+              indexed: false,
+              internalType: 'uint256',
+              name: 'tokenId',
+              type: 'uint256',
+            },
+            {
+              indexed: false,
+              internalType: 'uint256',
+              name: 'amount',
+              type: 'uint256',
+            },
+          ],
+          name: 'AuctionCreated',
+          type: 'event',
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: 'address',
+              name: 'highestBidder',
+              type: 'address',
+            },
+            {
+              indexed: false,
+              internalType: 'uint256',
+              name: 'highestBid',
+              type: 'uint256',
+            },
+            {
+              indexed: false,
+              internalType: 'address',
+              name: 'seller',
+              type: 'address',
+            },
+          ],
+          name: 'BidClosed',
+          type: 'event',
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: 'address',
+              name: 'bidder',
+              type: 'address',
+            },
+            {
+              indexed: false,
+              internalType: 'uint256',
+              name: 'tokenId',
+              type: 'uint256',
+            },
+            {
+              indexed: false,
+              internalType: 'address',
+              name: 'collectible',
+              type: 'address',
+            },
+          ],
+          name: 'BidPlaced',
+          type: 'event',
+        },
+        {
+          inputs: [
+            {
+              internalType: 'address',
+              name: 'collectible',
+              type: 'address',
+            },
+            {
+              internalType: 'uint256',
+              name: 'tokenId',
+              type: 'uint256',
+            },
+          ],
+          name: 'CloseBid',
+          outputs: [],
+          stateMutability: 'nonpayable',
+          type: 'function',
+        },
+        {
+          inputs: [
+            {
+              internalType: 'address',
+              name: 'collectible',
+              type: 'address',
+            },
+            {
+              internalType: 'uint256',
+              name: 'tokenId',
+              type: 'uint256',
+            },
+            {
+              internalType: 'enum NafitiAuction.AuctionType',
+              name: 'auctionType',
+              type: 'uint8',
+            },
+            {
+              internalType: 'uint256',
+              name: '_duration',
+              type: 'uint256',
+            },
+            {
+              internalType: 'uint256',
+              name: '_startingPrice',
+              type: 'uint256',
+            },
+          ],
+          name: 'CreateAuctionForSingle',
+          outputs: [],
+          stateMutability: 'payable',
+          type: 'function',
+        },
+        {
+          inputs: [
+            {
+              internalType: 'address',
+              name: 'collectible',
+              type: 'address',
+            },
+            {
+              internalType: 'uint256',
+              name: 'tokenId',
+              type: 'uint256',
+            },
+            {
+              internalType: 'uint256',
+              name: 'amount',
+              type: 'uint256',
+            },
+          ],
+          name: 'PlaceBid',
+          outputs: [],
+          stateMutability: 'nonpayable',
+          type: 'function',
+        },
       ],
     };
   },
@@ -135,6 +324,7 @@ export default {
     },
     async onSubmit(formData) {
       this.isLoading = true;
+      this.bidContract();
       let response = null;
       try {
         const { data } = await this.$api.CREATEBIDS(formData);
@@ -151,6 +341,26 @@ export default {
         form.setFieldError('amount', response.error);
         this.isLoading = false;
       }
+    },
+    bidContract() {
+      let provider;
+      const address = localStorage.getItem('account');
+      const obj = JSON.parse(localStorage.getItem('walletconnect'));
+      // console.log(obj.accounts[0]);
+      if (obj === (address)) {
+        provider = new WalletConnectProvider({
+          infuraId: '58bf1103531f4b858b31eb3c5c4ddd2f',
+        });
+      } else if ((localStorage.getItem('-walletlink:https://www.walletlink.org:Addresses')) === (address)) {
+        provider = walletLink.makeWeb3Provider(ETH_JSONRPC_URL, CHAIN_ID);
+      } else {
+        provider = window.ethereum;
+      }
+      const web3 = new Web3(provider);
+      const { BN } = web3.utils;
+      const contract = new web3.eth.Contract(this.abi, this.contractAddress);
+      console.log(contract);
+      contract.methods.PlaceBid(address, this.tokenid, new BN(this.finalBidValue)).send({ from: address, gas: 2000000, gasPrice: '20000000000' });
     },
   },
 };
