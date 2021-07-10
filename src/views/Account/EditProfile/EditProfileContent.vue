@@ -30,18 +30,21 @@
       </div>
     </div>
     <BaseUnderlinedInput
+      v-model="username"
       class="input-field"
       name="display_name"
       :placeholder="$t('edit_profile.display_name_placeholder')"
       :text="$t('edit_profile.display_name')"
     />
     <BaseUnderlinedInput
+      v-model="about"
       class="input-field"
       name="about"
       :placeholder="$t('edit_profile.bio')"
       :text="$t('edit_profile.bio_placeholder')"
     />
     <BaseUnderlinedInput
+      v-model="portfolio"
       class="input-field"
       name="portfolio_link"
       :placeholder="$t('edit_profile.portfolio_placeholder')"
@@ -70,37 +73,13 @@ export default {
   data() {
     return {
       isUploadingImage: false,
-      avatarURL: '',
+      avatarURL: this.$store.getters['auth/avatar'],
+      username: this.$store.getters['auth/username'],
+      about: this.$store.getters['auth/about'],
+      portfolio: this.$store.getters['auth/portfolio'],
     };
   },
-  mounted() {
-    this.getProfile();
-  },
   methods: {
-    async getProfile() {
-      let response = null;
-      try {
-        const { data } = await this.$api.GET_PROFILE();
-        response = data;
-      } catch (error) {
-        response = error?.response?.data;
-      }
-
-      if (response?.success) {
-        this.avatarURL = response?.data?.image; // Temporarily implementation, for demo
-        if (response.data.display_name !== undefined) {
-          document.querySelector('input[name=display_name]').value = response.data.display_name;
-        }
-        if (response.data.about !== undefined) {
-          document.querySelector('input[name=about]').value = response.data.about;
-        }
-        if (response.data.portfolio_link !== undefined) {
-          document.querySelector('input[name=portfolio_link]').value = response.data.portfolio_link;
-        }
-      } else {
-        //
-      }
-    },
     async onSubmit(editProileData) {
       let response = null;
       try {
@@ -111,7 +90,8 @@ export default {
       }
 
       if (response?.success) {
-        this.getProfile();
+        await this.updateStoreValue();
+        this.$router.push({ name: 'Profile' });
       } else {
         //
       }
@@ -130,11 +110,16 @@ export default {
       }
 
       if (response?.success) {
-        this.avatarURL = URL.createObjectURL(file);
+        await this.updateStoreValue();
+        this.avatarURL = this.$store.getters['auth/avatar'];
       } else {
         //
       }
       this.isUploadingImage = false;
+    },
+    async updateStoreValue() {
+      const { data } = await this.$api.GET_PROFILE();
+      this.$store.dispatch('auth/updateProfile', data.data);
     },
   },
 };

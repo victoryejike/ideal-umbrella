@@ -176,7 +176,7 @@
             class="actions"
           >
             <BaseRoundButton
-              v-if="username === null
+              v-if="username == null
                 || nft.creator.display_name !== username.display_name"
               class="buy-button btn-primary btn-md btn-bold"
               icon="arrow-right"
@@ -207,7 +207,7 @@
             class="bid-button-div"
           >
             <BaseRoundButton
-              v-if="username === null
+              v-if="username == null
                 || nft.creator.display_name !== username.display_name"
               class="bid-button btn-outline-primary btn-bold btn-xl"
               :text="$t('nft_details.place_bid')"
@@ -387,7 +387,7 @@ export default {
       const web3 = new Web3(window.ethereum);
       web3.eth.getAccounts((err, accounts) => {
         if (err !== null) console.error(`An error occurred: ${err}`);
-        else if (accounts.length === 0 || localStorage.getItem('account') === null) {
+        else if (accounts.length === 0 || localStorage.getItem('account') == null) {
           console.log('User is not logged in to MetaMask');
           this.$router.push({ name: 'ConnectWallet' });
         } else {
@@ -405,7 +405,7 @@ export default {
       }
 
       if (response?.success) {
-        if (response?.data?.display_name === null) {
+        if (response?.data?.display_name == null) {
           this.$router.push({ name: 'EditProfile' });
         }
       } else {

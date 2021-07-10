@@ -1348,7 +1348,7 @@ export default {
       console.log('true');
       web3.eth.getAccounts((err, accounts) => {
         if (err !== null) console.error(`An error occurred: ${err}`);
-        else if (accounts.length === 0 || localStorage.getItem('account') === null) {
+        else if (accounts.length === 0 || localStorage.getItem('account') == null) {
           console.log('User is not logged in to MetaMask');
           this.$router.push({ name: 'ConnectWallet' });
         } else {

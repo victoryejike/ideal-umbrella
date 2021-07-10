@@ -72,14 +72,13 @@ export default {
       message: ' ',
       messageType: ' ',
       isEmail: true,
-      token: JSON.parse(localStorage.getItem('userData')).token,
     };
   },
   methods: {
     async onSubmit(rebindemailData) {
       let response = null;
       try {
-        const { data } = await this.$api.REBIND_EMAIL(rebindemailData, this.token);
+        const { data } = await this.$api.REBIND_EMAIL(rebindemailData);
         response = data;
       } catch (error) {
         response = error?.response?.data;

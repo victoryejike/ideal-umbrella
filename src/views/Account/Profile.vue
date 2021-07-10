@@ -1,8 +1,8 @@
 <template>
   <div>
     <BaseFrame
-      :profile="profile"
-      :username="username"
+      :profile="$store.getters['auth/avatar']"
+      :username="$store.getters['auth/username']"
     />
     <div class="section">
       <BaseNavigationTab
@@ -59,37 +59,29 @@ export default {
           },
         },
       ],
-      discoverList: Array(5).fill({
-        avatar: 'avatar.png',
-        author: 'Otha Davis III',
-        image: 'image.png',
-        name: 'Crypto Mask',
-        price: 67.456,
-        verified: true,
-      }),
     };
   },
   mounted() {
-    this.getProfile();
+    // this.getProfile();
   },
   methods: {
-    async getProfile() {
-      let response = null;
+    // async getProfile() {
+    //   let response = null;
 
-      try {
-        const { data } = await this.$api.GET_PROFILE();
-        response = data;
-      } catch (error) {
-        response = error?.response?.data;
-      }
+    //   try {
+    //     const { data } = await this.$api.GET_PROFILE();
+    //     response = data;
+    //   } catch (error) {
+    //     response = error?.response?.data;
+    //   }
 
-      if (response?.success) {
-        this.username = response?.data?.display_name;
-        this.profile = response?.data?.image;
-      } else {
-        //
-      }
-    },
+    //   if (response?.success) {
+    //     this.username = response?.data?.display_name;
+    //     this.profile = response?.data?.image;
+    //   } else {
+    //     //
+    //   }
+    // },
   },
 };
 

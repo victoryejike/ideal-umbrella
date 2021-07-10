@@ -72,14 +72,13 @@ export default {
       message: ' ',
       messageType: ' ',
       isEmail: false,
-      token: JSON.parse(localStorage.getItem('userData')).token,
     };
   },
   methods: {
     async onSubmit(rebindPhoneData) {
       let response = null;
       try {
-        const { data } = await this.$api.REBIND_PHONE(rebindPhoneData, this.token);
+        const { data } = await this.$api.REBIND_PHONE(rebindPhoneData);
         response = data;
       } catch (error) {
         response = error?.response?.data;

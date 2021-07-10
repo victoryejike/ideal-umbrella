@@ -15,14 +15,26 @@ const initialState = () => ({
 });
 
 const getters = {
+  user(state) {
+    return state.user;
+  },
   loggedIn(state) {
     return !!state.user;
   },
+  uid(state) {
+    return state.user?.uid;
+  },
   username(state) {
-    return state.user?.name;
+    return state.user?.display_name;
   },
   avatar(state) {
-    return state.user?.avatarURL;
+    return state.user?.image;
+  },
+  about(state) {
+    return state.user?.about;
+  },
+  portfolio(state) {
+    return state.user?.portfolio_link;
   },
   apiToken(state) {
     return state.user?.token;
@@ -30,18 +42,24 @@ const getters = {
 };
 
 const actions = {
-  validate({ commit, state }) {
-    // TODO: Call API to validate
-    return true;
-  },
   logout({ commit, state }) {
     localStorage.removeItem('userData');
     commit('setUser', null);
     router.push('/');
   },
   login({ commit, state }, userData) {
-    commit('setUser', { ...userData });
-    localStorage.setItem('userData', JSON.stringify({ ...userData }));
+    commit('setUser', userData);
+    localStorage.setItem('userData', JSON.stringify(userData));
+  },
+  updateProfile({ commit, state }, userData) {
+    commit('setUser', {
+      ...state.user,
+      image: userData.image,
+      display_name: userData.display_name,
+      about: userData.about,
+      portfolio_link: userData.portfolio_link,
+    });
+    localStorage.setItem('userData', JSON.stringify(state.user));
   },
 };
 
