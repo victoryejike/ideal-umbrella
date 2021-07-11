@@ -360,6 +360,7 @@ export default {
     };
   },
   async mounted() {
+    await this.isWalletConnected();
     if (this.$route.params.id == null || this.$route.params.id === undefined || this.$route.params.id === '') {
       this.$router.push('/');
     } else if (await this.GetNFTDetails()) {
@@ -369,9 +370,8 @@ export default {
     }
   },
   methods: {
-    showModal() {
+    async showModal() {
       this.verifyUser();
-      this.isWalletConnected();
       this.isModalVisible = true;
     },
     closeModal() {
@@ -380,20 +380,21 @@ export default {
     },
     showFixedModal() {
       this.verifyUser();
-      this.isWalletConnected();
+      // this.isWalletConnected();
       this.isModalVisiblefixed = true;
     },
-    isWalletConnected() {
+    async isWalletConnected() {
       const web3 = new Web3(window.ethereum);
-      web3.eth.getAccounts((err, accounts) => {
-        if (err !== null) console.error(`An error occurred: ${err}`);
-        else if (accounts.length === 0 || localStorage.getItem('account') == null) {
-          console.log('User is not logged in to MetaMask');
-          this.$router.push({ name: 'ConnectWallet' });
-        } else {
-          console.log('User is logged in to MetaMask');
-        }
+      await window.ethereum.request({
+        method: 'wallet_requestPermissions',
+        params: [
+          {
+            eth_accounts: {},
+          },
+        ],
       });
+      const [accounts] = await web3.eth.getAccounts();
+      localStorage.setItem('account', accounts);
     },
     async verifyUser() {
       let response = null;
