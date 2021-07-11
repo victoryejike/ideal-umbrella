@@ -77,6 +77,7 @@ export default {
 @import url('https://fonts.googleapis.com/css2?family=Mulish:wght@500;600;700;800&display=swap');
 
 * {
+  scrollbar-color: #c2d3ff transparent;
   text-overflow: ellipsis;
   transition: all 0.5s;
 }
@@ -135,7 +136,7 @@ a {
 
 /* Custom scrollbar for Chrome */
 ::-webkit-scrollbar {
-  width: 20px;
+  width: 0.6rem;
 }
 
 ::-webkit-scrollbar-track {
@@ -144,13 +145,13 @@ a {
 
 ::-webkit-scrollbar-thumb {
   background-clip: content-box;
-  background-color: #d6dee1;
-  border: 6px solid transparent;
+  background-color: #c2d3ff;
+  border: 0.18rem solid transparent;
   border-radius: 20px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background-color: #a8bbbf;
+  background-color: #5e6ec2;
 }
 
 /* The reason using 70em is to fit the footer UI */
