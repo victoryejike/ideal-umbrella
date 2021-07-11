@@ -327,10 +327,9 @@ export default {
       r: localStorage.getItem('r'),
       s: localStorage.getItem('s'),
       v: localStorage.getItem('v'),
-      erc721ContractAddress: '0xDEa7Bec0EC439e7b5978b8C55Aa247AEcfc7a259',
+      erc721ContractAddress: '0x28145D733344E471d05b6f17c9C74982b013a7ca',
       erc1155ContractAddress: '0x24d5CaBE5A68653c1a6d10f65679839a5CD4a42A',
-      singleAuctionContractAddress: '0x8F5d0Aacb1D1686b47ED43dB6D48d29b783e1Ad0',
-      singleAuctionAbi: [
+      erc721abi: [
         {
           inputs: [
             {
@@ -339,174 +338,6 @@ export default {
               type: 'address',
             },
           ],
-          stateMutability: 'nonpayable',
-          type: 'constructor',
-        },
-        {
-          anonymous: false,
-          inputs: [
-            {
-              indexed: false,
-              internalType: 'address',
-              name: 'seller',
-              type: 'address',
-            },
-            {
-              indexed: false,
-              internalType: 'enum NafitiAuction.AuctionType',
-              name: 'auctionType',
-              type: 'uint8',
-            },
-            {
-              indexed: false,
-              internalType: 'address',
-              name: 'collectible',
-              type: 'address',
-            },
-            {
-              indexed: false,
-              internalType: 'uint256',
-              name: 'tokenId',
-              type: 'uint256',
-            },
-            {
-              indexed: false,
-              internalType: 'uint256',
-              name: 'amount',
-              type: 'uint256',
-            },
-          ],
-          name: 'AuctionCreated',
-          type: 'event',
-        },
-        {
-          anonymous: false,
-          inputs: [
-            {
-              indexed: false,
-              internalType: 'address',
-              name: 'highestBidder',
-              type: 'address',
-            },
-            {
-              indexed: false,
-              internalType: 'uint256',
-              name: 'highestBid',
-              type: 'uint256',
-            },
-            {
-              indexed: false,
-              internalType: 'address',
-              name: 'seller',
-              type: 'address',
-            },
-          ],
-          name: 'BidClosed',
-          type: 'event',
-        },
-        {
-          anonymous: false,
-          inputs: [
-            {
-              indexed: false,
-              internalType: 'address',
-              name: 'bidder',
-              type: 'address',
-            },
-            {
-              indexed: false,
-              internalType: 'uint256',
-              name: 'tokenId',
-              type: 'uint256',
-            },
-            {
-              indexed: false,
-              internalType: 'address',
-              name: 'collectible',
-              type: 'address',
-            },
-          ],
-          name: 'BidPlaced',
-          type: 'event',
-        },
-        {
-          inputs: [
-            {
-              internalType: 'address',
-              name: 'collectible',
-              type: 'address',
-            },
-            {
-              internalType: 'uint256',
-              name: 'tokenId',
-              type: 'uint256',
-            },
-          ],
-          name: 'CloseBid',
-          outputs: [],
-          stateMutability: 'nonpayable',
-          type: 'function',
-        },
-        {
-          inputs: [
-            {
-              internalType: 'address',
-              name: 'collectible',
-              type: 'address',
-            },
-            {
-              internalType: 'uint256',
-              name: 'tokenId',
-              type: 'uint256',
-            },
-            {
-              internalType: 'enum NafitiAuction.AuctionType',
-              name: 'auctionType',
-              type: 'uint8',
-            },
-            {
-              internalType: 'uint256',
-              name: '_duration',
-              type: 'uint256',
-            },
-            {
-              internalType: 'uint256',
-              name: '_startingPrice',
-              type: 'uint256',
-            },
-          ],
-          name: 'CreateAuctionForSingle',
-          outputs: [],
-          stateMutability: 'payable',
-          type: 'function',
-        },
-        {
-          inputs: [
-            {
-              internalType: 'address',
-              name: 'collectible',
-              type: 'address',
-            },
-            {
-              internalType: 'uint256',
-              name: 'tokenId',
-              type: 'uint256',
-            },
-            {
-              internalType: 'uint256',
-              name: 'amount',
-              type: 'uint256',
-            },
-          ],
-          name: 'PlaceBid',
-          outputs: [],
-          stateMutability: 'nonpayable',
-          type: 'function',
-        },
-      ],
-      erc721abi: [
-        {
-          inputs: [],
           stateMutability: 'nonpayable',
           type: 'constructor',
         },
@@ -564,6 +395,81 @@ export default {
           anonymous: false,
           inputs: [
             {
+              indexed: false,
+              internalType: 'address',
+              name: 'seller',
+              type: 'address',
+            },
+            {
+              indexed: false,
+              internalType: 'enum ERC721NafitiBasic.AuctionType',
+              name: 'auctionType',
+              type: 'uint8',
+            },
+            {
+              indexed: false,
+              internalType: 'uint256',
+              name: 'tokenId',
+              type: 'uint256',
+            },
+            {
+              indexed: false,
+              internalType: 'uint256',
+              name: 'amount',
+              type: 'uint256',
+            },
+          ],
+          name: 'AuctionCreated',
+          type: 'event',
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: 'address',
+              name: 'highestBidder',
+              type: 'address',
+            },
+            {
+              indexed: false,
+              internalType: 'uint256',
+              name: 'highestBid',
+              type: 'uint256',
+            },
+            {
+              indexed: false,
+              internalType: 'address',
+              name: 'seller',
+              type: 'address',
+            },
+          ],
+          name: 'BidClosed',
+          type: 'event',
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: 'address',
+              name: 'bidder',
+              type: 'address',
+            },
+            {
+              indexed: false,
+              internalType: 'uint256',
+              name: 'tokenId',
+              type: 'uint256',
+            },
+          ],
+          name: 'BidPlaced',
+          type: 'event',
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
               indexed: true,
               internalType: 'address',
               name: 'from',
@@ -584,6 +490,65 @@ export default {
           ],
           name: 'Transfer',
           type: 'event',
+        },
+        {
+          inputs: [
+            {
+              internalType: 'uint256',
+              name: 'tokenId',
+              type: 'uint256',
+            },
+          ],
+          name: 'CloseBid',
+          outputs: [],
+          stateMutability: 'nonpayable',
+          type: 'function',
+        },
+        {
+          inputs: [
+            {
+              internalType: 'uint256',
+              name: 'tokenId',
+              type: 'uint256',
+            },
+            {
+              internalType: 'enum ERC721NafitiBasic.AuctionType',
+              name: '_auctionType',
+              type: 'uint8',
+            },
+            {
+              internalType: 'uint256',
+              name: '_duration',
+              type: 'uint256',
+            },
+            {
+              internalType: 'uint256',
+              name: '_startingPrice',
+              type: 'uint256',
+            },
+          ],
+          name: 'CreateAuction',
+          outputs: [],
+          stateMutability: 'payable',
+          type: 'function',
+        },
+        {
+          inputs: [
+            {
+              internalType: 'uint256',
+              name: 'tokenId',
+              type: 'uint256',
+            },
+            {
+              internalType: 'uint256',
+              name: '_amount',
+              type: 'uint256',
+            },
+          ],
+          name: 'PlaceBid',
+          outputs: [],
+          stateMutability: 'nonpayable',
+          type: 'function',
         },
         {
           inputs: [
@@ -638,19 +603,13 @@ export default {
         {
           inputs: [
             {
-              internalType: 'string',
-              name: 'tokenURI',
-              type: 'string',
-            },
-          ],
-          name: 'mint',
-          outputs: [
-            {
               internalType: 'uint256',
-              name: '',
+              name: 'tokenId',
               type: 'uint256',
             },
           ],
+          name: 'buy',
+          outputs: [],
           stateMutability: 'nonpayable',
           type: 'function',
         },
@@ -695,6 +654,25 @@ export default {
             },
           ],
           stateMutability: 'view',
+          type: 'function',
+        },
+        {
+          inputs: [
+            {
+              internalType: 'string',
+              name: 'tokenURI',
+              type: 'string',
+            },
+          ],
+          name: 'mint',
+          outputs: [
+            {
+              internalType: 'uint256',
+              name: '',
+              type: 'uint256',
+            },
+          ],
+          stateMutability: 'nonpayable',
           type: 'function',
         },
         {
@@ -747,7 +725,7 @@ export default {
               type: 'uint256',
             },
           ],
-          name: 'TransferFrom',
+          name: 'safeTransferFrom',
           outputs: [],
           stateMutability: 'nonpayable',
           type: 'function',
@@ -775,7 +753,7 @@ export default {
               type: 'bytes',
             },
           ],
-          name: 'TransferFrom',
+          name: 'safeTransferFrom',
           outputs: [],
           stateMutability: 'nonpayable',
           type: 'function',
@@ -1613,8 +1591,6 @@ export default {
         // document.getElementsByClassName('submit-btn')[0].click();
         if (this.pricing_type === 'timed_auction') {
           console.log('works for only timed_auction');
-          const newContract = new web3.eth.Contract(this.singleAuctionAbi,
-            this.singleAuctionContractAddress);
           const startPrice = document.querySelector('.minimum_bid').value;
           const auctionStartdate = document.querySelector('.starting_date').value;
           const auctionExpirationdate = document.querySelector('.expiration_date').value;
@@ -1622,7 +1598,7 @@ export default {
           const endDate = new Date(auctionExpirationdate);
           const timeDuration = (endDate.getTime() - startDate.getTime()) / 1000;
           console.log(timeDuration);
-          newContract.methods.CreateAuctionForSingle(this.erc721ContractAddress, this.tokenId, (1), timeDuration, web3.utils.toWei(startPrice, 'ether')).send({ from: localStorage.getItem('account'), gas: 3500000, gasPrice: '35000000000' });
+          contract.methods.CreateAuction(this.tokenId, (1), timeDuration, web3.utils.toWei(startPrice, 'ether')).send({ from: localStorage.getItem('account'), gas: 3500000, gasPrice: '35000000000' });
         }
         document.getElementsByClassName('submit-btn')[0].click();
       }
@@ -1633,7 +1609,7 @@ export default {
         const { data } = this.$api.CREATENFT(CollectibleNftData);
         response = data;
         console.log(response);
-        this.$router.push({ name: 'Profile' });
+        // this.$router.push({ name: 'Profile' });
       } catch (error) {
         response = error.response.data;
         console.log(error);

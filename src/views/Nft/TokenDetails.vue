@@ -198,6 +198,7 @@
                   :nfttype="nft.supply"
                   :price="nft.price"
                   :title="nft.title"
+                  :tokenid="nft.tokenId"
                 />
               </template>
             </BaseModal>
@@ -360,7 +361,6 @@ export default {
     };
   },
   async mounted() {
-    await this.isWalletConnected();
     if (this.$route.params.id == null || this.$route.params.id === undefined || this.$route.params.id === '') {
       this.$router.push('/');
     } else if (await this.GetNFTDetails()) {
@@ -368,6 +368,7 @@ export default {
     } else {
       this.$router.push({ name: 'PathNotFound' });
     }
+    await this.isWalletConnected();
   },
   methods: {
     async showModal() {

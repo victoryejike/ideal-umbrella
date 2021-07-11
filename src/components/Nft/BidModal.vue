@@ -132,9 +132,8 @@ export default {
         { name: 'HT' },
         { name: 'FC' },
       ],
-      contractAddress: '0x8F5d0Aacb1D1686b47ED43dB6D48d29b783e1Ad0',
-      erc721ContractAddress: '0xDEa7Bec0EC439e7b5978b8C55Aa247AEcfc7a259',
-      abi: [
+      erc721ContractAddress: '0x28145D733344E471d05b6f17c9C74982b013a7ca',
+      erc721abi: [
         {
           inputs: [
             {
@@ -150,6 +149,56 @@ export default {
           anonymous: false,
           inputs: [
             {
+              indexed: true,
+              internalType: 'address',
+              name: 'owner',
+              type: 'address',
+            },
+            {
+              indexed: true,
+              internalType: 'address',
+              name: 'approved',
+              type: 'address',
+            },
+            {
+              indexed: true,
+              internalType: 'uint256',
+              name: 'tokenId',
+              type: 'uint256',
+            },
+          ],
+          name: 'Approval',
+          type: 'event',
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: 'address',
+              name: 'owner',
+              type: 'address',
+            },
+            {
+              indexed: true,
+              internalType: 'address',
+              name: 'operator',
+              type: 'address',
+            },
+            {
+              indexed: false,
+              internalType: 'bool',
+              name: 'approved',
+              type: 'bool',
+            },
+          ],
+          name: 'ApprovalForAll',
+          type: 'event',
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
               indexed: false,
               internalType: 'address',
               name: 'seller',
@@ -157,15 +206,9 @@ export default {
             },
             {
               indexed: false,
-              internalType: 'enum NafitiAuction.AuctionType',
+              internalType: 'enum ERC721NafitiBasic.AuctionType',
               name: 'auctionType',
               type: 'uint8',
-            },
-            {
-              indexed: false,
-              internalType: 'address',
-              name: 'collectible',
-              type: 'address',
             },
             {
               indexed: false,
@@ -223,23 +266,37 @@ export default {
               name: 'tokenId',
               type: 'uint256',
             },
-            {
-              indexed: false,
-              internalType: 'address',
-              name: 'collectible',
-              type: 'address',
-            },
           ],
           name: 'BidPlaced',
           type: 'event',
         },
         {
+          anonymous: false,
           inputs: [
             {
+              indexed: true,
               internalType: 'address',
-              name: 'collectible',
+              name: 'from',
               type: 'address',
             },
+            {
+              indexed: true,
+              internalType: 'address',
+              name: 'to',
+              type: 'address',
+            },
+            {
+              indexed: true,
+              internalType: 'uint256',
+              name: 'tokenId',
+              type: 'uint256',
+            },
+          ],
+          name: 'Transfer',
+          type: 'event',
+        },
+        {
+          inputs: [
             {
               internalType: 'uint256',
               name: 'tokenId',
@@ -254,18 +311,13 @@ export default {
         {
           inputs: [
             {
-              internalType: 'address',
-              name: 'collectible',
-              type: 'address',
-            },
-            {
               internalType: 'uint256',
               name: 'tokenId',
               type: 'uint256',
             },
             {
-              internalType: 'enum NafitiAuction.AuctionType',
-              name: 'auctionType',
+              internalType: 'enum ERC721NafitiBasic.AuctionType',
+              name: '_auctionType',
               type: 'uint8',
             },
             {
@@ -279,7 +331,7 @@ export default {
               type: 'uint256',
             },
           ],
-          name: 'CreateAuctionForSingle',
+          name: 'CreateAuction',
           outputs: [],
           stateMutability: 'payable',
           type: 'function',
@@ -287,8 +339,211 @@ export default {
         {
           inputs: [
             {
+              internalType: 'uint256',
+              name: 'tokenId',
+              type: 'uint256',
+            },
+            {
+              internalType: 'uint256',
+              name: '_amount',
+              type: 'uint256',
+            },
+          ],
+          name: 'PlaceBid',
+          outputs: [],
+          stateMutability: 'nonpayable',
+          type: 'function',
+        },
+        {
+          inputs: [
+            {
               internalType: 'address',
-              name: 'collectible',
+              name: 'to',
+              type: 'address',
+            },
+            {
+              internalType: 'uint256',
+              name: 'tokenId',
+              type: 'uint256',
+            },
+          ],
+          name: 'approve',
+          outputs: [],
+          stateMutability: 'nonpayable',
+          type: 'function',
+        },
+        {
+          inputs: [
+            {
+              internalType: 'address',
+              name: 'owner',
+              type: 'address',
+            },
+          ],
+          name: 'balanceOf',
+          outputs: [
+            {
+              internalType: 'uint256',
+              name: '',
+              type: 'uint256',
+            },
+          ],
+          stateMutability: 'view',
+          type: 'function',
+        },
+        {
+          inputs: [],
+          name: 'baseURI',
+          outputs: [
+            {
+              internalType: 'string',
+              name: '',
+              type: 'string',
+            },
+          ],
+          stateMutability: 'view',
+          type: 'function',
+        },
+        {
+          inputs: [
+            {
+              internalType: 'uint256',
+              name: 'tokenId',
+              type: 'uint256',
+            },
+          ],
+          name: 'buy',
+          outputs: [],
+          stateMutability: 'nonpayable',
+          type: 'function',
+        },
+        {
+          inputs: [
+            {
+              internalType: 'uint256',
+              name: 'tokenId',
+              type: 'uint256',
+            },
+          ],
+          name: 'getApproved',
+          outputs: [
+            {
+              internalType: 'address',
+              name: '',
+              type: 'address',
+            },
+          ],
+          stateMutability: 'view',
+          type: 'function',
+        },
+        {
+          inputs: [
+            {
+              internalType: 'address',
+              name: 'owner',
+              type: 'address',
+            },
+            {
+              internalType: 'address',
+              name: 'operator',
+              type: 'address',
+            },
+          ],
+          name: 'isApprovedForAll',
+          outputs: [
+            {
+              internalType: 'bool',
+              name: '',
+              type: 'bool',
+            },
+          ],
+          stateMutability: 'view',
+          type: 'function',
+        },
+        {
+          inputs: [
+            {
+              internalType: 'string',
+              name: 'tokenURI',
+              type: 'string',
+            },
+          ],
+          name: 'mint',
+          outputs: [
+            {
+              internalType: 'uint256',
+              name: '',
+              type: 'uint256',
+            },
+          ],
+          stateMutability: 'nonpayable',
+          type: 'function',
+        },
+        {
+          inputs: [],
+          name: 'name',
+          outputs: [
+            {
+              internalType: 'string',
+              name: '',
+              type: 'string',
+            },
+          ],
+          stateMutability: 'view',
+          type: 'function',
+        },
+        {
+          inputs: [
+            {
+              internalType: 'uint256',
+              name: 'tokenId',
+              type: 'uint256',
+            },
+          ],
+          name: 'ownerOf',
+          outputs: [
+            {
+              internalType: 'address',
+              name: '',
+              type: 'address',
+            },
+          ],
+          stateMutability: 'view',
+          type: 'function',
+        },
+        {
+          inputs: [
+            {
+              internalType: 'address',
+              name: 'from',
+              type: 'address',
+            },
+            {
+              internalType: 'address',
+              name: 'to',
+              type: 'address',
+            },
+            {
+              internalType: 'uint256',
+              name: 'tokenId',
+              type: 'uint256',
+            },
+          ],
+          name: 'safeTransferFrom',
+          outputs: [],
+          stateMutability: 'nonpayable',
+          type: 'function',
+        },
+        {
+          inputs: [
+            {
+              internalType: 'address',
+              name: 'from',
+              type: 'address',
+            },
+            {
+              internalType: 'address',
+              name: 'to',
               type: 'address',
             },
             {
@@ -297,12 +552,160 @@ export default {
               type: 'uint256',
             },
             {
+              internalType: 'bytes',
+              name: '_data',
+              type: 'bytes',
+            },
+          ],
+          name: 'safeTransferFrom',
+          outputs: [],
+          stateMutability: 'nonpayable',
+          type: 'function',
+        },
+        {
+          inputs: [
+            {
+              internalType: 'address',
+              name: 'operator',
+              type: 'address',
+            },
+            {
+              internalType: 'bool',
+              name: 'approved',
+              type: 'bool',
+            },
+          ],
+          name: 'setApprovalForAll',
+          outputs: [],
+          stateMutability: 'nonpayable',
+          type: 'function',
+        },
+        {
+          inputs: [
+            {
+              internalType: 'bytes4',
+              name: 'interfaceId',
+              type: 'bytes4',
+            },
+          ],
+          name: 'supportsInterface',
+          outputs: [
+            {
+              internalType: 'bool',
+              name: '',
+              type: 'bool',
+            },
+          ],
+          stateMutability: 'view',
+          type: 'function',
+        },
+        {
+          inputs: [],
+          name: 'symbol',
+          outputs: [
+            {
+              internalType: 'string',
+              name: '',
+              type: 'string',
+            },
+          ],
+          stateMutability: 'view',
+          type: 'function',
+        },
+        {
+          inputs: [
+            {
               internalType: 'uint256',
-              name: 'amount',
+              name: 'index',
               type: 'uint256',
             },
           ],
-          name: 'PlaceBid',
+          name: 'tokenByIndex',
+          outputs: [
+            {
+              internalType: 'uint256',
+              name: '',
+              type: 'uint256',
+            },
+          ],
+          stateMutability: 'view',
+          type: 'function',
+        },
+        {
+          inputs: [
+            {
+              internalType: 'address',
+              name: 'owner',
+              type: 'address',
+            },
+            {
+              internalType: 'uint256',
+              name: 'index',
+              type: 'uint256',
+            },
+          ],
+          name: 'tokenOfOwnerByIndex',
+          outputs: [
+            {
+              internalType: 'uint256',
+              name: '',
+              type: 'uint256',
+            },
+          ],
+          stateMutability: 'view',
+          type: 'function',
+        },
+        {
+          inputs: [
+            {
+              internalType: 'uint256',
+              name: 'tokenId',
+              type: 'uint256',
+            },
+          ],
+          name: 'tokenURI',
+          outputs: [
+            {
+              internalType: 'string',
+              name: '',
+              type: 'string',
+            },
+          ],
+          stateMutability: 'view',
+          type: 'function',
+        },
+        {
+          inputs: [],
+          name: 'totalSupply',
+          outputs: [
+            {
+              internalType: 'uint256',
+              name: '',
+              type: 'uint256',
+            },
+          ],
+          stateMutability: 'view',
+          type: 'function',
+        },
+        {
+          inputs: [
+            {
+              internalType: 'address',
+              name: 'from',
+              type: 'address',
+            },
+            {
+              internalType: 'address',
+              name: 'to',
+              type: 'address',
+            },
+            {
+              internalType: 'uint256',
+              name: 'tokenId',
+              type: 'uint256',
+            },
+          ],
+          name: 'transferFrom',
           outputs: [],
           stateMutability: 'nonpayable',
           type: 'function',
@@ -357,9 +760,9 @@ export default {
         provider = window.ethereum;
       }
       const web3 = new Web3(provider);
-      const { BN } = web3.utils;
-      const contract = new web3.eth.Contract(this.abi, this.contractAddress);
-      contract.methods.PlaceBid(this.erc721ContractAddress, this.tokenid, new BN(this.finalBidValue)).send({ from: address, gas: 2000000, gasPrice: '20000000000' });
+      // const { BN } = web3.utils;
+      const contract = new web3.eth.Contract(this.erc721abi, this.erc721ContractAddress);
+      contract.methods.PlaceBid(this.tokenid, web3.utils.toWei(this.finalBidValue, 'ether')).send({ from: address, gas: 2000000, gasPrice: '20000000000' });
     },
   },
 };
