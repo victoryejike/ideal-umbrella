@@ -28,8 +28,6 @@ export default {
   },
   data() {
     return {
-      username: '',
-      profile: '',
       visibleOnwed: true,
       visibleSale: false,
       visibleCreated: false,
@@ -60,28 +58,6 @@ export default {
         },
       ],
     };
-  },
-  mounted() {
-    // this.getProfile();
-  },
-  methods: {
-    // async getProfile() {
-    //   let response = null;
-
-    //   try {
-    //     const { data } = await this.$api.GET_PROFILE();
-    //     response = data;
-    //   } catch (error) {
-    //     response = error?.response?.data;
-    //   }
-
-    //   if (response?.success) {
-    //     this.username = response?.data?.display_name;
-    //     this.profile = response?.data?.image;
-    //   } else {
-    //     //
-    //   }
-    // },
   },
 };
 

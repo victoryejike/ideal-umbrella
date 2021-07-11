@@ -206,6 +206,7 @@ export default {
 }
 
 .popular-product-card {
+  margin-bottom: 1.25rem;
   margin-right: 1.25rem;
 }
 
