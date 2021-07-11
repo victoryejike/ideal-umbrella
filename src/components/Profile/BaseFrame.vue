@@ -5,17 +5,17 @@
       <img
         class="profile"
         :onerror="$global.handleAvatarError"
-        :src="profile"
+        :src="$store.getters['auth/avatar']"
       >
     </div>
     <div class="profile-details">
       <div
-        v-if="username"
         class="username"
       >
         <h3>
-          {{ username }}
+          {{ $store.getters['auth/username'] }}
           <img
+            v-if="$store.getters['auth/isVerified']"
             src="@svg/tick.svg"
             width="12"
           >
@@ -40,10 +40,6 @@
 <script>
 export default {
   name: 'ProfileBaseframe',
-  props: {
-    username: { type: String, required: true },
-    profile: { type: String, required: false, default: null },
-  },
 };
 </script>
 

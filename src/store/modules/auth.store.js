@@ -36,6 +36,9 @@ const getters = {
   portfolio(state) {
     return state.user?.portfolio_link;
   },
+  verified(state) {
+    return state.user?.is_kyc_verified || false;
+  },
   apiToken(state) {
     return state.user?.token;
   },

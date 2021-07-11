@@ -7,7 +7,10 @@
         src="@svg/huobi.svg"
         width="15"
       >
-      <span v-if="account !== null">
+      <span
+        v-if="account !== null"
+        id="address"
+      >
         {{ account }}
       </span>
       <span v-else>
@@ -43,6 +46,12 @@ export default {
     return {
       account: localStorage.getItem('account'),
     };
+  },
+  methods: {
+    copyAddress() {
+      const clipboardData = window.clipboardData || navigator.clipboard;
+      clipboardData.writeText(this.account);
+    },
   },
 };
 

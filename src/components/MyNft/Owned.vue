@@ -22,7 +22,7 @@
       :text="$t('index_screen.more')"
     /> -->
     <NoNFT
-      v-show="nonft"
+      v-if="nonft"
     />
   </div>
 </template>
@@ -37,18 +37,9 @@ export default {
   },
   data() {
     return {
-      nonft: false,
-      list: Array(10).fill({
-        id: 'V3isglWtYb5qIy24QbTJeoJjuV35fEDd0RoL',
-        avatar: 'avatar.png',
-        author: 'Otha Davis III',
-        image: 'image.png',
-        name: 'Crypto Mask',
-        price: 67.456,
-        verified: true,
-      }),
+      nonft: true,
       cardCSS: { bgColor: null },
-      nft: '',
+      nft: [],
     };
   },
   async mounted() {
@@ -59,10 +50,9 @@ export default {
     try {
       const { data } = await this.$api.GETOWNEDNFT(localStorage.getItem('account'));
       response = data;
-      if (response.data.length === 0) {
-        this.nonft = true;
-      } else {
+      if (response.data.length !== 0) {
         this.nft = response.data;
+        this.nonft = false;
       }
     } catch (error) {
       response = error?.response?.data;

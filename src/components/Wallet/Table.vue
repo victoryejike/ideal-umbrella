@@ -10,100 +10,31 @@
           <th>Estimated Value (USDT)</th>
           <th>Action</th>
         </tr>
-        <tr>
-          <td class="flex">
-            <div class="coin-icon">
-              <img src="@svg/bitcoin.svg">
-            </div>
-            <div class="coin-name">
-              <b class="color-light">BTC</b>
-              <br>
-              <span>Bitcoin</span>
-            </div>
-          </td>
-          <td class="color-light">
-            0.112300
-          </td>
-          <td class="color-light">
-            $6750
-          </td>
-          <td class="color-light">
-            ≈ 6500.00
-          </td>
-          <td>
-            <a class="color-dark">Trade</a>
-          </td>
-        </tr>
-        <tr>
-          <td class="flex">
-            <div class="coin-icon">
-              <img src="@svg/dogecoin.svg">
-            </div>
-            <div class="coin-name">
-              <b class="color-light">Doge</b>
-              <br>
-              <span>DogeCoin</span>
-            </div>
-          </td>
-          <td class="color-light">
-            0.112300
-          </td>
-          <td class="color-light">
-            $6750
-          </td>
-          <td class="color-light">
-            ≈ 6500.00
-          </td>
-          <td>
-            <a class="color-dark">Trade</a>
-          </td>
-        </tr>
-        <tr>
+        <tr
+          v-for="(item, index) in tableData"
+          :key="index"
+        >
           <td class="flex">
             <div class="coin-icon">
               <img src="@svg/ethereum.svg">
             </div>
             <div class="coin-name">
-              <b class="color-light">ETH</b>
+              <b class="color-light">{{ item.shortForm }}</b>
               <br>
-              <span>Ethereum</span>
+              <span>{{ item.name }}</span>
             </div>
           </td>
           <td class="color-light">
-            0.112300
+            {{ item.availabel.toFixed(2) }}
           </td>
           <td class="color-light">
-            $6750
+            ${{ item.frozen.toFixed(2) }}
           </td>
           <td class="color-light">
-            ≈ 6500.00
+            ≈ {{ item.estimatedValue.toFixed(2) }}
           </td>
           <td>
-            <a class="color-dark">Trade</a>
-          </td>
-        </tr>
-        <tr>
-          <td class="flex">
-            <div class="coin-icon">
-              <img src="@svg/litecoin.svg">
-            </div>
-            <div class="coin-name">
-              <b class="color-light">Lite</b>
-              <br>
-              <span>Litecoin</span>
-            </div>
-          </td>
-          <td class="color-light">
-            0.112300
-          </td>
-          <td class="color-light">
-            $6750
-          </td>
-          <td class="color-light">
-            ≈ 6500.00
-          </td>
-          <td>
-            <a class="color-dark">Trade</a>
+            <span class="action-button">Trade</span>
           </td>
         </tr>
       </table>
@@ -114,6 +45,19 @@
 <script>
 export default {
   name: 'Table',
+  data() {
+    return {
+      tableData: [
+        {
+          name: 'Ethereum',
+          shortForm: 'ETH',
+          availabel: 0,
+          frozen: 0,
+          estimatedValue: 0,
+        },
+      ],
+    };
+  },
 };
 </script>
 
@@ -148,8 +92,9 @@ export default {
   font-weight: 700;
 }
 
-.color-dark {
+.action-button {
   color: #91a2fa;
+  cursor: pointer;
 }
 
 .coin-name span {

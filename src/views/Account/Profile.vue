@@ -1,9 +1,6 @@
 <template>
   <div>
-    <BaseFrame
-      :profile="$store.getters['auth/avatar']"
-      :username="$store.getters['auth/username']"
-    />
+    <BaseFrame />
     <div class="section">
       <BaseNavigationTab
         :list="profileOption"
