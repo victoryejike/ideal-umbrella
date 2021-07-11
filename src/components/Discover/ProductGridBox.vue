@@ -176,10 +176,14 @@ export default {
       }
       this.isReady = true;
     },
-    autoLoad() {
+    async autoLoad() {
       // Check isPageLoading is to prevent trigger loadMore multiple times in a short time
       if (!this.isPageLoading && this.$refs['gridbox-root'].getBoundingClientRect().bottom < window.innerHeight) {
-        this.loadMore();
+        await this.loadMore();
+        if (this.isEndOfContent) {
+          this.isAutoLoad = false;
+          window.removeEventListener('scroll', this.autoLoad);
+        }
       }
     },
   },

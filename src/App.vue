@@ -133,7 +133,7 @@ a {
   overflow: hidden;
 }
 
-/* custom scrollbar */
+/* Custom scrollbar for Chrome */
 ::-webkit-scrollbar {
   width: 20px;
 }
