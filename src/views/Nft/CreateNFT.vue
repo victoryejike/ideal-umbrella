@@ -317,7 +317,7 @@ export default {
         { name: '30 %', value: '3000' },
       ],
       selectBoxCSS: { width: 10 },
-      uri: sessionStorage.getItem('ipfsHash'),
+      uri: '',
       value: localStorage.getItem('account'),
       collectible_class: [],
       tokenId: '',
@@ -1544,6 +1544,7 @@ export default {
       const desc = document.querySelectorAll('.description')[1].value;
       const title = document.querySelectorAll('.title')[1].value;
       const ipfsHash = `https://ipfs.io/ipfs/${sessionStorage.getItem('ipfsHash')}`;
+      this.uri = sessionStorage.getItem('ipfsHash');
       let cid;
       if (this.standard === 'erc1155') {
         this.isLoading = true;
@@ -1609,7 +1610,7 @@ export default {
         this.tokenId = result.events.Transfer.returnValues.tokenId;
         console.log(this.tokenId);
         contract.methods.setApprovalForAll('0x560c6067b94048F92Bd89e44D205c3597A4fe82E', true).send({ from: localStorage.getItem('account'), gas: 3000000, gasPrice: '30000000000' });
-        document.getElementsByClassName('submit-btn')[0].click();
+        // document.getElementsByClassName('submit-btn')[0].click();
         if (this.pricing_type === 'timed_auction') {
           console.log('works for only timed_auction');
           const newContract = new web3.eth.Contract(this.singleAuctionAbi,
@@ -1622,8 +1623,8 @@ export default {
           const timeDuration = (endDate.getTime() - startDate.getTime()) / 1000;
           console.log(timeDuration);
           newContract.methods.CreateAuctionForSingle(this.erc721ContractAddress, this.tokenId, (1), timeDuration, web3.utils.toWei(startPrice, 'ether')).send({ from: localStorage.getItem('account'), gas: 3500000, gasPrice: '35000000000' });
-          document.getElementsByClassName('submit-btn')[0].click();
         }
+        document.getElementsByClassName('submit-btn')[0].click();
       }
     },
     async onSubmit(CollectibleNftData) {

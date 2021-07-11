@@ -19,10 +19,10 @@
     @submit="onSubmit"
   >
     <BaseUnderlinedInput
+      v-model="amount"
       class="input-field"
+      disabled="true"
       name="amount"
-      :placeholder="$t('nft_details.bid.user_bid_placeholder')"
-      rules="required"
       :text="$t('nft_details.buy.user_buy_label')"
     >
       <template #element>
@@ -86,7 +86,7 @@ export default {
     description: { type: String, required: false, default: null },
     title: { type: String, required: false, default: null },
     image: { type: String, required: false, default: null },
-    amount: { type: Number, required: false, default: null },
+    price: { type: Number, required: false, default: null },
   },
   data() {
     return {
@@ -95,6 +95,7 @@ export default {
       isLoading: false,
       buyingBalance: '',
       finalValue: '',
+      amount: '',
       coinList: [
         { name: 'ETH' },
         { name: 'HT' },
@@ -106,11 +107,12 @@ export default {
     const provider = window.ethereum;
     const web3 = new Web3(provider);
     const balance = await web3.eth.getBalance(localStorage.getItem('account'));
-    const ethBalance = (balance / 1000000000000000000).toFixed(2);
+    const ethBalance = (balance / 1000000000000000000).toFixed(4);
     this.buyingBalance = ethBalance;
-    document.querySelector('.amount').value = this.amount;
-    const finalBuyValue = (this.amount * 0.025).toFixed(4);
-    this.finalValue = (parseFloat(this.amount) + parseFloat(finalBuyValue));
+    this.amount = this.price;
+    document.querySelector('.amount').value = this.price;
+    const finalBuyValue = (this.price * 0.025).toFixed(4);
+    this.finalValue = (parseFloat(this.price) + parseFloat(finalBuyValue)).toFixed(4);
   },
   methods: {
     async onSubmit(formData) {
@@ -126,8 +128,8 @@ export default {
       if (response?.success) {
         // this.$router.go();
       } else {
-        const { form } = this.$refs['bid-form'];
-        form.setFieldError('amount', response.error);
+        // const { form } = this.$refs['bid-form'];
+        // form.setFieldError('amount', response.error);
         this.isLoading = false;
       }
     },

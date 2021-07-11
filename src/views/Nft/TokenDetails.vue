@@ -193,10 +193,10 @@
 
               <template #body>
                 <BuyModal
-                  :amount="nft.price"
                   :description="nft.description"
                   :image="nft.uri"
                   :nfttype="nft.supply"
+                  :price="nft.price"
                   :title="nft.title"
                 />
               </template>
