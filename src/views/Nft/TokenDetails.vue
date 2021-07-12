@@ -147,7 +147,7 @@
         <DetailsTab
           v-if="showDetails"
           :text="$t('nft_details.blockchain')"
-          :value="nft.blockchain"
+          :value="$t('nft_details.blockchain_value')"
         />
         <div
           v-if="showHistory"

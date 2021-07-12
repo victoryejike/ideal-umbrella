@@ -206,6 +206,8 @@
       "user_bidding_balance": "Your bidding balance"
     },
     "blockchain": "Blockchain",
+    "blockchain_value": "Huco Chain",
+    
     "buy": {
       "buy-content": "You are about to purchase",
       "total_buy_amount": "Total buy amount",
