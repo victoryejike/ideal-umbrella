@@ -724,10 +724,11 @@ export default {
     getFinalBidAmount() {
       const discountAmount = ((this.initialBidValue * 0.025).toFixed(4));
       this.finalBidValue = (parseFloat(this.initialBidValue)
-      + parseFloat(discountAmount));
+      + parseFloat(discountAmount)).toFixed(4);
     },
     async onSubmit(formData) {
       this.isLoading = true;
+      console.log(formData);
       this.bidContract();
       let response = null;
       try {
@@ -762,6 +763,7 @@ export default {
       const web3 = new Web3(provider);
       // const { BN } = web3.utils;
       const contract = new web3.eth.Contract(this.erc721abi, this.erc721ContractAddress);
+      console.log(this.finalBidValue);
       contract.methods.PlaceBid(this.tokenid, web3.utils.toWei(this.finalBidValue, 'ether')).send({ from: address, gas: 2000000, gasPrice: '20000000000' });
     },
   },
