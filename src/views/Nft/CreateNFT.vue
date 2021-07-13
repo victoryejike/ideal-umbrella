@@ -45,6 +45,7 @@
             :placeholder="$t('collectible.amount_placeholder')"
             rules="required"
             :text="$t('collectible.amount_label')"
+            type="number"
             @change="getServiceFee"
           >
             <template #element>
@@ -91,6 +92,7 @@
             :placeholder="$t('collectible.auction_placeholder')"
             rules="required"
             :text="$t('collectible.auction_label')"
+            type="number"
           >
             <template #element>
               <!-- <BaseUnderlinedInput

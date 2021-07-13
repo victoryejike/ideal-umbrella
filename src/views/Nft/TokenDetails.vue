@@ -193,6 +193,7 @@
 
               <template #body>
                 <BuyModal
+                  :accountbalance="accountBalance"
                   :description="nft.description"
                   :image="nft.uri"
                   :nfttype="nft.supply"
@@ -224,6 +225,7 @@
 
               <template #body>
                 <BidModal
+                  :accountbalance="accountBalance"
                   :description="nft.description"
                   :image="nft.uri"
                   :nfttype="nft.supply"
@@ -268,6 +270,7 @@ export default {
       showHistory: false,
       isModalVisible: false,
       username: JSON.parse(localStorage.getItem('userData')),
+      accountBalance: '',
       getNftDetails: [],
       tabFixedNft: [
         {
@@ -368,12 +371,11 @@ export default {
     } else {
       this.$router.push({ name: 'PathNotFound' });
     }
-    await this.isWalletConnected();
   },
   methods: {
     async showModal() {
       this.verifyUser();
-      this.isModalVisible = true;
+      // this.isModalVisible = true;
     },
     closeModal() {
       this.isModalVisiblefixed = false;
@@ -382,7 +384,7 @@ export default {
     showFixedModal() {
       this.verifyUser();
       // this.isWalletConnected();
-      this.isModalVisiblefixed = true;
+      // this.isModalVisiblefixed = true;
     },
     async isWalletConnected() {
       const web3 = new Web3(window.ethereum);
@@ -396,6 +398,9 @@ export default {
       });
       const [accounts] = await web3.eth.getAccounts();
       localStorage.setItem('account', accounts);
+      const balance = await web3.eth.getBalance(localStorage.getItem('account'));
+      const ethBalance = (balance / 1000000000000000000).toFixed(2);
+      this.accountBalance = ethBalance;
     },
     async verifyUser() {
       let response = null;
@@ -409,8 +414,14 @@ export default {
       if (response?.success) {
         if (response?.data?.display_name == null) {
           this.$router.push({ name: 'EditProfile' });
+        } else {
+          this.isWalletConnected();
+          this.isModalVisible = true;
+          this.isModalVisiblefixed = true;
         }
       } else {
+        this.isModalVisible = false;
+        this.isModalVisiblefixed = false;
         this.$router.push({ name: 'Login' });
       }
     },

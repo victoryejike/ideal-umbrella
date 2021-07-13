@@ -63,7 +63,7 @@
           {{ $t('nft_details.bid.user_balance') }}
         </div>
         <div class="value">
-          {{ biddingBalance }} ETH
+          {{ accountbalance }} ETH
         </div>
       </div>
       <div class="bidding-details">
@@ -118,6 +118,7 @@ export default {
     title: { type: String, required: false, default: null },
     image: { type: String, required: false, default: null },
     tokenid: { type: Number, required: false, default: null },
+    accountbalance: { type: Number, required: false, default: null },
   },
   data() {
     return {
@@ -713,15 +714,8 @@ export default {
       ],
     };
   },
-  async mounted() {
-    const provider = window.ethereum;
-    const web3 = new Web3(provider);
-    const balance = await web3.eth.getBalance(localStorage.getItem('account'));
-    const ethBalance = (balance / 1000000000000000000).toFixed(2);
-    this.biddingBalance = ethBalance;
-  },
   methods: {
-    getFinalBidAmount() {
+    async getFinalBidAmount() {
       const discountAmount = ((this.initialBidValue * 0.025).toFixed(4));
       this.finalBidValue = (parseFloat(this.initialBidValue)
       + parseFloat(discountAmount)).toFixed(4);
@@ -740,7 +734,7 @@ export default {
 
       if (response?.success) {
         // location.reload();
-        this.$router.go();
+        // this.$router.go();
       } else {
         const { form } = this.$refs['bid-form'];
         form.setFieldError('amount', response.error);

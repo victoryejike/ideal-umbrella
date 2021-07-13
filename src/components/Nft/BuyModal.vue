@@ -45,7 +45,7 @@
           {{ $t('nft_details.bid.user_balance') }}
         </div>
         <div class="value">
-          {{ buyingBalance }} ETH
+          {{ accountbalance }} ETH
         </div>
       </div>
       <div class="bidding-details">
@@ -101,6 +101,7 @@ export default {
     image: { type: String, required: false, default: null },
     price: { type: Number, required: false, default: null },
     tokenid: { type: Number, required: false, default: null },
+    accountbalance: { type: Number, required: false, default: null },
   },
   data() {
     return {
