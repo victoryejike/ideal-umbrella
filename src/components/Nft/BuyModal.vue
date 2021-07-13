@@ -739,7 +739,8 @@ export default {
       }
 
       if (response?.success) {
-        this.$router.go();
+        // this.$router.go();
+        this.$router.push({ name: 'Profile' });
       } else {
         // const { form } = this.$refs['bid-form'];
         // form.setFieldError('amount', response.error);

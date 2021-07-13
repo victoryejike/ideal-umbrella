@@ -1611,7 +1611,7 @@ export default {
         const { data } = this.$api.CREATENFT(CollectibleNftData);
         response = data;
         console.log(response);
-        // this.$router.push({ name: 'Profile' });
+        this.$router.push({ name: 'Profile' });
       } catch (error) {
         response = error.response.data;
         console.log(error);
