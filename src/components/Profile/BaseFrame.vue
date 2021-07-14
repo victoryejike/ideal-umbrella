@@ -4,8 +4,9 @@
     <div class="profile-img">
       <img
         class="profile"
+        :class="$store.getters['auth/avatar'] == null ? 'profile' : 'profile-border'"
         :onerror="$global.handleAvatarError"
-        :src="$store.getters['auth/avatar']"
+        :src="$store.getters['auth/avatar'] || require('@img/default-avatar.png')"
       >
     </div>
     <div class="profile-details">
@@ -44,54 +45,56 @@ export default {
 </script>
 
 <style scoped>
-  .top {
-    background-image: url("~@img/banner-bg.png");
-    border-radius: 0.625rem;
-    padding: 5rem;
-  }
+.top {
+  background-image: url("~@img/banner-bg.png");
+  border-radius: 0.625rem;
+  padding: 5rem;
+}
 
-  .profile-img {
-    margin: -6rem auto;
-    text-align: center;
-  }
+.profile-img {
+  margin: -6rem auto;
+  text-align: center;
+}
 
-  .profile {
-    border: 0.1875rem solid #fff;
-    border-radius: 22.5rem;
-    height: 6.25rem;
-    width: 6.25rem;
-  }
+.profile {
+  border-radius: 22.5rem;
+  height: 6.25rem;
+  width: 6.25rem;
+}
 
-  .profile-details {
-    margin-top: 8rem;
-    text-align: center;
-  }
+.profile-border {
+  border: 0.1875rem solid #fff;
+}
 
-  .verified {
-    background: #2c43ad;
-    border-radius: 22.5rem;
-    height: 0.8rem;
-    width: 0.8rem;
-  }
+.profile-details {
+  margin-top: 8rem;
+  text-align: center;
+}
 
-  .username h3 {
-    font-size: 2rem;
-  }
+.verified {
+  background: #2c43ad;
+  border-radius: 22.5rem;
+  height: 0.8rem;
+  width: 0.8rem;
+}
 
-  .profile-actions {
-    display: flex;
-    justify-content: center;
-  }
+.username h3 {
+  font-size: 2rem;
+}
 
-  .action {
-    font-size: 0.75rem;
-    font-weight: 600;
-    margin: 0.3125rem;
-  }
+.profile-actions {
+  display: flex;
+  justify-content: center;
+}
 
-  .p1 {
-    padding-left: 1.3rem;
-    padding-right: 1.3rem;
-  }
+.action {
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin: 0.3125rem;
+}
 
+.p1 {
+  padding-left: 1.3rem;
+  padding-right: 1.3rem;
+}
 </style>

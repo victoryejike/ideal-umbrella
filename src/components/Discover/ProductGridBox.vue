@@ -144,11 +144,11 @@ export default {
         const matchKeyResponse = response.map((item) => ({
           // eslint-disable-next-line no-underscore-dangle
           id: item._id,
-          name: item.title,
+          name: item.title || '',
           price: item.price || item.bid?.highest_bid || item.minimum_bid,
           image: `https://ipfs.io/ipfs/${item.uri.replace('ipfs://', '')}`,
           author: item.creator?.name || item.creator?.display_name || '',
-          avatar: item.creator?.image,
+          avatar: item.creator?.image || '',
           verified: item.creator?.is_kyc_verified,
         }));
         this.activeList.push(...matchKeyResponse);

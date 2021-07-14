@@ -136,7 +136,7 @@ a {
 
 /* Custom scrollbar for Chrome */
 ::-webkit-scrollbar {
-  width: 0.6rem;
+  width: 0.8vw;
 }
 
 ::-webkit-scrollbar-track {
@@ -144,10 +144,8 @@ a {
 }
 
 ::-webkit-scrollbar-thumb {
-  background-clip: content-box;
   background-color: #c2d3ff;
-  border: 0.18rem solid transparent;
-  border-radius: 20px;
+  border-radius: 2rem;
 }
 
 ::-webkit-scrollbar-thumb:hover {

@@ -15,7 +15,7 @@
           class="avatar"
           height="30"
           :onerror="$global.handleAvatarError"
-          :src="avatarImage"
+          :src="avatarImage || ''"
           width="30"
         >
         <span

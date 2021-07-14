@@ -1295,7 +1295,6 @@ export default {
     },
     async onSubmit(formData) {
       this.isLoading = true;
-      console.log(formData);
       this.bidContract();
       let response = null;
       try {
@@ -1331,7 +1330,6 @@ export default {
       // const { BN } = web3.utils;
       const erc20Contract = new web3.eth.Contract(this.erc20abi, this.erc20ContractAddress);
       const contract = new web3.eth.Contract(this.erc721abi, this.erc721ContractAddress);
-      console.log(this.finalBidValue);
       erc20Contract.methods.approve(this.erc721ContractAddress, web3.utils.toWei(this.finalBidValue, 'ether')).send({ from: address, gas: 2000000, gasPrice: '20000000000' });
       contract.methods.PlaceBid(this.tokenid, web3.utils.toWei(this.finalBidValue, 'ether')).send({ from: address, gas: 2000000, gasPrice: '20000000000' });
     },

@@ -136,10 +136,9 @@ export default {
         const matchKeyResponse = response.map((item) => {
           // eslint-disable-next-line no-underscore-dangle
           const seller = item._top_sellers[0];
-          console.log(seller);
           return {
-            avatar: seller.image,
-            author: seller.name || seller.display_name,
+            avatar: seller.image || '',
+            author: seller.name || seller.display_name || '',
             totalCoin: Math.random() * 800 + 100,
             verified: seller.is_kyc_verified,
           };
