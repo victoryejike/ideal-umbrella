@@ -147,7 +147,7 @@ export default {
           name: item.title,
           price: item.price || item.bid?.highest_bid || item.minimum_bid,
           image: `https://ipfs.io/ipfs/${item.uri.replace('ipfs://', '')}`,
-          author: item.creator?.name || item.creator?.display_name,
+          author: item.creator?.name || item.creator?.display_name || '',
           avatar: item.creator?.image,
           verified: item.creator?.is_kyc_verified,
         }));

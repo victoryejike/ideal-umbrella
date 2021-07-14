@@ -113,42 +113,51 @@ export default {
 
     this.$api.GET_POPULAR_NFT().then((response) => {
       if (response.length > 0) {
-        const matchKeyResponse = response.map((item) => ({
-        // eslint-disable-next-line no-underscore-dangle
-          id: item._id,
-          name: item.title,
-          price: item.price || item.bid?.highest_bid || item.minimum_bid,
-          image: `https://ipfs.io/ipfs/${item.uri.replace('ipfs://', '')}`,
-          author: item.creator?.name || item.creator?.display_name,
-          avatar: item.creator?.image,
-          verified: item.creator?.is_kyc_verified,
-        }));
+        const matchKeyResponse = response.map((item) => {
+          // eslint-disable-next-line no-underscore-dangle
+          const nft = item._nfts[0];
+          return {
+            // eslint-disable-next-line no-underscore-dangle
+            id: nft._id,
+            name: nft.title,
+            price: nft.price || nft.bid?.highest_bid || nft.minimum_bid,
+            image: `https://ipfs.io/ipfs/${nft.uri.replace('ipfs://', '')}`,
+            author: nft.creator?.name || nft.creator?.display_name || '',
+            avatar: nft.creator?.image,
+            verified: nft.creator?.is_kyc_verified,
+          };
+        });
         this.popularList.push(...matchKeyResponse);
       }
     });
 
-    // this.$api.GET_TOP_SELLERS().then((response) => {
-    //   if (response.length > 0) {
-    //     // eslint-disable-next-line camelcase
-    //     const matchKeyResponse = response.map(({ _top_sellers }) => ({
-    //       avatar: _top_sellers.image,
-    //       author: _top_sellers.name || _top_sellers.display_name,
-    //       totalCoin: Math.random() * 800 + 100,
-    //       verified: _top_sellers.is_kyc_verified,
-    //     }));
-    //     this.topSellerList.push(...matchKeyResponse);
-    //   }
-    // });
+    this.$api.GET_TOP_SELLERS().then((response) => {
+      if (response.length > 0) {
+        const matchKeyResponse = response.map((item) => {
+          // eslint-disable-next-line no-underscore-dangle
+          const seller = item._top_sellers[0];
+          console.log(seller);
+          return {
+            avatar: seller.image,
+            author: seller.name || seller.display_name,
+            totalCoin: Math.random() * 800 + 100,
+            verified: seller.is_kyc_verified,
+          };
+        });
+        this.topSellerList.push(...matchKeyResponse);
+      }
+    });
 
-    for (let i = 0; i < 8; i += 1) {
-      this.topSellerList.push({
-        avatar: `https://i.pravatar.cc/64?img=${Math.floor(Math.random() * 70) + 1}`,
-        author: `Author ${Math.random().toString(20).substr(2, 13)}`,
-        totalCoin: Math.random() * 1e5 + 1e4,
-        coinType: 0, // Math.floor(Math.random() * 3),
-        verified: Math.random() > 0.5,
-      });
-    }
+    // Fake Data
+    // for (let i = 0; i < 8; i += 1) {
+    //   this.topSellerList.push({
+    //     avatar: `https://i.pravatar.cc/64?img=${Math.floor(Math.random() * 70) + 1}`,
+    //     author: `Author ${Math.random().toString(20).substr(2, 13)}`,
+    //     totalCoin: Math.random() * 1e5 + 1e4,
+    //     coinType: 0, // Math.floor(Math.random() * 3),
+    //     verified: Math.random() > 0.5,
+    //   });
+    // }
   },
   methods: {
     handleSearch(value) {

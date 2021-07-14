@@ -52,7 +52,7 @@ const API_SERVICES = {
   GET_POPULAR_NFT: async () => {
     let response = null;
     try {
-      response = (await axios.get('nft/search', { params: { skip: 0, limit: 4 } })).data;
+      response = (await axios.get('nft/top_nfts', { params: { skip: 0, limit: 4 } })).data;
     } catch (error) {
       response = error?.response?.data;
     }
