@@ -101,9 +101,7 @@ export default {
 
         if (response?.success === true) {
           this.$store.dispatch('auth/login', response?.data);
-          setTimeout(() => {
-            this.$router.push(this.$route.params?.redirectFrom || '/account/profile');
-          }, 100);
+          this.$router.push(this.$route.params?.redirectFrom || '/account/profile');
         } else if (response?.success === false) {
           form.setFieldError('password', response?.error);
         } else {

@@ -1,6 +1,7 @@
 const initialState = () => ({
   countryList: [],
   searchValue: null,
+  previousPath: null,
 });
 
 const getters = {
@@ -9,6 +10,9 @@ const getters = {
   },
   searchValue(state) {
     return state.searchValue;
+  },
+  previousPath(state) {
+    return state.previousPath;
   },
 };
 
@@ -28,6 +32,9 @@ const mutations = {
   },
   setSearchValue(state, value) {
     state.searchValue = value;
+  },
+  setPreviousPath(state, value) {
+    state.previousPath = value;
   },
 };
 

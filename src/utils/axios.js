@@ -24,7 +24,18 @@ axios.interceptors.response.use((response) => Promise.resolve(response), (error)
   // TODO: Temporarily implementation, should check error.status === 401
   if (error?.response?.data?.error === 'Jwt expired') {
     store.dispatch('auth/logout');
-    router.push({ name: 'Login', params: { errorMsg: $t('axios.expired') } });
+    if (store.getters['data/previousPath']) {
+      router.push({
+        name: 'Login',
+        params: {
+          errorMsg: $t('axios.expired'),
+          redirectFrom: store.getters['data/previousPath'],
+        },
+      });
+      store.commit('data/setPreviousPath', null);
+    } else {
+      router.push({ name: 'Login' });
+    }
   }
   return Promise.reject(error);
 });
