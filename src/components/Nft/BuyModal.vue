@@ -117,7 +117,7 @@ export default {
         { name: 'FC' },
       ],
       erc721ContractAddress: '0xF3538d2696FF98396Aa0386d91bd7f9C02570511',
-      erc20ContractAddress: '0xc4fc8e5a74dee56143afd0c726b6ecef74e007f0',
+      // erc20ContractAddress: '0xc4fc8e5a74dee56143afd0c726b6ecef74e007f0',
       erc721abi: [
         {
           inputs: [
@@ -1297,9 +1297,9 @@ export default {
       }
       const web3 = new Web3(provider);
       // const { BN } = web3.utils;
-      const erc20Contract = new web3.eth.Contract(this.erc20abi, this.erc20ContractAddress);
+      // const erc20Contract = new web3.eth.Contract(this.erc20abi, this.erc20ContractAddress);
       const contract = new web3.eth.Contract(this.erc721abi, this.erc721ContractAddress);
-      erc20Contract.methods.approve(this.erc721ContractAddress).send({ from: address, gas: 2000000, gasPrice: '20000000000' });
+      // erc20Contract.methods.approve(this.erc721ContractAddress).send({ from: address, gas: 2000000, gasPrice: '20000000000' });
       contract.methods.buy(this.tokenid).send({ from: address, gas: 2000000, gasPrice: '20000000000' });
     },
     async onSubmit(formData) {
