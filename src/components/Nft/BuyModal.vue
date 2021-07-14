@@ -1299,7 +1299,6 @@ export default {
       // const { BN } = web3.utils;
       // const erc20Contract = new web3.eth.Contract(this.erc20abi, this.erc20ContractAddress);
       const contract = new web3.eth.Contract(this.erc721abi, this.erc721ContractAddress);
-      // erc20Contract.methods.approve(this.erc721ContractAddress).send({ from: address, gas: 2000000, gasPrice: '20000000000' });
       contract.methods.buy(this.tokenid).send({ from: address, gas: 2000000, gasPrice: '20000000000' });
     },
     async onSubmit(formData) {
