@@ -1296,7 +1296,7 @@ export default {
     async onSubmit(formData) {
       this.isLoading = true;
       console.log(formData);
-      this.bidContract();
+      // this.bidContract();
       let response = null;
       try {
         const { data } = await this.$api.CREATEBIDS(formData);
@@ -1307,7 +1307,7 @@ export default {
 
       if (response?.success) {
         // location.reload();
-        // this.$router.go();
+        this.$router.go();
       } else {
         const { form } = this.$refs['bid-form'];
         form.setFieldError('amount', response.error);

@@ -1304,7 +1304,7 @@ export default {
     },
     async onSubmit(formData) {
       this.isLoading = true;
-      this.buyContract();
+      // this.buyContract();
       let response = null;
       try {
         const { data } = await this.$api.BUYNFT(formData);
