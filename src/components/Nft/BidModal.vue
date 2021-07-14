@@ -734,7 +734,7 @@ export default {
 
       if (response?.success) {
         // location.reload();
-        // this.$router.go();
+        this.$router.go();
       } else {
         const { form } = this.$refs['bid-form'];
         form.setFieldError('amount', response.error);
