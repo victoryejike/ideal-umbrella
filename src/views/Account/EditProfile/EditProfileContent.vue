@@ -1,5 +1,6 @@
 <template>
   <BaseForm
+    ref="edit-profile-form"
     v-slot="{ isLoading }"
     class="edit-profile-form"
     @submit="onSubmit"
@@ -11,7 +12,7 @@
       <img
         class="profile"
         :onerror="$global.handleAvatarError"
-        :src="avatarURL"
+        :src="avatarURL || ''"
       >
       <div class="recommend">
         <p>{{ $t('edit_profile.recommend') }}</p>
@@ -78,6 +79,11 @@ export default {
       about: this.$store.getters['auth/about'],
       portfolio: this.$store.getters['auth/portfolio'],
     };
+  },
+  mounted() {
+    if (this.$route.params?.errorMsg) {
+      this.$refs['edit-profile-form'].form.setFieldError('display_name', this.$route.params?.errorMsg);
+    }
   },
   methods: {
     async onSubmit(editProileData) {

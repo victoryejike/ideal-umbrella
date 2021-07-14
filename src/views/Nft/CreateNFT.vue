@@ -1351,7 +1351,6 @@ export default {
     },
   },
   mounted() {
-    this.verifyUser();
     this.fetchDetails();
     const web3 = new Web3(window.ethereum);
 
@@ -1396,25 +1395,6 @@ export default {
     },
     toggleSwitch() {
       this.selectedSwitch = !this.selectedSwitch;
-    },
-    // eslint-disable-next-line consistent-return
-    async verifyUser() {
-      let response = null;
-      try {
-        const { data } = await this.$api.GET_PROFILE();
-        response = data;
-      } catch (error) {
-        response = error?.response?.data;
-      }
-
-      if (response?.success) {
-        if (response.data.display_name !== undefined) {
-          return true;
-        // eslint-disable-next-line no-else-return
-        } else {
-          this.$router.push({ name: 'EditProfile' });
-        }
-      }
     },
     getServiceFee() {
       const amount = document.querySelector('.price').value;

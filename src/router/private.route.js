@@ -1,3 +1,8 @@
+import store from '@/store';
+import i18n from '@/utils/i18n';
+
+const $t = i18n.global.t;
+
 const privateRoute = [
   {
     path: '/nft',
@@ -8,6 +13,10 @@ const privateRoute = [
     path: '/nft/create/:standard',
     name: 'CreateNFT',
     component: () => import('@view/Nft/CreateNFT.vue'),
+    beforeEnter: (to, from, next) => (
+      store.getters['auth/username']
+        ? next()
+        : next({ name: 'EditProfile', params: { errorMsg: $t('edit_profile.fillin_username') } })),
   },
   {
     path: '/wallet',

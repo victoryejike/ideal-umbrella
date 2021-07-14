@@ -76,6 +76,7 @@
     "edit_profile": "EDIT PROFILE",
     "email": "E-Mail",
     "email_placeholder": "Your E-mail for marketplace notifications",
+    "fillin_username": "Please fill in your name first before creating NFT",
     "need_verified_account": "Need a verified account?",
     "portfolio": "Personal site or portfolio",
     "portfolio_placeholder": "https://",
@@ -207,7 +208,6 @@
     },
     "blockchain": "Blockchain",
     "blockchain_value": "Huco Chain",
-    
     "buy": {
       "buy-content": "You are about to purchase",
       "total_buy_amount": "Total buy amount",
