@@ -133,7 +133,7 @@ export default {
         { name: 'HT' },
         { name: 'FC' },
       ],
-      erc721ContractAddress: '0x28145D733344E471d05b6f17c9C74982b013a7ca',
+      erc721ContractAddress: '0xF3538d2696FF98396Aa0386d91bd7f9C02570511',
       erc721abi: [
         {
           inputs: [
@@ -300,7 +300,7 @@ export default {
           inputs: [
             {
               internalType: 'uint256',
-              name: 'tokenId',
+              name: '_tokenId',
               type: 'uint256',
             },
           ],
@@ -313,7 +313,7 @@ export default {
           inputs: [
             {
               internalType: 'uint256',
-              name: 'tokenId',
+              name: '_tokenId',
               type: 'uint256',
             },
             {
@@ -341,7 +341,7 @@ export default {
           inputs: [
             {
               internalType: 'uint256',
-              name: 'tokenId',
+              name: '_tokenId',
               type: 'uint256',
             },
             {
@@ -409,11 +409,42 @@ export default {
           inputs: [
             {
               internalType: 'uint256',
-              name: 'tokenId',
+              name: '_tokenId',
               type: 'uint256',
             },
           ],
           name: 'buy',
+          outputs: [],
+          stateMutability: 'nonpayable',
+          type: 'function',
+        },
+        {
+          inputs: [
+            {
+              internalType: 'uint256',
+              name: '_tokenId',
+              type: 'uint256',
+            },
+          ],
+          name: 'cancelBid',
+          outputs: [],
+          stateMutability: 'nonpayable',
+          type: 'function',
+        },
+        {
+          inputs: [
+            {
+              internalType: 'uint256',
+              name: '_tokenId',
+              type: 'uint256',
+            },
+            {
+              internalType: 'uint256',
+              name: '_price',
+              type: 'uint256',
+            },
+          ],
+          name: 'createSellOrder',
           outputs: [],
           stateMutability: 'nonpayable',
           type: 'function',

@@ -329,7 +329,7 @@ export default {
       r: localStorage.getItem('r'),
       s: localStorage.getItem('s'),
       v: localStorage.getItem('v'),
-      erc721ContractAddress: '0x28145D733344E471d05b6f17c9C74982b013a7ca',
+      erc721ContractAddress: '0xF3538d2696FF98396Aa0386d91bd7f9C02570511',
       erc1155ContractAddress: '0x24d5CaBE5A68653c1a6d10f65679839a5CD4a42A',
       erc721abi: [
         {
@@ -497,7 +497,7 @@ export default {
           inputs: [
             {
               internalType: 'uint256',
-              name: 'tokenId',
+              name: '_tokenId',
               type: 'uint256',
             },
           ],
@@ -510,7 +510,7 @@ export default {
           inputs: [
             {
               internalType: 'uint256',
-              name: 'tokenId',
+              name: '_tokenId',
               type: 'uint256',
             },
             {
@@ -538,7 +538,7 @@ export default {
           inputs: [
             {
               internalType: 'uint256',
-              name: 'tokenId',
+              name: '_tokenId',
               type: 'uint256',
             },
             {
@@ -606,11 +606,42 @@ export default {
           inputs: [
             {
               internalType: 'uint256',
-              name: 'tokenId',
+              name: '_tokenId',
               type: 'uint256',
             },
           ],
           name: 'buy',
+          outputs: [],
+          stateMutability: 'nonpayable',
+          type: 'function',
+        },
+        {
+          inputs: [
+            {
+              internalType: 'uint256',
+              name: '_tokenId',
+              type: 'uint256',
+            },
+          ],
+          name: 'cancelBid',
+          outputs: [],
+          stateMutability: 'nonpayable',
+          type: 'function',
+        },
+        {
+          inputs: [
+            {
+              internalType: 'uint256',
+              name: '_tokenId',
+              type: 'uint256',
+            },
+            {
+              internalType: 'uint256',
+              name: '_price',
+              type: 'uint256',
+            },
+          ],
+          name: 'createSellOrder',
           outputs: [],
           stateMutability: 'nonpayable',
           type: 'function',
@@ -1582,24 +1613,34 @@ export default {
         document.getElementsByClassName('submit-btn')[0].click();
       } else {
         const contract = new web3.eth.Contract(this.erc721abi, this.erc721ContractAddress);
-        const result = await contract.methods
-          .mint(`https://${cid}.ipfs.dweb.link`)
-          .send({ from: localStorage.getItem('account'), gas: 2900000, gasPrice: '29000000000' });
-        this.ipfsUrl = cid;
-        console.log(result);
-        this.tokenId = result.events.Transfer.returnValues.tokenId;
-        console.log(this.tokenId);
-        contract.methods.setApprovalForAll('0x560c6067b94048F92Bd89e44D205c3597A4fe82E', true).send({ from: localStorage.getItem('account'), gas: 3000000, gasPrice: '30000000000' });
-        // document.getElementsByClassName('submit-btn')[0].click();
+        if (this.pricing_type === 'fixed') {
+          const result = await contract.methods
+            .mint(`https://${cid}.ipfs.dweb.link`)
+            .send({ from: localStorage.getItem('account'), gas: 2900000, gasPrice: '29000000000' });
+          this.ipfsUrl = cid;
+          console.log(result);
+          this.tokenId = result.events.Transfer.returnValues.tokenId;
+          console.log(this.tokenId);
+          const price = document.querySelector('.price').value;
+          contract.methods.setApprovalForAll('0x560c6067b94048F92Bd89e44D205c3597A4fe82E', true).send({ from: localStorage.getItem('account'), gas: 3000000, gasPrice: '30000000000' });
+          contract.methods.createSellOrder(this.tokenId, web3.utils.toWei(price, 'ether')).send({ from: localStorage.getItem('account'), gas: 3500000, gasPrice: '35000000000' });
+        }
         if (this.pricing_type === 'timed_auction') {
-          console.log('works for only timed_auction');
           const startPrice = document.querySelector('.minimum_bid').value;
           const auctionStartdate = document.querySelector('.starting_date').value;
           const auctionExpirationdate = document.querySelector('.expiration_date').value;
           const startDate = new Date(auctionStartdate);
           const endDate = new Date(auctionExpirationdate);
           const timeDuration = (endDate.getTime() - startDate.getTime()) / 1000;
-          console.log(timeDuration);
+          console.log('works for only timed_auction');
+          const result = await contract.methods
+            .mint(`https://${cid}.ipfs.dweb.link`)
+            .send({ from: localStorage.getItem('account'), gas: 2900000, gasPrice: '29000000000' });
+          this.ipfsUrl = cid;
+          console.log(result);
+          this.tokenId = result.events.Transfer.returnValues.tokenId;
+          console.log(this.tokenId);
+          contract.methods.setApprovalForAll('0x560c6067b94048F92Bd89e44D205c3597A4fe82E', true).send({ from: localStorage.getItem('account'), gas: 3000000, gasPrice: '30000000000' });
           contract.methods.CreateAuction(this.tokenId, (1), timeDuration, web3.utils.toWei(startPrice, 'ether')).send({ from: localStorage.getItem('account'), gas: 3500000, gasPrice: '35000000000' });
         }
         document.getElementsByClassName('submit-btn')[0].click();
