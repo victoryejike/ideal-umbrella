@@ -1609,7 +1609,7 @@ export default {
           .send({ from: localStorage.getItem('account'), gas: 2000000, gasPrice: '20000000000' });
         this.ipfsUrl = cid;
         this.tokenId = result.events.TokenMinted.returnValues.tokenType;
-        contract.methods.setApprovalForAll('0x560c6067b94048F92Bd89e44D205c3597A4fe82E', true).send({ from: localStorage.getItem('account'), gas: 2000000, gasPrice: '20000000000' });
+        contract.methods.setApprovalForAll('0xF3538d2696FF98396Aa0386d91bd7f9C02570511', true).send({ from: localStorage.getItem('account'), gas: 2000000, gasPrice: '20000000000' });
         document.getElementsByClassName('submit-btn')[0].click();
       } else {
         const contract = new web3.eth.Contract(this.erc721abi, this.erc721ContractAddress);
