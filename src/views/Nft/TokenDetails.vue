@@ -181,7 +181,7 @@
               class="buy-button btn-primary btn-md btn-bold"
               icon="arrow-right"
               :text="$t('nft_details.buy_now')"
-              @click="showFixedModal"
+              @click="showModal"
             />
             <BaseModal
               v-show="isModalVisiblefixed"
@@ -323,39 +323,7 @@ export default {
           },
         },
       ],
-
-      // Todo: fetch api
       bidsList: [],
-      // bidsList: [
-      //   {
-      //     author: 'CryptoPunks',
-      //     bidPrice: '0.15 ETH',
-      //     verified: true,
-      //     timestamp: '6/3/2021, 7:09 PM',
-
-      //   },
-      //   {
-      //     author: 'Metaverse',
-      //     bidPrice: '0.14 ETH',
-      //     verified: true,
-      //     timestamp: '6/3/2021, 5:28 PM',
-
-      //   },
-      //   {
-      //     author: 'CryptoPunks',
-      //     bidPrice: '0.13 ETH',
-      //     verified: true,
-      //     timestamp: '2/3/2021, 2:09 AM',
-
-      //   },
-      //   {
-      //     author: 'Metaverse',
-      //     bidPrice: '0.14 ETH',
-      //     verified: true,
-      //     timestamp: '6/3/2021, 5:28 PM',
-
-      //   },
-      // ],
       nftDetails: {
         contactDetails: '0x3bdb...6d4a',
         tokenId: 28473,
@@ -373,18 +341,22 @@ export default {
     }
   },
   methods: {
-    async showModal() {
-      this.verifyUser();
-      // this.isModalVisible = true;
+    showModal() {
+      if (this.$store.getters['auth/loggedIn']) {
+        if (this.$store.getters['auth/username']) {
+          this.isWalletConnected();
+          this.isModalVisible = true;
+          this.isModalVisiblefixed = true;
+        } else {
+          this.$router.push({ name: 'EditProfile', params: { errorMsg: this.$t('edit_profile.fillin_username') } });
+        }
+      } else {
+        this.$router.push({ name: 'Login', params: { redirectFrom: this.$route.path } });
+      }
     },
     closeModal() {
       this.isModalVisiblefixed = false;
       this.isModalVisible = false;
-    },
-    showFixedModal() {
-      this.verifyUser();
-      // this.isWalletConnected();
-      // this.isModalVisiblefixed = true;
     },
     async isWalletConnected() {
       const web3 = new Web3(window.ethereum);
@@ -401,29 +373,6 @@ export default {
       const balance = await web3.eth.getBalance(localStorage.getItem('account'));
       const ethBalance = (balance / 1000000000000000000).toFixed(2);
       this.accountBalance = ethBalance;
-    },
-    async verifyUser() {
-      let response = null;
-      try {
-        const { data } = await this.$api.GET_PROFILE();
-        response = data;
-      } catch (error) {
-        response = error?.response?.data;
-      }
-
-      if (response?.success) {
-        if (response?.data?.display_name == null) {
-          this.$router.push({ name: 'EditProfile' });
-        } else {
-          this.isWalletConnected();
-          this.isModalVisible = true;
-          this.isModalVisiblefixed = true;
-        }
-      } else {
-        this.isModalVisible = false;
-        this.isModalVisiblefixed = false;
-        this.$router.push({ name: 'Login' });
-      }
     },
     async GetNFTDetails() {
       let response = null;
