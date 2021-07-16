@@ -115,7 +115,7 @@ export default {
       if (response.length > 0) {
         const matchKeyResponse = response.map((item) => {
           // eslint-disable-next-line no-underscore-dangle
-          const nft = item._nfts[0];
+          const nft = item._nfts;
           return {
             // eslint-disable-next-line no-underscore-dangle
             id: nft._id,
