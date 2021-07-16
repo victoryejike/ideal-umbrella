@@ -135,7 +135,7 @@ export default {
       if (response.length > 0) {
         const matchKeyResponse = response.map((item) => {
           // eslint-disable-next-line no-underscore-dangle
-          const seller = item._top_sellers[0];
+          const seller = item._top_sellers;
           return {
             avatar: seller.image || '',
             author: seller.name || seller.display_name || '',
