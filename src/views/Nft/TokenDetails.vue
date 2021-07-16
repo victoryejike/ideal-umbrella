@@ -351,6 +351,7 @@ export default {
           this.$router.push({ name: 'EditProfile', params: { errorMsg: this.$t('edit_profile.fillin_username') } });
         }
       } else {
+        console.log(this.$route.path);
         this.$router.push({ name: 'Login', params: { redirectFrom: this.$route.path } });
       }
     },
