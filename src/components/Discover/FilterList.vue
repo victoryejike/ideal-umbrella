@@ -35,7 +35,7 @@ export default {
       const { data } = await this.$api.GETCATEGORIES();
       this.categories = data.data;
     } catch (error) {
-      console.log(error?.response?.data);
+      //
     }
   },
   methods: {

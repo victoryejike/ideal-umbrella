@@ -86,16 +86,8 @@ const API_SERVICES = {
       }
 
       if (response?.success) {
-        const list = response.data;
-        // Should do it from backend
-        list.sort((a, b) => {
-          if (a.dial_code != null && b.dial_code != null) {
-            return a.dial_code.trim() > b.dial_code.trim() ? 1 : -1;
-          }
-          return -1;
-        });
-        store.commit('data/setCountryList', list);
-        return list;
+        store.commit('data/setCountryList', response.data);
+        return response.data;
       }
     }
     return store.getters['data/countryList'];
@@ -113,23 +105,6 @@ const API_SERVICES = {
   CREATEBIDS: (params) => axios.post('bids', params, false),
   BUYNFT: (params) => axios.post('nft/buy-now', params, false),
   GETBIDS: (params) => axios.get(`bids/${params}`),
-  FAKE_DATA: async (type, page) => {
-    let response = null;
-    if (type === 'avatar') {
-      response = (await axios.get('https://tinyfac.es/api/users')).data;
-    } else if (type === 'image') {
-      response = (await axios.get(`https://picsum.photos/v2/list?page=${page}&limit=25`)).data;
-    }
-    return response;
-  },
-  CHECK_TOKEN: () => {
-    // Temporarily implementation, should be a OPTIONS request
-    try {
-      axios.post('bids');
-    } catch (error) {
-      //
-    }
-  },
 };
 
 export default {

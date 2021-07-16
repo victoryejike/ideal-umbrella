@@ -648,7 +648,7 @@ label {
   }
 }
 
-@media (min-width: 993px) and (max-width: 1400px) {
+@media (min-width: 62em) and (max-width: 87.5em) {
   .tab {
     width: 100% !important;
   }
