@@ -11,7 +11,8 @@
           <div class="button-div">
             <BaseRoundButton
               class="btn-outline-secondary button btn-unclickable"
-              text="🎨 Art"
+              :img="nft.category.image"
+              :text="nft.category.category"
             />
           </div>
         </div>

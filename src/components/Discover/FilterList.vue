@@ -1,11 +1,12 @@
 <template>
   <div class="filter-container">
     <BaseRoundButton
-      v-for="(item, index) in filterBtn"
+      v-for="(item, index) in categories"
       :key="index"
       class="filter-btn btn-outline-secondary btn-lg btn-bold"
       :class="{'filter-btn-active': item.isActive}"
-      :text="item.name"
+      :img="item.image"
+      :text="item.category"
       @click="toogleFilterBtn(index)"
     />
   </div>
@@ -26,7 +27,16 @@ export default {
         { name: '💎 Collectibles', isActive: false },
       ],
       activeFilterIndex: 0,
+      categories: [],
     };
+  },
+  async mounted() {
+    try {
+      const { data } = await this.$api.GETCATEGORIES();
+      this.categories = data.data;
+    } catch (error) {
+      console.log(error?.response?.data);
+    }
   },
   methods: {
     toogleFilterBtn(index) {

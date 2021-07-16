@@ -5,6 +5,10 @@
     type="button"
     @click="timeDelay(); forwardURL(); submit ? handleSubmit() : null"
   >
+    <img
+      v-if="img"
+      :src="img"
+    >
     <span
       v-if="text"
       class="btn-text"
@@ -48,6 +52,7 @@ export default {
     submit: { type: Boolean, required: false, default: false },
     text: { type: String, required: false, default: null },
     url: { type: String, required: false, default: null },
+    img: { type: String, required: false, default: null },
   },
   data() {
     return { isActive: false };
@@ -169,4 +174,7 @@ export default {
   color: #ff3a31;
 }
 
+span {
+  margin: 5px;
+}
 </style>
