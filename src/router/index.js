@@ -11,13 +11,6 @@ const routes = [
   ...privateRoute,
 ];
 
-Object.keys(routes).forEach((key) => {
-  if (routes[key]?.meta?.nickname !== null) {
-    if (routes[key].meta == null) { routes[key].meta = {}; }
-    routes[key].meta.nickname = routes[key].name;
-  }
-});
-
 const router = createRouter({
   history: createWebHashHistory(),
   routes,
