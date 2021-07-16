@@ -6,7 +6,6 @@
     "title": "Two-factor Authentication"
   },
   "axios": {
-    "expired": "Login Session is expired, please login again",
     "unexcepted_error": "Unexcepted Error"
   },
   "collectible": {
@@ -76,7 +75,6 @@
     "edit_profile": "EDIT PROFILE",
     "email": "E-Mail",
     "email_placeholder": "Your E-mail for marketplace notifications",
-    "fillin_username": "Please fill in your name first before creating NFT",
     "need_verified_account": "Need a verified account?",
     "portfolio": "Personal site or portfolio",
     "portfolio_placeholder": "https://",
@@ -308,6 +306,11 @@
     "original_password_placehoder": "Enter current password",
     "reset": "Reset",
     "reset_password": "Reset Password"
+  },
+  "router": {
+    "expired": "Login Session is expired, please login again",
+    "fill_in_username": "Please fill in your name first before creating NFT",
+    "invalid_access": "Invalid access, token undefined"
   },
   "tab_titles": {
     "email": "EMAIL",

@@ -16,7 +16,7 @@ const privateRoute = [
     beforeEnter: (to, from, next) => (
       store.getters['auth/username']
         ? next()
-        : next({ name: 'EditProfile', params: { errorMsg: $t('edit_profile.fillin_username') } })),
+        : next({ name: 'EditProfile', params: { errorMsg: $t('router.fill_in_username') } })),
   },
   {
     path: '/wallet',
