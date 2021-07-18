@@ -1,5 +1,6 @@
 const initialState = () => ({
   countryList: [],
+  filterCategory: [],
   searchValue: null,
 });
 
@@ -9,6 +10,9 @@ const getters = {
   },
   searchValue(state) {
     return state.searchValue;
+  },
+  filterCategory(state) {
+    return state.filterCategory;
   },
 };
 
@@ -28,6 +32,9 @@ const mutations = {
   },
   setSearchValue(state, value) {
     state.searchValue = value;
+  },
+  setFilterCategory(state, value) {
+    state.filterCategory = value;
   },
 };
 

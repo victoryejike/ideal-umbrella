@@ -55,8 +55,8 @@ export default {
       cacheList: ['Discover'],
     };
   },
-  async created() {
-    await this.$api.GET_COUNTRIES();
+  created() {
+    this.$api.GET_COUNTRIES();
   },
   methods: {
     reRenderUI() {

@@ -1,7 +1,7 @@
 <template>
   <div class="filter-container">
     <BaseRoundButton
-      v-for="(item, index) in categories"
+      v-for="(item, index) in filterBtn"
       :key="index"
       class="filter-btn btn-outline-secondary btn-lg btn-bold"
       :class="{'filter-btn-active': item.isActive}"
@@ -19,24 +19,14 @@ export default {
   emits: ['selected'],
   data() {
     return {
-      filterBtn: [
-        { name: '🎨 Arts', isActive: true },
-        { name: '🎵 Music', isActive: false },
-        { name: '⚽ Sports', isActive: false },
-        { name: '📸 Photography', isActive: false },
-        { name: '💎 Collectibles', isActive: false },
-      ],
       activeFilterIndex: 0,
-      categories: [],
+      filterBtn: [],
     };
   },
-  async mounted() {
-    try {
-      const { data } = await this.$api.GETCATEGORIES();
-      this.categories = data.data;
-    } catch (error) {
-      //
-    }
+  async created() {
+    const categories = await this.$api.GET_FILTER_CATEGORIES();
+    this.filterBtn = categories.map((item) => ({ ...item, isActive: false }));
+    this.toogleFilterBtn(0);
   },
   methods: {
     toogleFilterBtn(index) {
@@ -45,7 +35,9 @@ export default {
         this.filterBtn[index].isActive = true;
         this.activeFilterIndex = index;
       }
-      this.$emit('selected', index);
+
+      // eslint-disable-next-line no-underscore-dangle
+      this.$emit('selected', { id: this.filterBtn[index]?._id, index });
     },
   },
 };

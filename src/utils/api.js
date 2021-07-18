@@ -92,6 +92,22 @@ const API_SERVICES = {
     }
     return store.getters['data/countryList'];
   },
+  GET_FILTER_CATEGORIES: async () => {
+    if (store.getters['data/filterCategory'].length === 0) {
+      let response = null;
+      try {
+        response = (await axios.get('category')).data;
+      } catch (error) {
+        response = error?.response?.data;
+      }
+
+      if (response?.success) {
+        store.commit('data/setFilterCategory', response.data);
+        return response.data;
+      }
+    }
+    return store.getters['data/filterCategory'];
+  },
   KYC: (params) => axios.post('auth/kyc/submissions', params, false),
   GET_PROFILE: (params) => axios.get('users/profile', params, false),
   UPLOADAVATAR: (params) => axios.post('users/update-profile-avatar', params, { headers: { 'Content-Type': 'multipart/form-data' } }),
@@ -101,7 +117,6 @@ const API_SERVICES = {
   GETONSALESNFT: () => axios.get('nft/on-sale'),
   GETOCREATEDNFT: () => axios.get('nft/created'),
   GETNFTDETAILS: (params) => axios.get(`nft/${params}`),
-  GETCATEGORIES: () => axios.get('category'),
   CREATEBIDS: (params) => axios.post('bids', params, false),
   BUYNFT: (params) => axios.post('nft/buy-now', params, false),
   GETBIDS: (params) => axios.get(`bids/${params}`),

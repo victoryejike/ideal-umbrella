@@ -121,9 +121,9 @@ export default {
             id: nft._id,
             name: nft.title,
             price: nft.price || nft.bid?.highest_bid || nft.minimum_bid,
-            image: `https://ipfs.io/ipfs/${nft.uri.replace('ipfs://', '')}`,
+            image: `https://ipfs.io/ipfs/${nft.uri}`,
             author: nft.creator?.display_name || '',
-            avatar: nft.creator?.image,
+            avatar: nft.creator?.image.replace('http://', 'https://') || '',
             verified: nft.creator?.is_kyc_verified,
           };
         });
@@ -137,9 +137,9 @@ export default {
           // eslint-disable-next-line no-underscore-dangle
           const seller = item._top_sellers;
           return {
-            avatar: seller.image || '',
-            author: seller.name || seller.display_name || '',
-            totalCoin: Math.random() * 800 + 100,
+            avatar: seller.image.replace('http://', 'https://') || '',
+            author: seller.display_name || '',
+            totalCoin: item.sum,
             verified: seller.is_kyc_verified,
           };
         });

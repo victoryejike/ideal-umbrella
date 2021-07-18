@@ -1381,12 +1381,7 @@ export default {
       } catch (error) {
         response = error?.response?.data;
       }
-      try {
-        const { data } = await this.$api.GETCATEGORIES();
-        this.categories = data.data;
-      } catch (error) {
-        response = error?.response?.data;
-      }
+      this.categories = await this.$api.GET_FILTER_CATEGORIES();
     },
     toggleSwitch() {
       this.selectedSwitch = !this.selectedSwitch;
