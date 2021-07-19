@@ -62,10 +62,10 @@ const API_SERVICES = {
     }
     return response;
   },
-  GET_TOP_SELLERS: async () => {
+  GET_TOP_SELLERS: async (method) => {
     let response = null;
     try {
-      response = (await axios.get('nft/top_sellers', { params: { skip: 0, limit: 8 } })).data;
+      response = (await axios.get('nft/top_sellers', { params: { skip: 0, limit: 8, time: method } })).data;
     } catch (error) {
       response = error?.response?.data;
     }

@@ -47,45 +47,21 @@
         </div>
       </template>
     </IndexSection>
-    <IndexSection :title="$t('index_screen.title.top_seller')">
-      <template #right>
-        <BaseNavigationTab
-          :list="sellerTab"
-          :mobile-max-width="38"
-          :width="9.4"
-        />
-      </template>
-      <template #content>
-        <div
-          class="seller-gridbox"
-        >
-          <AuthorBlock
-            v-for="(item, index) in topSellerList"
-            :key="index"
-            :author="item.author"
-            :avatar="item.avatar"
-            class="seller-block"
-            :coin-type="item.coinType"
-            :total-coin="item.totalCoin"
-            :verified="item.verified"
-          />
-        </div>
-      </template>
-    </IndexSection>
+    <TopSellerSection :title="$t('index_screen.title.top_seller')" />
     <DiscoverSection :title="$t('index_screen.title.discover')" />
   </div>
 </template>
 
 <script>
-import AuthorBlock from '@/components/Index/AuthorBlock.vue';
 import IndexSection from '@/components/Index/IndexSection.vue';
 import SearchBar from '@/components/Index/SearchBar.vue';
+import TopSellerSection from '@/components/Index/TopSellerSection.vue';
 import DiscoverSection from '@/components/Discover/DiscoverSection.vue';
 
 export default {
   name: 'Index',
   components: {
-    AuthorBlock, IndexSection, SearchBar, DiscoverSection,
+    IndexSection, SearchBar, DiscoverSection, TopSellerSection,
   },
   data() {
     // TODO: Fake data to real data
@@ -128,22 +104,6 @@ export default {
           };
         });
         this.popularList.push(...matchKeyResponse);
-      }
-    });
-
-    this.$api.GET_TOP_SELLERS().then((response) => {
-      if (response.length > 0) {
-        const matchKeyResponse = response.map((item) => {
-          // eslint-disable-next-line no-underscore-dangle
-          const seller = item._top_sellers;
-          return {
-            avatar: seller.image.replace('http://', 'https://') || '',
-            author: seller.display_name || '',
-            totalCoin: item.sum,
-            verified: seller.is_kyc_verified,
-          };
-        });
-        this.topSellerList.push(...matchKeyResponse);
       }
     });
   },
@@ -207,20 +167,6 @@ export default {
   margin-right: 1.25rem;
 }
 
-.seller-gridbox {
-  display: grid;
-  grid-column-gap: 4rem;
-  grid-row-gap: 3rem;
-  grid-template-columns: repeat(auto-fit, 14.625rem);
-  justify-content: space-around;
-  overflow: hidden;
-}
-
-.load-more-btn {
-  margin: auto auto;
-  margin-top: 3.5rem;
-}
-
 @media (max-width: 90em) {
   .popular-box {
     overflow-x: scroll;
@@ -252,28 +198,10 @@ export default {
   }
 }
 
-@media (max-width: 62.5em) {
-  .discover-section {
-    max-height: 67rem;
-    overflow: hidden;
-  }
-
-  .seller-gridbox {
-    grid-row-gap: 2.5rem;
-    max-height: 23.5rem;
-  }
-}
-
 @media (max-width: 40em) {
   .banner-title {
     font-size: 8.5vw;
     margin-bottom: 6.5vw;
-  }
-}
-
-@media (max-width: 37.1875em) {
-  .seller-gridbox {
-    justify-content: space-between;
   }
 }
 </style>

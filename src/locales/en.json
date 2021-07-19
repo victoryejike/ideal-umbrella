@@ -138,6 +138,11 @@
     },
     "end_of_content": "End of Content",
     "more": "More",
+    "no_content": {
+      "day": "No Top Seller Today",
+      "month": "No Top Seller in this month",
+      "week": "No Top Seller in this week"
+    },
     "seller_tab": {
       "day": "DAY",
       "month": "MONTH",
