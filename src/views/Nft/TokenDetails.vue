@@ -195,6 +195,7 @@
               <template #body>
                 <BuyModal
                   :accountbalance="accountBalance"
+                  :creatoraddress="nft.creator_address"
                   :description="nft.description"
                   :image="nft.uri"
                   :nfttype="nft.supply"

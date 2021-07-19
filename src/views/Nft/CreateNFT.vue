@@ -115,6 +115,7 @@
             rules="required"
             :text="$t('collectible.auction_start_label')"
             type="date"
+            @click="getStartDate"
           />
           <BaseUnderlinedInput
             v-if="pricingType == 'TIMED AUCTION'"
@@ -124,6 +125,7 @@
             rules="required"
             :text="$t('collectible.auction_expiration_label')"
             type="date"
+            @click="getMinEndDate"
           />
         </template>
         <BaseScrollableSelectBox
@@ -1385,6 +1387,19 @@ export default {
     },
     toggleSwitch() {
       this.selectedSwitch = !this.selectedSwitch;
+    },
+    getStartDate() {
+      const name = document.querySelector('.starting_date');
+      const min = new Date().toISOString().split('T')[0];
+      name.setAttribute('min', min);
+      console.log((min));
+    },
+    getMinEndDate() {
+      console.log('working');
+      const name = document.querySelector('.expiration_date');
+      const nextDate = new Date(Date.now() + 1 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+      name.setAttribute('min', nextDate);
+      console.log((nextDate));
     },
     getServiceFee() {
       const amount = document.querySelector('.price').value;

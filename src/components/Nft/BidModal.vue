@@ -127,8 +127,6 @@ export default {
       + parseFloat(discountAmount)).toFixed(4);
     },
     async onSubmit(formData) {
-      // if (this.finalBidValue > this.accountbalance) {
-      // }
       this.isLoading = true;
       let response = null;
       try {
