@@ -1,19 +1,15 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
 import store from '@/store';
+import i18n from '@/utils/i18n';
 import publicRoute from './public.route';
 import privateRoute from './private.route';
+
+const $t = i18n.global.t;
 
 const routes = [
   ...publicRoute,
   ...privateRoute,
 ];
-
-Object.keys(routes).forEach((key) => {
-  if (routes[key]?.meta?.nickname !== null) {
-    if (routes[key].meta == null) { routes[key].meta = {}; }
-    routes[key].meta.nickname = routes[key].name;
-  }
-});
 
 const router = createRouter({
   history: createWebHashHistory(),
@@ -50,17 +46,17 @@ router.beforeEach((to, from, next) => {
 
 router.beforeEach(async (to, from, next) => {
   const requiresAuth = to.matched.some((route) => route.meta.requiresAuth);
-
-  // Async check the token is expired or not, if yes Axios interceptors will handle redirection
   if (requiresAuth) {
-    if (store.getters['auth/loggedIn']) {
-      store.commit('data/setPreviousPath', to.path);
-      router.$api.CHECK_TOKEN();
-    } else {
-      router.push({ name: 'Login', params: { redirectFrom: to.path } });
+    if (!store.getters['auth/isLoggedIn']) {
+      return router.push({ name: 'Login', params: { redirectFrom: to.path } });
+    }
+
+    if (store.getters['auth/isExpired']) {
+      store.dispatch('auth/logout');
+      return router.push({ name: 'Login', params: { redirectFrom: to.path, errorMsg: $t('router.expired') } });
     }
   }
-  next();
+  return next();
 });
 
 export default router;

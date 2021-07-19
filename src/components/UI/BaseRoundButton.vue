@@ -8,6 +8,7 @@
     <img
       v-if="img"
       :src="img"
+      style="margin-right: 0.3rem;"
     >
     <span
       v-if="text"
@@ -172,9 +173,5 @@ export default {
   border: 0.1rem solid #ff3a31;
   border-radius: 0.5rem;
   color: #ff3a31;
-}
-
-span {
-  margin: 5px;
 }
 </style>

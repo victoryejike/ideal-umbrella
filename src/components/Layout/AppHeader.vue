@@ -8,7 +8,7 @@
         width="102"
       >
     </router-link>
-    <template v-if="$store.getters['auth/loggedIn']">
+    <template v-if="$store.getters['auth/isLoggedIn']">
       <div class="menu">
         <router-link
           v-for="(item, index) in privateLinks"

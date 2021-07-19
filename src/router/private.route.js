@@ -16,7 +16,7 @@ const privateRoute = [
     beforeEnter: (to, from, next) => (
       store.getters['auth/username']
         ? next()
-        : next({ name: 'EditProfile', params: { errorMsg: $t('edit_profile.fillin_username') } })),
+        : next({ name: 'EditProfile', params: { errorMsg: $t('router.fill_in_username') } })),
   },
   {
     path: '/wallet',
@@ -44,7 +44,6 @@ const privateRoute = [
           header: () => import('@view/Account/EditProfile/EditProfileHeader.vue'),
           content: () => import('@view/Account/EditProfile/EditProfileContent.vue'),
         },
-        meta: { nickname: 'AccountTab' },
       },
       {
         path: 'setting',
@@ -53,7 +52,6 @@ const privateRoute = [
           header: () => import('@view/Account/Index/IndexHeader.vue'),
           content: () => import('@view/Account/Index/IndexContent.vue'),
         },
-        meta: { nickname: 'AccountTab' },
       },
     ],
   },

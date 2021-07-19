@@ -10,37 +10,51 @@ const safelyParseJSON = (jsonStr) => {
   return result;
 };
 
+const parseJwt = (token) => {
+  if (token != null) {
+    const base64Url = token.split('.')[1];
+    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    const jsonPayload = decodeURIComponent(atob(base64).split('').map((c) => `%${(`00${c.charCodeAt(0).toString(16)}`).slice(-2)}`).join(''));
+
+    return safelyParseJSON(jsonPayload);
+  }
+  return null;
+};
+
 const initialState = () => ({
   user: safelyParseJSON(localStorage.getItem('userData')),
 });
 
 const getters = {
   user(state) {
-    return state.user;
+    return state?.user;
   },
-  loggedIn(state) {
-    return !!state.user;
+  isLoggedIn(state) {
+    return !!state?.user;
+  },
+  isExpired(state) {
+    return (parseJwt(state?.user?.token)?.exp || 0) <= Math.round(new Date() / 1000);
   },
   uid(state) {
-    return state.user?.uid;
+    return state?.user?.uid;
   },
   username(state) {
-    return state.user?.display_name;
+    return state?.user?.display_name;
   },
   avatar(state) {
-    return state.user?.image;
+    return state?.user?.image;
   },
   about(state) {
-    return state.user?.about;
+    return state?.user?.about;
   },
   portfolio(state) {
-    return state.user?.portfolio_link;
+    return state?.user?.portfolio_link;
   },
-  verified(state) {
-    return state.user?.is_kyc_verified || false;
+  isVerified(state) {
+    return state?.user?.is_kyc_verified || false;
   },
   apiToken(state) {
-    return state.user?.token;
+    return state?.user?.token;
   },
 };
 

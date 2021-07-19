@@ -15,7 +15,7 @@
         :key="key"
       />
       <div id="content">
-        <router-view v-slot="{ Component, route }">
+        <router-view v-slot="{ Component }">
           <Transition
             mode="out-in"
             name="fade"
@@ -23,7 +23,7 @@
             <KeepAlive :include="cacheList">
               <Component
                 :is="Component"
-                :key="`${route.meta.nickname}_${key}`"
+                :key="key"
               />
             </KeepAlive>
           </Transition>
@@ -55,8 +55,8 @@ export default {
       cacheList: ['Discover'],
     };
   },
-  async created() {
-    await this.$api.GET_COUNTRIES();
+  created() {
+    this.$api.GET_COUNTRIES();
   },
   methods: {
     reRenderUI() {

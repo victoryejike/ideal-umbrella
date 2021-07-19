@@ -1355,14 +1355,10 @@ export default {
     const web3 = new Web3(window.ethereum);
 
     if ((window.ethereum)) {
-      console.log('true');
       web3.eth.getAccounts((err, accounts) => {
         if (err !== null) console.error(`An error occurred: ${err}`);
         else if (accounts.length === 0 || localStorage.getItem('account') == null) {
-          console.log('User is not logged in to MetaMask');
           this.$router.push({ name: 'ConnectWallet' });
-        } else {
-          console.log('User is logged in to MetaMask');
         }
       });
     }
@@ -1382,16 +1378,10 @@ export default {
           response = data;
         }
         this.collectible_class = response.data;
-        console.log(this.collectible_class);
       } catch (error) {
         response = error?.response?.data;
       }
-      try {
-        const { data } = await this.$api.GETCATEGORIES();
-        this.categories = data.data;
-      } catch (error) {
-        response = error?.response?.data;
-      }
+      this.categories = await this.$api.GET_FILTER_CATEGORIES();
     },
     toggleSwitch() {
       this.selectedSwitch = !this.selectedSwitch;
@@ -1406,7 +1396,6 @@ export default {
       const navTab = document.querySelectorAll('.navs');
       navTab.forEach((nav) => {
         if (nav.classList.contains('active')) {
-          console.log(nav);
           const activeTabNavValue = nav.innerText;
           this.pricingType = activeTabNavValue;
           if (this.pricingType === 'Fixed') {
@@ -1415,7 +1404,6 @@ export default {
             this.pricing_type = 'timed_auction';
           } else if (this.pricingType === 'UNLIMITED AUCTION') {
             this.pricing_type = 'unlimited_auction';
-            console.log(this.pricingType);
           }
           // sessionStorage.setItem('pricing', this.pricingType);
         }
@@ -1425,9 +1413,7 @@ export default {
     // // const ethereum = walletLink.makeWeb3Provider(ETH_JSONRPC_URL, CHAIN_ID);
     //   const metamask = window.ethereum;
     //   // const isMetamask = window.Web3.currentProvider;
-    //   // console.log(isMetamask);
     //   const web3 = new Web3(metamask);
-    //   console.log(web3);
     //   const dataToSign = JSON.stringify({
     //     types: {
     //       EIP712Domain: [
@@ -1519,7 +1505,6 @@ export default {
     //       const s = `0x${signature}.substring(64, 128)`;
     //       const v = parseInt(signature.substring(128, 130), 16);
     //       // The signature is now comprised of r, s, and v.
-    //       console.log({ r, s, v });
     //       localStorage.setItem('r', r);
     //       localStorage.setItem('s', s);
     //       localStorage.setItem('v', v);
@@ -1549,8 +1534,7 @@ export default {
         const doc = JSON.stringify({ metadata });
         cid = await ipfs.add(doc);
         this.ipfsUrl = `https://${cid}.ipfs.dweb.link`;
-        console.log('IPFS cid:', `https://${cid}.ipfs.dweb.link`);
-        console.log(await ipfs.cat(cid));
+        await ipfs.cat(cid);
         this.minting(qty, cid);
       } else {
         this.isLoading = true;
@@ -1561,15 +1545,13 @@ export default {
         };
         const doc = JSON.stringify({ metadata });
         cid = await ipfs.add(doc);
-        console.log('IPFS cid:', `https://${cid}.ipfs.dweb.link`);
-        console.log(await ipfs.cat(cid));
+        await ipfs.cat(cid);
         this.minting(null, cid);
       }
     },
     async minting(qty, cid) {
       let provider;
       const obj = JSON.parse(localStorage.getItem('walletconnect'));
-      // console.log(obj.accounts[0]);
       if (obj === (localStorage.getItem('account'))) {
         provider = new WalletConnectProvider({
           infuraId: '58bf1103531f4b858b31eb3c5c4ddd2f',
@@ -1582,7 +1564,6 @@ export default {
       const web3 = new Web3(provider);
       if (this.standard === 'erc1155') {
         // return this.$t('collectible.title_single');
-        console.log('works for only erc1155');
         const contract = new web3.eth.Contract(this.erc1155abi, this.erc1155ContractAddress);
         const result = await contract.methods
           .mint(qty)
@@ -1598,9 +1579,7 @@ export default {
             .mint(`https://${cid}.ipfs.dweb.link`)
             .send({ from: localStorage.getItem('account'), gas: 2900000, gasPrice: '29000000000' });
           this.ipfsUrl = cid;
-          console.log(result);
           this.tokenId = result.events.Transfer.returnValues.tokenId;
-          console.log(this.tokenId);
           const price = document.querySelector('.price').value;
           contract.methods.setApprovalForAll('0x560c6067b94048F92Bd89e44D205c3597A4fe82E', true).send({ from: localStorage.getItem('account'), gas: 3000000, gasPrice: '30000000000' });
           contract.methods.createSellOrder(this.tokenId, web3.utils.toWei(price, 'ether')).send({ from: localStorage.getItem('account'), gas: 3500000, gasPrice: '35000000000' });
@@ -1612,14 +1591,11 @@ export default {
           const startDate = new Date(auctionStartdate);
           const endDate = new Date(auctionExpirationdate);
           const timeDuration = (endDate.getTime() - startDate.getTime()) / 1000;
-          console.log('works for only timed_auction');
           const result = await contract.methods
             .mint(`https://${cid}.ipfs.dweb.link`)
             .send({ from: localStorage.getItem('account'), gas: 2900000, gasPrice: '29000000000' });
           this.ipfsUrl = cid;
-          console.log(result);
           this.tokenId = result.events.Transfer.returnValues.tokenId;
-          console.log(this.tokenId);
           contract.methods.setApprovalForAll('0x560c6067b94048F92Bd89e44D205c3597A4fe82E', true).send({ from: localStorage.getItem('account'), gas: 3000000, gasPrice: '30000000000' });
           contract.methods.CreateAuction(this.tokenId, (1), timeDuration, web3.utils.toWei(startPrice, 'ether')).send({ from: localStorage.getItem('account'), gas: 3500000, gasPrice: '35000000000' });
         }
@@ -1627,15 +1603,14 @@ export default {
       }
     },
     async onSubmit(CollectibleNftData) {
-      let response = null;
+      // let response = null;
       try {
-        const { data } = this.$api.CREATENFT(CollectibleNftData);
-        response = data;
-        console.log(response);
+        // const { data } = this.$api.CREATENFT(CollectibleNftData);
+        // response = data;
+        this.$api.CREATENFT(CollectibleNftData);
         this.$router.push({ name: 'Profile' });
       } catch (error) {
-        response = error.response.data;
-        console.log(error);
+        // response = error.response.data;
         this.isLoading = false;
         this.isModalVisible = false;
       }

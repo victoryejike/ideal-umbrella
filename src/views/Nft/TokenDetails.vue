@@ -343,17 +343,23 @@ export default {
   },
   methods: {
     showModal() {
-      if (this.$store.getters['auth/loggedIn']) {
-        if (this.$store.getters['auth/username']) {
-          this.isWalletConnected();
-          this.isModalVisible = true;
-          this.isModalVisiblefixed = true;
-        } else {
-          this.$router.push({ name: 'EditProfile', params: { errorMsg: this.$t('edit_profile.fillin_username') } });
-        }
-      } else {
-        console.log(this.$route.path);
+      if (!this.$store.getters['auth/isLoggedIn']) {
         this.$router.push({ name: 'Login', params: { redirectFrom: this.$route.path } });
+      } else if (this.$store.getters['auth/isExpired']) {
+        this.$store.dispatch('auth/logout');
+        this.$router.push({
+          name: 'Login',
+          params: {
+            redirectFrom: this.$route.path,
+            errorMsg: this.$t('router.expired'),
+          },
+        });
+      } else if (this.$store.getters['auth/username'] == null) {
+        this.$router.push({ name: 'EditProfile', params: { errorMsg: this.$t('router.fill_in_username') } });
+      } else {
+        this.isWalletConnected();
+        this.isModalVisible = true;
+        this.isModalVisiblefixed = true;
       }
     },
     closeModal() {
@@ -642,7 +648,7 @@ label {
   }
 }
 
-@media (min-width: 993px) and (max-width: 1400px) {
+@media (min-width: 62em) and (max-width: 87.5em) {
   .tab {
     width: 100% !important;
   }

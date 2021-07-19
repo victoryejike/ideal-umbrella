@@ -15,7 +15,7 @@
         :mininum="item.minimum_bid"
         :name="item.title"
         :price="item.price"
-        :verified="$store.getters['auth/verified']"
+        :verified="$store.getters['auth/isVerified']"
       />
     </div>
     <!-- <BaseRoundButton

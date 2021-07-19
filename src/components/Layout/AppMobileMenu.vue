@@ -115,7 +115,7 @@ export default {
       }];
     },
     menuItemList() {
-      return this.$store.getters['auth/loggedIn'] ? this.loggedInList : this.unLoginList;
+      return this.$store.getters['auth/isLoggedIn'] ? this.loggedInList : this.unLoginList;
     },
   },
   methods: {

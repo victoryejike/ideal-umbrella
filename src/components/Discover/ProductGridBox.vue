@@ -9,7 +9,7 @@
       @selected="handleSelected"
     />
     <div
-      v-if="isReady"
+      v-if="isPageReady"
       class="gridbox"
     >
       <BaseProductCard
@@ -28,7 +28,7 @@
       />
     </div>
     <div
-      v-if="isPageLoading"
+      v-if="isLoading"
       class="page-loading"
     >
       <img
@@ -38,7 +38,7 @@
       >
     </div>
     <BaseRoundButton
-      v-if="!isAutoLoad && !isEndOfContent && !isPageLoading"
+      v-if="!isAutoLoad && !isEndOfContent && !isLoading"
       class="load-more-btn btn-outline-primary btn-xl"
       :text="$t('index_screen.more')"
       @click="handleClick"
@@ -67,10 +67,10 @@ export default {
   },
   data() {
     return {
-      isPageLoading: true,
+      isLoading: true,
+      isPageReady: true,
       isAutoLoad: false,
       isEndOfContent: false,
-      isReady: true,
       activeFilterIndex: 0,
       cardCSS: { bgColor: null },
       list: {
@@ -85,7 +85,7 @@ export default {
     activeList() { return this.list[this.sortMethod][this.activeFilterIndex]; },
   },
   watch: {
-    sortMethod() { this.handleSelected(this.activeFilterIndex); },
+    sortMethod() { this.handleSelected({ index: this.activeFilterIndex }); },
     searchValue(value) {
       if (value) {
         this.list[this.sortMethod][SEARCH_INDEX] = [];
@@ -108,9 +108,8 @@ export default {
     this.$global.handleResponsive(62.5,
       () => { this.cardCSS.size = 190; },
       () => { this.cardCSS.size = 140; });
-    if (this.activeList.length === 0) {
-      this.loadMore();
-    }
+
+    // FilterList will trigger handleSelected after getting the category list
   },
   methods: {
     async handleClick() {
@@ -125,19 +124,19 @@ export default {
       }
     },
     async loadMore() {
-      this.isPageLoading = true;
+      this.isLoading = true;
 
       const params = {
         skip: this.activeList.length,
         limit: this.number,
-        recently_added: this.sortMethod === 'latest',
-        cheapest: this.sortMethod === 'cheapest',
-        highest_price: this.sortMethod === 'highest',
       };
 
-      if (this.searchValue) {
-        params.search_word = this.searchValue;
-      }
+      // Should be Optimized
+      if (this.sortMethod === 'latest') { params.recently_added = true; }
+      if (this.sortMethod === 'cheapest') { params.cheapest_price = true; }
+      if (this.sortMethod === 'highest') { params.highest_price = true; }
+      if (this.categoryID != null) { params.category = this.categoryID; }
+      if (this.searchValue) { params.search_word = this.searchValue; }
 
       const response = await this.$api.GET_NFT_LIST(params);
       if (response.length > 0) {
@@ -145,21 +144,26 @@ export default {
           // eslint-disable-next-line no-underscore-dangle
           id: item._id,
           name: item.title || '',
-          price: item.price || item.bid?.highest_bid || item.minimum_bid,
-          image: `https://ipfs.io/ipfs/${item.uri.replace('ipfs://', '')}`,
-          author: item.creator?.name || item.creator?.display_name || '',
-          avatar: item.creator?.image || '',
+          // eslint-disable-next-line no-underscore-dangle
+          price: item._absolute_price,
+          image: `https://ipfs.io/ipfs/${item.uri}`,
+          author: item.creator?.display_name || '',
+          avatar: item.creator?.image.replace('http://', 'https://') || '',
           verified: item.creator?.is_kyc_verified,
         }));
         this.activeList.push(...matchKeyResponse);
       }
 
-      this.isPageLoading = false;
+      this.isLoading = false;
       this.isEndOfContent = (response.length < this.number);
     },
-    async handleSelected(index) {
-      this.activeFilterIndex = index;
-      if (index < SEARCH_INDEX) { this.$store.commit('data/setSearchValue', null); }
+    async handleSelected(data) {
+      this.activeFilterIndex = data.index;
+      if (data.id) { this.categoryID = data.id; }
+
+      if (data.index < SEARCH_INDEX && this.$store.getters['data/setSearchValue'] != null) {
+        this.$store.commit('data/setSearchValue', null);
+      }
 
       /**
        * When new filter option selected, auto load will disable, user have to click 'More'
@@ -168,17 +172,17 @@ export default {
       this.isAutoLoad = false;
       window.removeEventListener('scroll', this.autoLoad);
 
-      this.isReady = false;
+      this.isPageReady = false;
       if (this.activeList.length === 0) {
         await this.loadMore();
       } else {
         await setTimeout(() => { this.isEndOfContent = false; }, 400);
       }
-      this.isReady = true;
+      this.isPageReady = true;
     },
     async autoLoad() {
-      // Check isPageLoading is to prevent trigger loadMore multiple times in a short time
-      if (!this.isPageLoading && this.$refs['gridbox-root'].getBoundingClientRect().bottom < window.innerHeight) {
+      // Check isLoading is to prevent trigger loadMore multiple times in a short time
+      if (!this.isLoading && this.$refs['gridbox-root'].getBoundingClientRect().bottom < window.innerHeight) {
         await this.loadMore();
         if (this.isEndOfContent) {
           this.isAutoLoad = false;
