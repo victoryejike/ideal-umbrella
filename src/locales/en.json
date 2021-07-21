@@ -45,7 +45,8 @@
     "country_code": "Country Code",
     "search": "Search",
     "search_placeholder": "Search by creator, collectible or collection",
-    "select_placeholder": "Select Item"
+    "select_placeholder": "Select Item",
+    "times_up": "Time's up"
   },
   "connect_wallet": {
     "description": "Connect with one of available wallet providers or create a new wallet.",

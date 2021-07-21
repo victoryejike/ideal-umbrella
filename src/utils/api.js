@@ -62,6 +62,45 @@ const API_SERVICES = {
     }
     return response;
   },
+  GET_OWNED_NFT: async () => {
+    let response = null;
+    try {
+      response = (await axios.get(`nft/owned/${localStorage.getItem('account')}`)).data;
+    } catch (error) {
+      response = error?.response?.data;
+    }
+
+    if (response?.success) {
+      return response?.data;
+    }
+    return response;
+  },
+  GET_ONSALES_NFT: async () => {
+    let response = null;
+    try {
+      response = (await axios.get('nft/on-sale')).data;
+    } catch (error) {
+      response = error?.response?.data;
+    }
+
+    if (response?.success) {
+      return response?.data;
+    }
+    return response;
+  },
+  GET_CREATED_NFT: async () => {
+    let response = null;
+    try {
+      response = (await axios.get('nft/created')).data;
+    } catch (error) {
+      response = error?.response?.data;
+    }
+
+    if (response?.success) {
+      return response?.data;
+    }
+    return response;
+  },
   GET_TOP_SELLERS: async (method) => {
     let response = null;
     try {
@@ -114,9 +153,6 @@ const API_SERVICES = {
   UPLOADAVATAR: (params) => axios.post('users/update-profile-avatar', params, { headers: { 'Content-Type': 'multipart/form-data' } }),
   UPDATEPROFILE: (params) => axios.post('users/update-profile', params, false),
   GETCOLLECTIBLE: (params, type) => axios.get(`collectible/user/${params}?single=${type}`),
-  GETOWNEDNFT: (params) => axios.get(`nft/owned/${params}`),
-  GETONSALESNFT: () => axios.get('nft/on-sale'),
-  GETOCREATEDNFT: () => axios.get('nft/created'),
   GETNFTDETAILS: (params) => axios.get(`nft/${params}`),
   CREATEBIDS: (params) => axios.post('bids', params, false),
   BUYNFT: (params) => axios.post('nft/buy-now', params, false),

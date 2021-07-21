@@ -51,7 +51,7 @@
           :width="size"
         >
         <div
-          v-if="timeEnd != null"
+          v-if="period != null"
           class="timed-auction-badge"
         >
           {{ timeLeft }}
@@ -130,7 +130,7 @@ export default {
     price: { type: Number, required: true },
     coinType: { type: Number, required: false, default: 0 },
     verified: { type: Boolean, required: false, default: false },
-    timeEnd: { type: Number, required: false, default: null },
+    period: { type: Object, required: false, default: null },
   },
   data() {
     return {
@@ -146,17 +146,18 @@ export default {
 
   },
   mounted() {
-    if (this.timeEnd != null) {
-      let hf = this.secondsToHumanFormat(this.timeEnd - Math.floor(Date.now() / 1000));
-      if (this.isTimesUp(hf)) { this.timeLeft = 'Times Up'; return; }
+    if (this.period != null) {
+      const now = Math.floor(Date.now() / 1000);
+      const timeEnd = Date.parse(this.period.end) / 1000;
+      let hf = this.secondsToHumanFormat(timeEnd - now);
+      if (this.isTimesUp(hf)) { this.timeLeft = this.$t('components.times_up'); return; }
 
       this.timeLeft = this.getTimeLeftString(hf);
-      console.log(hf);
       setTimeout(() => {
         const timer = setInterval(() => {
-          hf = this.secondsToHumanFormat(this.timeEnd - Math.floor(Date.now() / 1000));
+          hf = this.secondsToHumanFormat(timeEnd - now);
           if (this.isTimesUp(hf)) {
-            this.timeLeft = 'Times Up';
+            this.timeLeft = this.$t('components.times_up');
             clearInterval(timer);
           } else {
             this.timeLeft = this.getTimeLeftString(hf);

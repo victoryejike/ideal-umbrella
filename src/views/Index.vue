@@ -38,7 +38,6 @@
             :author="item.author"
             :avatar="item.avatar"
             class="popular-product-card"
-            :coin-type="item.coinType"
             :css="popularCardCSS"
             :image="item.image"
             :name="item.name"
@@ -92,26 +91,10 @@ export default {
         this.popularCardCSS.size = 180;
       });
 
-    this.$api.GET_POPULAR_NFT().then((response) => {
-      if (response.length > 0) {
-        const matchKeyResponse = response.map((item) => {
-          // eslint-disable-next-line no-underscore-dangle
-          const nft = item._nfts;
-          return {
-            // eslint-disable-next-line no-underscore-dangle
-            id: nft._id,
-            name: nft.title,
-            price: nft.price || nft.bid?.highest_bid || nft.minimum_bid,
-            image: `https://ipfs.io/ipfs/${nft.uri}`,
-            author: nft.creator?.display_name || '',
-            avatar: nft.creator?.image.replace('http://', 'https://') || '',
-            verified: nft.creator?.is_kyc_verified,
-          };
-        });
-        this.popularList.push(...matchKeyResponse);
-        this.isLoading = false;
-      }
-    });
+    const response = await this.$api.GET_POPULAR_NFT();
+    const matchKeyResponse = this.$global.translateNFTDetails(response);
+    this.popularList.push(...matchKeyResponse);
+    this.isLoading = false;
   },
   methods: {
     handleSearch(value) {

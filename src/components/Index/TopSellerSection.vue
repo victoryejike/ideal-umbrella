@@ -21,7 +21,6 @@
           :author="item.author"
           :avatar="item.avatar"
           class="seller-block"
-          :coin-type="item.coinType"
           :total-coin="item.totalCoin"
           :verified="item.verified"
         />

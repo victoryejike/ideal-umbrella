@@ -268,7 +268,7 @@ export default {
       isModalVisiblefixed: false,
       showBids: true,
       showDetails: false,
-      nobid: false,
+      nobid: true,
       showHistory: false,
       isModalVisible: false,
       username: JSON.parse(localStorage.getItem('userData')),

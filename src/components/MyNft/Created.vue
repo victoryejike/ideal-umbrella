@@ -5,16 +5,17 @@
     >
       <BaseProductCard
         v-for="(item, index) in nft"
-        :id="item._id"
+        :id="item.id"
         :key="index"
-        :author="item.creator?.display_name || ''"
-        :avatar="item.creator?.image || ''"
+        :author="item.author"
+        :avatar="item.avatar"
         class="gridbox-product-card"
         :css="cardCSS"
-        :image="`https://ipfs.io/ipfs/${item.uri}`"
-        :name="item.title"
+        :image="item.image"
+        :name="item.name"
+        :period="item.period"
         :price="item.price"
-        :verified="item.creator?.is_kyc_verified"
+        :verified="item.verified"
       />
     </div>
     <!-- <BaseRoundButton
@@ -22,7 +23,7 @@
       :text="$t('index_screen.more')"
     /> -->
     <NoNFT
-      v-show="nonft"
+      v-if="nft?.length === 0"
     />
   </div>
 </template>
@@ -37,7 +38,6 @@ export default {
   },
   data() {
     return {
-      nonft: false,
       cardCSS: { bgColor: null },
       nft: [],
     };
@@ -46,18 +46,9 @@ export default {
     this.$global.handleResponsive(62.5,
       () => { this.cardCSS.size = 190; },
       () => { this.cardCSS.size = 140; });
-    let response = null;
-    try {
-      const { data } = await this.$api.GETOCREATEDNFT();
-      response = data;
-      if (response.data.length === 0) {
-        this.nonft = true;
-      } else {
-        this.nft = response.data;
-      }
-    } catch (error) {
-      response = error?.response?.data;
-    }
+
+    const response = await this.$api.GET_CREATED_NFT();
+    this.nft = this.$global.translateNFTDetails(response);
   },
 };
 </script>

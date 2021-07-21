@@ -20,10 +20,10 @@
         :author="item.author"
         :avatar="item.avatar"
         class="gridbox-product-card"
-        :coin-type="item.coinType"
         :css="cardCSS"
         :image="item.image"
         :name="item.name"
+        :period="item.period"
         :price="item.price"
         :verified="item.verified"
       />
@@ -130,6 +130,7 @@ export default {
       const params = {
         skip: this.activeList.length,
         limit: this.number,
+        // sortMethod: this.sortMethod
       };
 
       // Should be Optimized
@@ -140,23 +141,11 @@ export default {
       if (this.searchValue) { params.search_word = this.searchValue; }
 
       const response = await this.$api.GET_NFT_LIST(params);
-      if (response.length > 0) {
-        const matchKeyResponse = response.map((item) => ({
-          // eslint-disable-next-line no-underscore-dangle
-          id: item._id,
-          name: item.title || '',
-          // eslint-disable-next-line no-underscore-dangle
-          price: item._absolute_price,
-          image: `https://ipfs.io/ipfs/${item.uri}`,
-          author: item.creator?.display_name || '',
-          avatar: item.creator?.image.replace('http://', 'https://') || '',
-          verified: item.creator?.is_kyc_verified,
-        }));
-        this.activeList.push(...matchKeyResponse);
-      }
-
+      const matchKeyResponse = this.$global.translateNFTDetails(response);
+      console.log(matchKeyResponse);
+      this.activeList.push(...matchKeyResponse);
       this.isLoading = false;
-      this.isEndOfContent = (response.length < this.number);
+      this.isEndOfContent = (matchKeyResponse.length < this.number);
     },
     async handleSelected(data) {
       this.activeFilterIndex = data.index;

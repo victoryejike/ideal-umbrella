@@ -6,9 +6,9 @@
         :list="profileOption"
         :width="10.6"
       />
-      <Owned v-show="visibleOnwed" />
-      <OnSale v-show="visibleSale" />
-      <Created v-show="visibleCreated" />
+      <Owned v-show="tabStatus[0]" />
+      <OnSale v-show="tabStatus[1]" />
+      <Created v-show="tabStatus[2]" />
     </div>
   </div>
 </template>
@@ -25,36 +25,29 @@ export default {
   },
   data() {
     return {
-      visibleOnwed: true,
-      visibleSale: false,
-      visibleCreated: false,
+      tabStatus: [true, false, false],
       profileOption: [
         {
           name: this.$t('profile.owned'),
-          handler: () => {
-            this.visibleOnwed = true;
-            this.visibleSale = false;
-            this.visibleCreated = false;
-          },
+          handler: () => { this.toggleTab(0); },
         },
         {
           name: this.$t('profile.onsale'),
-          handler: () => {
-            this.visibleSale = true;
-            this.visibleCreated = false;
-            this.visibleOnwed = false;
-          },
+          handler: () => { this.toggleTab(1); },
         },
         {
           name: this.$t('profile.created'),
-          handler: () => {
-            this.visibleSale = false;
-            this.visibleCreated = true;
-            this.visibleOnwed = false;
-          },
+          handler: () => { this.toggleTab(2); },
         },
       ],
     };
+  },
+  methods: {
+    toggleTab(index) {
+      for (let i = 0; i < this.tabStatus.length; i += 1) {
+        this.tabStatus[i] = i === index;
+      }
+    },
   },
 };
 
