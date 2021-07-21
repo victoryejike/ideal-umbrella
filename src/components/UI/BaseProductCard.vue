@@ -50,6 +50,12 @@
           :style="{opacity: (isLoading) ? 1 : 0}"
           :width="size"
         >
+        <div
+          v-if="timeEnd != null"
+          class="timed-auction-badge"
+        >
+          {{ timeLeft }}
+        </div>
       </div>
       <div
         class="description"
@@ -90,12 +96,6 @@
             <!-- Correct to 2 decimal places -->
             {{ Math.round(price * 1e3) / 1e3 }}
           </span>
-          <span
-            v-else-if="mininum"
-            class="price"
-          >
-            {{ Math.round(mininum * 1e3) / 1e3 }}
-          </span>
         </div>
       </div>
     </div>
@@ -129,12 +129,13 @@ export default {
     name: { type: String, required: true },
     price: { type: Number, required: true },
     coinType: { type: Number, required: false, default: 0 },
-    mininum: { type: Number, required: false, default: null },
     verified: { type: Boolean, required: false, default: false },
+    timeEnd: { type: Number, required: false, default: null },
   },
   data() {
     return {
       isLoading: true,
+      timeLeft: null,
     };
   },
   computed: {
@@ -142,6 +143,27 @@ export default {
     padding() { return this.css?.padding; },
     avatarImage() { return this.avatar || DefaultAvatar; },
     size() { return this.css?.size || 220; },
+
+  },
+  mounted() {
+    if (this.timeEnd != null) {
+      let hf = this.secondsToHumanFormat(this.timeEnd - Math.floor(Date.now() / 1000));
+      if (this.isTimesUp(hf)) { this.timeLeft = 'Times Up'; return; }
+
+      this.timeLeft = this.getTimeLeftString(hf);
+      console.log(hf);
+      setTimeout(() => {
+        const timer = setInterval(() => {
+          hf = this.secondsToHumanFormat(this.timeEnd - Math.floor(Date.now() / 1000));
+          if (this.isTimesUp(hf)) {
+            this.timeLeft = 'Times Up';
+            clearInterval(timer);
+          } else {
+            this.timeLeft = this.getTimeLeftString(hf);
+          }
+        }, 60);
+      }, hf.second);
+    }
   },
   methods: {
     handleImageError(event) {
@@ -153,6 +175,29 @@ export default {
     },
     onImgLoaded() {
       this.isLoading = false;
+    },
+    secondsToHumanFormat(seconds) {
+      let totaldays = Math.floor(seconds / 86400);
+      if (totaldays < 0) { totaldays = 0; }
+      let totalhours = Math.floor((seconds - totaldays * 86400) / 3600);
+      if (totalhours < 0) { totalhours = 0; }
+      let totalminutes = Math.floor((seconds - totaldays * 86400 - totalhours * 3600) / 60);
+      if (totalminutes < 0) { totalminutes = 0; }
+      let totalseconds = seconds - totaldays * 86400 - totalhours * 3600 - totalminutes * 60;
+      if (totalseconds < 0) { totalseconds = 0; }
+
+      return {
+        day: totaldays,
+        hour: totalhours,
+        minute: totalminutes,
+        second: totalseconds,
+      };
+    },
+    getTimeLeftString(hf) {
+      return `${hf?.day}d ${hf?.hour}h ${hf?.minute}m left`;
+    },
+    isTimesUp(hf) {
+      return hf.day <= 0 && hf.hour <= 0 && hf.minute <= 0 && hf.second <= 0;
     },
   },
 };
@@ -231,5 +276,20 @@ export default {
 .price {
   color: #6374c3;
   margin-left: 0.375rem;
+}
+
+.timed-auction-badge {
+  background: #5d6ec2;
+  border: 0.1rem solid #fff;
+  border-radius: 1rem;
+  bottom: 0;
+  color: #fff;
+  font-size: 0.75rem;
+  margin-bottom: 0.5rem;
+  margin-left: 0.5rem;
+  padding: 0.4rem 0.6rem;
+  position: absolute;
+  text-align: center;
+  z-index: 1;
 }
 </style>
