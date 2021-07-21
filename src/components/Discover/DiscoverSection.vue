@@ -7,6 +7,7 @@
       <BaseNavigationTab
         :list="discoverTab"
         :mobile-max-width="38"
+        :style="{'pointer-events':($refs['grid-box']?.isLoading) ? 'none': 'auto'}"
         :width="10"
       />
     </template>

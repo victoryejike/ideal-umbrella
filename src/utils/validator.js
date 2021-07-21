@@ -40,12 +40,6 @@ defineRule('password', (val) => {
   return re.test(String(val)) || $t('validator.password_msg');
 });
 
-defineRule('otp', async (val) => {
-  if (/^[0-9]{6}$/.test(String(val))) {
-    // call API to verify...
-    return true;
-  }
-  return $t('validator.otp_msg');
-});
+defineRule('otp', async (val) => /^[0-9]{6}$/.test(String(val)) || $t('validator.otp_msg'));
 
 defineRule('agree', (val) => (val || $t('validator.agree_terms_msg')));

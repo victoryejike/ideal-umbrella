@@ -6,6 +6,7 @@
     <FilterList
       v-if="hasFilter"
       ref="filterList"
+      :style="{'pointer-events':(isLoading) ? 'none': 'auto'}"
       @selected="handleSelected"
     />
     <div
@@ -206,13 +207,6 @@ export default {
 
 .gridbox-product-card {
   margin-top: 0.3rem;
-}
-
-.page-loading {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 5rem;
-  margin-top: 5rem;
 }
 
 .load-more-btn {

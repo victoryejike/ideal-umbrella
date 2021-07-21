@@ -28,6 +28,7 @@
     <IndexSection :title="$t('index_screen.title.popular')">
       <template #content>
         <div
+          v-if="!isLoading"
           class="popular-box"
         >
           <BaseProductCard
@@ -44,6 +45,16 @@
             :price="item.price"
             :verified="item.verified"
           />
+        </div>
+        <div
+          v-if="isLoading"
+          class="page-loading"
+        >
+          <img
+            height="128"
+            src="@svg/loading.svg"
+            width="128"
+          >
         </div>
       </template>
     </IndexSection>
@@ -64,16 +75,10 @@ export default {
     IndexSection, SearchBar, DiscoverSection, TopSellerSection,
   },
   data() {
-    // TODO: Fake data to real data
     return {
       popularList: [],
-      topSellerList: [],
-      sellerTab: [
-        this.$t('index_screen.seller_tab.day'),
-        this.$t('index_screen.seller_tab.week'),
-        this.$t('index_screen.seller_tab.month'),
-      ],
       popularCardCSS: { bgColor: 'rgba(255, 255, 255, 0.25)' },
+      isLoading: true,
     };
   },
   async mounted() {
@@ -104,6 +109,7 @@ export default {
           };
         });
         this.popularList.push(...matchKeyResponse);
+        this.isLoading = false;
       }
     });
   },

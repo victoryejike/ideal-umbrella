@@ -6,6 +6,7 @@
       <BaseNavigationTab
         :list="topSellerTab"
         :mobile-max-width="38"
+        :style="{'pointer-events':(isLoading) ? 'none': 'auto'}"
         :width="9.4"
       />
     </template>
@@ -128,13 +129,6 @@ export default {
   grid-template-columns: repeat(auto-fit, 14.625rem);
   justify-content: space-around;
   overflow: hidden;
-}
-
-.page-loading {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 5rem;
-  margin-top: 5rem;
 }
 
 .no-content {

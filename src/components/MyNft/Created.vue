@@ -7,15 +7,14 @@
         v-for="(item, index) in nft"
         :id="item._id"
         :key="index"
-        :author="$store.getters['auth/username']"
-        :avatar="$store.getters['auth/avatar']"
+        :author="item.creator?.display_name || ''"
+        :avatar="item.creator?.image || ''"
         class="gridbox-product-card"
         :css="cardCSS"
         :image="`https://ipfs.io/ipfs/${item.uri}`"
-        :mininum="item.minimum_bid"
         :name="item.title"
         :price="item.price"
-        :verified="$store.getters['auth/isVerified']"
+        :verified="item.creator?.is_kyc_verified"
       />
     </div>
     <!-- <BaseRoundButton

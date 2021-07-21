@@ -91,7 +91,7 @@ export default {
         {
           header: this.$t('footer.fanschain.title'),
           content: [
-            { name: this.$t('footer.fanschain.exchange'), url: 'http://fanschain.net' },
+            { name: this.$t('footer.fanschain.exchange'), url: 'https://fanschain.net' },
             { name: this.$t('footer.fanschain.fto'), url: '/' },
             { name: this.$t('footer.fanschain.community'), url: '/' },
           ],

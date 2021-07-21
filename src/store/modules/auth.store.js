@@ -42,7 +42,7 @@ const getters = {
     return state?.user?.display_name;
   },
   avatar(state) {
-    return state?.user?.image;
+    return state?.user?.image.replace('http://', 'https://');
   },
   about(state) {
     return state?.user?.about;

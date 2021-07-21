@@ -102,8 +102,9 @@ const API_SERVICES = {
       }
 
       if (response?.success) {
-        store.commit('data/setFilterCategory', response.data);
-        return response.data;
+        const data = response.data.map((item) => ({ ...item, image: item.image.replace('http://', 'https://') }));
+        store.commit('data/setFilterCategory', data);
+        return data;
       }
     }
     return store.getters['data/filterCategory'];
