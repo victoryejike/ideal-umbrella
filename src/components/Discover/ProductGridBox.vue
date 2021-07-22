@@ -204,8 +204,9 @@ export default {
 }
 
 .end-of-content {
-  font-size: 2rem;
+  font-size: 1.3rem;
   font-weight: bold;
+  color: #6d6565;
   margin-top: 3.5rem;
   text-align: center;
 }
