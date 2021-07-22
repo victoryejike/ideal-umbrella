@@ -171,6 +171,19 @@
             :verified="nft.creator.is_kyc_verified"
           />
         </div>
+        <BaseModal
+          v-show="success"
+          @close="closeModal"
+        >
+          <template #body>
+            <div class="center">
+              <img
+                src="@svg/verified.svg"
+              >
+              <a>Bid Placed!</a>
+            </div>
+          </template>
+        </BaseModal>
         <div class="actions">
           <div
             v-if="nft.pricing_type == 'fixed'"
@@ -529,6 +542,20 @@ label {
   letter-spacing: 0.01em;
   line-height: 1.75rem;
   margin-left: 0.625rem;
+}
+
+.center {
+  text-align: center;
+}
+
+.center a {
+  color: #111;
+  font-size: 1rem;
+  margin-left: 0.6rem;
+}
+
+.center img {
+  width: 1rem;
 }
 
 .read-more {

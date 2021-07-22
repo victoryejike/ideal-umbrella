@@ -84,7 +84,7 @@
       </div>
     </div>
     <BaseRoundButton
-      class="buy-button btn-primary btn-md btn-bold"
+      class="buy-button btn-primary btn-md btn-bold mb"
       :icon="isLoading ? 'loading' : 'arrow-right'"
       :submit="true"
       :text="$t('nft_details.place_bid')"
@@ -174,6 +174,10 @@ export default {
 .details-section {
   margin-bottom: 2.5rem;
   margin-top: 2rem;
+}
+
+.mb {
+  margin-bottom: 2.18rem;
 }
 
 .bid-text {

@@ -87,7 +87,7 @@ export default {
 }
 
 .modal-body {
-  margin-bottom: 2.8125rem;
+  /* margin-bottom: 2.8125rem; */
   overflow-y: auto;
   padding: 1rem;
   position: relative;
@@ -124,7 +124,7 @@ export default {
 
 @media (max-width: 62em) {
   .modal {
-    height: 90%;
+    height: inherit ;
   }
 }
 </style>
