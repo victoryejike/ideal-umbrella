@@ -10,7 +10,7 @@
       <div class="padding">
         <img src="@svg/search.svg">
         <input
-          v-model="value"
+          v-model.trim="value"
           class="search-input"
           :placeholder="$t('components.search_placeholder')"
           type="text"
@@ -59,7 +59,7 @@ export default {
   methods: {
     handleSearch() {
       this.$store.commit('data/setSearchValue', this.value);
-      this.$emit('search');
+      this.$emit('search', this.value);
     },
   },
 };

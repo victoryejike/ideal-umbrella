@@ -88,11 +88,8 @@ export default {
   watch: {
     sortMethod() { this.handleSelected({ index: this.activeFilterIndex }); },
     searchValue(value) {
-      if (value) {
-        this.list[this.sortMethod][SEARCH_INDEX] = [];
-        // Let filterList update UI and trigger handleSelected
-        this.$refs.filterList.toogleFilterBtn(SEARCH_INDEX);
-      }
+      this.list[this.sortMethod][SEARCH_INDEX] = [];
+      this.$refs.filterList.toogleFilterBtn(value ? SEARCH_INDEX : 0);
     },
   },
   deactivated() {
@@ -104,6 +101,7 @@ export default {
      * IMPORTANT: Dont cache Index Page at the moment, it will cause a bug in searching
      */
     this.$refs.filterList.toogleFilterBtn(0);
+    this.$store.commit('data/setSearchValue', null);
   },
   mounted() {
     this.$global.handleResponsive(62.5,
@@ -150,7 +148,7 @@ export default {
       this.activeFilterIndex = data.index;
       if (data.id) { this.categoryID = data.id; }
 
-      if (data.index < SEARCH_INDEX && this.$store.getters['data/setSearchValue'] != null) {
+      if (data.index < SEARCH_INDEX && this.searchValue != null) {
         this.$store.commit('data/setSearchValue', null);
       }
 
@@ -203,9 +201,9 @@ export default {
 }
 
 .end-of-content {
-  font-size: 1.3rem;
   /* font-weight: bold; */
   color: #6d6565;
+  font-size: 1.3rem;
   margin-top: 3.5rem;
   text-align: center;
 }
