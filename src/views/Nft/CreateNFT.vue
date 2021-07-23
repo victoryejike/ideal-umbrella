@@ -2125,7 +2125,10 @@ export default {
         const ercContract = new web3.eth.Contract(this.erc20abi, this.erc20ContractAddress);
         const result = await contract.methods
           .mint(qty)
-          .send({ from: localStorage.getItem('account'), gas: 2000000, gasPrice: '20000000000' });
+          .send({ from: localStorage.getItem('account'), gas: 2000000, gasPrice: '20000000000' }).on('error', (error) => {
+            console.log(error);
+            this.isLoading = false;
+          });
         this.ipfsUrl = cid;
         this.tokenId = result.events.TokenMinted.returnValues.tokenType;
         contract.methods.setApprovalForAll('0x560c6067b94048F92Bd89e44D205c3597A4fe82E', true).send({ from: localStorage.getItem('account'), gas: 2000000, gasPrice: '20000000000' });
@@ -2137,7 +2140,10 @@ export default {
         if (this.pricing_type === 'fixed') {
           const result = await contract.methods
             .mint(`https://${cid}.ipfs.dweb.link`)
-            .send({ from: localStorage.getItem('account'), gas: 2900000, gasPrice: '29000000000' });
+            .send({ from: localStorage.getItem('account'), gas: 2900000, gasPrice: '29000000000' }).on('error', (error) => {
+              console.log(error);
+              this.isLoading = false;
+            });
           this.ipfsUrl = cid;
           this.tokenId = result.events.Transfer.returnValues.tokenId;
           const price = document.querySelector('.price').value;
@@ -2154,10 +2160,14 @@ export default {
           const timeDuration = (endDate.getTime() - startDate.getTime()) / 1000;
           const result = await contract.methods
             .mint(`https://${cid}.ipfs.dweb.link`)
-            .send({ from: localStorage.getItem('account'), gas: 2900000, gasPrice: '29000000000' });
+            .send({ from: localStorage.getItem('account'), gas: 2900000, gasPrice: '29000000000' }).on('error', (error) => {
+              console.log(error);
+              this.isLoading = false;
+            });
           this.ipfsUrl = cid;
           this.tokenId = result.events.Transfer.returnValues.tokenId;
           contract.methods.setApprovalForAll('0x560c6067b94048F92Bd89e44D205c3597A4fe82E', true).send({ from: localStorage.getItem('account'), gas: 3000000, gasPrice: '30000000000' });
+          ercContract.methods.approve('0x560c6067b94048F92Bd89e44D205c3597A4fe82E', web3.utils.toWei('1000')).send({ from: localStorage.getItem('account'), gas: 2000000, gasPrice: '20000000000' });
           contract.methods.CreateAuction(this.tokenId, (1), timeDuration, web3.utils.toWei(startPrice, 'ether')).send({ from: localStorage.getItem('account'), gas: 3500000, gasPrice: '35000000000' });
         }
         document.getElementsByClassName('submit-btn')[0].click();
@@ -2169,7 +2179,7 @@ export default {
         // const { data } = this.$api.CREATENFT(CollectibleNftData);
         // response = data;
         this.$api.CREATENFT(CollectibleNftData);
-        // this.$router.push({ name: 'Profile' });
+        this.$router.push({ name: 'Profile' });
       } catch (error) {
         // response = error.response.data;
         this.isLoading = false;

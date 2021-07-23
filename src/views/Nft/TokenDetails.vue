@@ -172,6 +172,19 @@
           />
         </div>
         <BaseModal
+          v-show="networkChange"
+          @close="closeModal"
+        >
+          <template #body>
+            <h2 class="network-text">
+              Wrong Network
+            </h2>
+            <p class="network-text">
+              Please change your network to ropsten and try again
+            </p>
+          </template>
+        </BaseModal>
+        <BaseModal
           v-show="success"
           @close="closeModal"
         >
@@ -287,6 +300,7 @@ export default {
       username: JSON.parse(localStorage.getItem('userData')),
       accountBalance: '',
       getNftDetails: [],
+      networkChange: false,
       tabFixedNft: [
         {
           name: this.$t('nft_details.tabs.details'),
@@ -372,16 +386,30 @@ export default {
         this.$router.push({ name: 'EditProfile', params: { errorMsg: this.$t('router.fill_in_username') } });
       } else {
         this.isWalletConnected();
-        this.isModalVisible = true;
-        this.isModalVisiblefixed = true;
       }
     },
     closeModal() {
       this.isModalVisiblefixed = false;
       this.isModalVisible = false;
+      this.networkChange = false;
     },
     async isWalletConnected() {
-      const web3 = new Web3(window.ethereum);
+      // walletLink.disconnect();
+      // const ethereum = walletLink.makeWeb3Provider(ETH_JSONRPC_URL, CHAIN_ID);
+      const metamask = window.ethereum;
+      // if (ethereum) {
+      //   console.log('Walletlink');
+      //   const web3 = new Web3(ethereum);
+      //   ethereum.enable().then((accounts) => {
+      //     console.log(`User's address is ${accounts[0]}`);
+      //     localStorage.setItem('account', accounts[0]);
+      //   });
+      //   const balance = await web3.eth.getBalance(localStorage.getItem('account'));
+      //   console.log(balance);
+      //   const ethBalance = (balance / 1000000000000000000).toFixed(2);
+      //   this.accountBalance = ethBalance;
+      // } else if (metamask) {
+      const web3 = new Web3(metamask);
       await window.ethereum.request({
         method: 'wallet_requestPermissions',
         params: [
@@ -392,6 +420,17 @@ export default {
       });
       const [accounts] = await web3.eth.getAccounts();
       localStorage.setItem('account', accounts);
+      const chainid = await web3.eth.getChainId();
+      console.log(chainid);
+      if (chainid !== 3) {
+        this.networkChange = true;
+        this.isModalVisible = false;
+        this.isModalVisiblefixed = false;
+      } else if (chainid === 3) {
+        this.networkChange = false;
+        this.isModalVisible = true;
+        this.isModalVisiblefixed = true;
+      }
       const balance = await web3.eth.getBalance(localStorage.getItem('account'));
       const ethBalance = (balance / 1000000000000000000).toFixed(2);
       this.accountBalance = ethBalance;
@@ -614,6 +653,10 @@ label {
   line-height: 100%;
   margin-left: 0.5em;
   margin-right: 0.5em;
+}
+
+.network-text {
+  text-align: center;
 }
 
 @media (max-width: 34em) {

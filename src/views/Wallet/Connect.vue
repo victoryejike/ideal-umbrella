@@ -29,6 +29,17 @@
         @click="connectCoinbase"
       />
     </div>
+    <BaseModal
+      v-show="networkChange"
+      @close="closeModal"
+    >
+      <template #body>
+        <h2 class="network-text">
+          Wrong Network
+        </h2>
+        <p>Please change your network to ropsten and connect again</p>
+      </template>
+    </BaseModal>
   </BaseFrame>
 </template>
 <script>
@@ -45,8 +56,8 @@ import BaseFrame from '@/components/Nft/BaseFrame.vue';
 const Web3 = require('web3');
 
 const APP_NAME = 'Naffiti';
-const APP_LOGO_URL = 'https://example.com/logo.png';
-const ETH_JSONRPC_URL = 'https://mainnet.infura.io/v3/58bf1103531f4b858b31eb3c5c4ddd2f';
+const APP_LOGO_URL = 'https://naffiti.com/naffiti.png';
+const ETH_JSONRPC_URL = 'https://ropsten.infura.io/v3/58bf1103531f4b858b31eb3c5c4ddd2f';
 const CHAIN_ID = 3;
 
 // Initialize WalletLink
@@ -65,6 +76,7 @@ export default {
       metaMask: MetaMask,
       coinbase: coinBase,
       accountAddress: '',
+      networkChange: false,
     };
   },
   methods: {
@@ -79,7 +91,7 @@ export default {
         const web3 = new Web3(provider);
         const account = await web3.eth.getAccounts();
         this.accountAddress = localStorage.setItem('account', account);
-        this.$router.push('/discover');
+        this.$router.back();
       } catch (error) {
         //
       }
@@ -97,7 +109,20 @@ export default {
         });
         const [accounts] = await web3.eth.getAccounts();
         this.accountAddress = localStorage.setItem('account', accounts);
-        this.$router.push('/discover');
+        const chainid = await web3.eth.getChainId();
+        console.log(chainid);
+        if (chainid !== 3) {
+          this.networkChange = true;
+        } else if (chainid === 3) {
+          this.networkChange = false;
+          this.$router.back();
+        }
+        // window.ethereum.on('chainChanged', (chainId) => {
+        //   if (chainId !== 3) {
+        //     this.networkChange = true;
+        //     // this.$router.back();
+        //   }
+        // });
       } catch (error) {
         console.error(error);
       }
@@ -110,11 +135,14 @@ export default {
           const userAddress = accounts[0];
           web3.eth.defaultAccount = userAddress;
           this.accountAddress = localStorage.setItem('account', userAddress);
-          this.$router.push('/discover');
+          this.$router.back();
         });
       } catch (error) {
         //
       }
+    },
+    closeModal() {
+      this.networkChange = false;
     },
   },
 };
@@ -124,6 +152,10 @@ export default {
 <style scoped>
 .flex {
   display: flex;
+}
+
+.network-text {
+  text-align: center;
 }
 
 @media (max-width: 42.875em) {
@@ -136,5 +168,6 @@ export default {
     margin: 1.875rem auto;
     width: 13.75rem;
   }
+
 }
 </style>
