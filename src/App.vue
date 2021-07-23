@@ -5,7 +5,7 @@
   />
   <div
     id="root"
-    :class="{'scroll-lock': $store.state.style.isMenuOpen}"
+    :class="{'scroll-lock': $store.getters['style/isMenuOpen']}"
   >
     <div
       id="wrapper"
@@ -34,6 +34,20 @@
       id="footer"
       :key="key"
     />
+
+    <BaseModal
+      v-show="$store.getters['data/isWrongChain']"
+      :has-closed-btn="false"
+    >
+      <template #body>
+        <h2 style="text-align: center;">
+          {{ $t('global.wrong_network') }}
+        </h2>
+        <p style="text-align: center;">
+          {{ $t('global.wrong_network_des') }}
+        </p>
+      </template>
+    </BaseModal>
   </div>
 </template>
 
@@ -57,6 +71,7 @@ export default {
   },
   created() {
     this.$api.GET_COUNTRIES();
+    this.$global.detectingChain();
   },
   methods: {
     reRenderUI() {

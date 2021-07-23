@@ -101,6 +101,36 @@ const API_SERVICES = {
     }
     return response;
   },
+  GET_NFT_DETAILS: async (params) => {
+    let response = null;
+    if (params) {
+      try {
+        response = (await axios.get(`nft/${params}`)).data;
+      } catch (error) {
+        response = error?.response?.data;
+      }
+
+      if (response?.success) {
+        return response?.data;
+      }
+    }
+    return response;
+  },
+  GET_BIDS: async (params) => {
+    let response = null;
+    if (params) {
+      try {
+        response = (await axios.get(`bids/${params}`)).data;
+      } catch (error) {
+        response = error?.response?.data;
+      }
+
+      if (response?.success) {
+        return response?.data;
+      }
+    }
+    return response;
+  },
   GET_TOP_SELLERS: async (method) => {
     let response = null;
     try {
@@ -153,10 +183,8 @@ const API_SERVICES = {
   UPLOADAVATAR: (params) => axios.post('users/update-profile-avatar', params, { headers: { 'Content-Type': 'multipart/form-data' } }),
   UPDATEPROFILE: (params) => axios.post('users/update-profile', params, false),
   GETCOLLECTIBLE: (params, type) => axios.get(`collectible/user/${params}?single=${type}`),
-  GETNFTDETAILS: (params) => axios.get(`nft/${params}`),
   CREATEBIDS: (params) => axios.post('bids', params, false),
   BUYNFT: (params) => axios.post('nft/buy-now', params, false),
-  GETBIDS: (params) => axios.get(`bids/${params}`),
 };
 
 export default {
@@ -164,5 +192,6 @@ export default {
     const { globalProperties } = app.config;
     globalProperties.$api = API_SERVICES;
     globalProperties.$router.$api = API_SERVICES;
+    globalProperties.$store.$api = API_SERVICES;
   },
 };

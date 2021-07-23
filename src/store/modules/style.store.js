@@ -4,7 +4,9 @@ const initialState = () => ({
 });
 
 const getters = {
-
+  isMenuOpen(state) {
+    return state.isMenuOpen;
+  },
 };
 
 const actions = {

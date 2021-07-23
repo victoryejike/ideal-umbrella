@@ -99,7 +99,7 @@ export default {
           // eslint-disable-next-line no-underscore-dangle
             const seller = item._top_sellers;
             return {
-              avatar: seller.image.replace('http://', 'https://') || '',
+              avatar: seller.image?.replace('http://', 'https://') || '',
               author: seller.display_name || '',
               totalCoin: item.sum,
               verified: seller.is_kyc_verified,

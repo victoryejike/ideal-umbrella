@@ -12,7 +12,6 @@
         class="history-inner-div"
       >
         <div
-
           class="history-action"
         >
           Bid
@@ -127,7 +126,7 @@ export default {
   props: {
     type: { type: String, required: false, default: null },
     creater: { type: String, required: false, default: null },
-    price: { type: String, required: false, default: null },
+    price: { type: Number, required: false, default: null },
     date: { type: String, required: false, default: null },
     historyDetailsList: { type: Array, required: false, default: null },
     verified: { type: Boolean, required: false, default: false },
@@ -135,37 +134,6 @@ export default {
   data() {
     return {
 
-      // historyDetailsList: [{
-      //   author: 'Metaverse',
-      //   action: 'Bid',
-      //   price: '0.14 ETH',
-      //   timestamp: '6/3/2021, 7:09 PM',
-      //   verified: true,
-      // },
-      // {
-      //   author: 'CryptoPunks',
-      //   action: 'Bid',
-      //   price: '0.15 ETH',
-      //   timestamp: '6/3/2021, 7:09 PM',
-      //   verified: true,
-      // },
-
-      // {
-      //   author: 'Crypto Art',
-      //   action: 'Listed',
-      //   price: '0.15 ETH',
-      //   timestamp: '6/3/2021, 7:09 PM',
-      //   verified: true,
-
-      // },
-
-      // {
-      //   author: 'Crypto Art',
-      //   verified: true,
-      //   action: 'Minted',
-      //   timestamp: '6/3/2021, 7:09 PM',
-
-      // }],
     };
   },
   computed: {

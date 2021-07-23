@@ -142,7 +142,6 @@ export default {
 
       const response = await this.$api.GET_NFT_LIST(params);
       const matchKeyResponse = this.$global.translateNFTDetails(response);
-      console.log(matchKeyResponse);
       this.activeList.push(...matchKeyResponse);
       this.isLoading = false;
       this.isEndOfContent = (matchKeyResponse.length < this.number);

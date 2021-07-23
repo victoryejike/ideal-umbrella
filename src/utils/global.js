@@ -1,3 +1,5 @@
+import store from '@/store';
+
 const GLOBAL_FUNCTION = {
   /**
    * All the avatar IMG tag should add this function to handle error display.
@@ -69,6 +71,22 @@ const GLOBAL_FUNCTION = {
       });
     }
     return result;
+  },
+
+  /**
+   * An Observer that watching user current network/chain.
+   */
+  detectingChain() {
+    const tid = setInterval(() => {
+      if (document.readyState !== 'complete') return;
+      clearInterval(tid);
+      if (window.ethereum) {
+        store.commit('data/setIsWrongChain', window.ethereum?.chainId !== '0x3');
+        window.ethereum.on('chainChanged', (chainId) => {
+          store.commit('data/setIsWrongChain', chainId !== '0x3');
+        });
+      }
+    }, 200);
   },
 };
 

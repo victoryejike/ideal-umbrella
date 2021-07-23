@@ -4,7 +4,8 @@
       class="modal-backdrop"
     >
       <img
-        class="close-icon "
+        v-if="hasClosedBtn"
+        class="close-icon"
         height="20"
         src="@svg/close-icon.svg"
         width="20"
@@ -38,6 +39,9 @@
 <script>
 export default {
   name: 'BaseModal',
+  props: {
+    hasClosedBtn: { type: Boolean, required: false, default: true },
+  },
   emits: ['close'],
   methods: {
     close() {
@@ -58,6 +62,7 @@ export default {
   position: fixed;
   right: 0;
   top: 0;
+  z-index: 10;
 }
 
 .modal {
@@ -69,6 +74,7 @@ export default {
   padding-left: 2.5rem;
   padding-right: 2.5rem;
   width: 32.5rem;
+  z-index: 10;
 }
 
 .modal-header {
@@ -125,7 +131,7 @@ export default {
 
 @media (max-width: 62em) {
   .modal {
-    height: inherit ;
+    height: inherit;
   }
 }
 </style>

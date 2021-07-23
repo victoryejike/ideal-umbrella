@@ -1,24 +1,24 @@
 <template>
   <div>
     <div
-      v-for="(nft, index) in getNftDetails"
-      :key="index"
       class="token-details"
     >
       <div class="display-token-image">
-        <div class="token-text-div">
-          <span class="token-text">   {{ nft.title }}</span>
+        <div
+          class="token-text-div"
+        >
+          <span class="token-text">{{ nftDetails.category?.title }}</span>
           <div class="button-div">
             <BaseRoundButton
               class="btn-outline-secondary button btn-unclickable"
-              :img="nft.category.image"
-              :text="nft.category.category"
+              :img="nftDetails.category?.image"
+              :text="nftDetails.category?.category"
             />
           </div>
         </div>
         <img
           class="token-image"
-          :src="`https://ipfs.io/ipfs/${nft.uri.replace('ipfs://', '')}`"
+          :src="`https://ipfs.io/ipfs/${nftDetails.uri}`"
         >
       </div>
       <div class="display-token-details">
@@ -28,12 +28,12 @@
             <div class="creater-details">
               <img
                 class="creater-image"
-                :src="nft.creator.image"
+                :src="nftDetails.creator?.image?.replace('http://', 'https://')"
                 width="40"
               >
-              <span class="creater-name">{{ nft.creator.display_name }}</span>
+              <span class="creater-name">{{ nftDetails.creator?.display_name }}</span>
               <img
-                v-if="nft.creator.is_kyc_verified"
+                v-if="nftDetails.creator?.is_kyc_verified"
                 class="tick-icon"
                 height="16"
                 src="@svg/tick.svg"
@@ -42,8 +42,9 @@
             </div>
           </div>
           <div class="details-section">
-            <label v-if="nft.pricing_type=='fixed'">{{ $t('nft_details.price') }}</label>
-            <label v-else>{{ $t('nft_details.minimum_bid') }}</label>
+            <label>
+              {{ isTimeAuction ? $t('nft_details.minimum_bid') : $t('nft_details.price') }}
+            </label>
             <div class="highest-bid-details">
               <img
                 class="coins-icon"
@@ -52,13 +53,10 @@
                 width="20"
               >
               <span
-                v-if="nft.pricing_type=='fixed'"
                 class="coin"
-              >{{ nft.price }} ETH</span>
-              <span
-                v-else
-                class="coin"
-              >{{ nft.minimum_bid }} ETH</span>
+              >
+                {{ nftDetails.minimum_bid || nftDetails.price }} ETH
+              </span>
             </div>
           </div>
         </div>
@@ -66,210 +64,109 @@
         <div class="token-content details-section">
           <label> {{ $t('nft_details.description') }}</label>
           <div class="token-description">
-            {{ nft.description }}
+            {{ nftDetails.description }}
           </div>
-        <!-- <a
-          class="read-more"
-          href=""
-        >{{ $t('nft_details.read_more') }}</a> -->
         </div>
+
         <BaseNavigationTab
-          v-if="nft.pricing_type=='fixed'"
+          :key="tabList.length"
           class="tab"
-          :list="tabFixedNft"
-          :width="10"
-        /> <BaseNavigationTab
-          v-else
-          class="tab"
-          :list="tabTitleList"
-          :width="10"
+          :list="tabList"
         />
-
-        <div
-          v-if="nft.pricing_type!='fixed'"
-        >
-          <div
-            v-for="(item, i) in bidsList"
-            v-show="showBids"
-            :key="i"
-            class="bids-main-div"
-          >
-            <div class="bids-inner-div">
-              <div>
-                <div class="author">
-                  {{ item.user_id.display_name }}
-                  <img
-                    v-if="item.user_id.is_kyc_verified"
-                    class="tick-icon"
-                    height="16"
-                    src="@svg/tick.svg"
-                    width="16"
-                  >
-                </div>
-                <div class="date-time">
-                  {{ new Date(item.created_at).toLocaleString() }}
-                </div>
-              </div>
-              <div class="price">
-                {{ item.amount }} ETH
-              </div>
-            </div>
-            <div
-              class="input-line"
-            />
-          </div>
-          <NoBid
-            v-show="nobid"
-          />
-        </div>
-        <DetailsTab
-          v-if="showDetails"
-          :text="$t('nft_details.contact_details')"
-          :value="nft.owner_address.slice(0, 15)+'...'"
-        />
-        <div
-          v-if="nft.price"
-        >
-          <DetailsTab
-            v-if="showDetails"
-            :id="nft.price"
-            :text="$t('nft_details.price')"
-          />
-        </div>
-        <div
-          v-if="nft.minimum_bid"
-        >
-          <DetailsTab
-            v-if="showDetails"
-            :id="nft.minimum_bid"
-            :text="$t('nft_details.price')"
-          />
-        </div>
-        <DetailsTab
-          v-if="showDetails"
-          :text="$t('nft_details.blockchain')"
-          :value="$t('nft_details.blockchain_value')"
-        />
-        <div
-          v-if="showHistory"
-        >
-          <HistoryTab
-            v-if="nft.pricing_type=='timed_auction'"
-            :creater="nft.creator.display_name"
-            :date="nft.createdAt"
-            :history-details-list="bidsList"
-            :price="nft.minimum_bid"
-            type="timed_auction"
-            :verified="nft.creator.is_kyc_verified"
-          />
-          <HistoryTab
-            v-if="nft.pricing_type=='fixed'"
-            :creater="nft.creator.display_name"
-            :date="nft.createdAt"
-            :price="nft.price"
-            type="fixed"
-            :verified="nft.creator.is_kyc_verified"
-          />
-        </div>
-        <BaseModal
-          v-show="networkChange"
-          @close="closeModal"
-        >
-          <template #body>
-            <h2 class="network-text">
-              Wrong Network
-            </h2>
-            <p class="network-text">
-              Please change your network to ropsten and try again
-            </p>
-          </template>
-        </BaseModal>
-        <BaseModal
-          v-show="success"
-          @close="closeModal"
-        >
-          <template #body>
-            <div class="center">
-              <img
-                src="@svg/verified.svg"
+        <div class="tab-screen">
+          <div v-if="screenStatus.bids">
+            <div v-if="bidsList?.length > 0">
+              <div
+                v-for="(item, i) in bidsList"
+                :key="i"
+                class="bids-main-div"
               >
-              <a>Bid Placed!</a>
+                <div class="bids-inner-div">
+                  <div>
+                    <div class="author">
+                      {{ item.user_id.display_name }}
+                      <img
+                        v-if="item.user_id.is_kyc_verified"
+                        class="tick-icon"
+                        height="16"
+                        src="@svg/tick.svg"
+                        width="16"
+                      >
+                    </div>
+                    <div class="date-time">
+                      {{ new Date(item.created_at).toLocaleString() }}
+                    </div>
+                  </div>
+                  <div class="price">
+                    {{ item.amount }} ETH
+                  </div>
+                </div>
+                <div
+                  class="input-line"
+                />
+              </div>
             </div>
-          </template>
-        </BaseModal>
+            <NoBid v-else />
+          </div>
+
+          <div v-if="screenStatus.details">
+            <DetailsTab
+              v-for="(item, index) in detailsTabList"
+              :key="index"
+              :text="item.text"
+              :value="item.value"
+            />
+          </div>
+
+          <div v-if="screenStatus.history">
+            <HistoryTab
+              :creater="nftDetails.creator?.display_name"
+              :date="nftDetails.createdAt"
+              :price="nftDetails.price"
+              :type="isTimeAuction ? 'timed_auction' : 'fixed'"
+              :verified="nftDetails.creator?.is_kyc_verified"
+            />
+          </div>
+        </div>
         <div class="actions">
-          <div
-            v-if="nft.pricing_type == 'fixed'"
-            class="actions"
+          <BaseRoundButton
+            v-if="nftDetails.creator?.display_name !== username"
+            class="buy-button btn-primary btn-md btn-bold"
+            icon="arrow-right"
+            :text="isTimeAuction ? $t('nft_details.place_bid') : $t('nft_details.buy_now')"
+            @click="showModal"
+          />
+          <BaseModal
+            v-show="isModalVisible"
+            @close="closeModal"
           >
-            <BaseRoundButton
-              v-if="username == null
-                || nft.creator.display_name !== username.display_name"
-              class="buy-button btn-primary btn-md btn-bold"
-              icon="arrow-right"
-              :text="$t('nft_details.buy_now')"
-              @click="showModal"
-            />
-            <BaseModal
-              v-show="isModalVisiblefixed"
-              @close="closeModal"
-            >
-              <template #header>
-                Buy NFT
-              </template>
+            <template #header>
+              {{ isTimeAuction ? 'Place a bid':'Buy NFT' }}
+            </template>
 
-              <template #body>
-                <BuyModal
-                  :accountbalance="accountBalance"
-                  :creatoraddress="nft.creator_address"
-                  :description="nft.description"
-                  :image="nft.uri"
-                  :nfttype="nft.supply"
-                  :price="nft.price"
-                  :title="nft.title"
-                  :tokenid="nft.tokenId"
-                />
-              </template>
-            </BaseModal>
-          </div>
-          <div
-            v-else
-            class="bid-button-div"
-          >
-            <BaseRoundButton
-              v-if="username == null
-                || nft.creator.display_name !== username.display_name"
-              class="bid-button btn-outline-primary btn-bold btn-xl"
-              :text="$t('nft_details.place_bid')"
-              @click="showModal"
-            />
-            <BaseModal
-              v-show="isModalVisible"
-              @close="closeModal"
-            >
-              <template #header>
-                Place a bid
-              </template>
-
-              <template #body>
-                <BidModal
-                  :accountbalance="accountBalance"
-                  :description="nft.description"
-                  :image="nft.uri"
-                  :nfttype="nft.supply"
-                  :title="nft.title"
-                  :tokenid="nft.tokenId"
-                />
-              </template>
-              <template #footer>
-              <!-- <BaseRoundButton
-                class="buy-button btn-primary btn-md btn-bold"
-                icon="arrow-right"
-                :text="$t('nft_details.place_bid')"
-              /> -->
-              </template>
-            </BaseModal>
-          </div>
+            <template #body>
+              <BidModal
+                v-if="isTimeAuction"
+                :accountbalance="accountBalance"
+                :description="nftDetails.description"
+                :image="nftDetails.uri"
+                :nfttype="nftDetails.supply"
+                :title="nftDetails.title"
+                :tokenid="nftDetails.tokenId"
+              />
+              <BuyModal
+                v-else
+                :accountbalance="accountBalance"
+                :creatoraddress="nftDetails.creator_address"
+                :description="nftDetails.description"
+                :image="nftDetails.uri"
+                :nfttype="nftDetails.supply"
+                :price="nftDetails.price"
+                :title="nftDetails.title"
+                :tokenid="nftDetails.tokenId"
+              />
+            </template>
+          </BaseModal>
         </div>
       </div>
     </div>
@@ -280,9 +177,8 @@ import DetailsTab from '@/components/Nft/DetailsTab.vue';
 import HistoryTab from '@/components/Nft/HistoryTab.vue';
 import BidModal from '@/components/Nft/BidModal.vue';
 import BuyModal from '@/components/Nft/BuyModal.vue';
+import Web3 from 'web3';
 import NoBid from './NoBid.vue';
-
-const Web3 = require('web3');
 
 export default {
   name: 'TokenDetails',
@@ -291,177 +187,98 @@ export default {
   },
   data() {
     return {
-      isModalVisiblefixed: false,
-      showBids: true,
-      showDetails: false,
-      nobid: true,
-      showHistory: false,
       isModalVisible: false,
-      username: JSON.parse(localStorage.getItem('userData')),
-      accountBalance: '',
-      getNftDetails: [],
-      networkChange: false,
-      tabFixedNft: [
+      screenStatus: { details: false, history: false },
+      accountBalance: 0,
+      tabList: [
         {
           name: this.$t('nft_details.tabs.details'),
-          handler: () => {
-            this.showBids = false;
-            this.showDetails = true;
-            this.showHistory = false;
-          },
+          handler: () => { this.toggleScreen('details'); },
         },
         {
           name: this.$t('nft_details.tabs.history'),
-          handler: () => {
-            this.showBids = false;
-            this.showDetails = false;
-            this.showHistory = true;
-          },
+          handler: () => { this.toggleScreen('history'); },
         },
       ],
-      tabTitleList: [
-        {
-          name: this.$t('nft_details.tabs.bids'),
-          handler: () => {
-            if (this.bidsList.length === 0) {
-              this.nobid = true;
-            } else {
-              this.nobid = false;
-            }
-            this.showBids = true;
-            this.showDetails = false;
-            this.showHistory = false;
-          },
-        },
-        {
-          name: this.$t('nft_details.tabs.details'),
-          handler: () => {
-            this.showBids = false;
-            this.showDetails = true;
-            this.showHistory = false;
-            this.nobid = false;
-          },
-        },
-        {
-          name: this.$t('nft_details.tabs.history'),
-          handler: () => {
-            this.showBids = false;
-            this.showDetails = false;
-            this.showHistory = true;
-            this.nobid = false;
-          },
-        },
-      ],
+      detailsTabList: [],
       bidsList: [],
-      nftDetails: {
-        contactDetails: '0x3bdb...6d4a',
-        tokenId: 28473,
-        blockchain: 'Ethereum',
-      },
     };
   },
+  computed: {
+    username() { return this.$store.getters['auth/username']; },
+    nftDetails() { return this.$route.params.nft; },
+    isTimeAuction() { return this.nftDetails.pricing_type === 'timed_auction'; },
+  },
   async mounted() {
-    if (this.$route.params.id == null || this.$route.params.id === undefined || this.$route.params.id === '') {
-      this.$router.push('/');
-    } else if (await this.GetNFTDetails()) {
-      this.GetBids();
-    } else {
-      this.$router.push({ name: 'PathNotFound' });
+    if (this.isTimeAuction) {
+      this.tabList.unshift({
+        name: this.$t('nft_details.tabs.bids'),
+        handler: () => { this.toggleScreen('bids'); },
+      });
     }
+
+    this.screenStatus[this.isTimeAuction ? 'bids' : 'details'] = true;
+    this.bidsList = await this.$api.GET_BIDS(this.$route.params.id);
+    this.detailsTabList = [
+      {
+        text: this.$t('nft_details.contact_details'),
+        value: `${this.nftDetails.owner_address?.slice(0, 15)}...`,
+      },
+      {
+        text: this.$t('nft_details.price'),
+        value: `${this.nftDetails.minimum_bid || this.nftDetails.price} ETH`,
+      },
+      {
+        text: this.$t('nft_details.blockchain'),
+        value: this.$t('nft_details.blockchain_value'),
+      },
+    ];
   },
   methods: {
     showModal() {
       if (!this.$store.getters['auth/isLoggedIn']) {
-        this.$router.push({ name: 'Login', params: { redirectFrom: this.$route.path } });
-      } else if (this.$store.getters['auth/isExpired']) {
+        return this.$router.push({ name: 'Login', params: { redirectFrom: this.$route.path } });
+      }
+
+      if (this.$store.getters['auth/isExpired']) {
         this.$store.dispatch('auth/logout');
-        this.$router.push({
+        return this.$router.push({
           name: 'Login',
           params: {
             redirectFrom: this.$route.path,
             errorMsg: this.$t('router.expired'),
           },
         });
-      } else if (this.$store.getters['auth/username'] == null) {
-        this.$router.push({ name: 'EditProfile', params: { errorMsg: this.$t('router.fill_in_username') } });
-      } else {
-        this.isWalletConnected();
       }
+
+      if (this.username == null) {
+        return this.$router.push({ name: 'EditProfile', params: { errorMsg: this.$t('router.fill_in_username') } });
+      }
+
+      this.isWalletConnected();
+      return true;
     },
     closeModal() {
-      this.isModalVisiblefixed = false;
       this.isModalVisible = false;
-      this.networkChange = false;
+    },
+    toggleScreen(name) {
+      Object.keys(this.screenStatus).forEach((key) => {
+        this.screenStatus[key] = (key === name);
+      });
     },
     async isWalletConnected() {
-      // walletLink.disconnect();
-      // const ethereum = walletLink.makeWeb3Provider(ETH_JSONRPC_URL, CHAIN_ID);
-      const metamask = window.ethereum;
-      // if (ethereum) {
-      //   console.log('Walletlink');
-      //   const web3 = new Web3(ethereum);
-      //   ethereum.enable().then((accounts) => {
-      //     console.log(`User's address is ${accounts[0]}`);
-      //     localStorage.setItem('account', accounts[0]);
-      //   });
-      //   const balance = await web3.eth.getBalance(localStorage.getItem('account'));
-      //   console.log(balance);
-      //   const ethBalance = (balance / 1000000000000000000).toFixed(2);
-      //   this.accountBalance = ethBalance;
-      // } else if (metamask) {
-      const web3 = new Web3(metamask);
-      const chainid = await web3.eth.getChainId();
-      console.log(chainid);
-      if (chainid !== 3) {
-        this.networkChange = true;
-        this.isModalVisible = false;
-        this.isModalVisiblefixed = false;
-      } else if (chainid === 3) {
-        this.networkChange = false;
-        this.isModalVisible = true;
-        this.isModalVisiblefixed = true;
-        await window.ethereum.request({
-          method: 'wallet_requestPermissions',
-          params: [
-            {
-              eth_accounts: {},
-            },
-          ],
-        });
-        const [accounts] = await web3.eth.getAccounts();
-        this.accountAddress = localStorage.setItem('account', accounts);
-      }
-    },
-    async GetNFTDetails() {
-      let response = null;
-      try {
-        const { data } = await this.$api.GETNFTDETAILS(this.$route.params.id);
-        response = data;
-        this.getNftDetails = [response.data];
-        if (this.getNftDetails[0].pricing_type === 'fixed') {
-          this.showBids = false;
-          this.showDetails = true;
-          this.showHistory = false;
-        }
-      } catch (error) {
-        response = error?.response?.data;
-      }
-      return response?.success === true;
-    },
-    async GetBids() {
-      let getBidData = null;
-      try {
-        const { data } = await this.$api.GETBIDS(this.$route.params.id);
-        getBidData = data;
-        if (getBidData.data.length === 0) {
-          this.nobid = true;
-        } else {
-          this.bidsList = getBidData.data;
-        }
-      } catch (error) {
-        getBidData = error?.response?.data;
-        this.nobid = true;
-      }
+      const web3 = new Web3(window.ethereum);
+      await window.ethereum.request({
+        method: 'wallet_requestPermissions',
+        params: [
+          {
+            eth_accounts: {},
+          },
+        ],
+      });
+      this.isModalVisible = true;
+      const [accounts] = await web3.eth.getAccounts();
+      this.accountAddress = localStorage.setItem('account', accounts);
     },
   },
 };
@@ -488,6 +305,7 @@ export default {
 }
 
 .token-image {
+  border-radius: 1rem;
   margin-top: 1.25rem;
   width: 90%;
 }
@@ -530,7 +348,6 @@ label {
 }
 
 .tab {
-  margin-bottom: 2.9375rem;
   margin-top: 2.4375rem;
 }
 
@@ -578,20 +395,6 @@ label {
   letter-spacing: 0.01em;
   line-height: 1.75rem;
   margin-left: 0.625rem;
-}
-
-.center {
-  text-align: center;
-}
-
-.center a {
-  color: #111;
-  font-size: 1rem;
-  margin-left: 0.6rem;
-}
-
-.center img {
-  width: 1rem;
 }
 
 .read-more {
@@ -652,15 +455,13 @@ label {
   margin-right: 0.5em;
 }
 
-.network-text {
-  text-align: center;
+.tab-screen {
+  margin-bottom: 3rem;
+  margin-top: 3rem;
+  min-height: 10rem;
 }
 
 @media (max-width: 34em) {
-  .tab {
-    width: 100% !important;
-  }
-
   .buy-button,
   .bid-button {
     width: 100%;
@@ -713,12 +514,6 @@ label {
 
   .token-content {
     width: 100%;
-  }
-}
-
-@media (min-width: 62em) and (max-width: 87.5em) {
-  .tab {
-    width: 100% !important;
   }
 }
 </style>

@@ -29,19 +29,6 @@
         @click="connectCoinbase"
       />
     </div>
-    <BaseModal
-      v-show="networkChange"
-      @close="closeModal"
-    >
-      <template #body>
-        <h2 class="network-text">
-          Wrong Network
-        </h2>
-        <p class="center">
-          Please change your network to ropsten and connect again
-        </p>
-      </template>
-    </BaseModal>
   </BaseFrame>
 </template>
 <script>
@@ -78,7 +65,6 @@ export default {
       metaMask: MetaMask,
       coinbase: coinBase,
       accountAddress: '',
-      networkChange: false,
     };
   },
   methods: {
@@ -101,30 +87,23 @@ export default {
     async connectMetamask() {
       try {
         const web3 = new Web3(window.ethereum);
-        const chainid = await web3.eth.getChainId();
-        console.log(chainid);
-        if (chainid !== 3) {
-          this.networkChange = true;
-        } else if (chainid === 3) {
-          this.networkChange = false;
-          await window.ethereum.request({
-            method: 'wallet_requestPermissions',
-            params: [
-              {
-                eth_accounts: {},
-              },
-            ],
-          });
-          const [accounts] = await web3.eth.getAccounts();
-          this.accountAddress = localStorage.setItem('account', accounts);
-          this.$router.back();
+        if (window.ethereum.chainid !== '0x3') {
+          this.$store.commit('data/setIsWrongChain', true);
+          return;
         }
-        // window.ethereum.on('chainChanged', (chainId) => {
-        //   if (chainId !== 3) {
-        //     this.networkChange = true;
-        //     // this.$router.back();
-        //   }
-        // });
+
+        this.$global.detectingChain();
+        await window.ethereum.request({
+          method: 'wallet_requestPermissions',
+          params: [
+            {
+              eth_accounts: {},
+            },
+          ],
+        });
+        const [accounts] = await web3.eth.getAccounts();
+        this.accountAddress = localStorage.setItem('account', accounts);
+        this.$router.back();
       } catch (error) {
         console.error(error);
       }
@@ -174,6 +153,5 @@ export default {
     margin: 1.875rem auto;
     width: 13.75rem;
   }
-
 }
 </style>

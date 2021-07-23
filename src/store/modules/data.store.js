@@ -2,6 +2,7 @@ const initialState = () => ({
   countryList: [],
   filterCategory: [],
   searchValue: null,
+  isWrongChain: false,
 });
 
 const getters = {
@@ -13,6 +14,9 @@ const getters = {
   },
   filterCategory(state) {
     return state.filterCategory;
+  },
+  isWrongChain(state) {
+    return state.isWrongChain;
   },
 };
 
@@ -35,6 +39,9 @@ const mutations = {
   },
   setFilterCategory(state, value) {
     state.filterCategory = value;
+  },
+  setIsWrongChain(state, value) {
+    state.isWrongChain = value;
   },
 };
 

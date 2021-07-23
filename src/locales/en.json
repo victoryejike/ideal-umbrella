@@ -117,6 +117,10 @@
     "send": "Send",
     "sms_code": "OTP"
   },
+  "global": {
+    "wrong_network": "Wrong Network",
+    "wrong_network_des": "Please change your network to ropsten and connect again"
+  },
   "header": {
     "create": "Create",
     "discover": "Discover",
@@ -211,7 +215,7 @@
       "user_bidding_balance": "Your bidding balance"
     },
     "blockchain": "Blockchain",
-    "blockchain_value": "Huco Chain",
+    "blockchain_value": "Ethereum Chain",
     "buy": {
       "buy-content": "You are about to purchase",
       "total_buy_amount": "Total buy amount",

@@ -1,25 +1,14 @@
 <template>
-  <div
-    class="details-main-div"
-  >
+  <div class="details-main-div">
     <div class="details-inner-div">
       <div class="label">
         {{ text }}
       </div>
       <div class="nft-details">
-        <div
-          v-if="id"
-        >
-          {{ id }} ETH
-        </div>
-        <div>
-          {{ value }}
-        </div>
+        {{ value }}
       </div>
     </div>
-    <div
-      class="input-line"
-    />
+    <div class="input-line" />
   </div>
 </template>
 <script>
@@ -28,7 +17,6 @@ export default {
   props: {
     text: { type: String, required: false, default: null },
     value: { type: String, required: false, default: null },
-    id: { type: Number, required: false, default: null },
   },
   data() {
     return {

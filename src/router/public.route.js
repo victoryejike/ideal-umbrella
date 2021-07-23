@@ -18,7 +18,9 @@ const publicRoute = [
         next();
       } else if (store.getters['auth/isExpired']) {
         store.dispatch('auth/logout');
-        next({ params: { errorMsg: $t('router.expired') } });
+        const { params } = to;
+        params.errorMsg = $t('router.expired');
+        next();
       } else {
         next({ name: 'Profile' });
       }
@@ -55,6 +57,16 @@ const publicRoute = [
     path: '/nft/:id',
     name: 'TokenDetails',
     component: () => import('@view/Nft/TokenDetails.vue'),
+    beforeEnter: async (to, from, next) => {
+      const data = await store.$api.GET_NFT_DETAILS(to.params?.id);
+      if (data) {
+        const { params } = to;
+        params.nft = data;
+        next();
+      } else {
+        this.$router.push({ name: 'PathNotFound' });
+      }
+    },
   },
   {
     path: '/:pathMatch(.*)*',

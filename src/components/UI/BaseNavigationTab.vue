@@ -7,7 +7,7 @@
       v-for="(name, index) in titleList"
       :key="index"
       class="navs"
-      :class="[{active: isActive[index]}, width !== 0 ? 'fixed' : 'auto']"
+      :class="[{active: isActive[index]}, {fixed: width === 0}, {auto: width !== 0}]"
       :onClick="() => {toggleTab(index); execute(index)}"
       :style="width !== 0 ? {width: btnWidth} : null"
       type="button"
