@@ -2136,8 +2136,8 @@ export default {
           });
         this.ipfsUrl = cid;
         this.tokenId = result.events.TokenMinted.returnValues.tokenType;
-        contract.methods.setApprovalForAll('0x2efe9afa8e6f4e3c5b661a9b52414ead2ef28b0a', true).send({ from: localStorage.getItem('account'), gas: 2000000, gasPrice: '20000000000' });
-        ercContract.methods.approve('0x2efe9afa8e6f4e3c5b661a9b52414ead2ef28b0a', web3.utils.toWei('1000000000000000000000')).send({ from: localStorage.getItem('account'), gas: 2000000, gasPrice: '20000000000' });
+        contract.methods.setApprovalForAll('0x2efe9afa8e6f4e3c5b661a9b52414ead2ef28b0a', true).send({ from: localStorage.getItem('account'), gas: 2000000, gasPrice: '35000000000' });
+        ercContract.methods.approve('0x2efe9afa8e6f4e3c5b661a9b52414ead2ef28b0a', web3.utils.toWei('1000000000000000000000')).send({ from: localStorage.getItem('account'), gas: 2000000, gasPrice: '30000000000' });
         document.getElementsByClassName('submit-btn')[0].click();
       } else {
         const contract = new web3.eth.Contract(this.erc721abi, this.erc721ContractAddress);
@@ -2152,8 +2152,8 @@ export default {
           this.ipfsUrl = cid;
           this.tokenId = result.events.Transfer.returnValues.tokenId;
           const price = document.querySelector('.price').value;
-          contract.methods.setApprovalForAll('0x2efe9afa8e6f4e3c5b661a9b52414ead2ef28b0a', true).send({ from: localStorage.getItem('account'), gas: 3000000, gasPrice: '30000000000' });
-          ercContract.methods.approve('0x2efe9afa8e6f4e3c5b661a9b52414ead2ef28b0a', web3.utils.toWei('1000')).send({ from: localStorage.getItem('account'), gas: 2000000, gasPrice: '20000000000' });
+          contract.methods.setApprovalForAll('0x2efe9afa8e6f4e3c5b661a9b52414ead2ef28b0a', true).send({ from: localStorage.getItem('account'), gas: 3000000, gasPrice: '35000000000' });
+          ercContract.methods.approve('0x2efe9afa8e6f4e3c5b661a9b52414ead2ef28b0a', web3.utils.toWei('1000')).send({ from: localStorage.getItem('account'), gas: 2000000, gasPrice: '35000000000' });
           contract.methods.createSellOrder(this.tokenId, web3.utils.toWei(price, 'ether')).send({ from: localStorage.getItem('account'), gas: 3500000, gasPrice: '35000000000' });
         }
         if (this.pricing_type === 'timed_auction') {
@@ -2171,8 +2171,8 @@ export default {
             });
           this.ipfsUrl = cid;
           this.tokenId = result.events.Transfer.returnValues.tokenId;
-          contract.methods.setApprovalForAll('0x2efe9afa8e6f4e3c5b661a9b52414ead2ef28b0a', true).send({ from: localStorage.getItem('account'), gas: 3000000, gasPrice: '30000000000' });
-          ercContract.methods.approve('0x2efe9afa8e6f4e3c5b661a9b52414ead2ef28b0a', web3.utils.toWei('1000000000000000000000')).send({ from: localStorage.getItem('account'), gas: 2000000, gasPrice: '20000000000' });
+          contract.methods.setApprovalForAll('0x2efe9afa8e6f4e3c5b661a9b52414ead2ef28b0a', true).send({ from: localStorage.getItem('account'), gas: 3000000, gasPrice: '35000000000' });
+          ercContract.methods.approve('0x2efe9afa8e6f4e3c5b661a9b52414ead2ef28b0a', web3.utils.toWei('1000000000000000000000')).send({ from: localStorage.getItem('account'), gas: 2000000, gasPrice: '35000000000' });
           contract.methods.CreateAuction(this.tokenId, (1), timeDuration, web3.utils.toWei(startPrice, 'ether')).send({ from: localStorage.getItem('account'), gas: 3500000, gasPrice: '35000000000' });
         }
         document.getElementsByClassName('submit-btn')[0].click();
