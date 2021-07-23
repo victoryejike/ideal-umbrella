@@ -191,7 +191,6 @@ export default {
   install: (app, options) => {
     const { globalProperties } = app.config;
     globalProperties.$api = API_SERVICES;
-    globalProperties.$router.$api = API_SERVICES;
     globalProperties.$store.$api = API_SERVICES;
   },
 };

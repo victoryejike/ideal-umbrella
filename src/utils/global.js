@@ -1,4 +1,7 @@
 import store from '@/store';
+import i18n from '@/utils/i18n';
+
+const $t = i18n.global.t;
 
 const GLOBAL_FUNCTION = {
   /**
@@ -73,20 +76,41 @@ const GLOBAL_FUNCTION = {
     return result;
   },
 
+  async isWalletConnected() {
+    return new Promise((resolve) => {
+      const tid = setInterval(() => {
+        if (document.readyState === 'complete') {
+          clearInterval(tid);
+          resolve(window.ethereum != null);
+        }
+      }, 200);
+    });
+  },
+  async isAddressValid() {
+    const eth = window.ethereum;
+    if (eth.selectedAddress == null) {
+      try {
+        await eth.request({ method: 'eth_requestAccounts' });
+      } catch (error) {
+        store.$toast.error($t('global.no_metamask'));
+      }
+      return false;
+    }
+    return true;
+  },
   /**
    * An Observer that watching user current network/chain.
    */
-  detectingChain() {
-    const tid = setInterval(() => {
-      if (document.readyState !== 'complete') return;
-      clearInterval(tid);
-      if (window.ethereum) {
-        store.commit('data/setIsWrongChain', window.ethereum?.chainId !== '0x3');
-        window.ethereum.on('chainChanged', (chainId) => {
-          store.commit('data/setIsWrongChain', chainId !== '0x3');
-        });
-      }
-    }, 200);
+  async detectingChain() {
+    if (await this.isWalletConnected()) {
+      store.commit('data/setIsWrongChain', window.ethereum?.chainId !== '0x3');
+      window.ethereum.on('chainChanged', (chainId) => {
+        store.commit('data/setIsWrongChain', chainId !== '0x3');
+      });
+      return true;
+    }
+    store.$toast.error($t('global.no_metamask'));
+    return false;
   },
 };
 

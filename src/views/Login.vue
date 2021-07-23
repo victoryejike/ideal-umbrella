@@ -87,7 +87,11 @@ export default {
   },
   mounted() {
     if (this.$route.params?.errorMsg) {
-      this.$refs['login-form'].form.setFieldError('password', this.$route.params?.errorMsg);
+      this.$toast.open({
+        position: 'top-right',
+        message: this.$route.params?.errorMsg,
+        type: 'error',
+      });
     }
   },
   methods: {

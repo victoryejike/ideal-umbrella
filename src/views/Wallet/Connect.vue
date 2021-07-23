@@ -86,13 +86,11 @@ export default {
     },
     async connectMetamask() {
       try {
-        const web3 = new Web3(window.ethereum);
-        if (window.ethereum.chainid !== '0x3') {
-          this.$store.commit('data/setIsWrongChain', true);
+        if (!(await this.$global.isWalletConnected()) || !(await this.$global.isAddressValid())) {
           return;
         }
-
         this.$global.detectingChain();
+
         await window.ethereum.request({
           method: 'wallet_requestPermissions',
           params: [
@@ -101,6 +99,8 @@ export default {
             },
           ],
         });
+
+        const web3 = new Web3(window.ethereum);
         const [accounts] = await web3.eth.getAccounts();
         this.accountAddress = localStorage.setItem('account', accounts);
         this.$router.back();
@@ -112,7 +112,7 @@ export default {
       try {
         const ethereum = walletLink.makeWeb3Provider(ETH_JSONRPC_URL, CHAIN_ID);
         const web3 = new Web3(ethereum);
-        ethereum.send('eth_requestAccounts').then((accounts) => {
+        ethereum.request({ method: 'eth_requestAccounts' }).then((accounts) => {
           const userAddress = accounts[0];
           web3.eth.defaultAccount = userAddress;
           this.accountAddress = localStorage.setItem('account', userAddress);

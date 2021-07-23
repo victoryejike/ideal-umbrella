@@ -267,6 +267,11 @@ export default {
       });
     },
     async isWalletConnected() {
+      if (!(await this.$global.isWalletConnected()) || !(await this.$global.isAddressValid())) {
+        return;
+      }
+      this.$global.detectingChain();
+
       const web3 = new Web3(window.ethereum);
       await window.ethereum.request({
         method: 'wallet_requestPermissions',

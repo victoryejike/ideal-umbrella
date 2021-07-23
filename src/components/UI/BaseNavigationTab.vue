@@ -7,7 +7,7 @@
       v-for="(name, index) in titleList"
       :key="index"
       class="navs"
-      :class="[{active: isActive[index]}, {fixed: width === 0}, {auto: width !== 0}]"
+      :class="[{active: isActive[index]}, {fixed: width === 0}]"
       :onClick="() => {toggleTab(index); execute(index)}"
       :style="width !== 0 ? {width: btnWidth} : null"
       type="button"
@@ -92,6 +92,7 @@ export default {
   border-width: 0;
   color: rgba(44, 67, 173, 0.5);
   overflow: hidden;
+  padding: 0.6rem 0;
   transition: all 0.5s, background-color 0s, color 0s;
 }
 
@@ -102,6 +103,7 @@ export default {
 .btn-text {
   font-size: 0.875rem;
   font-weight: bold;
+  overflow: hidden;
   padding: 0 0.5rem;
   white-space: nowrap;
 }
@@ -113,12 +115,7 @@ export default {
   transition: all 0.5s, background-color 0s, color 0s;
 }
 
-.auto {
-  padding: 0.6rem 2.5rem;
-}
-
 .fixed {
-  padding: 0.6rem 0;
   width: 100%;
 }
 </style>
