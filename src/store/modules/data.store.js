@@ -3,6 +3,7 @@ const initialState = () => ({
   filterCategory: [],
   searchValue: null,
   isWrongChain: false,
+  isMonitoringChain: false,
 });
 
 const getters = {
@@ -17,6 +18,9 @@ const getters = {
   },
   isWrongChain(state) {
     return state.isWrongChain;
+  },
+  isMonitoringChain(state) {
+    return state.isMonitoringChain;
   },
 };
 
@@ -42,6 +46,9 @@ const mutations = {
   },
   setIsWrongChain(state, value) {
     state.isWrongChain = value;
+  },
+  setIsMonitoringChain(state, value) {
+    state.isMonitoringChain = value;
   },
 };
 

@@ -26,7 +26,7 @@
       rules="required"
       :text="$t('nft_details.bid.user_bid_label')"
       type="number"
-      @change="getFinalBidAmount"
+      @input="getFinalBidAmount"
     >
       <template #element>
         <span class="coin">ETH</span>

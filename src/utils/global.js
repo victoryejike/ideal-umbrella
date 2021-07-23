@@ -104,9 +104,12 @@ const GLOBAL_FUNCTION = {
   async detectingChain() {
     if (await this.isWalletConnected()) {
       store.commit('data/setIsWrongChain', window.ethereum?.chainId !== '0x3');
-      window.ethereum.on('chainChanged', (chainId) => {
-        store.commit('data/setIsWrongChain', chainId !== '0x3');
-      });
+      if (!store.getters['data/isMonitoringChain']) {
+        window.ethereum.on('chainChanged', (chainId) => {
+          store.commit('data/setIsMonitoringChain', true);
+          store.commit('data/setIsWrongChain', chainId !== '0x3');
+        });
+      }
       return true;
     }
     store.$toast.error($t('global.no_metamask'));
