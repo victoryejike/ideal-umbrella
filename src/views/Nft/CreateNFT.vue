@@ -2131,8 +2131,8 @@ export default {
           });
         this.ipfsUrl = cid;
         this.tokenId = result.events.TokenMinted.returnValues.tokenType;
-        contract.methods.setApprovalForAll('0x560c6067b94048F92Bd89e44D205c3597A4fe82E', true).send({ from: localStorage.getItem('account'), gas: 2000000, gasPrice: '20000000000' });
-        ercContract.methods.approve('0x560c6067b94048F92Bd89e44D205c3597A4fe82E', web3.utils.toWei(1000)).send({ from: localStorage.getItem('account'), gas: 2000000, gasPrice: '20000000000' });
+        contract.methods.setApprovalForAll('0xc04bc137a353d72dbca55158853b81f747778167', true).send({ from: localStorage.getItem('account'), gas: 2000000, gasPrice: '20000000000' });
+        ercContract.methods.approve('0xc04bc137a353d72dbca55158853b81f747778167', web3.utils.toWei(1000)).send({ from: localStorage.getItem('account'), gas: 2000000, gasPrice: '20000000000' });
         document.getElementsByClassName('submit-btn')[0].click();
       } else {
         const contract = new web3.eth.Contract(this.erc721abi, this.erc721ContractAddress);
