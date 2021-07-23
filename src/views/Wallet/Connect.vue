@@ -37,7 +37,9 @@
         <h2 class="network-text">
           Wrong Network
         </h2>
-        <p>Please change your network to ropsten and connect again</p>
+        <p class="center">
+          Please change your network to ropsten and connect again
+        </p>
       </template>
     </BaseModal>
   </BaseFrame>
@@ -155,6 +157,10 @@ export default {
 }
 
 .network-text {
+  text-align: center;
+}
+
+.center {
   text-align: center;
 }
 

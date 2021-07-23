@@ -65,6 +65,7 @@ export default {
   border-radius: 1rem;
   display: flex;
   flex-direction: column;
+  padding: 10px;
   padding-left: 2.5rem;
   padding-right: 2.5rem;
   width: 32.5rem;
@@ -115,7 +116,7 @@ export default {
 
 @media screen and (max-width: 30em) {
   .modal {
-    border-radius: 1rem 1rem 0 0;
+    border-radius: 1rem;
     margin: auto;
     position: absolute;
     width: 90%;
