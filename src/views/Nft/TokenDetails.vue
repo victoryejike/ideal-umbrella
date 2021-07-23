@@ -410,16 +410,6 @@ export default {
       //   this.accountBalance = ethBalance;
       // } else if (metamask) {
       const web3 = new Web3(metamask);
-      await window.ethereum.request({
-        method: 'wallet_requestPermissions',
-        params: [
-          {
-            eth_accounts: {},
-          },
-        ],
-      });
-      const [accounts] = await web3.eth.getAccounts();
-      localStorage.setItem('account', accounts);
       const chainid = await web3.eth.getChainId();
       console.log(chainid);
       if (chainid !== 3) {
@@ -430,10 +420,17 @@ export default {
         this.networkChange = false;
         this.isModalVisible = true;
         this.isModalVisiblefixed = true;
+        await window.ethereum.request({
+          method: 'wallet_requestPermissions',
+          params: [
+            {
+              eth_accounts: {},
+            },
+          ],
+        });
+        const [accounts] = await web3.eth.getAccounts();
+        this.accountAddress = localStorage.setItem('account', accounts);
       }
-      const balance = await web3.eth.getBalance(localStorage.getItem('account'));
-      const ethBalance = (balance / 1000000000000000000).toFixed(2);
-      this.accountBalance = ethBalance;
     },
     async GetNFTDetails() {
       let response = null;

@@ -101,22 +101,22 @@ export default {
     async connectMetamask() {
       try {
         const web3 = new Web3(window.ethereum);
-        await window.ethereum.request({
-          method: 'wallet_requestPermissions',
-          params: [
-            {
-              eth_accounts: {},
-            },
-          ],
-        });
-        const [accounts] = await web3.eth.getAccounts();
-        this.accountAddress = localStorage.setItem('account', accounts);
         const chainid = await web3.eth.getChainId();
         console.log(chainid);
         if (chainid !== 3) {
           this.networkChange = true;
         } else if (chainid === 3) {
           this.networkChange = false;
+          await window.ethereum.request({
+            method: 'wallet_requestPermissions',
+            params: [
+              {
+                eth_accounts: {},
+              },
+            ],
+          });
+          const [accounts] = await web3.eth.getAccounts();
+          this.accountAddress = localStorage.setItem('account', accounts);
           this.$router.back();
         }
         // window.ethereum.on('chainChanged', (chainId) => {
