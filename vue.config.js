@@ -13,7 +13,7 @@ module.exports = {
       },
     },
   },
-  publicPath: '/~kenso/',
+  publicPath: '/',
   pages: {
     index: {
       entry: 'src/main.js',
