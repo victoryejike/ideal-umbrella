@@ -13,7 +13,7 @@ module.exports = {
       },
     },
   },
-  publicPath: '/',
+  publicPath: '/~kenso/',
   pages: {
     index: {
       entry: 'src/main.js',
@@ -21,5 +21,13 @@ module.exports = {
       template: 'public/index.html',
       title: 'Naffiti - NFT Marketplace',
     },
+  },
+  chainWebpack: (config) => {
+    config.plugin('define').tap((args) => [{
+      'process.env': {
+        ...args[0]['process.env'],
+      },
+      __INTLIFY_PROD_DEVTOOLS__: false,
+    }]);
   },
 };
