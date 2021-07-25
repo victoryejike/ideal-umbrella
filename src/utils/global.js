@@ -115,11 +115,11 @@ const GLOBAL_FUNCTION = {
    */
   async detectingChain() {
     if (await this.isWalletConnected()) {
-      store.commit('data/setIsWrongChain', window.ethereum?.chainId !== '0x3');
+      store.commit('data/setIsWrongChain', window.ethereum?.chainId !== process.env.VUE_APP_ETH_CHAIN_ID);
       if (!store.getters['data/isMonitoringChain']) {
         window.ethereum.on('chainChanged', (chainId) => {
           store.commit('data/setIsMonitoringChain', true);
-          store.commit('data/setIsWrongChain', chainId !== '0x3');
+          store.commit('data/setIsWrongChain', chainId !== process.env.VUE_APP_ETH_CHAIN_ID);
         });
       }
       return true;

@@ -44,7 +44,7 @@
           {{ $t('global.wrong_network') }}
         </h2>
         <p style="text-align: center;">
-          {{ $t('global.wrong_network_des') }}
+          {{ $t('global.wrong_network_des', [chainName]) }}
         </p>
       </template>
     </BaseModal>
@@ -68,6 +68,9 @@ export default {
       key: 0,
       cacheList: ['Discover'],
     };
+  },
+  computed: {
+    chainName() { return process.env.VUE_APP_ETH_CHAIN_NAME; },
   },
   created() {
     this.$api.GET_COUNTRIES();

@@ -4,8 +4,8 @@ import store from '@/store';
 import i18n from './i18n';
 
 const $t = i18n.global.t;
-const DOMAIN_NAME = process.env.API_DOMAIN_NAME || 'api.fanschain.net';
-const VERSION = process.env.API_VERSION || 'v1';
+const DOMAIN_NAME = process.env.VUE_APP_API_BASE_URL || 'api.fanschain.net';
+const VERSION = process.env.VUE_APP_API_VERSION || 'v1';
 const API_BASE_URL = `https://${DOMAIN_NAME}/${VERSION}/`;
 
 axios.defaults.baseURL = API_BASE_URL;

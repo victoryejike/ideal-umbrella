@@ -121,7 +121,7 @@
     "connect_metamask": "Please connect or unlock your MetaMask before creating transaction",
     "no_metamask": "No MetaMask wallet detected!\nPlease download or enable it first.",
     "wrong_network": "Wrong Network",
-    "wrong_network_des": "Please change your network to ropsten and connect again"
+    "wrong_network_des": "Please change your network to {0} and connect again"
   },
   "header": {
     "create": "Create",
