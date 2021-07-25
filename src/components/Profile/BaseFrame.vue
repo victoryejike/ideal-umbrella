@@ -4,9 +4,9 @@
     <div class="profile-img">
       <img
         class="profile"
-        :class="$store.getters['auth/avatar'] == null ? 'profile' : 'profile-border'"
+        :class="avatar == null ? 'profile' : 'profile-border'"
         :onerror="$global.handleAvatarError"
-        :src="$store.getters['auth/avatar'] || require('@img/default-avatar.png')"
+        :src="$global.handleAvatarURL(avatar)"
       >
     </div>
     <div class="profile-details">
@@ -41,6 +41,9 @@
 <script>
 export default {
   name: 'ProfileBaseframe',
+  computed: {
+    avatar() { return this.$store.getters['auth/avatar']; },
+  },
 };
 </script>
 

@@ -12,7 +12,7 @@
       <img
         class="profile"
         :onerror="$global.handleAvatarError"
-        :src="avatarURL || ''"
+        :src="$global.handleAvatarURL(avatar)"
       >
       <div class="recommend">
         <p>{{ $t('edit_profile.recommend') }}</p>
@@ -74,11 +74,13 @@ export default {
   data() {
     return {
       isUploadingImage: false,
-      avatarURL: this.$store.getters['auth/avatar'],
-      username: this.$store.getters['auth/username'],
-      about: this.$store.getters['auth/about'],
-      portfolio: this.$store.getters['auth/portfolio'],
     };
+  },
+  computed: {
+    avatar() { return this.$store.getters['auth/avatar']; },
+    username() { return this.$store.getters['auth/username']; },
+    about() { return this.$store.getters['auth/about']; },
+    portfolio() { return this.$store.getters['auth/portfolio']; },
   },
   mounted() {
     if (this.$route.params?.errorMsg) {
@@ -117,7 +119,6 @@ export default {
 
       if (response?.success) {
         await this.updateStoreValue();
-        this.avatarURL = this.$store.getters['auth/avatar'];
       } else {
         //
       }

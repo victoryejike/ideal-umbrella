@@ -171,7 +171,7 @@ const API_SERVICES = {
       }
 
       if (response?.success) {
-        const data = response.data.map((item) => ({ ...item, image: item.image.replace('http://', 'https://') }));
+        const data = response.data.map((item) => ({ ...item, image: item.image?.replace('http://', 'https://') }));
         store.commit('data/setFilterCategory', data);
         return data;
       }

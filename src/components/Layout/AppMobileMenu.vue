@@ -34,7 +34,7 @@
                   class="menu-avatar"
                   height="30"
                   :onerror="$global.handleAvatarError"
-                  :src="item.avatar"
+                  :src="$global.handleAvatarURL(item.avatar)"
                   width="30"
                 >
                 {{ item.name }}
@@ -66,7 +66,6 @@
 </template>
 
 <script>
-import DefaultAvatar from '@img/default-avatar.png';
 import MobileMenuButton from './MobileMenuButton.vue';
 import SocialAndCopyRightBlock from './SocialAndCopyRightBlock.vue';
 
@@ -106,7 +105,7 @@ export default {
     loggedInList() {
       return [...this.baseList, {
         name: this.$store.getters['auth/username'],
-        avatar: this.$store.getters['auth/avatar'] || DefaultAvatar,
+        avatar: this.$store.getters['auth/avatar'],
         child: [
           { name: this.$t('menu.profile.edit_profile'), action: '/account/profile' },
           { name: this.$t('menu.profile.setting'), action: '/account/setting' },

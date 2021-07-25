@@ -4,7 +4,7 @@
       class="avatar"
       height="60"
       :onerror="$global.handleAvatarError"
-      :src="avatar || ''"
+      :src="$global.handleAvatarURL(avatar)"
       width="60"
     >
     <div class="information">

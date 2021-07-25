@@ -28,7 +28,9 @@
             <div class="creater-details">
               <img
                 class="creater-image"
-                :src="nftDetails.creator?.image?.replace('http://', 'https://')"
+                height="40"
+                :onerror="$global.handleAvatarError"
+                :src="$global.handleAvatarURL(nftDetails.creator?.image)"
                 width="40"
               >
               <span class="creater-name">{{ nftDetails.creator?.display_name }}</span>

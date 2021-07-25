@@ -1,5 +1,6 @@
 import store from '@/store';
 import i18n from '@/utils/i18n';
+import DefaultAvatar from '@img/default-avatar.png';
 
 const $t = i18n.global.t;
 
@@ -14,6 +15,17 @@ const GLOBAL_FUNCTION = {
   handleAvatarError(event) {
     const { target } = event;
     target.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==';
+  },
+
+  /**
+   * All the avatar IMG tag should add this function to handle default avatar image
+   * and dead link image. (Temporary)
+   *
+   * Avatar link
+   * @param  {string|undefined} url
+   */
+  handleAvatarURL(url) {
+    return (typeof url === 'string') ? url.replace('http://', 'https://') : DefaultAvatar;
   },
 
   /**
@@ -58,8 +70,8 @@ const GLOBAL_FUNCTION = {
           // eslint-disable-next-line no-underscore-dangle
           price: nft.price || nft.bid?.highest_bid || nft.minimum_bid,
           image: `https://ipfs.io/ipfs/${nft.uri}`,
-          author: nft.creator?.display_name || '',
-          avatar: nft.creator?.image?.replace('http://', 'https://') || '',
+          author: nft.creator?.display_name,
+          avatar: nft.creator?.image,
           verified: nft.creator?.is_kyc_verified || false,
           period: null,
         };

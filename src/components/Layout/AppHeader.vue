@@ -33,7 +33,7 @@
           class="avatar"
           height="40"
           :onerror="$global.handleAvatarError"
-          :src="getAvatarURL()"
+          :src="$global.handleAvatarURL(avatar)"
           width="40"
           @click="$refs.avatarMenu.toogle"
         >
@@ -69,7 +69,6 @@
 </template>
 
 <script>
-import DefaultAvatar from '@img/default-avatar.png';
 import MobileMenuButton from './MobileMenuButton.vue';
 
 export default {
@@ -90,10 +89,6 @@ export default {
           name: this.$t('header.how_it_works'),
           url: '/',
         },
-        // {
-        //   name: this.$t('header.fanschain'),
-        //   url: '/',
-        // },
         {
           name: this.$t('header.login'),
           url: '/login',
@@ -112,11 +107,7 @@ export default {
       privateLinks.pop();
       return privateLinks;
     },
-  },
-  methods: {
-    getAvatarURL() {
-      return this.$store.getters['auth/avatar'] || DefaultAvatar;
-    },
+    avatar() { return this.$store.getters['auth/avatar']; },
   },
 };
 </script>
