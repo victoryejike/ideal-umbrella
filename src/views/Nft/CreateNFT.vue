@@ -202,7 +202,7 @@
           <BaseRoundButton
             class="btn-primary btn-md btn-bold"
             :icon="isLoading ? 'loading' : 'arrow-right'"
-            :text="$t('collectible.create_button_text')"
+            :text="text"
             @click="metaData"
           />
         </div>
@@ -244,6 +244,7 @@ export default {
       selectedSwitch: true,
       pricingType: 'FIXED PRICE',
       coinType: 'ETH',
+      text: this.$t('collectible.create_button_text'),
       collectibleList: [
         { name: 'ERC-721', id: 'erc' },
       ],
@@ -418,6 +419,20 @@ export default {
         // return this.$t('collectible.title_single');
         const contract = new web3.eth.Contract(require('@/assets/abi/erc1155').default, this.erc1155ContractAddress);
         const ercContract = new web3.eth.Contract(require('@/assets/abi/erc20').default, this.erc20ContractAddress);
+        contract.methods
+          .setApprovalForAll('0x9c43954273fA28bEf00Ee6e6851dcd2246C5AF11', true)
+          .send({ from: localStorage.getItem('account'), gas: 2000000, gasPrice: '35000000000' })
+          .on('error', (error) => {
+            console.log(error);
+            this.isLoading = false;
+          });
+        ercContract.methods
+          .approve('0x9c43954273fA28bEf00Ee6e6851dcd2246C5AF11', web3.utils.toWei('1000000000000000000000'))
+          .send({ from: localStorage.getItem('account'), gas: 2000000, gasPrice: '30000000000' })
+          .on('error', (error) => {
+            console.log(error);
+            this.isLoading = false;
+          });
         const result = await contract.methods
           .mint(qty)
           .send({ from: localStorage.getItem('account'), gas: 2000000, gasPrice: '20000000000' }).on('error', (error) => {
@@ -426,13 +441,26 @@ export default {
           });
         this.ipfsUrl = cid;
         this.tokenId = result.events.TokenMinted.returnValues.tokenType;
-        contract.methods.setApprovalForAll('0x2efe9afa8e6f4e3c5b661a9b52414ead2ef28b0a', true).send({ from: localStorage.getItem('account'), gas: 2000000, gasPrice: '35000000000' });
-        ercContract.methods.approve('0x2efe9afa8e6f4e3c5b661a9b52414ead2ef28b0a', web3.utils.toWei('1000000000000000000000')).send({ from: localStorage.getItem('account'), gas: 2000000, gasPrice: '30000000000' });
         this.$refs.['collectible-nft'].$el.dispatchEvent(new Event('submit', { cancelable: true }));
       } else {
         const contract = new web3.eth.Contract(require('@/assets/abi/erc721').default, this.erc721ContractAddress);
         const ercContract = new web3.eth.Contract(require('@/assets/abi/erc20').default, this.erc20ContractAddress);
         if (this.pricing_type === 'fixed') {
+          console.log('yes');
+          contract.methods
+            .setApprovalForAll('0x9c43954273fA28bEf00Ee6e6851dcd2246C5AF11', true)
+            .send({ from: localStorage.getItem('account'), gas: 200000, gasPrice: '2000000000' })
+            .on('error', (error) => {
+              console.log(error);
+              this.isLoading = false;
+            });
+          ercContract.methods
+            .approve('0x9c43954273fA28bEf00Ee6e6851dcd2246C5AF11', web3.utils.toWei('1000'))
+            .send({ from: localStorage.getItem('account'), gas: 200000, gasPrice: '2000000000' })
+            .on('error', (error) => {
+              console.log(error);
+              this.isLoading = false;
+            });
           const result = await contract.methods
             .mint(`https://${cid}.ipfs.dweb.link`)
             .send({ from: localStorage.getItem('account'), gas: 2900000, gasPrice: '29000000000' }).on('error', (error) => {
@@ -442,8 +470,6 @@ export default {
           this.ipfsUrl = cid;
           this.tokenId = result.events.Transfer.returnValues.tokenId;
           const price = document.querySelector('.price').value;
-          contract.methods.setApprovalForAll('0x2efe9afa8e6f4e3c5b661a9b52414ead2ef28b0a', true).send({ from: localStorage.getItem('account'), gas: 3000000, gasPrice: '35000000000' });
-          ercContract.methods.approve('0x2efe9afa8e6f4e3c5b661a9b52414ead2ef28b0a', web3.utils.toWei('1000')).send({ from: localStorage.getItem('account'), gas: 2000000, gasPrice: '35000000000' });
           contract.methods.createSellOrder(this.tokenId, web3.utils.toWei(price, 'ether')).send({ from: localStorage.getItem('account'), gas: 3500000, gasPrice: '35000000000' });
         }
         if (this.pricing_type === 'timed_auction') {
@@ -453,6 +479,8 @@ export default {
           const startDate = new Date(auctionStartdate);
           const endDate = new Date(auctionExpirationdate);
           const timeDuration = (endDate.getTime() - startDate.getTime()) / 1000;
+          contract.methods.setApprovalForAll('0x9c43954273fA28bEf00Ee6e6851dcd2246C5AF11', true).send({ from: localStorage.getItem('account'), gas: 3000000, gasPrice: '35000000000' });
+          ercContract.methods.approve('0x9c43954273fA28bEf00Ee6e6851dcd2246C5AF11', web3.utils.toWei('1000000000000000000000')).send({ from: localStorage.getItem('account'), gas: 2000000, gasPrice: '35000000000' });
           const result = await contract.methods
             .mint(`https://${cid}.ipfs.dweb.link`)
             .send({ from: localStorage.getItem('account'), gas: 2900000, gasPrice: '29000000000' }).on('error', (error) => {
@@ -461,8 +489,6 @@ export default {
             });
           this.ipfsUrl = cid;
           this.tokenId = result.events.Transfer.returnValues.tokenId;
-          contract.methods.setApprovalForAll('0x2efe9afa8e6f4e3c5b661a9b52414ead2ef28b0a', true).send({ from: localStorage.getItem('account'), gas: 3000000, gasPrice: '35000000000' });
-          ercContract.methods.approve('0x2efe9afa8e6f4e3c5b661a9b52414ead2ef28b0a', web3.utils.toWei('1000000000000000000000')).send({ from: localStorage.getItem('account'), gas: 2000000, gasPrice: '35000000000' });
           contract.methods.CreateAuction(this.tokenId, (1), timeDuration, web3.utils.toWei(startPrice, 'ether')).send({ from: localStorage.getItem('account'), gas: 3500000, gasPrice: '35000000000' });
         }
         this.$refs.['collectible-nft'].$el.dispatchEvent(new Event('submit', { cancelable: true }));
