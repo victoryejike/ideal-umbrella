@@ -172,12 +172,6 @@
       class="input-line"
       :class="[{focus: isFocus}, {'error-underline': isError}]"
     />
-    <div v-if="message.content">
-      <BaseMessage
-        :message="message.content"
-        :type="message.type"
-      />
-    </div>
     <div
       ref="error-msg"
       class="input-error-msg"
@@ -211,7 +205,6 @@ export default {
   emits: ['input'],
   data() {
     return {
-      message: { type: null, content: null },
       value: this.defaultValue,
       isDisplay: false,
       isFocus: false,
@@ -268,11 +261,10 @@ export default {
           if (params) {
             // TODO: No CSRF Token Implementaion
             const response = await this.$api.REQUEST_OTP(params);
-            this.message = {
+            this.$toast.open({
+              message: response?.message || response?.error,
               type: (response?.success) ? 'success' : 'error',
-              content: response?.message || response?.error,
-            };
-            setTimeout(() => { this.message.content = null; }, 2000);
+            });
           }
         }
       });

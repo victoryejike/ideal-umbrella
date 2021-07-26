@@ -89,8 +89,7 @@ export default {
       if (response?.success) {
         this.$router.push({ name: 'UpdatePassword', params: { token: response.data } });
       } else {
-        const { form } = this.$refs['forgot-password-form'];
-        form.setFieldError('otp', response.error);
+        this.$toast.error(response?.error);
       }
     },
   },

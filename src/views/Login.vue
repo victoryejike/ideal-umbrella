@@ -87,11 +87,7 @@ export default {
   },
   mounted() {
     if (this.$route.params?.errorMsg) {
-      this.$toast.open({
-        position: 'top-right',
-        message: this.$route.params?.errorMsg,
-        type: 'error',
-      });
+      this.$toast.error(this.$route.params?.errorMsg);
     }
   },
   methods: {
@@ -99,18 +95,18 @@ export default {
       const need2FA = await this.$api.IS_2FA_ENABLED(formData);
       if (need2FA === true) {
         this.$router.push({ name: '2FA', params: { formData: JSON.stringify(formData) } });
-      } else {
-        const response = await this.$api.LOGIN(formData);
-        const { form } = this.$refs['login-form'];
+        return;
+      }
 
-        if (response?.success === true) {
-          this.$store.dispatch('auth/login', response?.data);
-          this.$router.push(this.$route.params?.redirectFrom || '/account/profile');
-        } else if (response?.success === false) {
-          form.setFieldError('password', response?.error);
-        } else {
-          form.setFieldError('password', this.$t('axios.unexcepted_error'));
-        }
+      const response = await this.$api.LOGIN(formData);
+
+      if (response?.success === true) {
+        this.$store.dispatch('auth/login', response?.data);
+        this.$router.push(this.$route.params?.redirectFrom || '/account/profile');
+      } else if (response?.success === false) {
+        this.$toast.error(response?.error);
+      } else {
+        this.$toast.error(this.$t('axios.unexcepted_error'));
       }
     },
   },

@@ -85,12 +85,6 @@
         class="input-error-msg-effect"
         name="agree-terms"
       />
-      <div v-if="message !== ' '">
-        <BaseMessage
-          :message="message"
-          :type="messageType"
-        />
-      </div>
       <BaseRoundButton
         class="register-button btn-primary btn-md btn-bold"
         :icon="isLoading ? 'loading' : 'arrow-right'"
@@ -126,8 +120,6 @@ export default {
       isModalVisible: false,
       isEmail: true,
       checkedTerms: false,
-      message: ' ',
-      messageType: ' ',
       registerTab: [
         {
           name: this.$t('tab_titles.email'),
@@ -153,9 +145,9 @@ export default {
 
       if (response?.success) {
         this.$router.push('/login');
+        this.$toast.success(response?.message);
       } else {
-        this.messageType = 'error';
-        this.message = response.error;
+        this.$toast.error(response?.error);
       }
     },
     showModal() {

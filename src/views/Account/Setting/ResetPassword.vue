@@ -60,12 +60,6 @@
         :text="$t('register_screen.verification_code_label')"
         type="otp"
       />
-      <div v-if="message !== ' '">
-        <BaseMessage
-          :message="message"
-          :type="messageType"
-        />
-      </div>
       <div class="actions-div">
         <BaseRoundButton
           class="reset-button btn-primary btn-md btn-bold"
@@ -94,8 +88,6 @@ export default {
   },
   data() {
     return {
-      message: ' ',
-      messageType: ' ',
       isEmail: true,
       resetTab: [
         {
@@ -112,7 +104,6 @@ export default {
 
   methods: {
     async onSubmit(resetFormData) {
-      this.message = ' ';
       let response = null;
       try {
         const { data } = await this.$api.RESET_PASSWORD(resetFormData);
@@ -121,13 +112,10 @@ export default {
         response = error?.response?.data;
       }
 
-      if (response?.success) {
-        this.messageType = 'success';
-        this.message = response.message;
-      } else {
-        this.messageType = 'error';
-        this.message = response.error;
-      }
+      this.$toast.open({
+        message: response?.message || response?.error,
+        type: (response?.success) ? 'success' : 'error',
+      });
     },
   },
 };

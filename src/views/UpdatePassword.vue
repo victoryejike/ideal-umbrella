@@ -65,9 +65,9 @@ export default {
 
       if (response?.success) {
         this.$router.push('/login');
+        this.$toast.success(response?.message);
       } else {
-        const { form } = this.$refs['update-password-form'];
-        form.setFieldError('token', response.error);
+        this.$toast.error(response?.error);
       }
     },
   },

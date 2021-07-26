@@ -38,12 +38,6 @@
         :text="$t('rabind_phone_screen.new_phone_verfication')"
         type="otp"
       />
-      <div v-if="message !== ' '">
-        <BaseMessage
-          :message="message"
-          :type="messageType"
-        />
-      </div>
       <div class="actions-div">
         <BaseRoundButton
           class="reset-button btn-primary btn-md btn-bold"
@@ -69,8 +63,6 @@ export default {
   components: { BaseSettingFrame },
   data() {
     return {
-      message: ' ',
-      messageType: ' ',
       isEmail: false,
     };
   },
@@ -84,13 +76,10 @@ export default {
         response = error?.response?.data;
       }
 
-      if (response?.success) {
-        this.messageType = 'success';
-        this.message = response.message;
-      } else {
-        const { form } = this.$refs['rebind-phone-form'];
-        form.setFieldError('new_phone_code', response.error);
-      }
+      this.$toast.open({
+        message: response?.message || response?.error,
+        type: (response?.success) ? 'success' : 'error',
+      });
     },
   },
 };
