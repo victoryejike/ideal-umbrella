@@ -427,7 +427,7 @@ export default {
             this.isLoading = false;
           });
         ercContract.methods
-          .approve('0x9c43954273fA28bEf00Ee6e6851dcd2246C5AF11', web3.utils.toWei('1000000000000000000000'))
+          .approve('0x9c43954273fA28bEf00Ee6e6851dcd2246C5AF11', web3.utils.toWei('1000000000000000000000000'))
           .send({ from: localStorage.getItem('account'), gas: 2000000, gasPrice: '30000000000' })
           .on('error', (error) => {
             console.log(error);
@@ -455,7 +455,7 @@ export default {
               this.isLoading = false;
             });
           ercContract.methods
-            .approve('0x9c43954273fA28bEf00Ee6e6851dcd2246C5AF11', web3.utils.toWei('1000'))
+            .approve('0x9c43954273fA28bEf00Ee6e6851dcd2246C5AF11', web3.utils.toWei('1000000000000000000000000'))
             .send({ from: localStorage.getItem('account'), gas: 200000, gasPrice: '2000000000' })
             .on('error', (error) => {
               console.log(error);
@@ -480,7 +480,7 @@ export default {
           const endDate = new Date(auctionExpirationdate);
           const timeDuration = (endDate.getTime() - startDate.getTime()) / 1000;
           contract.methods.setApprovalForAll('0x9c43954273fA28bEf00Ee6e6851dcd2246C5AF11', true).send({ from: localStorage.getItem('account'), gas: 3000000, gasPrice: '35000000000' });
-          ercContract.methods.approve('0x9c43954273fA28bEf00Ee6e6851dcd2246C5AF11', web3.utils.toWei('1000000000000000000000')).send({ from: localStorage.getItem('account'), gas: 2000000, gasPrice: '35000000000' });
+          ercContract.methods.approve('0x9c43954273fA28bEf00Ee6e6851dcd2246C5AF11', web3.utils.toWei('1000000000000000000000000')).send({ from: localStorage.getItem('account'), gas: 2000000, gasPrice: '35000000000' });
           const result = await contract.methods
             .mint(`https://${cid}.ipfs.dweb.link`)
             .send({ from: localStorage.getItem('account'), gas: 2900000, gasPrice: '29000000000' }).on('error', (error) => {
