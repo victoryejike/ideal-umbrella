@@ -7,7 +7,7 @@
         <div
           class="token-text-div"
         >
-          <span class="token-text">{{ nftDetails.category?.title }}</span>
+          <span class="token-text">{{ nftDetails?.title }}</span>
           <div class="button-div">
             <BaseRoundButton
               class="btn-outline-secondary button btn-unclickable"
