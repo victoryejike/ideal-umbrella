@@ -98,6 +98,9 @@ const GLOBAL_FUNCTION = {
         // window.ethereum is undefined if document state is not complete
         if (document.readyState === 'complete') {
           clearInterval(tid);
+          if (window.ethereum == null) {
+            store.$toast.error($t('global.no_metamask'));
+          }
           resolve(window.ethereum != null);
         }
       }, 200);
@@ -112,10 +115,10 @@ const GLOBAL_FUNCTION = {
     const eth = window.ethereum;
     if (eth?.selectedAddress == null) {
       try {
-        // If there are already has a queuing request,
+        // If there are already has a queuing request, then eth will throw error with code -32002
         await eth.request({ method: 'eth_requestAccounts' });
       } catch (error) {
-        store.$toast.error($t('global.no_metamask'));
+        store.$toast.error(error.code === -32002 ? $t('global.already_has_request') : $t('global.no_metamask'));
       }
       return false;
     }
@@ -138,7 +141,6 @@ const GLOBAL_FUNCTION = {
       }
       return true;
     }
-    store.$toast.error($t('global.no_metamask'));
     return false;
   },
 };
