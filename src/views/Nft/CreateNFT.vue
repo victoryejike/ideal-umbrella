@@ -249,13 +249,13 @@ export default {
         { name: 'ERC-721', id: 'erc' },
       ],
       singleTabTitle: [
-        this.$t('collectible.tab.fixed_price'),
-        this.$t('collectible.tab.timed_auction'),
-        this.$t('collectible.tab.unlimited_auction'),
+        { name: this.$t('collectible.tab.fixed_price') },
+        { name: this.$t('collectible.tab.timed_auction') },
+        { name: this.$t('collectible.tab.unlimited_auction') },
       ],
       multipleTabTitle: [
-        this.$t('collectible.tab.fixed_price'),
-        this.$t('collectible.tab.unlimited_auction'),
+        { name: this.$t('collectible.tab.fixed_price') },
+        { name: this.$t('collectible.tab.unlimited_auction') },
       ],
       royaltiesList: [
         { name: '10 %', value: '1000' },
