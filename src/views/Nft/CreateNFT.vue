@@ -28,17 +28,16 @@
           <BaseNavigationTab
             v-if="selectedSwitch"
             class="tabs"
-            :list="tabTitle"
+            :list="tabList"
             :width="10.6"
-            @click="getActiveTabNav"
           />
           <Field
-            v-model="pricing_type"
+            v-model="pricingType"
             class="input-field unshow"
-            name="pricing_type"
+            name="pricingType"
           />
         </div>
-        <template v-if="selectedSwitch && pricingType === 'FIXED PRICE'">
+        <template v-if="selectedSwitch && pricingType === PriceType.FIXED">
           <BaseUnderlinedInput
             ref="price"
             class="input-field"
@@ -67,7 +66,7 @@
             </template>
           </BaseUnderlinedInput>
         </template>
-        <template v-if="selectedSwitch && pricingType !== 'FIXED PRICE'">
+        <template v-if="selectedSwitch && pricingType !== PriceType.FIXED">
           <BaseUnderlinedInput
             class="input-field"
             name="minimum_bid"
@@ -90,7 +89,7 @@
             @click="getStartDate"
           />
           <BaseUnderlinedInput
-            v-if="pricingType == 'TIMED AUCTION'"
+            v-if="pricingType == PriceType.TIMED_AUCTION"
             class="input-field"
             name="expiration_date"
             :placeholder="$t('collectible.auction_expiration_placeholder')"
@@ -202,7 +201,7 @@
           <BaseRoundButton
             class="btn-primary btn-md btn-bold"
             :icon="isLoading ? 'loading' : 'arrow-right'"
-            :text="text"
+            :text="$t('collectible.create_button_text')"
             @click="metaData"
           />
         </div>
@@ -226,36 +225,43 @@ const APP_NAME = 'Naffiti';
 const APP_LOGO_URL = 'https://example.com/logo.png';
 const ETH_JSONRPC_URL = 'https://ropsten.infura.io/v3/58bf1103531f4b858b31eb3c5c4ddd2f';
 const CHAIN_ID = 3;
+
 // Initialize WalletLink
-export const walletLink = new WalletLink({
+const walletLink = new WalletLink({
   appName: APP_NAME,
   appLogoUrl: APP_LOGO_URL,
   darkMode: false,
 });
+
+const PriceType = {
+  FIXED: 'fixed',
+  TIMED_AUCTION: 'timed_auction',
+  UNLIMITED_AUCTION: 'unlimited_auction',
+};
 
 export default {
   name: 'CreateNFT',
   components: { UploadCard, Base, Field },
   data() {
     return {
+      PriceType,
       isLoading: false,
       categories: [],
       isModalVisible: false,
       selectedSwitch: true,
-      pricingType: 'FIXED PRICE',
       coinType: 'ETH',
-      text: this.$t('collectible.create_button_text'),
       collectibleList: [
         { name: 'ERC-721', id: 'erc' },
       ],
-      singleTabTitle: [
-        { name: this.$t('collectible.tab.fixed_price') },
-        { name: this.$t('collectible.tab.timed_auction') },
-        { name: this.$t('collectible.tab.unlimited_auction') },
-      ],
-      multipleTabTitle: [
-        { name: this.$t('collectible.tab.fixed_price') },
-        { name: this.$t('collectible.tab.unlimited_auction') },
+      baseTabList: [
+        {
+          name: this.$t('collectible.tab.fixed_price'),
+          handler: () => { this.pricingType = PriceType.FIXED; },
+        },
+        {
+          name: this.$t('collectible.tab.unlimited_auction'),
+          handler: () => { this.pricingType = PriceType.UNLIMITED_AUCTION; },
+        },
       ],
       royaltiesList: [
         { name: '10 %', value: '1000' },
@@ -267,7 +273,7 @@ export default {
       collectible_class: [],
       tokenId: '',
       receivedAmount: '',
-      pricing_type: 'fixed',
+      pricingType: PriceType.FIXED,
       ipfsUrl: '',
       r: localStorage.getItem('r'),
       s: localStorage.getItem('s'),
@@ -278,22 +284,19 @@ export default {
     };
   },
   computed: {
-    standard() { return this.$route.params?.standard; },
+    standard() { return this.$route.params.standard; },
     title() {
-      if (this.standard === 'erc721') {
-        return this.$t('collectible.title_single');
-      } if (this.standard === 'erc1155') {
-        return this.$t('collectible.title_multiple');
-      }
-      return null;
+      return this.standard === 'erc721' ? this.$t('collectible.title_single') : this.$t('collectible.title_multiple');
     },
-    tabTitle() {
+    tabList() {
+      const result = this.baseTabList;
       if (this.standard === 'erc721') {
-        return this.singleTabTitle;
-      } if (this.standard === 'erc1155') {
-        return this.multipleTabTitle;
+        result.splice(1, 0, {
+          name: this.$t('collectible.tab.timed_auction'),
+          handler: () => { this.pricingType = PriceType.TIMED_AUCTION; },
+        });
       }
-      return null;
+      return result;
     },
   },
   async mounted() {
@@ -345,28 +348,11 @@ export default {
       const newAmount = (amount - discountAmount).toFixed(4);
       this.$refs.receivedAmount.value = newAmount;
     },
-    getActiveTabNav() {
-      const navTab = document.querySelectorAll('.navs');
-      navTab.forEach((nav) => {
-        if (nav.classList.contains('active')) {
-          const activeTabNavValue = nav.innerText;
-          this.pricingType = activeTabNavValue;
-          if (this.pricingType === 'Fixed') {
-            this.pricing_type = 'fixed';
-          } else if (this.pricingType === 'TIMED AUCTION') {
-            this.pricing_type = 'timed_auction';
-          } else if (this.pricingType === 'UNLIMITED AUCTION') {
-            this.pricing_type = 'unlimited_auction';
-          }
-          // sessionStorage.setItem('pricing', this.pricingType);
-        }
-      });
-    },
     closeModal() {
       this.isModalVisible = false;
     },
     async metaData() {
-      if (!(await this.$global.isWalletConnected()) || !(await this.$global.isAddressValid())) {
+      if (!(await this.$global.isWalletConnected()) || !(await this.$global.isAddressExist())) {
         return;
       }
       this.$global.detectingChain();
@@ -449,7 +435,7 @@ export default {
       } else {
         const contract = new web3.eth.Contract(require('@/assets/abi/erc721').default, this.erc721ContractAddress);
         const ercContract = new web3.eth.Contract(require('@/assets/abi/erc20').default, this.erc20ContractAddress);
-        if (this.pricing_type === 'fixed') {
+        if (this.pricingType === PriceType.FIXED) {
           console.log('yes');
           contract.methods
             .setApprovalForAll('0x9c43954273fA28bEf00Ee6e6851dcd2246C5AF11', true)
@@ -476,7 +462,7 @@ export default {
           const price = document.querySelector('.price').value;
           contract.methods.createSellOrder(this.tokenId, web3.utils.toWei(price, 'ether')).send({ from: localStorage.getItem('account'), gas: 3500000, gasPrice: '35000000000' });
         }
-        if (this.pricing_type === 'timed_auction') {
+        if (this.pricingType === PriceType.TIMED_AUCTION) {
           const startPrice = document.querySelector('.minimum_bid').value;
           const auctionStartdate = document.querySelector('.starting_date').value;
           const auctionExpirationdate = document.querySelector('.expiration_date').value;

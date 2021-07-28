@@ -88,9 +88,14 @@ const GLOBAL_FUNCTION = {
     return result;
   },
 
+  /**
+   * Check whether the user installed or enable the broswer wallet or not.
+   * Note: if the wallet only locked, isWalletConnected() will return true
+   */
   async isWalletConnected() {
     return new Promise((resolve) => {
       const tid = setInterval(() => {
+        // window.ethereum is undefined if document state is not complete
         if (document.readyState === 'complete') {
           clearInterval(tid);
           resolve(window.ethereum != null);
@@ -98,10 +103,16 @@ const GLOBAL_FUNCTION = {
       }, 200);
     });
   },
-  async isAddressValid() {
+
+  /**
+   * Check whether the wallet has address or not, you should check isWalletConnected()
+   * first before checking isAddressExist()
+   */
+  async isAddressExist() {
     const eth = window.ethereum;
-    if (eth.selectedAddress == null) {
+    if (eth?.selectedAddress == null) {
       try {
+        // If there are already has a queuing request,
         await eth.request({ method: 'eth_requestAccounts' });
       } catch (error) {
         store.$toast.error($t('global.no_metamask'));
@@ -110,15 +121,18 @@ const GLOBAL_FUNCTION = {
     }
     return true;
   },
+
   /**
    * An Observer that watching user current network/chain.
    */
   async detectingChain() {
     if (await this.isWalletConnected()) {
+      // Since the observer will not trigger when the user visit the site, so we have to check it
       store.commit('data/setIsWrongChain', window.ethereum?.chainId !== process.env.VUE_APP_ETH_CHAIN_ID);
+      // Prevent creating multiple observer
       if (!store.getters['data/isMonitoringChain']) {
+        store.commit('data/setIsMonitoringChain', true);
         window.ethereum.on('chainChanged', (chainId) => {
-          store.commit('data/setIsMonitoringChain', true);
           store.commit('data/setIsWrongChain', chainId !== process.env.VUE_APP_ETH_CHAIN_ID);
         });
       }

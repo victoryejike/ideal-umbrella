@@ -14,16 +14,15 @@ const publicRoute = [
     name: 'Login',
     component: () => import('@view/Login.vue'),
     beforeEnter: (to, from, next) => {
-      if (!store.getters['auth/isLoggedIn']) {
-        next();
-      } else if (store.getters['auth/isExpired']) {
+      if (store.getters['auth/isLoggedIn']) {
+        if (!store.getters['auth/isExpired']) {
+          return next({ name: 'Profile' });
+        }
         store.dispatch('auth/logout');
         const { params } = to;
         params.errorMsg = $t('router.expired');
-        next();
-      } else {
-        next({ name: 'Profile' });
       }
+      return next();
     },
   },
   {

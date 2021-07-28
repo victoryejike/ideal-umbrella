@@ -86,7 +86,7 @@ export default {
     },
     async connectMetamask() {
       try {
-        if (!(await this.$global.isWalletConnected()) || !(await this.$global.isAddressValid())) {
+        if (!(await this.$global.isWalletConnected()) || !(await this.$global.isAddressExist())) {
           return;
         }
         this.$global.detectingChain();

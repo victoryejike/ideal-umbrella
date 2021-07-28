@@ -13,10 +13,15 @@ const privateRoute = [
     path: '/nft/create/:standard',
     name: 'CreateNFT',
     component: () => import('@view/Nft/CreateNFT.vue'),
-    beforeEnter: (to, from, next) => (
-      store.getters['auth/username']
-        ? next()
-        : next({ name: 'EditProfile', params: { errorMsg: $t('router.fill_in_username') } })),
+    beforeEnter: (to, from, next) => {
+      if (!['erc721', 'erc1155'].includes(to.params.standard)) {
+        return next({ name: 'NFT' });
+      }
+      if (!store.getters['auth/username']) {
+        return next({ name: 'EditProfile', params: { errorMsg: $t('router.fill_in_username') } });
+      }
+      return next();
+    },
   },
   {
     path: '/wallet',
