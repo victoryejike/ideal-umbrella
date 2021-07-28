@@ -175,12 +175,27 @@
   </div>
 </template>
 <script>
+import WalletLink from 'walletlink';
+import WalletConnectProvider from '@walletconnect/web3-provider';
 import DetailsTab from '@/components/Nft/DetailsTab.vue';
 import HistoryTab from '@/components/Nft/HistoryTab.vue';
 import BidModal from '@/components/Nft/BidModal.vue';
 import BuyModal from '@/components/Nft/BuyModal.vue';
 import Web3 from 'web3';
 import NoBid from './NoBid.vue';
+
+// const Web3 = require('web3');
+
+const APP_NAME = 'Naffiti';
+const APP_LOGO_URL = 'https://example.com/logo.png';
+const ETH_JSONRPC_URL = 'https://ropsten.infura.io/v3/58bf1103531f4b858b31eb3c5c4ddd2f';
+const CHAIN_ID = 3;
+// Initialize WalletLink
+export const walletLink = new WalletLink({
+  appName: APP_NAME,
+  appLogoUrl: APP_LOGO_URL,
+  darkMode: false,
+});
 
 export default {
   name: 'TokenDetails',
@@ -274,18 +289,49 @@ export default {
       }
       this.$global.detectingChain();
 
-      const web3 = new Web3(window.ethereum);
-      await window.ethereum.request({
-        method: 'wallet_requestPermissions',
-        params: [
-          {
-            eth_accounts: {},
-          },
-        ],
-      });
-      this.isModalVisible = true;
-      const [accounts] = await web3.eth.getAccounts();
-      this.accountAddress = localStorage.setItem('account', accounts);
+      let provider;
+      const obj = JSON.parse(localStorage.getItem('walletconnect'));
+      if (obj === (localStorage.getItem('account'))) {
+        provider = new WalletConnectProvider({
+          infuraId: '58bf1103531f4b858b31eb3c5c4ddd2f',
+        });
+      } else if ((localStorage.getItem('-walletlink:https://www.walletlink.org:Addresses')) === (localStorage.getItem('account'))) {
+        provider = walletLink.makeWeb3Provider(ETH_JSONRPC_URL, CHAIN_ID);
+        const web3 = new Web3(provider);
+        const account = await provider.enable();
+        this.isModalVisible = true;
+        const connectedAccount = account[0];
+        console.log(account);
+        this.accountAddress = localStorage.setItem('account', connectedAccount);
+        web3.eth.getBalance(localStorage.getItem('account'), (err, result) => {
+          if (err) {
+            console.log(err);
+          } else {
+            this.accountBalance = (web3.utils.fromWei(result, 'ether'));
+          }
+        });
+      } else {
+        provider = window.ethereum;
+        const web3 = new Web3(provider);
+        await window.ethereum.request({
+          method: 'wallet_requestPermissions',
+          params: [
+            {
+              eth_accounts: {},
+            },
+          ],
+        });
+        this.isModalVisible = true;
+        const [accounts] = await web3.eth.getAccounts();
+        this.accountAddress = localStorage.setItem('account', accounts);
+        web3.eth.getBalance(localStorage.getItem('account'), (err, result) => {
+          if (err) {
+            console.log(err);
+          } else {
+            this.accountBalance = (web3.utils.fromWei(result, 'ether'));
+          }
+        });
+      }
     },
   },
 };
