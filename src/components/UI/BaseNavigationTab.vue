@@ -1,15 +1,15 @@
 <template>
   <div
     class="tabs"
-    :style="width !== 0 ? {width: tabsWidth} : null"
+    :style="{width: tabsWidth}"
   >
     <button
       v-for="(name, index) in titleList"
       :key="index"
       class="navs"
-      :class="[{active: isActive[index]}, {fixed: width === 0}]"
-      :onClick="() => {toggleTab(index); execute(index)}"
-      :style="width !== 0 ? {width: btnWidth} : null"
+      :class="{active: tabStatus[index]}"
+      :onClick="() => {handleOnClick(index)}"
+      :style="{width: btnWidth}"
       type="button"
     >
       <span class="btn-text">
@@ -25,51 +25,53 @@ export default {
   props: {
     list: { type: Array, required: true },
     width: { type: Number, required: false, default: 0 },
+    /*
+       Handle responsive CSS via JavaScript way, default is 480px, which is
+       when screen lower then 480px, then tab's width and tab button's width
+       will become 100%
+    */
     mobileMaxWidth: { type: Number, required: false, default: 30 },
     activeIndex: { type: Number, required: false, default: 0 },
   },
   data() {
     return {
       currentActiveIndex: this.activeIndex,
-      functionList: [],
-      isActive: [],
-      titleList: [],
       dynamicWidth: this.width,
+      functionList: [],
+      tabStatus: [],
+      titleList: [],
     };
   },
   computed: {
     tabsWidth() {
-      return this.dynamicWidth == null
-        ? null
-        : `${this.dynamicWidth * this.list.length}rem`;
+      return this.dynamicWidth === 0 ? '100%' : `${this.dynamicWidth * this.list.length}rem`;
     },
     btnWidth() {
-      return this.dynamicWidth == null
-        ? null
-        : `${this.dynamicWidth}rem`;
+      return this.dynamicWidth === 0 ? '100%' : `${this.dynamicWidth}rem`;
     },
   },
   created() {
     for (let i = 0; i < this.list.length; i += 1) {
-      this.titleList.push((typeof this.list[i] === 'string') ? this.list[i] : this.list[i].name);
-      this.functionList.push((typeof this.list[i] === 'string') ? null : this.list[i].handler);
+      this.titleList.push(this.list[i]?.name);
+      this.functionList.push(this.list[i]?.handler);
     }
-    this.isActive[this.currentActiveIndex] = true;
+    this.tabStatus[this.currentActiveIndex] = true;
 
-    this.$global.handleResponsive(this.mobileMaxWidth,
-      () => { this.dynamicWidth = this.width; },
-      () => { this.dynamicWidth = null; });
+    if (this.width !== 0) {
+      this.$global.handleResponsive(this.mobileMaxWidth,
+        () => { this.dynamicWidth = this.width; },
+        () => { this.dynamicWidth = 0; });
+    }
   },
   methods: {
-    execute(index) {
+    handleOnClick(index) {
+      this.tabStatus[this.currentActiveIndex] = false;
+      this.tabStatus[index] = true;
+      this.currentActiveIndex = index;
+
       if (this.functionList[index] != null) {
         this.functionList[index]();
       }
-    },
-    toggleTab(index) {
-      this.isActive[this.currentActiveIndex] = false;
-      this.isActive[index] = true;
-      this.currentActiveIndex = index;
     },
   },
 
@@ -100,14 +102,6 @@ export default {
   cursor: pointer;
 }
 
-.btn-text {
-  font-size: 0.875rem;
-  font-weight: bold;
-  overflow: hidden;
-  padding: 0 0.5rem;
-  white-space: nowrap;
-}
-
 .active {
   background-color: #5e6ec2;
   border-radius: 0.6rem;
@@ -115,7 +109,11 @@ export default {
   transition: all 0.5s, background-color 0s, color 0s;
 }
 
-.fixed {
-  width: 100%;
+.btn-text {
+  font-size: 0.875rem;
+  font-weight: bold;
+  overflow: hidden;
+  padding: 0 0.5rem;
+  white-space: nowrap;
 }
 </style>
