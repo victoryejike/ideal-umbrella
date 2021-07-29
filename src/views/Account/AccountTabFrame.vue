@@ -6,7 +6,7 @@
         ref="tab"
         :active-index="$route.path === '/account/setting' ? 0 : 1"
         class="account-setting-tab"
-        :list="tabTitle"
+        :list="tabList"
         :width="10"
       />
     </div>
@@ -21,7 +21,7 @@ export default {
   name: 'AccountTabFrame',
   data() {
     return {
-      tabTitle: [
+      tabList: [
         {
           name: this.$t('user_index_screen.account'),
           handler: () => { this.$router.push('/account/setting'); },
@@ -32,11 +32,6 @@ export default {
         },
       ],
     };
-  },
-  watch: {
-    $route(val) {
-      this.$refs.tab.toggleTab(val.path === '/account/setting' ? 0 : 1);
-    },
   },
 };
 </script>

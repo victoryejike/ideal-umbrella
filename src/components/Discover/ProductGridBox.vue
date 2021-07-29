@@ -184,10 +184,9 @@ export default {
 <style scoped>
 .gridbox {
   display: grid;
-  grid-column-gap: 1.25rem;
+  grid-column-gap: 3.25rem;
   grid-row-gap: 5rem;
   grid-template-columns: repeat(auto-fit, 11.875rem);
-  justify-content: space-around;
   overflow: hidden;
 }
 
@@ -211,6 +210,12 @@ export default {
 @media (max-width: 62.5em) {
   .gridbox {
     grid-template-columns: repeat(auto-fit, 8.75rem);
+  }
+}
+
+@media (max-width: 37.1875em) {
+  .gridbox {
+    justify-content: space-around;
   }
 }
 </style>
