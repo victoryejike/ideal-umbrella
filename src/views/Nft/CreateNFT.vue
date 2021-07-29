@@ -34,7 +34,7 @@
           <Field
             v-model="pricingType"
             class="input-field unshow"
-            name="pricingType"
+            name="pricing_type"
           />
         </div>
         <template v-if="selectedSwitch && pricingType === PriceType.FIXED">
