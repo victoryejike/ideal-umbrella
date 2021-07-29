@@ -300,7 +300,7 @@ export default {
     },
   },
   async mounted() {
-    if (!(await this.$global.isWalletConnected()) || !(await this.$global.isAddressValid())) {
+    if (!(await this.$global.isWalletConnected())) {
       this.$router.push({ name: 'ConnectWallet' });
     } else {
       this.fetchDetails();
