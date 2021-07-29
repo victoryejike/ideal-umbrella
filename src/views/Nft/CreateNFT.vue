@@ -34,7 +34,7 @@
           <Field
             v-model="pricingType"
             class="input-field unshow"
-            name="pricingType"
+            name="pricing_type"
           />
         </div>
         <template v-if="selectedSwitch && pricingType === PriceType.FIXED">
@@ -300,11 +300,9 @@ export default {
     },
   },
   async mounted() {
-    if (!(await this.$global.isWalletConnected()) || !(await this.$global.isAddressExist())) {
-      this.$router.push({ name: 'ConnectWallet' });
-    } else {
-      this.fetchDetails();
-    }
+    this.$global.isWalletConnected();
+    this.$global.isAddressExist();
+    this.fetchDetails();
   },
   methods: {
     async fetchDetails() {
