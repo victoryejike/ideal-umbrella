@@ -126,7 +126,6 @@ export default {
   grid-column-gap: 4rem;
   grid-row-gap: 3rem;
   grid-template-columns: repeat(auto-fit, 14.625rem);
-  justify-content: space-around;
   overflow: hidden;
 }
 
@@ -146,7 +145,7 @@ export default {
 
 @media (max-width: 37.1875em) {
   .seller-gridbox {
-    justify-content: space-between;
+    justify-content: space-around;
   }
 }
 </style>

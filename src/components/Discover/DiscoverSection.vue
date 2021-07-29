@@ -8,7 +8,7 @@
         :list="discoverTab"
         :mobile-max-width="38"
         :style="{'pointer-events':($refs['grid-box']?.isLoading) ? 'none': 'auto'}"
-        :width="10"
+        :width="9"
       />
     </template>
     <template #content>

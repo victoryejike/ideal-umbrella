@@ -300,7 +300,7 @@ export default {
     },
   },
   async mounted() {
-    if (!(await this.$global.isWalletConnected())) {
+    if (!(await this.$global.isWalletConnected()) || !(await this.$global.isAddressExist())) {
       this.$router.push({ name: 'ConnectWallet' });
     } else {
       this.fetchDetails();
@@ -431,7 +431,7 @@ export default {
           });
         this.ipfsUrl = cid;
         this.tokenId = result.events.TokenMinted.returnValues.tokenType;
-        this.$refs.['collectible-nft'].$el.dispatchEvent(new Event('submit', { cancelable: true }));
+        this.$refs['collectible-nft'].$el.dispatchEvent(new Event('submit', { cancelable: true }));
       } else {
         const contract = new web3.eth.Contract(require('@/assets/abi/erc721').default, this.erc721ContractAddress);
         const ercContract = new web3.eth.Contract(require('@/assets/abi/erc20').default, this.erc20ContractAddress);
@@ -481,7 +481,7 @@ export default {
           this.tokenId = result.events.Transfer.returnValues.tokenId;
           contract.methods.CreateAuction(this.tokenId, (1), timeDuration, web3.utils.toWei(startPrice, 'ether')).send({ from: localStorage.getItem('account'), gas: 3500000, gasPrice: '35000000000' });
         }
-        this.$refs.['collectible-nft'].$el.dispatchEvent(new Event('submit', { cancelable: true }));
+        this.$refs['collectible-nft'].$el.dispatchEvent(new Event('submit', { cancelable: true }));
       }
     },
     async onSubmit(CollectibleNftData) {
