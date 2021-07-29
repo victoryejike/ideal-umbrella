@@ -109,6 +109,7 @@ export default {
     accountbalance: { type: Number, required: false, default: null },
     creatoraddress: { type: String, required: false, default: null },
   },
+  emits: ['bidPlaced'],
   data() {
     return {
       NftId: this.$route.params.id,
@@ -676,26 +677,25 @@ export default {
   methods: {
     async onSubmit(formData) {
       this.isLoading = true;
-      // let response = null;
-      // this.buyContract();
+      let response = null;
       try {
         const { data } = await this.$api.BUYNFT(formData);
-        console.log(data);
-        // response = data;
+        response = data;
       } catch (error) {
-        // response = error?.response?.data;
+        response = error?.response?.data;
       }
 
+      if (response?.success) {
+        this.$emit('bidPlaced', response.success);
+      } else {
+        // eslint-disable-next-line no-lonely-if
+        if (response?.error === "Can't buy own nft") {
+          this.$toast.error('Sorry, you can not buy an Owned NFT');
+        } else {
+          this.$toast.error(response?.error);
+        }
+      }
       this.isLoading = false;
-
-      // if (response?.success) {
-      //   // this.$router.go();
-      //   this.$router.push({ name: 'Profile' });
-      // } else {
-      //   // const { form } = this.$refs['bid-form'];
-      //   // form.setFieldError('amount', response.error);
-      //   this.isLoading = false;
-      // }
     },
   },
 };

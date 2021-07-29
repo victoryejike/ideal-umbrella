@@ -159,17 +159,38 @@
               <BuyModal
                 v-else
                 :accountbalance="accountBalance"
-                :creatoraddress="nftDetails.creator_address"
+                :creatoraddress="nftDetails.owner_address"
                 :description="nftDetails.description"
                 :image="nftDetails.uri"
                 :nfttype="nftDetails.supply"
                 :price="nftDetails.price"
                 :title="nftDetails.title"
                 :tokenid="nftDetails.tokenId"
+                @bidPlaced="showBidSuccess($event)"
               />
             </template>
           </BaseModal>
         </div>
+        <BaseModal
+          v-show="placeBid"
+        >
+          <template #body>
+            <h2 style="text-align: center;">
+              {{ $t('buy_modal.success') }}
+            </h2>
+            <p style="text-align: center;">
+              {{ $t('buy_modal.buy_message') }}
+            </p>
+            <router-link
+              to="/"
+            >
+              <BaseRoundButton
+                class="buy-button btn-primary btn-md btn-bold mb mt2"
+                :text="$t('buy_modal.btn')"
+              />
+            </router-link>
+          </template>
+        </BaseModal>
       </div>
     </div>
   </div>
@@ -218,6 +239,7 @@ export default {
         },
       ],
       detailsTabList: [],
+      placeBid: false,
       bidsList: [],
     };
   },
@@ -252,6 +274,13 @@ export default {
     ];
   },
   methods: {
+    showBidSuccess(s) {
+      console.log(s);
+      if (s === true) {
+        this.isModalVisible = false;
+        this.placeBid = true;
+      }
+    },
     showModal() {
       if (!this.$store.getters['auth/isLoggedIn']) {
         return this.$router.push({ name: 'Login', params: { redirectFrom: this.$route.path } });
@@ -368,6 +397,10 @@ export default {
   font-weight: bold;
   line-height: 150%;
   padding: 0.3rem 1.75rem;
+}
+
+.mt2 {
+  margin-top: 2rem;
 }
 
 .creater-image {

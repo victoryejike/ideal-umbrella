@@ -297,7 +297,11 @@ export default {
     },
   },
   async mounted() {
-    this.fetchDetails();
+    if (!(await this.$global.isWalletConnected()) || !(await this.$global.isAddressValid())) {
+      this.$router.push({ name: 'ConnectWallet' });
+    } else {
+      this.fetchDetails();
+    }
   },
   methods: {
     async fetchDetails() {

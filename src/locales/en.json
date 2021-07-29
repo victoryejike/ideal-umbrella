@@ -8,6 +8,11 @@
   "axios": {
     "unexcepted_error": "Unexcepted Error"
   },
+  "buy_modal": {
+    "success": "Congratulation 😊",
+    "buy_message": "Your NFT Order is successfuly created. Please check your Profile in next 5mins",
+    "btn": "Go to Market Place"
+  },
   "collectible": {
     "amount_label": "Amount",
     "amount_placeholder": "Enter price for one piece",
