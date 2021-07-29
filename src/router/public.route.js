@@ -54,6 +54,11 @@ const publicRoute = [
     component: () => import('@view/Discover.vue'),
   },
   {
+    path: '/FAQ',
+    name: 'FAQ',
+    component: () => import('@view/FAQ.vue'),
+  },
+  {
     path: '/nft/:id',
     name: 'TokenDetails',
     component: () => import('@view/Nft/TokenDetails.vue'),

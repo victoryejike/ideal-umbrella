@@ -83,7 +83,7 @@ export default {
             { name: this.$t('menu.nft.wallet'), action: '/wallet' },
           ],
         },
-        { name: this.$t('menu.how_it_works'), action: '/' },
+        { name: this.$t('menu.how_it_works'), action: '/FAQ' },
         {
           name: this.$t('menu.fanschain.title'),
           child: [

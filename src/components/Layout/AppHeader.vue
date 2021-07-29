@@ -87,7 +87,7 @@ export default {
         },
         {
           name: this.$t('header.how_it_works'),
-          url: '/',
+          url: '/FAQ',
         },
         {
           name: this.$t('header.login'),
