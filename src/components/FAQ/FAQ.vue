@@ -91,7 +91,7 @@ export default {
 .faq .answer {
   color: rgba(0, 0, 0, 0.75);
   display: none;
-  font-size: 0.9rem;
+  font-size: 1rem;
   max-height: 0;
   max-width: 42rem;
   overflow-y: hidden;
