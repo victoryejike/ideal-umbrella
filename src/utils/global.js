@@ -119,8 +119,8 @@ const GLOBAL_FUNCTION = {
         await eth.request({ method: 'eth_requestAccounts' });
       } catch (error) {
         store.$toast.error(error.code === -32002 ? $t('global.already_has_request') : $t('global.no_metamask'));
+        return false;
       }
-      return false;
     }
     return true;
   },
