@@ -239,7 +239,7 @@ export default {
         },
       ],
       detailsTabList: [],
-      placeBid: true,
+      placeBid: false,
       bidsList: [],
     };
   },
