@@ -94,6 +94,8 @@
 <script>
 import { Field } from 'vee-validate';
 
+const Web3 = require('web3');
+
 export default {
   name: 'BidModal',
   components: { Field },
@@ -118,6 +120,7 @@ export default {
         { name: 'HT' },
         { name: 'FC' },
       ],
+      erc20ContractAddress: '0xEF55376cdD71225501E1d9763D907E3A14C10Bb1',
     };
   },
   methods: {
@@ -128,22 +131,37 @@ export default {
     },
     async onSubmit(formData) {
       this.isLoading = true;
-      let response = null;
-      try {
-        const { data } = await this.$api.CREATEBIDS(formData);
-        response = data;
-      } catch (error) {
-        response = error?.response?.data;
-      }
+      const web3 = new Web3(window.ethereum);
+      const ercContract = new web3.eth.Contract(require('@/assets/abi/erc20').default, this.erc20ContractAddress);
+      this.isLoading = true;
+      ercContract.methods
+        .approve('0x7f55D3eCd78868c677Af7C8fa45B25750841cd54', web3.utils.toWei('1000000000000000000000000'))
+        .send({ from: localStorage.getItem('account'), gas: 2000000, gasPrice: '30000000000' })
+        .on('error', (error) => {
+          console.log(error);
+          this.isLoading = false;
+        })
+        .on('confirmation', async (confirmationNumber, receipt) => {
+          if (confirmationNumber === 12) {
+            console.log(receipt);
+            let response = null;
+            try {
+              const { data } = await this.$api.CREATEBIDS(formData);
+              response = data;
+            } catch (error) {
+              response = error?.response?.data;
+            }
 
-      if (response?.success) {
-        // location.reload();
-        this.$router.go();
-      } else {
-        const { form } = this.$refs['bid-form'];
-        form.setFieldError('amount', response.error);
-        this.isLoading = false;
-      }
+            if (response?.success) {
+              // location.reload();
+              this.$router.go();
+            } else {
+              const { form } = this.$refs['bid-form'];
+              form.setFieldError('amount', response.error);
+            }
+          }
+        });
+      this.isLoading = false;
     },
   },
 };

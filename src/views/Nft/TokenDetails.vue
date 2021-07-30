@@ -336,7 +336,7 @@ export default {
           if (err) {
             console.log(err);
           } else {
-            this.accountBalance = (web3.utils.fromWei(result, 'ether'));
+            this.accountBalance = ((web3.utils.fromWei(result, 'ether')) / 1000000000000000000);
           }
         });
       } else {

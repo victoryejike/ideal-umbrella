@@ -393,7 +393,7 @@ export default {
     async minting(qty, cid) {
       let provider;
       const obj = JSON.parse(localStorage.getItem('walletconnect'));
-      if (obj === (localStorage.getItem('account'))) {
+      if (obj && (obj.accounts[0]) === (localStorage.getItem('account'))) {
         provider = new WalletConnectProvider({
           infuraId: '58bf1103531f4b858b31eb3c5c4ddd2f',
         });
@@ -406,17 +406,9 @@ export default {
       if (this.standard === 'erc1155') {
         // return this.$t('collectible.title_single');
         const contract = new web3.eth.Contract(require('@/assets/abi/erc1155').default, this.erc1155ContractAddress);
-        const ercContract = new web3.eth.Contract(require('@/assets/abi/erc20').default, this.erc20ContractAddress);
         contract.methods
           .setApprovalForAll('0x7f55D3eCd78868c677Af7C8fa45B25750841cd54', true)
           .send({ from: localStorage.getItem('account'), gas: 2000000, gasPrice: '35000000000' })
-          .on('error', (error) => {
-            console.log(error);
-            this.isLoading = false;
-          });
-        ercContract.methods
-          .approve('0x7f55D3eCd78868c677Af7C8fa45B25750841cd54', web3.utils.toWei('1000000000000000000000000'))
-          .send({ from: localStorage.getItem('account'), gas: 2000000, gasPrice: '30000000000' })
           .on('error', (error) => {
             console.log(error);
             this.isLoading = false;
@@ -432,18 +424,10 @@ export default {
         this.$refs['collectible-nft'].$el.dispatchEvent(new Event('submit', { cancelable: true }));
       } else {
         const contract = new web3.eth.Contract(require('@/assets/abi/erc721').default, this.erc721ContractAddress);
-        const ercContract = new web3.eth.Contract(require('@/assets/abi/erc20').default, this.erc20ContractAddress);
         if (this.pricingType === PriceType.FIXED) {
           console.log('yes');
           contract.methods
             .setApprovalForAll('0x7f55D3eCd78868c677Af7C8fa45B25750841cd54', true)
-            .send({ from: localStorage.getItem('account'), gas: 200000, gasPrice: '2000000000' })
-            .on('error', (error) => {
-              console.log(error);
-              this.isLoading = false;
-            });
-          ercContract.methods
-            .approve('0x7f55D3eCd78868c677Af7C8fa45B25750841cd54', web3.utils.toWei('1000000000000000000000000'))
             .send({ from: localStorage.getItem('account'), gas: 200000, gasPrice: '2000000000' })
             .on('error', (error) => {
               console.log(error);
@@ -467,8 +451,13 @@ export default {
           const startDate = new Date(auctionStartdate);
           const endDate = new Date(auctionExpirationdate);
           const timeDuration = (endDate.getTime() - startDate.getTime()) / 1000;
-          contract.methods.setApprovalForAll('0x7f55D3eCd78868c677Af7C8fa45B25750841cd54', true).send({ from: localStorage.getItem('account'), gas: 3000000, gasPrice: '35000000000' });
-          ercContract.methods.approve('0x7f55D3eCd78868c677Af7C8fa45B25750841cd54', web3.utils.toWei('1000000000000000000000000')).send({ from: localStorage.getItem('account'), gas: 2000000, gasPrice: '35000000000' });
+          contract.methods
+            .setApprovalForAll('0x7f55D3eCd78868c677Af7C8fa45B25750841cd54', true)
+            .send({ from: localStorage.getItem('account'), gas: 3000000, gasPrice: '35000000000' })
+            .on('error', (error) => {
+              console.log(error);
+              this.isLoading = false;
+            });
           const result = await contract.methods
             .mint(`https://${cid}.ipfs.dweb.link`)
             .send({ from: localStorage.getItem('account'), gas: 2900000, gasPrice: '29000000000' }).on('error', (error) => {
