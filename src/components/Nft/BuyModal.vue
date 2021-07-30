@@ -138,49 +138,50 @@ export default {
       const web3 = new Web3(window.ethereum);
       const ercContract = new web3.eth.Contract(require('@/assets/abi/erc20').default, this.erc20ContractAddress);
       const result = await ercContract.methods.balanceOf(this.Address).call();
-      const format = web3.utils.fromWei(result);
-      console.log(format);
-      if (format < this.finalValue) {
-        this.isLoading = false;
-        return false;
-      }
-      return true;
+      const funn = web3.utils.fromWei(result);
+      // console.log(funn);
+      return funn;
     },
     async onSubmit(formData) {
-      this.isLoading = true;
-      const web3 = new Web3(window.ethereum);
-      this.getBalance();
-      const ercContract = new web3.eth.Contract(require('@/assets/abi/erc20').default, this.erc20ContractAddress);
-      await ercContract.methods
-        .approve('0x7f55D3eCd78868c677Af7C8fa45B25750841cd54', web3.utils.toWei('1000000000000000000000000'))
-        .send({ from: localStorage.getItem('account'), gas: 2000000, gasPrice: '30000000000' })
-        .on('error', (error) => {
-          console.log(error);
-          this.isLoading = false;
-        })
-        .on('confirmation', async (confirmationNumber, receipt) => {
-          if (confirmationNumber === 1) {
-            console.log(receipt);
-            let response = null;
-            try {
-              const { data } = await this.$api.BUYNFT(formData);
-              response = data;
-            } catch (error) {
-              response = error?.response?.data;
-            }
+      const amount = await this.getBalance();
+      if (amount >= this.finalValue) {
+        this.isLoading = true;
+        const web3 = new Web3(window.ethereum);
+        this.getBalance();
+        const ercContract = new web3.eth.Contract(require('@/assets/abi/erc20').default, this.erc20ContractAddress);
+        await ercContract.methods
+          .approve('0x7f55D3eCd78868c677Af7C8fa45B25750841cd54', web3.utils.toWei('1000000000000000000000000'))
+          .send({ from: localStorage.getItem('account'), gas: 2000000, gasPrice: '30000000000' })
+          .on('error', (error) => {
+            console.log(error);
+            this.isLoading = false;
+          })
+          .on('confirmation', async (confirmationNumber, receipt) => {
+            if (confirmationNumber === 1) {
+              console.log(receipt);
+              let response = null;
+              try {
+                const { data } = await this.$api.BUYNFT(formData);
+                response = data;
+              } catch (error) {
+                response = error?.response?.data;
+              }
 
-            if (response?.success) {
-              this.$emit('bidPlaced', response.success);
-            } else {
-              // eslint-disable-next-line no-lonely-if
-              if (response?.error === "Can't buy own nft") {
-                this.$toast.error('Sorry, you can not buy an Owned NFT');
+              if (response?.success) {
+                this.$emit('bidPlaced', response.success);
               } else {
-                this.$toast.error(response?.error);
+                // eslint-disable-next-line no-lonely-if
+                if (response?.error === "Can't buy own nft") {
+                  this.$toast.error('Sorry, you can not buy an Owned NFT');
+                } else {
+                  this.$toast.error(response?.error);
+                }
               }
             }
-          }
-        });
+          });
+      } else {
+        this.$toast.error('You do not have enough Funn tokens to buy this NFT');
+      }
       this.isLoading = false;
     },
   },
