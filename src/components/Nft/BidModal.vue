@@ -104,9 +104,11 @@ export default {
     description: { type: String, required: false, default: null },
     title: { type: String, required: false, default: null },
     image: { type: String, required: false, default: null },
+    minimumbid: { type: Number, required: false, default: null },
     tokenid: { type: Number, required: false, default: null },
     accountbalance: { type: Number, required: false, default: null },
   },
+  emits: ['bidPlaced'],
   data() {
     return {
       NftId: this.$route.params.id,
@@ -130,19 +132,18 @@ export default {
       + parseFloat(discountAmount)).toFixed(4);
     },
     async onSubmit(formData) {
-      this.isLoading = true;
-      const web3 = new Web3(window.ethereum);
-      const ercContract = new web3.eth.Contract(require('@/assets/abi/erc20').default, this.erc20ContractAddress);
-      this.isLoading = true;
-      ercContract.methods
-        .approve('0x7f55D3eCd78868c677Af7C8fa45B25750841cd54', web3.utils.toWei('1000000000000000000000000'))
-        .send({ from: localStorage.getItem('account'), gas: 2000000, gasPrice: '30000000000' })
-        .on('error', (error) => {
-          console.log(error);
-          this.isLoading = false;
-        })
-        .on('confirmation', async (confirmationNumber, receipt) => {
-          if (confirmationNumber === 12) {
+      if (this.initialBidValue >= this.minimumbid) {
+        this.isLoading = true;
+        const web3 = new Web3(window.ethereum);
+        const ercContract = new web3.eth.Contract(require('@/assets/abi/erc20').default, this.erc20ContractAddress);
+        await ercContract.methods
+          .approve('0x7f55D3eCd78868c677Af7C8fa45B25750841cd54', web3.utils.toWei('1000000000000000000000000'))
+          .send({ from: localStorage.getItem('account'), gas: 2000000, gasPrice: '30000000000' })
+          .on('error', (error) => {
+            console.log(error);
+            this.isLoading = false;
+          })
+          .on('confirmation', async (confirmationNumber, receipt) => {
             console.log(receipt);
             let response = null;
             try {
@@ -153,14 +154,14 @@ export default {
             }
 
             if (response?.success) {
-              // location.reload();
-              this.$router.go();
+              this.$emit('bidPlaced', response.success);
             } else {
-              const { form } = this.$refs['bid-form'];
-              form.setFieldError('amount', response.error);
+              this.$toast.error(response.error);
             }
-          }
-        });
+          });
+      } else {
+        this.$toast.error('You can not bid lower than the mlnimum required bid price');
+      }
       this.isLoading = false;
     },
   },

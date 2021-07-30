@@ -152,9 +152,11 @@
                 :accountbalance="accountBalance"
                 :description="nftDetails.description"
                 :image="nftDetails.uri"
+                :minimumbid="nftDetails.minimum_bid"
                 :nfttype="nftDetails.supply"
                 :title="nftDetails.title"
                 :tokenid="nftDetails.tokenId"
+                @bidPlaced="showBuySuccess($event)"
               />
               <BuyModal
                 v-else
@@ -172,7 +174,7 @@
           </BaseModal>
         </div>
         <BaseModal
-          v-show="placeBid"
+          v-show="placeBuy"
         >
           <template #body>
             <h2 style="text-align: center;">
@@ -180,6 +182,26 @@
             </h2>
             <p style="text-align: center;">
               {{ $t('buy_modal.buy_message') }}
+            </p>
+            <router-link
+              to="/"
+            >
+              <BaseRoundButton
+                class="buy-button btn-primary btn-md btn-bold mb mt2"
+                :text="$t('buy_modal.btn')"
+              />
+            </router-link>
+          </template>
+        </BaseModal>
+        <BaseModal
+          v-show="placeBid"
+        >
+          <template #body>
+            <h2 style="text-align: center;">
+              {{ $t('buy_modal.success') }}
+            </h2>
+            <p style="text-align: center;">
+              {{ $t('buy_modal.bid_message') }}
             </p>
             <router-link
               to="/"
@@ -239,6 +261,7 @@ export default {
         },
       ],
       detailsTabList: [],
+      placeBuy: false,
       placeBid: false,
       bidsList: [],
     };
@@ -275,6 +298,13 @@ export default {
   },
   methods: {
     showBidSuccess(s) {
+      console.log(s);
+      if (s === true) {
+        this.isModalVisible = false;
+        this.placeBuy = true;
+      }
+    },
+    showBuySuccess(s) {
       console.log(s);
       if (s === true) {
         this.isModalVisible = false;
