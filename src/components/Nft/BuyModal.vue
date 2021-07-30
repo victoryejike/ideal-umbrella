@@ -134,11 +134,24 @@ export default {
     console.log(this.creatoraddress);
   },
   methods: {
+    async getBalance() {
+      const web3 = new Web3(window.ethereum);
+      const ercContract = new web3.eth.Contract(require('@/assets/abi/erc20').default, this.erc20ContractAddress);
+      const result = await ercContract.methods.balanceOf(this.Address).call();
+      const format = web3.utils.fromWei(result);
+      console.log(format);
+      if (format < this.finalValue) {
+        this.isLoading = false;
+        return false;
+      }
+      return true;
+    },
     async onSubmit(formData) {
       this.isLoading = true;
       const web3 = new Web3(window.ethereum);
+      this.getBalance();
       const ercContract = new web3.eth.Contract(require('@/assets/abi/erc20').default, this.erc20ContractAddress);
-      ercContract.methods
+      await ercContract.methods
         .approve('0x7f55D3eCd78868c677Af7C8fa45B25750841cd54', web3.utils.toWei('1000000000000000000000000'))
         .send({ from: localStorage.getItem('account'), gas: 2000000, gasPrice: '30000000000' })
         .on('error', (error) => {
@@ -146,7 +159,7 @@ export default {
           this.isLoading = false;
         })
         .on('confirmation', async (confirmationNumber, receipt) => {
-          if (confirmationNumber === 12) {
+          if (confirmationNumber === 1) {
             console.log(receipt);
             let response = null;
             try {

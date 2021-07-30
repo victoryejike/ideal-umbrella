@@ -33,15 +33,15 @@
         </router-link>
       </div>
     </div>
-    <Table />
+    <!-- <Table /> -->
   </div>
 </template>
 <script>
-import Table from '@/components/Wallet/Table.vue';
+// import Table from '@/components/Wallet/Table.vue';
 
 export default {
   name: 'WalletIndex',
-  components: { Table },
+  // components: { Table },
   data() {
     return {
       account: localStorage.getItem('account'),
