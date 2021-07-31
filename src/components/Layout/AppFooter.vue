@@ -85,23 +85,23 @@ export default {
             { name: this.$t('footer.nft.create'), url: '/nft' },
             { name: this.$t('footer.nft.profile'), url: '/account/profile' },
             { name: this.$t('footer.nft.wallet'), url: '/wallet' },
-            { name: this.$t('footer.nft.how_it_works'), url: '/' },
+            { name: this.$t('footer.nft.how_it_works'), url: '/FAQ' },
           ],
         },
         {
-          header: this.$t('footer.fanschain.title'),
-          content: [
-            { name: this.$t('footer.fanschain.exchange'), url: 'https://fanschain.net' },
-            { name: this.$t('footer.fanschain.fto'), url: '/' },
-            { name: this.$t('footer.fanschain.community'), url: '/' },
-          ],
+          // header: this.$t('footer.fanschain.title'),
+          // content: [
+          //   { name: this.$t('footer.fanschain.exchange'), url: 'https://fanschain.net' },
+          //   { name: this.$t('footer.fanschain.fto'), url: '/' },
+          //   { name: this.$t('footer.fanschain.community'), url: '/' },
+          // ],
         },
         {
           header: this.$t('footer.legal.title'),
           content: [
             { name: this.$t('footer.legal.terms'), url: '/' },
-            { name: this.$t('footer.legal.privacy_policy'), url: '/' },
-            { name: this.$t('footer.legal.trading_policy'), url: '/' },
+            // { name: this.$t('footer.legal.privacy_policy'), url: '/' },
+            // { name: this.$t('footer.legal.trading_policy'), url: '/' },
           ],
         },
       ],
