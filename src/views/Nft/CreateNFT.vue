@@ -216,6 +216,7 @@ import Base from '@/components/Nft/BaseFrame.vue';
 import WalletLink from 'walletlink';
 import WalletConnectProvider from '@walletconnect/web3-provider';
 import { Field } from 'vee-validate';
+import { PriceType } from '@/utils/enums';
 
 const Web3 = require('web3');
 
@@ -232,12 +233,6 @@ const walletLink = new WalletLink({
   appLogoUrl: APP_LOGO_URL,
   darkMode: false,
 });
-
-const PriceType = {
-  FIXED: 'fixed',
-  TIMED_AUCTION: 'timed_auction',
-  UNLIMITED_AUCTION: 'unlimited_auction',
-};
 
 export default {
   name: 'CreateNFT',
