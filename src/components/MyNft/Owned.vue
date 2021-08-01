@@ -32,7 +32,7 @@
 import NoNFT from './NoNFT.vue';
 
 export default {
-  name: 'OnSale',
+  name: 'Owned',
   components: {
     NoNFT,
   },

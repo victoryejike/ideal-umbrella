@@ -54,7 +54,7 @@
       />
       <BaseUnderlinedInput
         class="input-field"
-        :extra-data="{validateField: ['phone', 'email']}"
+        :extra-data="{validateField: ['phone', 'email'], otpType: OtpType.PASSWORD_RESET}"
         name="code"
         :placeholder="$t('register_screen.verification_code__placehoder')"
         :text="$t('register_screen.verification_code_label')"
@@ -80,6 +80,7 @@
 </template>
 <script>
 import BaseSettingFrame from '@/components/Setting/BaseSettingFrame.vue';
+import { OtpType } from '@/utils/enums';
 
 export default {
   name: 'UserResetPassword',
@@ -88,6 +89,7 @@ export default {
   },
   data() {
     return {
+      OtpType,
       isEmail: true,
       resetTab: [
         {

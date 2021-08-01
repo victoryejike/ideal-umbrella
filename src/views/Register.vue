@@ -49,7 +49,7 @@
       />
       <BaseUnderlinedInput
         class="input-field"
-        :extra-data="{validateField: ['email','phone']}"
+        :extra-data="{validateField: ['email','phone'], otpType: OtpType.REGISTER}"
         name="otp_code"
         :placeholder="$t('register_screen.verification_code__placehoder')"
         :text="$t('register_screen.verification_code_label')"
@@ -107,6 +107,7 @@
 <script>
 import { Field, ErrorMessage } from 'vee-validate';
 import Agreement from '@/components/Register/Agreement.vue';
+import { OtpType } from '@/utils/enums';
 
 export default {
   name: 'Register',
@@ -117,6 +118,7 @@ export default {
   },
   data() {
     return {
+      OtpType,
       isModalVisible: false,
       isEmail: true,
       checkedTerms: false,

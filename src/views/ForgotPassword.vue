@@ -33,7 +33,7 @@
       />
       <BaseUnderlinedInput
         class="input-field"
-        :extra-data="{validateField: ['email','phone']}"
+        :extra-data="{validateField: ['email','phone'], otpType: OtpType.FORGOT_PASSWORD}"
         name="otp"
         :placeholder="$t('register_screen.verification_code__placehoder')"
         :text="$t('register_screen.verification_code_label')"
@@ -59,10 +59,13 @@
 </template>
 
 <script>
+import { OtpType } from '@/utils/enums';
+
 export default {
   name: 'ForgotPassword',
   data() {
     return {
+      OtpType,
       isEmail: true,
       forgotPasswordTab: [
         {

@@ -251,21 +251,24 @@ export default {
       }
       this.$parent.validateField(fieldName).then(async ({ valid }) => {
         if (valid && DOM) {
-          let params = null;
+          let params = { type: this.extraData?.otpType };
           if (DOM.type === 'email') {
-            params = { email: DOM.value };
+            params.email = DOM.value;
           } else if (DOM.type === 'tel') {
             const countryCode = document.querySelector(`select[name=${this.countryField}]`).value;
-            params = { country_code: countryCode, phone: DOM.value };
+            params = {
+              ...params,
+              country_code: countryCode,
+              phone: DOM.value,
+            };
           }
-          if (params) {
-            // TODO: No CSRF Token Implementaion
-            const response = await this.$api.REQUEST_OTP(params);
-            this.$toast.open({
-              message: response?.message || response?.error,
-              type: (response?.success) ? 'success' : 'error',
-            });
-          }
+
+          // TODO: No CSRF Token Implementaion
+          const response = await this.$api.REQUEST_OTP(params);
+          this.$toast.open({
+            message: response?.message || response?.error,
+            type: (response?.success) ? 'success' : 'error',
+          });
         }
       });
     },

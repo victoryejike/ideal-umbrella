@@ -16,7 +16,7 @@
       />
       <BaseUnderlinedInput
         class="input-field"
-        :extra-data="{validateField: 'current_mail'}"
+        :extra-data="{validateField: 'current_mail', otpType: OtpType.REBIND_EMAIL}"
         name="current_mail_code"
         :placeholder="$t('rabind_phone_screen.email_verfication_placehoder')"
         :text="$t('rabind_phone_screen.email_verfication_label')"
@@ -32,7 +32,7 @@
       />
       <BaseUnderlinedInput
         class="input-field"
-        :extra-data="{validateField: 'new_mail'}"
+        :extra-data="{validateField: 'new_mail', otpType: OtpType.REBIND_EMAIL}"
         name="new_mail_code"
         :placeholder="$t('rabind_phone_screen.email_verfication_placehoder')"
         :text="$t('rabind_phone_screen.email_verfication_label')"
@@ -57,12 +57,14 @@
 </template>
 <script>
 import BaseSettingFrame from '@/components/Setting/BaseSettingFrame.vue';
+import { OtpType } from '@/utils/enums';
 
 export default {
   name: 'UserRebindEmail',
   components: { BaseSettingFrame },
   data() {
     return {
+      OtpType,
       isEmail: true,
     };
   },

@@ -16,7 +16,11 @@
       />
       <BaseUnderlinedInput
         class="input-field"
-        :extra-data="{validateField: 'current_phone', countryField: 'current_phone_country_code'}"
+        :extra-data="{
+          validateField: 'current_phone',
+          countryField: 'current_phone_country_code',
+          otpType: OtpType.REBIND_PHONE
+        }"
         name="current_phone_code"
         :placeholder="$t('rabind_phone_screen.phone_verfication_placehoder')"
         :text="$t('rabind_phone_screen.original_phone_verfication')"
@@ -32,7 +36,11 @@
       />
       <BaseUnderlinedInput
         class="input-field"
-        :extra-data="{validateField: 'new_phone', countryField: 'new_phone_country_code'}"
+        :extra-data="{
+          validateField: 'new_phone',
+          countryField: 'new_phone_country_code',
+          otpType: OtpType.REBIND_PHONE
+        }"
         name="new_phone_code"
         :placeholder="$t('rabind_phone_screen.phone_verfication_placehoder')"
         :text="$t('rabind_phone_screen.new_phone_verfication')"
@@ -57,12 +65,14 @@
 </template>
 <script>
 import BaseSettingFrame from '@/components/Setting/BaseSettingFrame.vue';
+import { OtpType } from '@/utils/enums';
 
 export default {
   name: 'UserRebindPhone',
   components: { BaseSettingFrame },
   data() {
     return {
+      OtpType,
       isEmail: false,
     };
   },

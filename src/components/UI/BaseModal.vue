@@ -70,7 +70,7 @@ export default {
   border-radius: 1rem;
   display: flex;
   flex-direction: column;
-  padding: 10px;
+  padding: 0.625rem;
   padding-left: 2.5rem;
   padding-right: 2.5rem;
   width: 32.5rem;

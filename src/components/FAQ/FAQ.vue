@@ -26,36 +26,8 @@ export default {
 </script>
 
 <style scoped>
-/* .tab {
-  cursor: pointer;
-}
-
-.hide {
-    display: none;
-}
-
-.question {
-  background: rgba(255, 255, 255, 0.5);
-  border-radius: 16px;
-  margin-top: 2rem;
-  padding: 20px;
-  position: relative;
-  width: 80%;
-}
-
-.question span {
-  font-weight: bold;
-}
-
-.question img {
-  bottom: 0.8rem;
-  position: absolute;
-  right: 1rem;
-  width: 2rem;
-}
-*/
 .faq {
-  border-radius: 8px;
+  border-radius: 0.5rem;
   display: block;
   margin-top: 1rem;
   width: 100%;
@@ -63,9 +35,9 @@ export default {
 
 .faq .question {
   background: rgba(255, 255, 255, 0.5);
-  border-radius: 16px;
+  border-radius: 1rem;
   margin-top: 2rem;
-  padding: 20px;
+  padding: 1.25rem;
   position: relative;
   transition: all 0.4s linear;
 }
@@ -102,6 +74,6 @@ export default {
 
 .faq.open .answer {
   display: block;
-  max-height: 1000px;
+  max-height: 62.5rem;
 }
 </style>
