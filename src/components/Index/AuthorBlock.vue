@@ -56,6 +56,7 @@ export default {
   border: 0.125rem solid #fff;
   border-radius: 50%;
   cursor: pointer;
+  object-fit: cover;
 }
 
 .information {

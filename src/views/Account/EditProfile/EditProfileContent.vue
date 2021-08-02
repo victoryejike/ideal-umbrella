@@ -141,6 +141,7 @@ export default {
   border: 0.1875rem solid #fff;
   border-radius: 50%;
   height: 6.25rem;
+  object-fit: cover;
   width: 6.25rem;
 }
 

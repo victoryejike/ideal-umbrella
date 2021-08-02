@@ -1,9 +1,9 @@
 <template>
   <div class="container">
     <div class="top" />
-    <div class="profile-img">
+    <div class="profile-div">
       <img
-        class="profile"
+        class="profile-img"
         :class="avatar == null ? 'profile' : 'profile-border'"
         :onerror="$global.handleAvatarError"
         :src="$global.handleAvatarURL(avatar)"
@@ -54,14 +54,15 @@ export default {
   padding: 5rem;
 }
 
-.profile-img {
+.profile-div {
   margin: -6rem auto;
   text-align: center;
 }
 
-.profile {
+.profile-img {
   border-radius: 22.5rem;
   height: 6.25rem;
+  object-fit: cover;
   width: 6.25rem;
 }
 

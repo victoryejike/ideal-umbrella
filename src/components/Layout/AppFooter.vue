@@ -89,19 +89,9 @@ export default {
           ],
         },
         {
-          // header: this.$t('footer.fanschain.title'),
-          // content: [
-          //   { name: this.$t('footer.fanschain.exchange'), url: 'https://fanschain.net' },
-          //   { name: this.$t('footer.fanschain.fto'), url: '/' },
-          //   { name: this.$t('footer.fanschain.community'), url: '/' },
-          // ],
-        },
-        {
           header: this.$t('footer.legal.title'),
           content: [
             { name: this.$t('footer.legal.terms'), url: '/' },
-            // { name: this.$t('footer.legal.privacy_policy'), url: '/' },
-            // { name: this.$t('footer.legal.trading_policy'), url: '/' },
           ],
         },
       ],
@@ -168,7 +158,7 @@ footer {
 
 .links-group {
   margin-bottom: 2.5rem;
-  width: 12.5rem;
+  width: 15rem;
 }
 
 .links-header {

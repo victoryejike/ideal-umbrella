@@ -200,6 +200,7 @@ export default {
 .token-image {
   border-radius: 0.625rem;
   height: 4.375rem;
+  object-fit: cover;
   width: 4.375rem;
 }
 

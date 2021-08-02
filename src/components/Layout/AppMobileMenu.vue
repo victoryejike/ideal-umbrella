@@ -201,6 +201,7 @@ export default {
   border: 0.1rem solid #fff;
   border-radius: 50%;
   margin-right: 0.625rem;
+  object-fit: cover;
 }
 
 .menu-footer {

@@ -501,6 +501,7 @@ export default {
 .token-image {
   border-radius: 1rem;
   margin-top: 1.25rem;
+  object-fit: cover;
   width: 90%;
 }
 
@@ -517,6 +518,7 @@ export default {
 
 .creater-image {
   border-radius: 50%;
+  object-fit: cover;
 }
 
 .display-token-details {
