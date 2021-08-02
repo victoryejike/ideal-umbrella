@@ -41,6 +41,9 @@ module.exports = {
     'vue/attributes-order': ['warn', {
       alphabetical: true,
     }],
+    'vue/attribute-hyphenation': ['off', 'always', {
+      ignore: [':hasClosedBtn'],
+    }],
   },
   overrides: [
     {

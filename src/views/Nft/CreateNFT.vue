@@ -440,12 +440,6 @@ export default {
           contract.methods.createSellOrder(this.tokenId, web3.utils.toWei(price, 'ether')).send({ from: localStorage.getItem('account'), gas: 3500000, gasPrice: '35000000000' });
         }
         if (this.pricingType === PriceType.TIMED_AUCTION) {
-          const startPrice = document.querySelector('.minimum_bid').value;
-          const auctionStartdate = document.querySelector('.starting_date').value;
-          const auctionExpirationdate = document.querySelector('.expiration_date').value;
-          const startDate = new Date(auctionStartdate);
-          const endDate = new Date(auctionExpirationdate);
-          const timeDuration = (endDate.getTime() - startDate.getTime()) / 1000;
           contract.methods
             .setApprovalForAll('0x7f55D3eCd78868c677Af7C8fa45B25750841cd54', true)
             .send({ from: localStorage.getItem('account'), gas: 3000000, gasPrice: '35000000000' })
@@ -461,12 +455,8 @@ export default {
             });
           this.ipfsUrl = cid;
           this.tokenId = result.events.Transfer.returnValues.tokenId;
-          contract.methods.CreateAuction(this.tokenId, (1), timeDuration, web3.utils.toWei(startPrice, 'ether')).send({ from: localStorage.getItem('account'), gas: 3500000, gasPrice: '35000000000' });
         }
         if (this.pricingType === PriceType.UNLIMITED_AUCTION) {
-          const startPrice = document.querySelector('.minimum_bid').value;
-          // const auctionStartdate = document.querySelector('.starting_date').value;
-          // const startDate = new Date(auctionStartdate);
           contract.methods
             .setApprovalForAll('0x7f55D3eCd78868c677Af7C8fa45B25750841cd54', true)
             .send({ from: localStorage.getItem('account'), gas: 3000000, gasPrice: '35000000000' })
@@ -482,7 +472,6 @@ export default {
             });
           this.ipfsUrl = cid;
           this.tokenId = result.events.Transfer.returnValues.tokenId;
-          contract.methods.CreateAuction(this.tokenId, (1), (0), web3.utils.toWei(startPrice, 'ether')).send({ from: localStorage.getItem('account'), gas: 3500000, gasPrice: '35000000000' });
         }
         this.$refs['collectible-nft'].$el.dispatchEvent(new Event('submit', { cancelable: true }));
       }

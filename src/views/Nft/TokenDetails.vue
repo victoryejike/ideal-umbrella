@@ -45,7 +45,8 @@
           </div>
           <div class="details-section">
             <label>
-              {{ isTimeAuction ? $t('nft_details.minimum_bid') : $t('nft_details.price') }}
+              {{ (isTimeAuction || isUnlimitedAuction)
+                ? $t('nft_details.minimum_bid') : $t('nft_details.price') }}
             </label>
             <div class="highest-bid-details">
               <img
@@ -125,7 +126,8 @@
               :creater="nftDetails.creator?.display_name"
               :date="nftDetails.createdAt"
               :price="nftDetails.price"
-              :type="isTimeAuction ? 'timed_auction' : 'fixed'"
+              :type="isTimeAuction ? 'timed_auction'
+                : isUnlimitedAuction ? 'unlimited_auction' : 'fixed'"
               :verified="nftDetails.creator?.is_kyc_verified"
             />
           </div>
@@ -137,6 +139,13 @@
             icon="arrow-right"
             :text="isTimeAuction ? $t('nft_details.place_bid') : $t('nft_details.buy_now')"
             @click="showModal"
+          />
+          <BaseRoundButton
+            v-else-if="(nftDetails.creator?.display_name === username) && isUnlimitedAuction"
+            class="buy-button btn-primary btn-md btn-bold"
+            :icon="isLoading ? 'loading' : 'arrow-right'"
+            :text="$t('nft_details.close_bid')"
+            @click="closeBid"
           />
           <BaseModal
             v-show="isModalVisible"
@@ -175,6 +184,7 @@
         </div>
         <BaseModal
           v-show="placeBuy"
+          :hasClosedBtn="false"
         >
           <template #body>
             <h2 style="text-align: center;">
@@ -195,6 +205,7 @@
         </BaseModal>
         <BaseModal
           v-show="placeBid"
+          :hasClosedBtn="false"
         >
           <template #body>
             <h2 style="text-align: center;">
@@ -248,6 +259,7 @@ export default {
   data() {
     return {
       isModalVisible: false,
+      isLoading: false,
       screenStatus: { details: false, history: false },
       accountBalance: 0,
       tabList: [
@@ -270,16 +282,17 @@ export default {
     username() { return this.$store.getters['auth/username']; },
     nftDetails() { return this.$route.params.nft; },
     isTimeAuction() { return this.nftDetails.pricing_type === 'timed_auction'; },
+    isUnlimitedAuction() { return this.nftDetails.pricing_type === 'unlimited_auction'; },
   },
   async mounted() {
-    if (this.isTimeAuction) {
+    if (this.isTimeAuction || this.isUnlimitedAuction) {
       this.tabList.unshift({
         name: this.$t('nft_details.tabs.bids'),
         handler: () => { this.toggleScreen('bids'); },
       });
     }
 
-    this.screenStatus[this.isTimeAuction ? 'bids' : 'details'] = true;
+    this.screenStatus[(this.isTimeAuction || this.isUnlimitedAuction) ? 'bids' : 'details'] = true;
     this.bidsList = await this.$api.GET_BIDS(this.$route.params.id);
     this.detailsTabList = [
       {
@@ -336,6 +349,18 @@ export default {
     },
     closeModal() {
       this.isModalVisible = false;
+    },
+    closeBid() {
+      // this.isLoading = true;
+      // let response;
+      // try {
+      //   console.log(response);
+      //   const { data } = this.$api.CLOSEBID();
+      //   response = data;
+      // } catch (error) {
+      //   response = error.response.data;
+      //   this.isLoading = false;
+      // }
     },
     toggleScreen(name) {
       Object.keys(this.screenStatus).forEach((key) => {
