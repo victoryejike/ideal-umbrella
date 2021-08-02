@@ -62,7 +62,7 @@ export default {
         },
         {
           question: 'I would like to suggest additional features!',
-          answer: 'You are welcomed to provide us valuable insight to marketplace@naffiti.com',
+          answer: 'You are welcomed to provide us valuable insight to <a href="mailto: marketplace@naffiti.com">marketplace@naffiti.com</a>',
           open: false,
         },
       ],

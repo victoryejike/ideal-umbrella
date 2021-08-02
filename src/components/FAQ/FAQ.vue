@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/no-v-html -->
 <template>
   <div
     :class="open ? 'faq open' : 'faq'"
@@ -7,7 +8,7 @@
       {{ faq.question }}
     </div>
     <div class="answer">
-      {{ faq.answer }}
+      <span v-html="faq.answer" />
     </div>
   </div>
 </template>
