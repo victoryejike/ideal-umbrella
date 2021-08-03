@@ -54,7 +54,7 @@ const API_SERVICES = {
     try {
       response = (await axios.get('nft/top_nfts', { params: { skip: 0, limit: 4 } })).data;
     } catch (error) {
-      response = error?.response?.data;
+      response = [];
     }
 
     if (response?.success) {

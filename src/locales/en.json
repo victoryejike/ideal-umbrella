@@ -9,11 +9,11 @@
     "unexcepted_error": "Unexcepted Error"
   },
   "buy_modal": {
-    "success": "Congratulation 😊",
-    "buy_message": "Confirmation will be sent to you mail once it is created",
     "bid_message": "Confirmation will be sent to you mail once it is created",
     "btn": "Go to Market Place",
-    "closeBid_message": "You have Successfully closed bidding for this NFT"
+    "buy_message": "Confirmation will be sent to you mail once it is created",
+    "closeBid_message": "You have Successfully closed bidding for this NFT",
+    "success": "Congratulation 😊"
   },
   "collectible": {
     "amount_label": "Amount",
@@ -155,9 +155,10 @@
     "more": "More",
     "no_content": {
       "day": "No Top Seller Today",
-      "month": "No Top Seller in this month",
-      "week": "No Top Seller in this week"
+      "month": "No Top Seller in This Month",
+      "week": "No Top Seller in This Week"
     },
+    "popular_no_content": "No Popular NFT",
     "seller_tab": {
       "day": "DAY",
       "month": "MONTH",
@@ -232,9 +233,9 @@
       "user_buy_label": "Amount"
     },
     "buy_now": "Buy Now",
+    "close_bid": "Close Bid",
     "contact_details": "Contact Details",
     "content": "Symbiotic refers to a failed lab experiment, a reaction of two different organisms. Symbiotic refers to a failed lab experiment, a reaction of ...",
-    "close_bid": "Close Bid",
     "creator": "Creator",
     "description": "Description",
     "highest_bid": "Highest Bid",

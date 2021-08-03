@@ -10,7 +10,7 @@
       @selected="handleSelected"
     />
     <div
-      v-if="isPageReady"
+      v-if="isPageReady && activeList.length > 0"
       class="gridbox"
     >
       <BaseProductCard

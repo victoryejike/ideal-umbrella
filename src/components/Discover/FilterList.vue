@@ -1,5 +1,8 @@
 <template>
-  <div class="filter-container">
+  <div
+    v-if="filterBtn.length > 0"
+    class="filter-container"
+  >
     <BaseRoundButton
       v-for="(item, index) in filterBtn"
       :key="index"
@@ -30,7 +33,7 @@ export default {
   },
   methods: {
     toogleFilterBtn(index) {
-      this.filterBtn[this.activeFilterIndex].isActive = false;
+      // this.filterBtn[this.activeFilterIndex].isActive = false;
       if (index < this.filterBtn.length) {
         this.filterBtn[index].isActive = true;
         this.activeFilterIndex = index;

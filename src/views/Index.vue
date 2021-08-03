@@ -28,7 +28,7 @@
     <IndexSection :title="$t('index_screen.title.popular')">
       <template #content>
         <div
-          v-if="!isLoading"
+          v-if="!isLoading && popularList.length > 0"
           class="popular-box"
         >
           <BaseProductCard
@@ -44,6 +44,12 @@
             :price="item.price"
             :verified="item.verified"
           />
+        </div>
+        <div
+          v-if="!isLoading && popularList.length === 0"
+          class="no-content"
+        >
+          {{ $t('index_screen.popular_no_content') }}
         </div>
         <div
           v-if="isLoading"

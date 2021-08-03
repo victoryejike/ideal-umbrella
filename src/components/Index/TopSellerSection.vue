@@ -12,7 +12,7 @@
     </template>
     <template #content>
       <div
-        v-if="!isLoading && !isNoContent"
+        v-if="!isLoading && activeSellerList.length > 0"
         class="seller-gridbox"
       >
         <AuthorBlock
@@ -26,7 +26,7 @@
         />
       </div>
       <div
-        v-if="!isLoading && isNoContent"
+        v-if="!isLoading && activeSellerList.length === 0"
         class="no-content"
       >
         {{ $t(`index_screen.no_content.${sortMethod}`) }}
@@ -78,7 +78,6 @@ export default {
       },
       sortMethod: 'day',
       isLoading: true,
-      isNoContent: false,
     };
   },
   computed: {
@@ -90,11 +89,10 @@ export default {
   methods: {
     async sortData(method) {
       this.isLoading = true;
-      this.isNoContent = false;
       this.sortMethod = method;
       if (this.activeSellerList.length === 0) {
         const response = await this.$api.GET_TOP_SELLERS(method);
-        if (response.length > 0) {
+        if (response && response?.length > 0) {
           const matchKeyResponse = response.map((item) => {
           // eslint-disable-next-line no-underscore-dangle
             const seller = item._top_sellers;
@@ -106,8 +104,6 @@ export default {
             };
           });
           this.activeSellerList.push(...matchKeyResponse);
-        } else {
-          this.isNoContent = true;
         }
         this.isLoading = false;
       } else {
@@ -127,13 +123,6 @@ export default {
   grid-row-gap: 3rem;
   grid-template-columns: repeat(auto-fit, 14.625rem);
   overflow: hidden;
-}
-
-.no-content {
-  font-size: 2rem;
-  font-weight: bold;
-  margin-top: 3.5rem;
-  text-align: center;
 }
 
 @media (max-width: 62.5em) {
