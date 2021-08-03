@@ -10,8 +10,8 @@
   },
   "buy_modal": {
     "success": "Congratulation 😊",
-    "buy_message": "Your NFT Order is successfuly created. Please check your Profile in next 5mins",
-    "bid_message": "Your Bid will be placed in the next 5mins",
+    "buy_message": "Confirmation will be sent to you mail once it is created",
+    "bid_message": "Confirmation will be sent to you mail once it is created",
     "btn": "Go to Market Place"
   },
   "collectible": {

@@ -83,9 +83,16 @@ export default {
   display: flex;
 }
 
-@media (max-width: 35em) {
+@media (max-width: 60em) {
   .mt-2 {
     display: block;
+  }
+
+  .mt-2 span {
+    display: block;
+    margin: 0rem;
+    max-width: 100%;
+    word-wrap: break-word;
   }
 
   .flex {

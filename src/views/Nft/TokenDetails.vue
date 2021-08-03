@@ -185,6 +185,7 @@
         <BaseModal
           v-show="placeBuy"
           :hasClosedBtn="false"
+          @close="closeModal"
         >
           <template #body>
             <h2 style="text-align: center;">
@@ -206,6 +207,7 @@
         <BaseModal
           v-show="placeBid"
           :hasClosedBtn="false"
+          @close="closeModal"
         >
           <template #body>
             <h2 style="text-align: center;">
@@ -349,6 +351,8 @@ export default {
     },
     closeModal() {
       this.isModalVisible = false;
+      this.placeBid = false;
+      this.placeBuy = false;
     },
     closeBid() {
       // this.isLoading = true;

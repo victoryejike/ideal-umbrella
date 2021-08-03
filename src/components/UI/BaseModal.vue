@@ -2,6 +2,7 @@
   <Transition name="modal-fade">
     <div
       class="modal-backdrop"
+      @click.self="close"
     >
       <img
         v-if="hasClosedBtn"
@@ -12,7 +13,9 @@
         @click="close"
       >
 
-      <div class="modal">
+      <div
+        class="modal"
+      >
         <header
           v-if="$slots.header"
           class="modal-header"
