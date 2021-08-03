@@ -153,12 +153,12 @@
             @close="closeModal"
           >
             <template #header>
-              {{ isTimeAuction ? 'Place a bid':'Buy NFT' }}
+              {{ (isTimeAuction || isUnlimitedAuction) ? 'Place a bid':'Buy NFT' }}
             </template>
 
             <template #body>
               <BidModal
-                v-if="isTimeAuction"
+                v-if="(isTimeAuction || isUnlimitedAuction)"
                 :accountbalance="accountBalance"
                 :description="nftDetails.description"
                 :image="nftDetails.uri"
