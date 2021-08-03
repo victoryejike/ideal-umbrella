@@ -137,7 +137,8 @@
             v-if="nftDetails.creator?.display_name !== username"
             class="buy-button btn-primary btn-md btn-bold"
             icon="arrow-right"
-            :text="(isTimeAuction || isUnlimitedAuction) ? $t('nft_details.place_bid') : $t('nft_details.buy_now')"
+            :text="(isTimeAuction || isUnlimitedAuction)
+              ? $t('nft_details.place_bid') : $t('nft_details.buy_now')"
             @click="showModal"
           />
           <BaseRoundButton
