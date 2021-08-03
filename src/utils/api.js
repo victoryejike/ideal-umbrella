@@ -184,7 +184,7 @@ const API_SERVICES = {
   UPDATEPROFILE: (params) => axios.post('users/update-profile', params, false),
   GETCOLLECTIBLE: (params, type) => axios.get(`collectible/user/${params}?single=${type}`),
   CREATEBIDS: (params) => axios.post('bids', params, false),
-  CLOSEBID: (params) => axios.post('bids/close-bid', params),
+  CLOSEBID: (params) => axios.post('bids/close-bidding', params),
   BUYNFT: (params) => axios.post('nft/buy-now', params, false),
 };
 

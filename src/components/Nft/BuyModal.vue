@@ -117,7 +117,7 @@ export default {
       isLoading: false,
       buyingBalance: '',
       finalValue: '',
-      amount: '',
+      amount: this.price,
       coinList: [
         { name: 'ETH' },
         { name: 'HT' },
@@ -127,8 +127,6 @@ export default {
     };
   },
   async mounted() {
-    this.amount = this.price;
-    document.querySelector('.amount').value = this.price;
     const finalBuyValue = (this.price * 0.025).toFixed(4);
     this.finalValue = (parseFloat(this.price) + parseFloat(finalBuyValue)).toFixed(4);
     console.log(this.creatoraddress);

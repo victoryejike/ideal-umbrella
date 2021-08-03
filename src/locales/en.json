@@ -12,7 +12,8 @@
     "success": "Congratulation 😊",
     "buy_message": "Confirmation will be sent to you mail once it is created",
     "bid_message": "Confirmation will be sent to you mail once it is created",
-    "btn": "Go to Market Place"
+    "btn": "Go to Market Place",
+    "closeBid_message": "You have Successfully closed bidding for this NFT"
   },
   "collectible": {
     "amount_label": "Amount",

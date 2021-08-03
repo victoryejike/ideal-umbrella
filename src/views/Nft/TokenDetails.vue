@@ -141,8 +141,9 @@
             @click="showModal"
           />
           <BaseRoundButton
-            v-else-if="(nftDetails.creator?.display_name === username) && isUnlimitedAuction"
-            class="buy-button btn-primary btn-md btn-bold"
+            v-else-if="(nftDetails.creator?.display_name === username)
+              && isUnlimitedAuction && (closed == false)"
+            class="buy-button btn-primary btn-md btn-bold closeBid"
             :icon="isLoading ? 'loading' : 'arrow-right'"
             :text="$t('nft_details.close_bid')"
             @click="closeBid"
@@ -226,6 +227,41 @@
             </router-link>
           </template>
         </BaseModal>
+        <BaseModal
+          v-show="closedBid"
+          @close="closeModal"
+        >
+          <template #body>
+            <h2 style="text-align: center;">
+              {{ $t('buy_modal.success') }}
+            </h2>
+            <p style="text-align: center;">
+              {{ $t('buy_modal.closeBid_message') }}
+            </p>
+          </template>
+        </BaseModal>
+        <BaseForm
+          ref="close-bid-form"
+          class="close-bid-form show"
+          @submit="onSubmit"
+        >
+          <Field
+            name="nft_id"
+            type="hidden"
+            :value="NftId"
+          />
+          <Field
+            name="owner_address"
+            type="hidden"
+            :value="Address"
+          />
+          <BaseRoundButton
+            class="buy-button btn-primary btn-md btn-bold mb close"
+            :icon="isLoading ? 'loading' : 'arrow-right'"
+            :submit="true"
+            :text="$t('nft_details.buy_now')"
+          />
+        </BaseForm>
       </div>
     </div>
   </div>
@@ -237,6 +273,7 @@ import DetailsTab from '@/components/Nft/DetailsTab.vue';
 import HistoryTab from '@/components/Nft/HistoryTab.vue';
 import BidModal from '@/components/Nft/BidModal.vue';
 import BuyModal from '@/components/Nft/BuyModal.vue';
+import { Field } from 'vee-validate';
 import Web3 from 'web3';
 import NoBid from './NoBid.vue';
 
@@ -256,7 +293,7 @@ export const walletLink = new WalletLink({
 export default {
   name: 'TokenDetails',
   components: {
-    DetailsTab, HistoryTab, BidModal, NoBid, BuyModal,
+    DetailsTab, HistoryTab, BidModal, NoBid, BuyModal, Field,
   },
   data() {
     return {
@@ -264,6 +301,8 @@ export default {
       isLoading: false,
       screenStatus: { details: false, history: false },
       accountBalance: 0,
+      NftId: this.$route.params.id,
+      closed: false,
       tabList: [
         {
           name: this.$t('nft_details.tabs.details'),
@@ -277,7 +316,9 @@ export default {
       detailsTabList: [],
       placeBuy: false,
       placeBid: false,
+      closedBid: false,
       bidsList: [],
+      Address: localStorage.getItem('account'),
     };
   },
   computed: {
@@ -353,18 +394,29 @@ export default {
       this.isModalVisible = false;
       this.placeBid = false;
       this.placeBuy = false;
+      this.closedBid = false;
     },
     closeBid() {
       // this.isLoading = true;
-      // let response;
-      // try {
-      //   console.log(response);
-      //   const { data } = this.$api.CLOSEBID();
-      //   response = data;
-      // } catch (error) {
-      //   response = error.response.data;
-      //   this.isLoading = false;
-      // }
+      document.querySelector('.close').click();
+    },
+    closedBidModal() {
+      this.closedBid = false;
+    },
+    async onSubmit(formData) {
+      try {
+        this.isLoading = true;
+        await this.$api.CLOSEBID(formData);
+        this.closedBid = true;
+        this.closed = true;
+        // const btn = document.querySelector('.closeBid');
+        // btn.classList.add('show');
+        this.isLoading = false;
+        // console.log(data, formData);
+      } catch (error) {
+        // response = error.response.data;
+        this.isLoading = false;
+      }
     },
     toggleScreen(name) {
       Object.keys(this.screenStatus).forEach((key) => {
@@ -531,6 +583,10 @@ label {
   font-weight: bold;
   line-height: 100%;
   margin-left: 0.375rem;
+}
+
+.show {
+  display: none;
 }
 
 .coin-value {
