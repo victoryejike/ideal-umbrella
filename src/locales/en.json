@@ -6,6 +6,7 @@
     "title": "Two-factor Authentication"
   },
   "axios": {
+    "network_error": "Network Error",
     "unexcepted_error": "Unexcepted Error"
   },
   "buy_modal": {
@@ -232,6 +233,7 @@
       "total_buy_amount": "Total buy amount",
       "user_buy_label": "Amount"
     },
+    "buy_nft": "Buy NFT",
     "buy_now": "Buy Now",
     "close_bid": "Close Bid",
     "contact_details": "Contact Details",
@@ -240,6 +242,7 @@
     "description": "Description",
     "highest_bid": "Highest Bid",
     "minimum_bid": "Minimum Bid",
+    "place_a_bid": "Place a bid",
     "place_bid": "Place Bid",
     "price": "Price",
     "read_more": "Read more",

@@ -37,7 +37,7 @@
         rules="required"
         :text="$t('login_screen.password_text')"
         type="password"
-        @keyup.enter="$refs['login-btn'].$el.click()"
+        @keyup.enter="$refs['login-form'].submit()"
       />
       <BaseRoundButton
         ref="login-btn"
@@ -93,21 +93,22 @@ export default {
   methods: {
     async onSubmit(formData) {
       const need2FA = await this.$api.IS_2FA_ENABLED(formData);
+      // If server timeout, will return null and it can stop executing LOGIN API [Temporary]
+      if (need2FA == null) { this.$toast.error(this.$t('axios.network_error')); return; }
+
       if (need2FA === true) {
         this.$router.push({ name: '2FA', params: { formData: JSON.stringify(formData) } });
         return;
       }
 
       const response = await this.$api.LOGIN(formData);
-
-      if (response?.success === true) {
-        this.$store.dispatch('auth/login', response?.data);
-        this.$router.push(this.$route.params?.redirectFrom || '/account/profile');
-      } else if (response?.success === false) {
-        this.$toast.error(response?.error);
-      } else {
-        this.$toast.error(this.$t('axios.unexcepted_error'));
+      if (!response?.success) {
+        this.$toast.error(response?.success === false ? response?.error : this.$t('axios.unexcepted_error'));
+        return;
       }
+
+      this.$store.dispatch('auth/login', response?.data);
+      this.$router.push(this.$route.params?.redirectFrom || '/account/profile');
     },
   },
 };

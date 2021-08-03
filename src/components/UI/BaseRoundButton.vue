@@ -71,7 +71,7 @@ export default {
             setTimeout(() => { classList.remove('shake'); }, 1000);
           }
         } else {
-          this.$parent.$el.dispatchEvent(new Event('submit', { cancelable: true }));
+          this.$parent.$parent.submit();
         }
       });
     },

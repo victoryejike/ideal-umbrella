@@ -17,7 +17,7 @@ const API_SERVICES = {
       const { data } = await axios.get('auth/is2faEnabled');
       response = (data?.data === 'true');
     } catch (error) {
-      response = false;
+      response = null;
     }
     return response;
   },
