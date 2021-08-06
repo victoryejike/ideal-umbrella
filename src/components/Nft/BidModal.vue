@@ -122,7 +122,7 @@ export default {
         { name: 'HT' },
         { name: 'FC' },
       ],
-      erc20ContractAddress: '0xEF55376cdD71225501E1d9763D907E3A14C10Bb1',
+      erc20ContractAddress: '0x5C72FA16E5E0b68C22F482709B1AA63672765D5B',
     };
   },
   methods: {
