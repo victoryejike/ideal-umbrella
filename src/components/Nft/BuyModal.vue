@@ -123,7 +123,7 @@ export default {
         { name: 'HT' },
         { name: 'FC' },
       ],
-      erc20ContractAddress: '0x5C72FA16E5E0b68C22F482709B1AA63672765D5B',
+      erc20ContractAddress: '0xEF55376cdD71225501E1d9763D907E3A14C10Bb1',
     };
   },
   async mounted() {
@@ -148,7 +148,7 @@ export default {
         this.getBalance();
         const ercContract = new web3.eth.Contract(require('@/assets/abi/erc20').default, this.erc20ContractAddress);
         await ercContract.methods
-          .approve('0x7f55D3eCd78868c677Af7C8fa45B25750841cd54', web3.utils.toWei('1000000000000000000000000'))
+          .approve('0x5C72FA16E5E0b68C22F482709B1AA63672765D5B', web3.utils.toWei('1000000000000000000000000'))
           .send({ from: localStorage.getItem('account'), gas: 2000000, gasPrice: '30000000000' })
           .on('error', (error) => {
             console.log(error);
@@ -200,7 +200,6 @@ export default {
 .token-image {
   border-radius: 0.625rem;
   height: 4.375rem;
-  object-fit: cover;
   width: 4.375rem;
 }
 
