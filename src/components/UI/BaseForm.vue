@@ -33,7 +33,9 @@ export default {
     form() { return this.$refs['vee-validate-form']; },
   },
   methods: {
-
+    submit() {
+      this.$el.dispatchEvent(new Event('submit', { cancelable: true }));
+    },
   },
 };
 </script>

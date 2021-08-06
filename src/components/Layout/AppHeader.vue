@@ -156,6 +156,7 @@ header {
   border-radius: 50%;
   cursor: pointer;
   margin-left: 2.5rem;
+  object-fit: cover;
 }
 
 @media (max-width: 58em) {

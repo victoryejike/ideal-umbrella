@@ -59,7 +59,7 @@ const GLOBAL_FUNCTION = {
    */
   translateNFTDetails(response) {
     let result = [];
-    if (response) {
+    if (response && response.length > 0) {
       result = response.map((item) => {
         // eslint-disable-next-line no-underscore-dangle
         const nft = item._nfts || item;

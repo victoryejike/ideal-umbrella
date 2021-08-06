@@ -35,15 +35,6 @@ router.smoothlyScroll = (pos = 0, time = 250) => {
   });
 };
 
-router.beforeEach((to, from, next) => {
-  /**
-   *  Here not using window.scrollTo({ top: 0, behavior: 'smooth' })
-   *  because Safari and mobile broswer not support this feature.
-   */
-  next();
-  router.smoothlyScroll();
-});
-
 router.beforeEach(async (to, from, next) => {
   const requiresAuth = to.matched.some((route) => route.meta.requiresAuth);
   if (requiresAuth) {
@@ -57,6 +48,14 @@ router.beforeEach(async (to, from, next) => {
     }
   }
   return next();
+});
+
+router.afterEach((to, from) => {
+  /**
+   *  Here not using window.scrollTo({ top: 0, behavior: 'smooth' })
+   *  because Safari and mobile broswer not support this feature.
+   */
+  router.smoothlyScroll();
 });
 
 export default router;

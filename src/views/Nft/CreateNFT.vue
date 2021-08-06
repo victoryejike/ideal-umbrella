@@ -416,7 +416,7 @@ export default {
           });
         this.ipfsUrl = cid;
         this.tokenId = result.events.TokenMinted.returnValues.tokenType;
-        this.$refs['collectible-nft'].$el.dispatchEvent(new Event('submit', { cancelable: true }));
+        this.$refs['collectible-nft'].submit();
       } else {
         const contract = new web3.eth.Contract(require('@/assets/abi/erc721').default, this.erc721ContractAddress);
         if (this.pricingType === PriceType.FIXED) {
@@ -473,7 +473,7 @@ export default {
           this.ipfsUrl = cid;
           this.tokenId = result.events.Transfer.returnValues.tokenId;
         }
-        this.$refs['collectible-nft'].$el.dispatchEvent(new Event('submit', { cancelable: true }));
+        this.$refs['collectible-nft'].submit();
       }
     },
     async onSubmit(CollectibleNftData) {

@@ -17,7 +17,7 @@ const API_SERVICES = {
       const { data } = await axios.get('auth/is2faEnabled');
       response = (data?.data === 'true');
     } catch (error) {
-      response = false;
+      response = null;
     }
     return response;
   },
@@ -54,7 +54,7 @@ const API_SERVICES = {
     try {
       response = (await axios.get('nft/top_nfts', { params: { skip: 0, limit: 4 } })).data;
     } catch (error) {
-      response = error?.response?.data;
+      response = [];
     }
 
     if (response?.success) {

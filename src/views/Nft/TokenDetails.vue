@@ -45,8 +45,7 @@
           </div>
           <div class="details-section">
             <label>
-              {{ (isTimeAuction || isUnlimitedAuction)
-                ? $t('nft_details.minimum_bid') : $t('nft_details.price') }}
+              {{ isAuction ? $t('nft_details.minimum_bid') : $t('nft_details.price') }}
             </label>
             <div class="highest-bid-details">
               <img
@@ -126,8 +125,7 @@
               :creater="nftDetails.creator?.display_name"
               :date="nftDetails.createdAt"
               :price="nftDetails.price"
-              :type="isTimeAuction ? 'timed_auction'
-                : isUnlimitedAuction ? 'unlimited_auction' : 'fixed'"
+              :type="nftDetails.pricing_type"
               :verified="nftDetails.creator?.is_kyc_verified"
             />
           </div>
@@ -137,8 +135,7 @@
             v-if="nftDetails.creator?.display_name !== username"
             class="buy-button btn-primary btn-md btn-bold"
             icon="arrow-right"
-            :text="(isTimeAuction || isUnlimitedAuction)
-              ? $t('nft_details.place_bid') : $t('nft_details.buy_now')"
+            :text="isAuction ? $t('nft_details.place_bid') : $t('nft_details.buy_now')"
             @click="showModal"
           />
           <BaseRoundButton
@@ -154,12 +151,12 @@
             @close="closeModal"
           >
             <template #header>
-              {{ (isTimeAuction || isUnlimitedAuction) ? 'Place a bid':'Buy NFT' }}
+              {{ isAuction ? $t('nft_details.place_a_bid') : $t('nft_details.buy_nft') }}
             </template>
 
             <template #body>
               <BidModal
-                v-if="(isTimeAuction || isUnlimitedAuction)"
+                v-if="isAuction"
                 :accountbalance="accountBalance"
                 :description="nftDetails.description"
                 :image="nftDetails.uri"
@@ -276,6 +273,7 @@ import BidModal from '@/components/Nft/BidModal.vue';
 import BuyModal from '@/components/Nft/BuyModal.vue';
 import { Field } from 'vee-validate';
 import Web3 from 'web3';
+import { PriceType } from '@/utils/enums';
 import NoBid from './NoBid.vue';
 
 // const Web3 = require('web3');
@@ -325,18 +323,19 @@ export default {
   computed: {
     username() { return this.$store.getters['auth/username']; },
     nftDetails() { return this.$route.params.nft; },
-    isTimeAuction() { return this.nftDetails.pricing_type === 'timed_auction'; },
-    isUnlimitedAuction() { return this.nftDetails.pricing_type === 'unlimited_auction'; },
+    isTimeAuction() { return this.nftDetails.pricing_type === PriceType.TIMED_AUCTION; },
+    isUnlimitedAuction() { return this.nftDetails.pricing_type === PriceType.UNLIMITED_AUCTION; },
+    isAuction() { return this.isTimeAuction || this.isUnlimitedAuction; },
   },
   async mounted() {
-    if (this.isTimeAuction || this.isUnlimitedAuction) {
+    if (this.isAuction) {
       this.tabList.unshift({
         name: this.$t('nft_details.tabs.bids'),
         handler: () => { this.toggleScreen('bids'); },
       });
     }
 
-    this.screenStatus[(this.isTimeAuction || this.isUnlimitedAuction) ? 'bids' : 'details'] = true;
+    this.screenStatus[this.isAuction ? 'bids' : 'details'] = true;
     this.bidsList = await this.$api.GET_BIDS(this.$route.params.id);
     this.detailsTabList = [
       {
@@ -501,6 +500,7 @@ export default {
 .token-image {
   border-radius: 1rem;
   margin-top: 1.25rem;
+  object-fit: cover;
   width: 90%;
 }
 
@@ -517,6 +517,7 @@ export default {
 
 .creater-image {
   border-radius: 50%;
+  object-fit: cover;
 }
 
 .display-token-details {

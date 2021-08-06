@@ -231,6 +231,7 @@ export default {
 
 .avatar {
   border-radius: 1rem;
+  object-fit: cover;
 }
 
 .abstract-text {
@@ -244,6 +245,10 @@ export default {
 
   /* Safari Bug?  */
   width: 0;
+}
+
+.product-image {
+  object-fit: cover;
 }
 
 .product-name {
