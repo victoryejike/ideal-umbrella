@@ -124,6 +124,8 @@ export default {
         { name: 'FC' },
       ],
       erc20ContractAddress: '0xEF55376cdD71225501E1d9763D907E3A14C10Bb1',
+      erc721ContractAddress: '0xF3538d2696FF98396Aa0386d91bd7f9C02570511',
+      erc1155ContractAddress: '0x24d5CaBE5A68653c1a6d10f65679839a5CD4a42A',
     };
   },
   async mounted() {
@@ -148,8 +150,8 @@ export default {
         this.getBalance();
         const ercContract = new web3.eth.Contract(require('@/assets/abi/erc20').default, this.erc20ContractAddress);
         await ercContract.methods
-          .approve('0x5C72FA16E5E0b68C22F482709B1AA63672765D5B', web3.utils.toWei('1000000000000000000000000'))
-          .send({ from: localStorage.getItem('account'), gas: 2000000, gasPrice: '30000000000' })
+          .instantBuy(this.erc20ContractAddress, this.erc721ContractAddress, this.creatoraddress, this.Address, web3.utils.toWei(this.finalValue), (1), this.tokenid, (1), '0x0')
+          .send({ from: this.Address, gas: 2000000, gasPrice: '30000000000' })
           .on('error', (error) => {
             console.log(error);
             this.isLoading = false;

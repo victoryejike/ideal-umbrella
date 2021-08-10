@@ -158,6 +158,7 @@
               <BidModal
                 v-if="isAuction"
                 :accountbalance="accountBalance"
+                :bid="bidsList"
                 :description="nftDetails.description"
                 :image="nftDetails.uri"
                 :minimumbid="nftDetails.minimum_bid"
