@@ -175,7 +175,7 @@ export default {
   border-radius: 0.625rem;
   box-sizing: border-box;
   display: flex;
-  height: 6.25rem;
+  height: inherit;
   padding: 0.9375rem;
 }
 
