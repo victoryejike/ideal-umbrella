@@ -1,12 +1,6 @@
 export default [
   {
-    inputs: [
-      {
-        internalType: 'address',
-        name: '_authorizedCaller',
-        type: 'address',
-      },
-    ],
+    inputs: [],
     stateMutability: 'nonpayable',
     type: 'constructor',
   },
@@ -14,267 +8,292 @@ export default [
     anonymous: false,
     inputs: [
       {
-        indexed: false,
+        indexed: true,
         internalType: 'address',
-        name: '_erc20TokenAddress',
+        name: 'owner',
         type: 'address',
       },
       {
-        indexed: false,
+        indexed: true,
         internalType: 'address',
-        name: '_nftTokenAddress',
-        type: 'address',
-      },
-      {
-        indexed: false,
-        internalType: 'address',
-        name: '_previousBidder',
-        type: 'address',
-      },
-      {
-        indexed: false,
-        internalType: 'address',
-        name: '_currentBidder',
+        name: 'spender',
         type: 'address',
       },
       {
         indexed: false,
         internalType: 'uint256',
-        name: '_previousBid',
+        name: 'value',
         type: 'uint256',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: '_currentBid',
-        type: 'uint256',
-      },
-      {
-        indexed: false,
-        internalType: 'string',
-        name: '_tokenId',
-        type: 'string',
-      },
-      {
-        indexed: false,
-        internalType: 'string',
-        name: '_userId',
-        type: 'string',
       },
     ],
-    name: 'BidUpdated',
+    name: 'Approval',
     type: 'event',
   },
   {
     anonymous: false,
     inputs: [
       {
-        indexed: false,
+        indexed: true,
         internalType: 'address',
-        name: '_erc1155TokenContract',
+        name: 'previousOwner',
         type: 'address',
       },
       {
-        indexed: false,
+        indexed: true,
         internalType: 'address',
-        name: '_from',
+        name: 'newOwner',
         type: 'address',
-      },
-      {
-        indexed: false,
-        internalType: 'address',
-        name: '_to',
-        type: 'address',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: '_tokenId',
-        type: 'uint256',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: '_quantity',
-        type: 'uint256',
-      },
-      {
-        indexed: false,
-        internalType: 'bytes',
-        name: 'data',
-        type: 'bytes',
       },
     ],
-    name: 'ERC1155TransferCompleted',
+    name: 'OwnershipTransferred',
     type: 'event',
   },
   {
     anonymous: false,
     inputs: [
       {
-        indexed: false,
+        indexed: true,
         internalType: 'address',
-        name: '_erc20TokenContract',
+        name: 'from',
         type: 'address',
       },
       {
-        indexed: false,
+        indexed: true,
         internalType: 'address',
-        name: '_from',
-        type: 'address',
-      },
-      {
-        indexed: false,
-        internalType: 'address',
-        name: '_to',
+        name: 'to',
         type: 'address',
       },
       {
         indexed: false,
         internalType: 'uint256',
-        name: '_amount',
+        name: 'value',
         type: 'uint256',
       },
     ],
-    name: 'ERC20TransferCompleted',
+    name: 'Transfer',
     type: 'event',
   },
   {
-    anonymous: false,
     inputs: [
       {
-        indexed: false,
-        internalType: 'address',
-        name: '_erc721TokenContract',
+        internalType: 'address payable',
+        name: '_beneficiary',
         type: 'address',
       },
       {
-        indexed: false,
-        internalType: 'address',
-        name: '_from',
-        type: 'address',
-      },
-      {
-        indexed: false,
-        internalType: 'address',
-        name: '_to',
-        type: 'address',
-      },
-      {
-        indexed: false,
         internalType: 'uint256',
-        name: '_tokenId',
+        name: '_totalAllocation',
         type: 'uint256',
       },
     ],
-    name: 'ERC721TransferCompleted',
-    type: 'event',
+    name: 'addBeneficiary',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
   },
   {
-    anonymous: false,
     inputs: [
       {
-        indexed: false,
         internalType: 'address',
-        name: '_erc20TokenContract',
+        name: 'owner',
         type: 'address',
       },
       {
-        indexed: false,
         internalType: 'address',
-        name: '_erc721TokenContract',
+        name: 'spender',
         type: 'address',
       },
+    ],
+    name: 'allowance',
+    outputs: [
       {
-        indexed: false,
-        internalType: 'address',
-        name: '_seller',
-        type: 'address',
-      },
-      {
-        indexed: false,
-        internalType: 'address',
-        name: '_buyer',
-        type: 'address',
-      },
-      {
-        indexed: false,
         internalType: 'uint256',
-        name: '_erc20TokenAmount',
+        name: '',
         type: 'uint256',
       },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [
       {
-        indexed: false,
-        internalType: 'uint256',
-        name: '_erc721TokenId',
-        type: 'uint256',
+        internalType: 'address',
+        name: 'spender',
+        type: 'address',
       },
       {
-        indexed: false,
         internalType: 'uint256',
-        name: '_quantity',
+        name: 'amount',
         type: 'uint256',
       },
+    ],
+    name: 'approve',
+    outputs: [
       {
-        indexed: false,
-        internalType: 'enum DelegateContract.TransactionType',
-        name: '_transactionType',
+        internalType: 'bool',
+        name: '',
+        type: 'bool',
+      },
+    ],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'address',
+        name: 'account',
+        type: 'address',
+      },
+    ],
+    name: 'balanceOf',
+    outputs: [
+      {
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'address',
+        name: '',
+        type: 'address',
+      },
+    ],
+    name: 'beneficiaryAccountStatus',
+    outputs: [
+      {
+        internalType: 'enum FunToken.AccountStatus',
+        name: '',
         type: 'uint8',
       },
     ],
-    name: 'TransactionCompleted',
-    type: 'event',
+    stateMutability: 'view',
+    type: 'function',
   },
   {
     inputs: [
       {
         internalType: 'address',
-        name: '_erc20TokenAddress',
+        name: '',
         type: 'address',
       },
+    ],
+    name: 'beneficiaryBalance',
+    outputs: [
+      {
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [
       {
         internalType: 'address',
-        name: '_nftTokenAddress',
+        name: '',
         type: 'address',
       },
+    ],
+    name: 'beneficiaryLastClaimTime',
+    outputs: [
       {
         internalType: 'uint256',
-        name: '_tokenId',
+        name: '',
         type: 'uint256',
       },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'address',
+        name: '',
+        type: 'address',
+      },
+    ],
+    name: 'beneficiaryMaxWithdrawPerPeriod',
+    outputs: [
       {
         internalType: 'uint256',
-        name: '_quantity',
+        name: '',
         type: 'uint256',
       },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [
       {
-        internalType: 'enum DelegateContract.TokenType',
-        name: '_tokenType',
+        internalType: 'address',
+        name: '',
+        type: 'address',
+      },
+    ],
+    name: 'beneficiaryTotalWithdrawn',
+    outputs: [
+      {
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'claimSeedReward',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'decimals',
+    outputs: [
+      {
+        internalType: 'uint8',
+        name: '',
         type: 'uint8',
       },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [
       {
         internalType: 'address',
-        name: '_seller',
-        type: 'address',
-      },
-      {
-        internalType: 'address',
-        name: '_bidder',
+        name: 'spender',
         type: 'address',
       },
       {
         internalType: 'uint256',
-        name: '_bidPrice',
+        name: 'subtractedValue',
         type: 'uint256',
       },
+    ],
+    name: 'decreaseAllowance',
+    outputs: [
       {
-        internalType: 'bytes',
-        name: '_data',
-        type: 'bytes',
+        internalType: 'bool',
+        name: '',
+        type: 'bool',
       },
     ],
-    name: 'closeBid',
-    outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',
   },
@@ -282,52 +301,23 @@ export default [
     inputs: [
       {
         internalType: 'address',
-        name: '_erc20TokenContract',
-        type: 'address',
-      },
-      {
-        internalType: 'address',
-        name: '_nftTokenAddress',
-        type: 'address',
-      },
-      {
-        internalType: 'address',
-        name: '_seller',
-        type: 'address',
-      },
-      {
-        internalType: 'address',
-        name: '_buyer',
+        name: 'spender',
         type: 'address',
       },
       {
         internalType: 'uint256',
-        name: '_erc20TokenAmount',
+        name: 'addedValue',
         type: 'uint256',
-      },
-      {
-        internalType: 'enum DelegateContract.TokenType',
-        name: '_tokenType',
-        type: 'uint8',
-      },
-      {
-        internalType: 'uint256',
-        name: '_tokenId',
-        type: 'uint256',
-      },
-      {
-        internalType: 'uint256',
-        name: '_quantity',
-        type: 'uint256',
-      },
-      {
-        internalType: 'bytes',
-        name: '_data',
-        type: 'bytes',
       },
     ],
-    name: 'instantBuy',
-    outputs: [],
+    name: 'increaseAllowance',
+    outputs: [
+      {
+        internalType: 'bool',
+        name: '',
+        type: 'bool',
+      },
+    ],
     stateMutability: 'nonpayable',
     type: 'function',
   },
@@ -335,142 +325,222 @@ export default [
     inputs: [
       {
         internalType: 'address',
-        name: '_erc1155TokenContract',
+        name: '',
         type: 'address',
-      },
-      {
-        internalType: 'address',
-        name: '_from',
-        type: 'address',
-      },
-      {
-        internalType: 'address',
-        name: '_to',
-        type: 'address',
-      },
-      {
-        internalType: 'uint256',
-        name: '_tokenId',
-        type: 'uint256',
-      },
-      {
-        internalType: 'uint256',
-        name: '_quantity',
-        type: 'uint256',
-      },
-      {
-        internalType: 'bytes',
-        name: '_data',
-        type: 'bytes',
       },
     ],
-    name: 'transferERC1155',
-    outputs: [],
-    stateMutability: 'nonpayable',
+    name: 'isBeneficiary',
+    outputs: [
+      {
+        internalType: 'bool',
+        name: '',
+        type: 'bool',
+      },
+    ],
+    stateMutability: 'view',
     type: 'function',
   },
   {
     inputs: [
       {
-        internalType: 'address',
-        name: '_erc20TokenContract',
+        internalType: 'address payable',
+        name: '_beneficiary',
         type: 'address',
-      },
-      {
-        internalType: 'address',
-        name: '_from',
-        type: 'address',
-      },
-      {
-        internalType: 'address',
-        name: '_to',
-        type: 'address',
-      },
-      {
-        internalType: 'uint256',
-        name: '_amount',
-        type: 'uint256',
       },
     ],
-    name: 'transferERC20',
+    name: 'lockBeneficiaryWithdrawal',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',
   },
   {
-    inputs: [
-      {
-        internalType: 'address',
-        name: '_erc721TokenContract',
-        type: 'address',
-      },
-      {
-        internalType: 'address',
-        name: '_from',
-        type: 'address',
-      },
-      {
-        internalType: 'address',
-        name: '_to',
-        type: 'address',
-      },
-      {
-        internalType: 'uint256',
-        name: '_tokenId',
-        type: 'uint256',
-      },
-    ],
-    name: 'transferERC721',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'address',
-        name: '_erc20TokenAddress',
-        type: 'address',
-      },
-      {
-        internalType: 'address',
-        name: '_nftTokenAddress',
-        type: 'address',
-      },
-      {
-        internalType: 'address',
-        name: '_previousBidder',
-        type: 'address',
-      },
-      {
-        internalType: 'address',
-        name: '_currentBidder',
-        type: 'address',
-      },
-      {
-        internalType: 'uint256',
-        name: '_previousBid',
-        type: 'uint256',
-      },
-      {
-        internalType: 'uint256',
-        name: '_currentBid',
-        type: 'uint256',
-      },
+    inputs: [],
+    name: 'name',
+    outputs: [
       {
         internalType: 'string',
-        name: '_tokenId',
-        type: 'string',
-      },
-      {
-        internalType: 'string',
-        name: '_userId',
+        name: '',
         type: 'string',
       },
     ],
-    name: 'updateBid',
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'owner',
+    outputs: [
+      {
+        internalType: 'address',
+        name: '',
+        type: 'address',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'renounceOwnership',
     outputs: [],
     stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'seedAllocated',
+    outputs: [
+      {
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'symbol',
+    outputs: [
+      {
+        internalType: 'string',
+        name: '',
+        type: 'string',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'totalSupply',
+    outputs: [
+      {
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'address',
+        name: 'recipient',
+        type: 'address',
+      },
+      {
+        internalType: 'uint256',
+        name: 'amount',
+        type: 'uint256',
+      },
+    ],
+    name: 'transfer',
+    outputs: [
+      {
+        internalType: 'bool',
+        name: '',
+        type: 'bool',
+      },
+    ],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'address',
+        name: 'sender',
+        type: 'address',
+      },
+      {
+        internalType: 'address',
+        name: 'recipient',
+        type: 'address',
+      },
+      {
+        internalType: 'uint256',
+        name: 'amount',
+        type: 'uint256',
+      },
+    ],
+    name: 'transferFrom',
+    outputs: [
+      {
+        internalType: 'bool',
+        name: '',
+        type: 'bool',
+      },
+    ],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'address',
+        name: 'newOwner',
+        type: 'address',
+      },
+    ],
+    name: 'transferOwnership',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'address payable',
+        name: '_beneficiary',
+        type: 'address',
+      },
+    ],
+    name: 'unlockBeneficiaryWithdrawal',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'address payable',
+        name: '_beneficiary',
+        type: 'address',
+      },
+    ],
+    name: 'viewBeneficiary',
+    outputs: [
+      {
+        internalType: 'uint256',
+        name: 'totalAmountLeft',
+        type: 'uint256',
+      },
+      {
+        internalType: 'uint256',
+        name: 'totalAmountWithdrawn',
+        type: 'uint256',
+      },
+      {
+        internalType: 'enum FunToken.AccountStatus',
+        name: 'accountStatus',
+        type: 'uint8',
+      },
+      {
+        internalType: 'bool',
+        name: 'isABeneficiary',
+        type: 'bool',
+      },
+      {
+        internalType: 'uint256',
+        name: 'amountWithdrawable',
+        type: 'uint256',
+      },
+    ],
+    stateMutability: 'view',
     type: 'function',
   },
 ];

@@ -319,6 +319,7 @@ export default {
       closedBid: false,
       bidsList: [],
       Address: localStorage.getItem('account'),
+      erc721ContractAddress: '0xF3538d2696FF98396Aa0386d91bd7f9C02570511',
     };
   },
   computed: {
@@ -405,19 +406,30 @@ export default {
       this.closedBid = false;
     },
     async onSubmit(formData) {
-      try {
-        this.isLoading = true;
-        await this.$api.CLOSEBID(formData);
-        this.closedBid = true;
-        this.closed = true;
-        // const btn = document.querySelector('.closeBid');
-        // btn.classList.add('show');
-        this.isLoading = false;
-        // console.log(data, formData);
-      } catch (error) {
-        // response = error.response.data;
-        this.isLoading = false;
-      }
+      const web3 = new Web3(window.ethereum);
+      this.isLoading = true;
+      const contract = new web3.eth.Contract(require('@/assets/abi/erc20').default, this.erc20ContractAddress);
+      await contract.methods
+        .closeBid(this.erc20ContractAddress, this.erc721ContractAddress,
+          this.nftDetails.tokenId, (1), this.userData.uid)
+        .send({ from: this.Address, gas: 2000000, gasPrice: '30000000000' })
+        .on('error', (error) => {
+          console.log(error);
+          this.isLoading = false;
+        });
+      // try {
+      //   this.isLoading = true;
+      //   await this.$api.CLOSEBID(formData);
+      //   this.closedBid = true;
+      //   this.closed = true;
+      //   // const btn = document.querySelector('.closeBid');
+      //   // btn.classList.add('show');
+      //   this.isLoading = false;
+      //   // console.log(data, formData);
+      // } catch (error) {
+      //   // response = error.response.data;
+      //   this.isLoading = false;
+      // }
     },
     toggleScreen(name) {
       Object.keys(this.screenStatus).forEach((key) => {

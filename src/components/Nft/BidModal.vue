@@ -126,6 +126,7 @@ export default {
       erc20ContractAddress: '0xEF55376cdD71225501E1d9763D907E3A14C10Bb1',
       erc721ContractAddress: '0xF3538d2696FF98396Aa0386d91bd7f9C02570511',
       erc1155ContractAddress: '0x24d5CaBE5A68653c1a6d10f65679839a5CD4a42A',
+      delegateContractAddress: '0x0285e4EaEca99A4e8Ec3f005D1B6Bd7b450d4693',
       prevBidderAddress: '',
       prevBid: '',
       userData: JSON.parse(localStorage.getItem('userData')),
@@ -146,34 +147,35 @@ export default {
           this.prevBidderAddress = this.bid[index - 1].highest_bidder;
           this.prevBid = this.bid[index - 1].highest_bid;
         } else {
-          this.prevBidderAddress = '0x000000000000000000000000000000000000000';
+          this.prevBidderAddress = '0x94A4Bd82F25aBd54195F6cd8b093575f9e37383c';
           this.prevBid = '0';
         }
-        const ercContract = new web3.eth.Contract(require('@/assets/abi/erc20').default, this.erc20ContractAddress);
+        const ercContract = new web3.eth.Contract(require('@/assets/abi/delegateContract').default, this.delegateContractAddress);
         await ercContract.methods
           .updateBid(this.erc20ContractAddress, this.erc721ContractAddress,
-            this.prevBidderAddress, this.Address, web3.utils.toWei(this.prevBid),
             web3.utils.toWei(this.initialBidValue), this.tokenid, this.userData.uid)
           .send({ from: this.Address, gas: 2000000, gasPrice: '30000000000' })
           .on('error', (error) => {
             console.log(error);
             this.isLoading = false;
+            this.$toast.error('An error occurred');
           })
           .on('confirmation', async (confirmationNumber, receipt) => {
             console.log(receipt);
-            let response = null;
-            try {
-              const { data } = await this.$api.CREATEBIDS(formData);
-              response = data;
-            } catch (error) {
-              response = error?.response?.data;
-            }
+            this.$emit('bidPlaced', 'Thank you');
+            // let response = null;
+            // try {
+            //   const { data } = await this.$api.CREATEBIDS(formData);
+            //   response = data;
+            // } catch (error) {
+            //   response = error?.response?.data;
+            // }
 
-            if (response?.success) {
-              this.$emit('bidPlaced', response.success);
-            } else {
-              this.$toast.error(response.error);
-            }
+            // if (response?.success) {
+            //   this.$emit('bidPlaced', response.success);
+            // } else {
+            //   this.$toast.error(response.error);
+            // }
           });
       } else {
         this.$toast.error('You can not bid lower than the mlnimum required bid price');

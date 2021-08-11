@@ -270,12 +270,14 @@ export default {
       receivedAmount: '',
       pricingType: PriceType.FIXED,
       ipfsUrl: '',
+      userData: JSON.parse(localStorage.getItem('userData')),
       r: localStorage.getItem('r'),
       s: localStorage.getItem('s'),
       v: localStorage.getItem('v'),
       erc721ContractAddress: '0xF3538d2696FF98396Aa0386d91bd7f9C02570511',
       erc1155ContractAddress: '0x24d5CaBE5A68653c1a6d10f65679839a5CD4a42A',
       erc20ContractAddress: '0xEF55376cdD71225501E1d9763D907E3A14C10Bb1',
+      delegateContractAddress: '0x0285e4EaEca99A4e8Ec3f005D1B6Bd7b450d4693',
     };
   },
   computed: {
@@ -419,6 +421,7 @@ export default {
         this.$refs['collectible-nft'].submit();
       } else {
         const contract = new web3.eth.Contract(require('@/assets/abi/erc721').default, this.erc721ContractAddress);
+        const delegateContract = new web3.eth.Contract(require('@/assets/abi/delegateContract').default, this.delegateContractAddress);
         if (this.pricingType === PriceType.FIXED) {
           console.log('yes');
           contract.methods
@@ -440,6 +443,7 @@ export default {
           contract.methods.createSellOrder(this.tokenId, web3.utils.toWei(price, 'ether')).send({ from: localStorage.getItem('account'), gas: 3500000, gasPrice: '35000000000' });
         }
         if (this.pricingType === PriceType.TIMED_AUCTION) {
+          const startingBid = document.querySelector('.minimum_bid').value;
           contract.methods
             .setApprovalForAll('0x7f55D3eCd78868c677Af7C8fa45B25750841cd54', true)
             .send({ from: localStorage.getItem('account'), gas: 3000000, gasPrice: '35000000000' })
@@ -455,8 +459,17 @@ export default {
             });
           this.ipfsUrl = cid;
           this.tokenId = result.events.Transfer.returnValues.tokenId;
+          delegateContract.methods
+            .CreateBid('0x7f55D3eCd78868c677Af7C8fa45B25750841cd54', this.erc721ContractAddress, this.tokenId,
+              (1), (1), web3.utils.toWei(startingBid, 'ether'), this.userData.uid)
+            .send({ from: localStorage.getItem('account'), gas: 3000000, gasPrice: '35000000000' })
+            .on('error', (error) => {
+              console.log(error);
+              this.isLoading = false;
+            });
         }
         if (this.pricingType === PriceType.UNLIMITED_AUCTION) {
+          const startingBid = document.querySelector('.minimum_bid').value;
           contract.methods
             .setApprovalForAll('0x7f55D3eCd78868c677Af7C8fa45B25750841cd54', true)
             .send({ from: localStorage.getItem('account'), gas: 3000000, gasPrice: '35000000000' })
@@ -472,6 +485,14 @@ export default {
             });
           this.ipfsUrl = cid;
           this.tokenId = result.events.Transfer.returnValues.tokenId;
+          delegateContract.methods
+            .CreateBid('0x7f55D3eCd78868c677Af7C8fa45B25750841cd54', this.erc721ContractAddress, this.tokenId,
+              (1), (2), web3.utils.toWei(startingBid, 'ether'), this.userData.uid)
+            .send({ from: localStorage.getItem('account'), gas: 3000000, gasPrice: '35000000000' })
+            .on('error', (error) => {
+              console.log(error);
+              this.isLoading = false;
+            });
         }
         this.$refs['collectible-nft'].submit();
       }
