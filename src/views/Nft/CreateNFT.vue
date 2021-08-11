@@ -404,7 +404,7 @@ export default {
         // return this.$t('collectible.title_single');
         const contract = new web3.eth.Contract(require('@/assets/abi/erc1155').default, this.erc1155ContractAddress);
         contract.methods
-          .setApprovalForAll('0x7f55D3eCd78868c677Af7C8fa45B25750841cd54', true)
+          .setApprovalForAll('0x5498A45909AF60e140f1E64116DD786199905A40', true)
           .send({ from: localStorage.getItem('account'), gas: 2000000, gasPrice: '35000000000' })
           .on('error', (error) => {
             console.log(error);
@@ -425,7 +425,7 @@ export default {
         if (this.pricingType === PriceType.FIXED) {
           console.log('yes');
           contract.methods
-            .setApprovalForAll('0x7f55D3eCd78868c677Af7C8fa45B25750841cd54', true)
+            .setApprovalForAll('0x5498A45909AF60e140f1E64116DD786199905A40', true)
             .send({ from: localStorage.getItem('account'), gas: 200000, gasPrice: '2000000000' })
             .on('error', (error) => {
               console.log(error);
@@ -445,7 +445,7 @@ export default {
         if (this.pricingType === PriceType.TIMED_AUCTION) {
           const startingBid = document.querySelector('.minimum_bid').value;
           contract.methods
-            .setApprovalForAll('0x7f55D3eCd78868c677Af7C8fa45B25750841cd54', true)
+            .setApprovalForAll('0x5498A45909AF60e140f1E64116DD786199905A40', true)
             .send({ from: localStorage.getItem('account'), gas: 3000000, gasPrice: '35000000000' })
             .on('error', (error) => {
               console.log(error);
@@ -471,7 +471,7 @@ export default {
         if (this.pricingType === PriceType.UNLIMITED_AUCTION) {
           const startingBid = document.querySelector('.minimum_bid').value;
           contract.methods
-            .setApprovalForAll('0x7f55D3eCd78868c677Af7C8fa45B25750841cd54', true)
+            .setApprovalForAll('0x5498A45909AF60e140f1E64116DD786199905A40', true)
             .send({ from: localStorage.getItem('account'), gas: 3000000, gasPrice: '35000000000' })
             .on('error', (error) => {
               console.log(error);
