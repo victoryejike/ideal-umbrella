@@ -171,8 +171,9 @@ export default {
                 console.log(error);
                 this.isLoading = false;
                 this.$toast.error('An error occurred');
+              }).once('receipt', async () => {
+                this.$emit('bidPlaced', 'buy successful');
               });
-            this.$emit('bidPlaced', 'Bid Placement successful');
             // let response = null;
             // try {
             //   const { data } = await this.$api.CREATEBIDS(formData);
