@@ -460,7 +460,7 @@ export default {
           this.ipfsUrl = cid;
           this.tokenId = result.events.Transfer.returnValues.tokenId;
           delegateContract.methods
-            .CreateBid('0x7f55D3eCd78868c677Af7C8fa45B25750841cd54', this.erc721ContractAddress, this.tokenId,
+            .CreateBid(this.erc20ContractAddress, this.erc721ContractAddress, this.tokenId,
               (1), (1), web3.utils.toWei(startingBid, 'ether'), this.userData.uid)
             .send({ from: localStorage.getItem('account'), gas: 3000000, gasPrice: '35000000000' })
             .on('error', (error) => {
@@ -486,7 +486,7 @@ export default {
           this.ipfsUrl = cid;
           this.tokenId = result.events.Transfer.returnValues.tokenId;
           delegateContract.methods
-            .CreateBid('0x7f55D3eCd78868c677Af7C8fa45B25750841cd54', this.erc721ContractAddress, this.tokenId,
+            .CreateBid(this.erc20ContractAddress, this.erc721ContractAddress, this.tokenId,
               (1), (2), web3.utils.toWei(startingBid, 'ether'), this.userData.uid)
             .send({ from: localStorage.getItem('account'), gas: 3000000, gasPrice: '35000000000' })
             .on('error', (error) => {

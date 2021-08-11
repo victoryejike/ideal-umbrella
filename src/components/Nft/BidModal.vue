@@ -162,7 +162,7 @@ export default {
           })
           .on('confirmation', async (confirmationNumber, receipt) => {
             console.log(receipt);
-            this.$emit('bidPlaced', 'Thank you');
+            this.$emit('bidPlaced', 'Bid Placement successful');
             // let response = null;
             // try {
             //   const { data } = await this.$api.CREATEBIDS(formData);

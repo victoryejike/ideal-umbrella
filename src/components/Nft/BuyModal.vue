@@ -157,28 +157,30 @@ export default {
           .on('error', (error) => {
             console.log(error);
             this.isLoading = false;
+            this.$toast.error('An error occuured');
           })
           .on('confirmation', async (confirmationNumber, receipt) => {
             if (confirmationNumber === 1) {
-              console.log(receipt);
-              let response = null;
-              try {
-                const { data } = await this.$api.BUYNFT(formData);
-                response = data;
-              } catch (error) {
-                response = error?.response?.data;
-              }
+              this.$emit('bidPlaced', 'buy successful');
+              // console.log(receipt);
+              // let response = null;
+              // try {
+              //   const { data } = await this.$api.BUYNFT(formData);
+              //   response = data;
+              // } catch (error) {
+              //   response = error?.response?.data;
+              // }
 
-              if (response?.success) {
-                this.$emit('bidPlaced', response.success);
-              } else {
-                // eslint-disable-next-line no-lonely-if
-                if (response?.error === "Can't buy own nft") {
-                  this.$toast.error('Sorry, you can not buy an Owned NFT');
-                } else {
-                  this.$toast.error(response?.error);
-                }
-              }
+              // if (response?.success) {
+              //   this.$emit('bidPlaced', response.success);
+              // } else {
+              //   // eslint-disable-next-line no-lonely-if
+              //   if (response?.error === "Can't buy own nft") {
+              //     this.$toast.error('Sorry, you can not buy an Owned NFT');
+              //   } else {
+              //     this.$toast.error(response?.error);
+              //   }
+              // }
             }
           });
       } else {
