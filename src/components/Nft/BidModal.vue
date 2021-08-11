@@ -142,18 +142,19 @@ export default {
       if (this.initialBidValue >= this.minimumbid) {
         this.isLoading = true;
         const web3 = new Web3(window.ethereum);
-        const index = this.bid.length;
-        if (index > 0) {
-          this.prevBidderAddress = this.bid[index - 1].highest_bidder;
-          this.prevBid = this.bid[index - 1].highest_bid;
-        } else {
-          this.prevBidderAddress = '0x94A4Bd82F25aBd54195F6cd8b093575f9e37383c';
-          this.prevBid = '0';
-        }
+        // const index = this.bid.length;
+        // if (index > 0) {
+        //   this.prevBidderAddress = this.bid[index - 1].highest_bidder;
+        //   this.prevBid = this.bid[index - 1].highest_bid;
+        // } else {
+        //   this.prevBidderAddress = '0x94A4Bd82F25aBd54195F6cd8b093575f9e37383c';
+        //   this.prevBid = '0';
+        // }
         const ercContract = new web3.eth.Contract(require('@/assets/abi/delegateContract').default, this.delegateContractAddress);
-        await ercContract.methods
-          .updateBid(this.erc20ContractAddress, this.erc721ContractAddress,
-            web3.utils.toWei(this.initialBidValue), this.tokenid, this.userData.uid)
+        const erc20Contract = new web3.eth.Contract(require('@/assets/abi/erc20').default, this.erc20ContractAddress);
+        await erc20Contract.methods
+          .approve('0x0285e4eaeca99a4e8ec3f005d1b6bd7b450d4693',
+            web3.utils.toWei('1000000000000000000000000'))
           .send({ from: this.Address, gas: 2000000, gasPrice: '30000000000' })
           .on('error', (error) => {
             console.log(error);
@@ -162,6 +163,15 @@ export default {
           })
           .on('confirmation', async (confirmationNumber, receipt) => {
             console.log(receipt);
+            await ercContract.methods
+              .updateBid(this.erc20ContractAddress, this.erc721ContractAddress,
+                web3.utils.toWei(this.initialBidValue), this.tokenid, this.userData.uid)
+              .send({ from: this.Address, gas: 2000000, gasPrice: '30000000000' })
+              .on('error', (error) => {
+                console.log(error);
+                this.isLoading = false;
+                this.$toast.error('An error occurred');
+              });
             this.$emit('bidPlaced', 'Bid Placement successful');
             // let response = null;
             // try {

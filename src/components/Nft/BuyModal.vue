@@ -151,16 +151,27 @@ export default {
         // this.getBalance();
         console.log(this.tokenid);
         const ercContract = new web3.eth.Contract(require('@/assets/abi/delegateContract').default, this.delegateContractAddress);
-        await ercContract.methods
-          .instantBuy(this.erc20ContractAddress, this.erc721ContractAddress, this.creatoraddress, this.Address, web3.utils.toWei(this.finalValue), (1), this.tokenid, (1), '0x0')
+        const erc20Contract = new web3.eth.Contract(require('@/assets/abi/erc20').default, this.erc20ContractAddress);
+        await erc20Contract.methods
+          .approve('0x0285e4eaeca99a4e8ec3f005d1b6bd7b450d4693',
+            web3.utils.toWei('1000000000000000000000000'))
           .send({ from: this.Address, gas: 2000000, gasPrice: '30000000000' })
           .on('error', (error) => {
             console.log(error);
             this.isLoading = false;
-            this.$toast.error('An error occuured');
+            this.$toast.error('An error occurred');
           })
           .on('confirmation', async (confirmationNumber, receipt) => {
             if (confirmationNumber === 1) {
+              console.log(this.Address);
+              await ercContract.methods
+                .instantBuy(this.erc20ContractAddress, this.erc721ContractAddress, this.creatoraddress, this.Address, web3.utils.toWei(this.finalValue), (1), this.tokenid, (1), '0x0')
+                .send({ from: this.Address, gas: 2000000, gasPrice: '30000000000' })
+                .on('error', (error) => {
+                  console.log(error);
+                  this.isLoading = false;
+                  this.$toast.error('An error occuured');
+                });
               this.$emit('bidPlaced', 'buy successful');
               // console.log(receipt);
               // let response = null;
