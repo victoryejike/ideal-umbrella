@@ -162,7 +162,7 @@ export default {
             this.$toast.error('An error occurred');
           })
           .on('confirmation', async (confirmationNumber, receipt) => {
-            console.log(receipt);
+            console.log(receipt, this.creatoraddress, this.Address);
             if (confirmationNumber === 1) {
               await ercContract.methods
                 .instantBuy(this.erc20ContractAddress, this.erc721ContractAddress, this.creatoraddress, this.Address, web3.utils.toWei(this.finalValue), (1), this.tokenid, (1), '0x0')
