@@ -209,7 +209,6 @@ export default {
       isDisplay: false,
       isFocus: false,
       isError: false,
-      isHover: false,
       countryField: this.extraData?.countryField || 'country_code',
     };
   },

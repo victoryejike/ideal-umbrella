@@ -380,7 +380,8 @@
     "password_msg": "Invalid password, the password must contain at least 8 characters in length, and at least 1 lowercase, uppercase and numeric values.",
     "phone_msg": "Invalid phone number.",
     "required_msg": "Field cannot be empty.",
-    "username_msg": "Invalid username, it should be an email address or a phone number."
+    "username_msg": "Invalid username, it should be an email address or a phone number.",
+    "select_countery_code": "Please select the country code as well."
   },
   "wallet": {
     "address": "0xa4fcd1ae1...4eac",

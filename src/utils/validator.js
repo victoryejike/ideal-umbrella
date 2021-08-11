@@ -22,7 +22,7 @@ function isRequired(val) {
 defineRule('required', (val, [target], ctx) => {
   if (target) {
     if (isRequired(ctx.form[target]) === true) { return true; }
-    return 'Please Select the Country Code As well.';
+    return $t('validator.select_countery_code');
   }
   return isRequired(val);
 });
@@ -40,6 +40,6 @@ defineRule('password', (val) => {
   return re.test(String(val)) || $t('validator.password_msg');
 });
 
-defineRule('otp', async (val) => /^[0-9]{6}$/.test(String(val)) || $t('validator.otp_msg'));
+defineRule('otp', (val) => /^[0-9]{6}$/.test(String(val)) || $t('validator.otp_msg'));
 
 defineRule('agree', (val) => (val || $t('validator.agree_terms_msg')));

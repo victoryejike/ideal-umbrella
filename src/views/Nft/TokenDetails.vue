@@ -606,7 +606,6 @@ label {
 
 .coin-value {
   color: rgba(0, 0, 0, 0.25);
-  font-family: "Inter", sans-serif;
   font-size: 1rem;
   letter-spacing: 0.01em;
   line-height: 1.75rem;
