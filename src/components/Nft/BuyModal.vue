@@ -162,16 +162,18 @@ export default {
             this.$toast.error('An error occurred');
           })
           .on('confirmation', async (confirmationNumber, receipt) => {
-            console.log(this.Address);
-            await ercContract.methods
-              .instantBuy(this.erc20ContractAddress, this.erc721ContractAddress, this.creatoraddress, this.Address, web3.utils.toWei(this.finalValue), (1), this.tokenid, (1), '0x0')
-              .send({ from: this.Address, gas: 2000000, gasPrice: '30000000000' })
-              .on('error', (error) => {
-                console.log(error);
-                this.isLoading = false;
-                this.$toast.error('An error occuured');
-              });
-            this.$emit('bidPlaced', 'buy successful');
+            console.log(receipt);
+            if (confirmationNumber === 1) {
+              await ercContract.methods
+                .instantBuy(this.erc20ContractAddress, this.erc721ContractAddress, this.creatoraddress, this.Address, web3.utils.toWei(this.finalValue), (1), this.tokenid, (1), '0x0')
+                .send({ from: this.Address, gas: 2000000, gasPrice: '30000000000' })
+                .on('error', (error) => {
+                  console.log(error);
+                  this.isLoading = false;
+                  this.$toast.error('An error occuured');
+                });
+              this.$emit('bidPlaced', 'buy successful');
+            }
           });
       } else {
         this.$toast.error('You do not have enough Funn tokens to buy this NFT');
