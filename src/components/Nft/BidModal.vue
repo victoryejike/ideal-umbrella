@@ -150,7 +150,7 @@ export default {
         //   this.prevBidderAddress = '0x94A4Bd82F25aBd54195F6cd8b093575f9e37383c';
         //   this.prevBid = '0';
         // }
-        const ercContract = new web3.eth.Contract(require('@/assets/abi/delegateContract').default, this.delegateContractAddress);
+        const delegateContract = new web3.eth.Contract(require('@/assets/abi/delegateContract').default, this.delegateContractAddress);
         const erc20Contract = new web3.eth.Contract(require('@/assets/abi/erc20').default, this.erc20ContractAddress);
         await erc20Contract.methods
           .approve('0x5498A45909AF60e140f1E64116DD786199905A40',
@@ -161,10 +161,10 @@ export default {
             this.isLoading = false;
             this.$toast.error('An error occurred');
           })
-          .on('confirmation', async (confirmationNumber, receipt) => {
+          .once('confirmation', async (confirmationNumber, receipt) => {
             console.log(receipt);
-            await ercContract.methods
-              .updateBid(this.erc20ContractAddress, this.erc721ContractAddress,
+            await delegateContract.methods
+              .placeBid(this.erc20ContractAddress, this.erc721ContractAddress,
                 web3.utils.toWei(this.initialBidValue), this.tokenid, this.userData.uid)
               .send({ from: this.Address, gas: 2000000, gasPrice: '30000000000' })
               .on('error', (error) => {
