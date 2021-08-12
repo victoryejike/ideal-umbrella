@@ -174,7 +174,7 @@ export default {
                     this.isLoading = false;
                     this.$toast.error('An error occuured');
                   }).once('receipt', async () => {
-                    this.$emit('bidPlaced', 'buy successful');
+                    this.$emit('bidPlaced', true);
                   });
               } catch (error) {
                 console.log(error);

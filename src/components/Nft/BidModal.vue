@@ -172,7 +172,7 @@ export default {
                 this.isLoading = false;
                 this.$toast.error('An error occurred');
               }).once('receipt', async () => {
-                this.$emit('bidPlaced', 'buy successful');
+                this.$emit('bidPlaced', true);
               });
             // let response = null;
             // try {
