@@ -439,9 +439,7 @@ export default {
         this.$refs['collectible-nft'].submit();
       } else {
         const contract = new web3.eth.Contract(require('@/assets/abi/erc721').default, this.erc721ContractAddress);
-        // const delegateContract =
-        // new web3.eth.Contract(require('@/assets/abi/delegateContract')
-        // default, this.delegateContractAddress);
+        const delegateContract = new web3.eth.Contract(require('@/assets/abi/delegateContract').default, this.delegateContractAddress);
         if (this.pricingType === PriceType.FIXED) {
           console.log('yes');
           contract.methods
@@ -462,15 +460,29 @@ export default {
           this.blockNumber = result.blockNumber;
           this.transactionHash = result.transactionHash;
           const price = document.querySelector('.price').value;
+          delegateContract.methods
+            .OfferForSale(this.erc20ContractAddress, this.erc721ContractAddress, this.tokenId, (1),
+              (1), web3.utils.toWei(price, 'ether'), this.userData.uid, (1), (0), (0))
+            .send({ from: localStorage.getItem('account'), gas: 3000000, gasPrice: '35000000000' })
+            .on('error', (error) => {
+              console.log(error);
+              this.isLoading = false;
+            });
           contract.methods.createSellOrder(this.tokenId, web3.utils.toWei(price, 'ether')).send({ from: localStorage.getItem('account'), gas: 3500000, gasPrice: '35000000000' });
         }
         if (this.pricingType === PriceType.TIMED_AUCTION) {
-          // const startingBid = document.querySelector('.minimum_bid').value;
-          const erc20Contract = new web3.eth.Contract(require('@/assets/abi/erc20').default, this.erc20ContractAddress);
-          await erc20Contract.methods
-            .approve('0x5498A45909AF60e140f1E64116DD786199905A40',
-              web3.utils.toWei('1000000000000000000000000'))
-            .send({ from: this.Address, gas: 2000000, gasPrice: '30000000000' });
+          const startingBid = document.querySelector('.minimum_bid').value;
+          const startDate = document.querySelector('.starting_date').value;
+          const endDate = document.querySelector('.expiration_date').value;
+          const myDate = startDate.split('-');
+          const newDate = new Date(myDate[0], myDate[1] - 1, myDate[2]);
+          const timeStamp = newDate.getTime();
+          const startTime = timeStamp / 1000;
+          const expDate = endDate.split('-');
+          const newExpDate = new Date(expDate[0], expDate[1] - 1, expDate[2]);
+          const endTimeStamp = newExpDate.getTime();
+          const endTime = endTimeStamp / 1000;
+          console.log(endTime, startTime);
           contract.methods
             .setApprovalForAll('0x5498A45909AF60e140f1E64116DD786199905A40', true)
             .send({ from: localStorage.getItem('account'), gas: 3000000, gasPrice: '35000000000' })
@@ -488,19 +500,23 @@ export default {
           this.tokenId = result.events.Transfer.returnValues.tokenId;
           this.blockNumber = result.blockNumber;
           this.transactionHash = result.transactionHash;
-          // delegateContract.methods
-          //   .placeBid(this.erc20ContractAddress, this.erc721ContractAddress, this.tokenId,
-          // (1), (1), web3.utils.toWei(startingBid, 'ether'),
-          // his.userData.uid)
-          //   .send({ from: localStorage.getItem('account'), gas: 3000000,
-          // gasPrice: '35000000000' })
-          //   .on('error', (error) => {
-          //     console.log(error);
-          //     this.isLoading = false;
-          //   });
+          delegateContract.methods
+            .OfferForSale(this.erc20ContractAddress, this.erc721ContractAddress, this.tokenId, (1),
+              (1), web3.utils.toWei(startingBid, 'ether'), this.userData.uid, (2),
+              (startTime), (endTime))
+            .send({ from: localStorage.getItem('account'), gas: 3000000, gasPrice: '35000000000' })
+            .on('error', (error) => {
+              console.log(error);
+              this.isLoading = false;
+            });
         }
         if (this.pricingType === PriceType.UNLIMITED_AUCTION) {
-          // const startingBid = document.querySelector('.minimum_bid').value;
+          const startingBid = document.querySelector('.minimum_bid').value;
+          const startDate = document.querySelector('.starting_date').value;
+          const myDate = startDate.split('-');
+          const newDate = new Date(myDate[0], myDate[1] - 1, myDate[2]);
+          const timeStamp = newDate.getTime();
+          const startTime = timeStamp / 1000;
           contract.methods
             .setApprovalForAll('0x5498A45909AF60e140f1E64116DD786199905A40', true)
             .send({ from: localStorage.getItem('account'), gas: 3000000, gasPrice: '35000000000' })
@@ -518,15 +534,14 @@ export default {
           this.tokenId = result.events.Transfer.returnValues.tokenId;
           this.blockNumber = result.blockNumber;
           this.transactionHash = result.transactionHash;
-          // delegateContract.methods
-          //   .placeBid(this.erc20ContractAddress, this.erc721ContractAddress, this.tokenId,
-          //     (1), (2), web3.utils.toWei(startingBid, 'ether'), this.userData.uid)
-          //   .send({ from: localStorage.getItem('account'),
-          // gas: 3000000, gasPrice: '35000000000' })
-          //   .on('error', (error) => {
-          //     console.log(error);
-          //     this.isLoading = false;
-          //   });
+          delegateContract.methods
+            .OfferForSale(this.erc20ContractAddress, this.erc721ContractAddress, this.tokenId, (1),
+              (1), web3.utils.toWei(startingBid, 'ether'), this.userData.uid, (3), (startTime), (0))
+            .send({ from: localStorage.getItem('account'), gas: 3000000, gasPrice: '35000000000' })
+            .on('error', (error) => {
+              console.log(error);
+              this.isLoading = false;
+            });
         }
         this.$refs['collectible-nft'].submit();
       }
