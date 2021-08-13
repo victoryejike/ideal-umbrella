@@ -69,7 +69,6 @@
             {{ nftDetails.description }}
           </div>
         </div>
-
         <BaseNavigationTab
           :key="tabList.length"
           class="tab"
@@ -130,16 +129,19 @@
             />
           </div>
         </div>
-        <div class="actions">
+        <div
+          v-if="nftDetails.owner_address !== Address"
+          class="actions"
+        >
           <BaseRoundButton
-            v-if="nftDetails.creator?.display_name !== username"
+            v-if="nftDetails.owner_address !== Address"
             class="buy-button btn-primary btn-md btn-bold"
             icon="arrow-right"
             :text="isAuction ? $t('nft_details.place_bid') : $t('nft_details.buy_now')"
             @click="showModal"
           />
           <BaseRoundButton
-            v-else-if="(nftDetails.creator?.display_name === username)
+            v-else-if="(nftDetails.owner_address === Address)
               && isUnlimitedAuction && (closed == false)"
             class="buy-button btn-primary btn-md btn-bold closeBid"
             :icon="isLoading ? 'loading' : 'arrow-right'"
