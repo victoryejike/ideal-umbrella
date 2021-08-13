@@ -460,14 +460,6 @@ export default {
           this.blockNumber = result.blockNumber;
           this.transactionHash = result.transactionHash;
           const price = document.querySelector('.price').value;
-          delegateContract.methods
-            .OfferForSale(this.erc20ContractAddress, this.erc721ContractAddress, this.tokenId, (1),
-              (1), web3.utils.toWei(price, 'ether'), this.userData.uid, (1), (0), (0))
-            .send({ from: localStorage.getItem('account'), gas: 3000000, gasPrice: '35000000000' })
-            .on('error', (error) => {
-              console.log(error);
-              this.isLoading = false;
-            });
           contract.methods.createSellOrder(this.tokenId, web3.utils.toWei(price, 'ether')).send({ from: localStorage.getItem('account'), gas: 3500000, gasPrice: '35000000000' });
         }
         if (this.pricingType === PriceType.TIMED_AUCTION) {
