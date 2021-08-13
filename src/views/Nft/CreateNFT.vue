@@ -139,6 +139,20 @@
           :placeholder="$t('collectible.discription_placeholder')"
           :text="$t('collectible.discription_label')"
         />
+        <BaseUnderlinedInput
+          v-model="blockNumber"
+          class="input-field unshow"
+          name="blockNumber"
+          :placeholder="$t('collectible.discription_placeholder')"
+          :text="$t('collectible.discription_label')"
+        />
+        <BaseUnderlinedInput
+          v-model="transactionHash"
+          class="input-field unshow"
+          name="transactionHash"
+          :placeholder="$t('collectible.discription_placeholder')"
+          :text="$t('collectible.discription_label')"
+        />
         <div class="inline">
           <BaseScrollableSelectBox
             class="input-div label"
@@ -267,6 +281,8 @@ export default {
       value: localStorage.getItem('account'),
       collectible_class: [],
       tokenId: '',
+      blockNumber: '',
+      transactionHash: '',
       receivedAmount: '',
       pricingType: PriceType.FIXED,
       ipfsUrl: '',
@@ -418,6 +434,8 @@ export default {
           });
         this.ipfsUrl = cid;
         this.tokenId = result.events.TokenMinted.returnValues.tokenType;
+        this.blockNumber = result.blockNumber;
+        this.transactionHash = result.transactionHash;
         this.$refs['collectible-nft'].submit();
       } else {
         const contract = new web3.eth.Contract(require('@/assets/abi/erc721').default, this.erc721ContractAddress);
@@ -441,11 +459,18 @@ export default {
             });
           this.ipfsUrl = cid;
           this.tokenId = result.events.Transfer.returnValues.tokenId;
+          this.blockNumber = result.blockNumber;
+          this.transactionHash = result.transactionHash;
           const price = document.querySelector('.price').value;
           contract.methods.createSellOrder(this.tokenId, web3.utils.toWei(price, 'ether')).send({ from: localStorage.getItem('account'), gas: 3500000, gasPrice: '35000000000' });
         }
         if (this.pricingType === PriceType.TIMED_AUCTION) {
           // const startingBid = document.querySelector('.minimum_bid').value;
+          const erc20Contract = new web3.eth.Contract(require('@/assets/abi/erc20').default, this.erc20ContractAddress);
+          await erc20Contract.methods
+            .approve('0x5498A45909AF60e140f1E64116DD786199905A40',
+              web3.utils.toWei('1000000000000000000000000'))
+            .send({ from: this.Address, gas: 2000000, gasPrice: '30000000000' });
           contract.methods
             .setApprovalForAll('0x5498A45909AF60e140f1E64116DD786199905A40', true)
             .send({ from: localStorage.getItem('account'), gas: 3000000, gasPrice: '35000000000' })
@@ -461,6 +486,8 @@ export default {
             });
           this.ipfsUrl = cid;
           this.tokenId = result.events.Transfer.returnValues.tokenId;
+          this.blockNumber = result.blockNumber;
+          this.transactionHash = result.transactionHash;
           // delegateContract.methods
           //   .placeBid(this.erc20ContractAddress, this.erc721ContractAddress, this.tokenId,
           // (1), (1), web3.utils.toWei(startingBid, 'ether'),
@@ -489,6 +516,8 @@ export default {
             });
           this.ipfsUrl = cid;
           this.tokenId = result.events.Transfer.returnValues.tokenId;
+          this.blockNumber = result.blockNumber;
+          this.transactionHash = result.transactionHash;
           // delegateContract.methods
           //   .placeBid(this.erc20ContractAddress, this.erc721ContractAddress, this.tokenId,
           //     (1), (2), web3.utils.toWei(startingBid, 'ether'), this.userData.uid)

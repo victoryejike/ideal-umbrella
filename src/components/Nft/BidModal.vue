@@ -127,8 +127,6 @@ export default {
       erc721ContractAddress: '0xF3538d2696FF98396Aa0386d91bd7f9C02570511',
       erc1155ContractAddress: '0x24d5CaBE5A68653c1a6d10f65679839a5CD4a42A',
       delegateContractAddress: '0x5498A45909AF60e140f1E64116DD786199905A40',
-      prevBidderAddress: '',
-      prevBid: '',
       userData: JSON.parse(localStorage.getItem('userData')),
     };
   },
@@ -142,14 +140,6 @@ export default {
       if (this.initialBidValue >= this.minimumbid) {
         this.isLoading = true;
         const web3 = new Web3(window.ethereum);
-        // const index = this.bid.length;
-        // if (index > 0) {
-        //   this.prevBidderAddress = this.bid[index - 1].highest_bidder;
-        //   this.prevBid = this.bid[index - 1].highest_bid;
-        // } else {
-        //   this.prevBidderAddress = '0x94A4Bd82F25aBd54195F6cd8b093575f9e37383c';
-        //   this.prevBid = '0';
-        // }
         const delegateContract = new web3.eth.Contract(require('@/assets/abi/delegateContract').default, this.delegateContractAddress);
         const erc20Contract = new web3.eth.Contract(require('@/assets/abi/erc20').default, this.erc20ContractAddress);
         await erc20Contract.methods
@@ -161,19 +151,27 @@ export default {
             this.isLoading = false;
             this.$toast.error('An error occurred');
           })
-          .once('confirmation', async (confirmationNumber, receipt) => {
-            console.log(receipt);
-            await delegateContract.methods
-              .placeBid(this.erc20ContractAddress, this.erc721ContractAddress,
-                web3.utils.toWei(this.initialBidValue), this.tokenid, this.userData.uid)
-              .send({ from: this.Address, gas: 2000000, gasPrice: '30000000000' })
-              .on('error', (error) => {
+          .once('receipt', async (receipt) => {
+            this.isLoading = true;
+            console.log(this.userData.uid);
+            if (receipt) {
+              this.isLoading = true;
+              try {
+                await delegateContract.methods
+                  .placeBid(this.erc20ContractAddress, this.erc721ContractAddress,
+                    web3.utils.toWei(this.initialBidValue), this.tokenid, this.userData.uid)
+                  .send({ from: this.Address, gas: 2000000, gasPrice: '30000000000' })
+                  .on('error', (error) => {
+                    console.log(error);
+                    this.isLoading = false;
+                    this.$toast.error('An error occurred');
+                  }).once('receipt', async () => {
+                    this.$emit('bidPlaced', true);
+                  });
+              } catch (error) {
                 console.log(error);
-                this.isLoading = false;
-                this.$toast.error('An error occurred');
-              }).once('receipt', async () => {
-                this.$emit('bidPlaced', true);
-              });
+              }
+            }
             // let response = null;
             // try {
             //   const { data } = await this.$api.CREATEBIDS(formData);
@@ -191,7 +189,6 @@ export default {
       } else {
         this.$toast.error('You can not bid lower than the mlnimum required bid price');
       }
-      this.isLoading = false;
     },
   },
 };
