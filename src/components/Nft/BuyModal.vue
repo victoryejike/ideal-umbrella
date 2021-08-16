@@ -106,7 +106,7 @@ export default {
     image: { type: String, required: false, default: null },
     price: { type: Number, required: false, default: null },
     tokenid: { type: Number, required: false, default: null },
-    tokentype: { type: Number, required: false, default: null },
+    tokentype: { type: String, required: false, default: null },
     accountbalance: { type: Number, required: false, default: null },
     creatoraddress: { type: String, required: false, default: null },
   },
@@ -119,6 +119,7 @@ export default {
       buyingBalance: '',
       finalValue: '',
       amount: this.price,
+      token: '',
       coinList: [
         { name: 'ETH' },
         { name: 'HT' },
@@ -134,6 +135,10 @@ export default {
     const finalBuyValue = (this.price * 0.025).toFixed(4);
     this.finalValue = (parseFloat(this.price) + parseFloat(finalBuyValue)).toFixed(4);
     console.log(this.creatoraddress);
+    console.log(this.tokentype);
+    if (this.tokentype === '60e63dbdb890810780327cff') this.token = 1;
+    else this.token = 2;
+    console.log(this.token);
   },
   methods: {
     async getBalance() {
@@ -168,7 +173,7 @@ export default {
               this.isLoading = true;
               try {
                 await ercContract.methods
-                  .instantBuy(this.erc20ContractAddress, this.erc721ContractAddress, this.tokentype, this.tokenid, '0x0')
+                  .instantBuy(this.erc20ContractAddress, this.erc721ContractAddress, this.token, this.tokenid, '0x0')
                   .send({ from: this.Address, gas: 2000000, gasPrice: '30000000000' })
                   .on('error', (error) => {
                     console.log(error);

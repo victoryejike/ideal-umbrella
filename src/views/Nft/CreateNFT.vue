@@ -153,13 +153,6 @@
           :placeholder="$t('collectible.discription_placeholder')"
           :text="$t('collectible.discription_label')"
         />
-        <BaseUnderlinedInput
-          v-model="tokentype"
-          class="input-field unshow"
-          name="tokentype"
-          :placeholder="$t('collectible.discription_placeholder')"
-          :text="$t('collectible.discription_label')"
-        />
         <div class="inline">
           <BaseScrollableSelectBox
             class="input-div label"
@@ -180,7 +173,24 @@
         <BaseUnderlinedInput
           v-if="standard === 'erc1155'"
           class="input-field copies-input"
-          name="copies"
+          name="supply"
+          :placeholder="$t('collectible.number_of_copies_placeholder')"
+          rules="required"
+          :text="$t('collectible.number_of_copies_label')"
+        />
+        <BaseUnderlinedInput
+          v-model="collectible_type"
+          class="input-field copies-input unshow"
+          name="collectible_type"
+          :placeholder="$t('collectible.number_of_copies_placeholder')"
+          rules="required"
+          :text="$t('collectible.number_of_copies_label')"
+        />
+        <BaseUnderlinedInput
+          v-if="standard === 'erc1155'"
+          v-model="collectible_type"
+          class="input-field copies-input unshow"
+          name="collectible_type"
           :placeholder="$t('collectible.number_of_copies_placeholder')"
           rules="required"
           :text="$t('collectible.number_of_copies_label')"
@@ -266,6 +276,7 @@ export default {
       isModalVisible: false,
       selectedSwitch: true,
       coinType: 'ETH',
+      collectible_type: '',
       collectibleList: [
         { name: 'ERC-721', id: 'erc' },
       ],
@@ -288,11 +299,11 @@ export default {
       value: localStorage.getItem('account'),
       collectible_class: [],
       tokenId: '',
+      tokentype: '',
       blockNumber: '',
       transactionHash: '',
       receivedAmount: '',
       pricingType: PriceType.FIXED,
-      tokentype: '',
       ipfsUrl: '',
       userData: JSON.parse(localStorage.getItem('userData')),
       r: localStorage.getItem('r'),
@@ -324,9 +335,9 @@ export default {
     this.$global.isWalletConnected();
     this.$global.isAddressExist();
     this.fetchDetails();
-    if (this.standard === 'erc721') this.tokentype = 1;
-    else this.tokentype = 2;
-    console.log(this.tokentype);
+    if (this.standard === 'erc1155') this.collectible_type = 'multiple';
+    else this.collectible_type = 'single';
+    console.log(this.collectible_type);
   },
   methods: {
     async fetchDetails() {
@@ -396,7 +407,7 @@ export default {
       let cid;
       if (this.standard === 'erc1155') {
         this.isLoading = true;
-        const qty = document.querySelector('.copies').value;
+        const qty = document.querySelector('.supply').value;
         const metadata = {
           description: desc,
           name: title,
@@ -436,6 +447,7 @@ export default {
       const web3 = new Web3(provider);
       const delegateContract = new web3.eth.Contract(require('@/assets/abi/delegateContract').default, this.delegateContractAddress);
       if (this.standard === 'erc1155') {
+        this.tokentype = 2;
         const contract = new web3.eth.Contract(require('@/assets/abi/erc1155').default, this.erc1155ContractAddress);
         if (this.pricingType === PriceType.FIXED) {
           contract.methods
@@ -498,6 +510,7 @@ export default {
         this.$refs['collectible-nft'].submit();
       } else {
         const contract = new web3.eth.Contract(require('@/assets/abi/erc721').default, this.erc721ContractAddress);
+        this.tokentype = 1;
         if (this.pricingType === PriceType.FIXED) {
           console.log('yes');
           contract.methods
