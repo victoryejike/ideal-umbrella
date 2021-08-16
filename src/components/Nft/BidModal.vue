@@ -143,7 +143,7 @@ export default {
         const delegateContract = new web3.eth.Contract(require('@/assets/abi/delegateContract').default, this.delegateContractAddress);
         const erc20Contract = new web3.eth.Contract(require('@/assets/abi/erc20').default, this.erc20ContractAddress);
         await erc20Contract.methods
-          .approve('0x5498A45909AF60e140f1E64116DD786199905A40',
+          .approve(this.delegateContractAddress,
             web3.utils.toWei('1000000000000000000000000'))
           .send({ from: this.Address, gas: 2000000, gasPrice: '30000000000' })
           .on('error', (error) => {
