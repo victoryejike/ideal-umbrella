@@ -202,7 +202,6 @@ export default {
 </script>
 
 <style scoped>
-
 .card-container {
   border-radius: 1.5rem;
   cursor: pointer;
@@ -213,6 +212,12 @@ export default {
   filter: brightness(85%);
   transform: translateY(-0.25rem);
   transition: all 0s;
+}
+
+/* https://stackoverflow.com/a/26768532/11440474 */
+img[src=''],
+img:not([src]) {
+  opacity: 0;
 }
 
 .card-inner-div {
