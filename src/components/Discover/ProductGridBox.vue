@@ -200,7 +200,6 @@ export default {
 }
 
 .end-of-content {
-  /* font-weight: bold; */
   color: #6d6565;
   font-size: 1.3rem;
   margin-top: 3.5rem;

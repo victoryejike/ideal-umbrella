@@ -1,7 +1,11 @@
 <template>
-  <div class="no-item mt5-auto">
-    <h3>{{ $t('created.no_item.found') }}</h3>
-    <p>{{ $t('created.no_item.text') }}</p>
+  <div class="no-item">
+    <h3 class="no-item-title">
+      {{ $t('created.no_item.found') }}
+    </h3>
+    <p class="no-item-content">
+      {{ $t('created.no_item.text') }}
+    </p>
     <router-link
       to="/nft"
     >
@@ -16,30 +20,26 @@
 <script>
 
 export default {
-  name: 'Created',
+  name: 'NoNFT',
 };
 
 </script>
 
 <style scoped>
 .no-item {
-  max-width: 1005rem;
-  text-align: center;
-}
-
-.mt5-auto {
   margin: 5rem auto;
+  text-align: center;
 }
 
 .m-auto {
   margin: auto;
 }
 
-.no-item h3 {
+.no-item-title {
   font-size: 2rem;
 }
 
-.no-item p {
+.no-item-content {
   color: #808080;
   font-size: 1rem;
 }
