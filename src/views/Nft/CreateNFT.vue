@@ -153,6 +153,13 @@
           :placeholder="$t('collectible.discription_placeholder')"
           :text="$t('collectible.discription_label')"
         />
+        <BaseUnderlinedInput
+          v-model="tokentype"
+          class="input-field unshow"
+          name="tokentype"
+          :placeholder="$t('collectible.discription_placeholder')"
+          :text="$t('collectible.discription_label')"
+        />
         <div class="inline">
           <BaseScrollableSelectBox
             class="input-div label"
@@ -285,6 +292,7 @@ export default {
       transactionHash: '',
       receivedAmount: '',
       pricingType: PriceType.FIXED,
+      tokentype: '',
       ipfsUrl: '',
       userData: JSON.parse(localStorage.getItem('userData')),
       r: localStorage.getItem('r'),
@@ -293,7 +301,7 @@ export default {
       erc721ContractAddress: '0xF3538d2696FF98396Aa0386d91bd7f9C02570511',
       erc1155ContractAddress: '0x24d5CaBE5A68653c1a6d10f65679839a5CD4a42A',
       erc20ContractAddress: '0xEF55376cdD71225501E1d9763D907E3A14C10Bb1',
-      delegateContractAddress: '0x5498A45909AF60e140f1E64116DD786199905A40',
+      delegateContractAddress: '0x03A47fec4e862cFFec259E390B38eE677Ec828B0',
     };
   },
   computed: {
@@ -316,6 +324,9 @@ export default {
     this.$global.isWalletConnected();
     this.$global.isAddressExist();
     this.fetchDetails();
+    if (this.standard === 'erc721') this.tokentype = 1;
+    else this.tokentype = 2;
+    console.log(this.tokentype);
   },
   methods: {
     async fetchDetails() {
@@ -358,6 +369,13 @@ export default {
       const discountAmount = ((amount * 0.025).toFixed(4));
       const newAmount = (amount - discountAmount).toFixed(4);
       this.$refs.receivedAmount.value = newAmount;
+    },
+    getTimestamp(time) {
+      const myDate = time.split('-');
+      const newDate = new Date(myDate[0], myDate[1] - 1, myDate[2]);
+      const timeStamp = newDate.getTime();
+      console.log(timeStamp / 1000);
+      return (timeStamp / 1000);
     },
     closeModal() {
       this.isModalVisible = false;
@@ -406,52 +424,92 @@ export default {
     async minting(qty, cid) {
       let provider;
       const obj = JSON.parse(localStorage.getItem('walletconnect'));
-      if (obj && (obj.accounts[0]) === (localStorage.getItem('account'))) {
+      if (obj && (obj.accounts[0]) === (this.value)) {
         provider = new WalletConnectProvider({
           infuraId: '58bf1103531f4b858b31eb3c5c4ddd2f',
         });
-      } else if ((localStorage.getItem('-walletlink:https://www.walletlink.org:Addresses')) === (localStorage.getItem('account'))) {
+      } else if ((localStorage.getItem('-walletlink:https://www.walletlink.org:Addresses')) === (this.value)) {
         provider = walletLink.makeWeb3Provider(ETH_JSONRPC_URL, CHAIN_ID);
       } else {
         provider = window.ethereum;
       }
       const web3 = new Web3(provider);
+      const delegateContract = new web3.eth.Contract(require('@/assets/abi/delegateContract').default, this.delegateContractAddress);
       if (this.standard === 'erc1155') {
-        // return this.$t('collectible.title_single');
         const contract = new web3.eth.Contract(require('@/assets/abi/erc1155').default, this.erc1155ContractAddress);
-        contract.methods
-          .setApprovalForAll('0x5498A45909AF60e140f1E64116DD786199905A40', true)
-          .send({ from: localStorage.getItem('account'), gas: 2000000, gasPrice: '35000000000' })
-          .on('error', (error) => {
-            console.log(error);
-            this.isLoading = false;
-          });
-        const result = await contract.methods
-          .mint(qty)
-          .send({ from: localStorage.getItem('account'), gas: 2000000, gasPrice: '20000000000' }).on('error', (error) => {
-            console.log(error);
-            this.isLoading = false;
-          });
-        this.ipfsUrl = cid;
-        this.tokenId = result.events.TokenMinted.returnValues.tokenType;
-        this.blockNumber = result.blockNumber;
-        this.transactionHash = result.transactionHash;
-        this.$refs['collectible-nft'].submit();
-      } else {
-        const contract = new web3.eth.Contract(require('@/assets/abi/erc721').default, this.erc721ContractAddress);
-        const delegateContract = new web3.eth.Contract(require('@/assets/abi/delegateContract').default, this.delegateContractAddress);
         if (this.pricingType === PriceType.FIXED) {
-          console.log('yes');
           contract.methods
-            .setApprovalForAll('0x5498A45909AF60e140f1E64116DD786199905A40', true)
-            .send({ from: localStorage.getItem('account'), gas: 200000, gasPrice: '2000000000' })
+            .setApprovalForAll(this.delegateContractAddress, true)
+            .send({ from: this.value, gas: 2000000, gasPrice: '35000000000' })
+            .on('error', (error) => {
+              console.log(error);
+              this.isLoading = false;
+            });
+          const result = await contract.methods
+            .mint(qty)
+            .send({ from: this.value, gas: 2000000, gasPrice: '20000000000' }).on('error', (error) => {
+              console.log(error);
+              this.isLoading = false;
+            });
+          this.ipfsUrl = cid;
+          this.tokenId = result.events.TokenMinted.returnValues.tokenType;
+          this.blockNumber = result.blockNumber;
+          this.transactionHash = result.transactionHash;
+          const price = document.querySelector('.price').value;
+          delegateContract.methods
+            .OfferForSale(this.erc20ContractAddress, this.erc1155ContractAddress, this.tokenId, qty,
+              this.tokentype, web3.utils.toWei(price, 'ether'), this.userData.uid, (1),
+              (0), (0))
+            .send({ from: this.value, gas: 3000000, gasPrice: '35000000000' })
+            .on('error', (error) => {
+              console.log(error);
+              this.isLoading = false;
+            });
+        } if (this.pricingType === PriceType.UNLIMITED_AUCTION) {
+          const startingBid = document.querySelector('.minimum_bid').value;
+          const startDate = document.querySelector('.starting_date').value;
+          const startTime = this.getTimestamp(startDate);
+          contract.methods
+            .setApprovalForAll(this.delegateContractAddress, true)
+            .send({ from: this.value, gas: 3000000, gasPrice: '35000000000' })
             .on('error', (error) => {
               console.log(error);
               this.isLoading = false;
             });
           const result = await contract.methods
             .mint(`https://${cid}.ipfs.dweb.link`)
-            .send({ from: localStorage.getItem('account'), gas: 2900000, gasPrice: '29000000000' }).on('error', (error) => {
+            .send({ from: this.value, gas: 2900000, gasPrice: '29000000000' }).on('error', (error) => {
+              console.log(error);
+              this.isLoading = false;
+            });
+          this.ipfsUrl = cid;
+          this.tokenId = result.events.Transfer.returnValues.tokenId;
+          this.blockNumber = result.blockNumber;
+          this.transactionHash = result.transactionHash;
+          delegateContract.methods
+            .OfferForSale(this.erc20ContractAddress, this.erc1155ContractAddress, this.tokenId, qty,
+              this.tokentype, web3.utils.toWei(startingBid, 'ether'), this.userData.uid, (3), (startTime), (0))
+            .send({ from: this.value, gas: 3000000, gasPrice: '35000000000' })
+            .on('error', (error) => {
+              console.log(error);
+              this.isLoading = false;
+            });
+        }
+        this.$refs['collectible-nft'].submit();
+      } else {
+        const contract = new web3.eth.Contract(require('@/assets/abi/erc721').default, this.erc721ContractAddress);
+        if (this.pricingType === PriceType.FIXED) {
+          console.log('yes');
+          contract.methods
+            .setApprovalForAll(this.delegateContractAddress, true)
+            .send({ from: this.value, gas: 200000, gasPrice: '2000000000' })
+            .on('error', (error) => {
+              console.log(error);
+              this.isLoading = false;
+            });
+          const result = await contract.methods
+            .mint(`https://${cid}.ipfs.dweb.link`)
+            .send({ from: this.value, gas: 2900000, gasPrice: '29000000000' }).on('error', (error) => {
               console.log(error);
               this.isLoading = false;
             });
@@ -460,31 +518,32 @@ export default {
           this.blockNumber = result.blockNumber;
           this.transactionHash = result.transactionHash;
           const price = document.querySelector('.price').value;
-          contract.methods.createSellOrder(this.tokenId, web3.utils.toWei(price, 'ether')).send({ from: localStorage.getItem('account'), gas: 3500000, gasPrice: '35000000000' });
+          delegateContract.methods
+            .OfferForSale(this.erc20ContractAddress, this.erc721ContractAddress, this.tokenId, (1),
+              (1), web3.utils.toWei(price, 'ether'), this.userData.uid, (1),
+              (0), (0))
+            .send({ from: this.value, gas: 3000000, gasPrice: '35000000000' })
+            .on('error', (error) => {
+              console.log(error);
+              this.isLoading = false;
+            });
         }
         if (this.pricingType === PriceType.TIMED_AUCTION) {
           const startingBid = document.querySelector('.minimum_bid').value;
           const startDate = document.querySelector('.starting_date').value;
           const endDate = document.querySelector('.expiration_date').value;
-          const myDate = startDate.split('-');
-          const newDate = new Date(myDate[0], myDate[1] - 1, myDate[2]);
-          const timeStamp = newDate.getTime();
-          const startTime = timeStamp / 1000;
-          const expDate = endDate.split('-');
-          const newExpDate = new Date(expDate[0], expDate[1] - 1, expDate[2]);
-          const endTimeStamp = newExpDate.getTime();
-          const endTime = endTimeStamp / 1000;
-          console.log(endTime, startTime);
+          const startTime = this.getTimestamp(startDate);
+          const endTime = this.getTimestamp(endDate);
           contract.methods
-            .setApprovalForAll('0x5498A45909AF60e140f1E64116DD786199905A40', true)
-            .send({ from: localStorage.getItem('account'), gas: 3000000, gasPrice: '35000000000' })
+            .setApprovalForAll(this.delegateContractAddress, true)
+            .send({ from: this.value, gas: 3000000, gasPrice: '35000000000' })
             .on('error', (error) => {
               console.log(error);
               this.isLoading = false;
             });
           const result = await contract.methods
             .mint(`https://${cid}.ipfs.dweb.link`)
-            .send({ from: localStorage.getItem('account'), gas: 2900000, gasPrice: '29000000000' }).on('error', (error) => {
+            .send({ from: this.value, gas: 2900000, gasPrice: '29000000000' }).on('error', (error) => {
               console.log(error);
               this.isLoading = false;
             });
@@ -496,7 +555,7 @@ export default {
             .OfferForSale(this.erc20ContractAddress, this.erc721ContractAddress, this.tokenId, (1),
               (1), web3.utils.toWei(startingBid, 'ether'), this.userData.uid, (2),
               (startTime), (endTime))
-            .send({ from: localStorage.getItem('account'), gas: 3000000, gasPrice: '35000000000' })
+            .send({ from: this.value, gas: 3000000, gasPrice: '35000000000' })
             .on('error', (error) => {
               console.log(error);
               this.isLoading = false;
@@ -505,20 +564,17 @@ export default {
         if (this.pricingType === PriceType.UNLIMITED_AUCTION) {
           const startingBid = document.querySelector('.minimum_bid').value;
           const startDate = document.querySelector('.starting_date').value;
-          const myDate = startDate.split('-');
-          const newDate = new Date(myDate[0], myDate[1] - 1, myDate[2]);
-          const timeStamp = newDate.getTime();
-          const startTime = timeStamp / 1000;
+          const startTime = this.getTimestamp(startDate);
           contract.methods
-            .setApprovalForAll('0x5498A45909AF60e140f1E64116DD786199905A40', true)
-            .send({ from: localStorage.getItem('account'), gas: 3000000, gasPrice: '35000000000' })
+            .setApprovalForAll(this.delegateContractAddress, true)
+            .send({ from: this.value, gas: 3000000, gasPrice: '35000000000' })
             .on('error', (error) => {
               console.log(error);
               this.isLoading = false;
             });
           const result = await contract.methods
             .mint(`https://${cid}.ipfs.dweb.link`)
-            .send({ from: localStorage.getItem('account'), gas: 2900000, gasPrice: '29000000000' }).on('error', (error) => {
+            .send({ from: this.value, gas: 2900000, gasPrice: '29000000000' }).on('error', (error) => {
               console.log(error);
               this.isLoading = false;
             });
@@ -529,7 +585,7 @@ export default {
           delegateContract.methods
             .OfferForSale(this.erc20ContractAddress, this.erc721ContractAddress, this.tokenId, (1),
               (1), web3.utils.toWei(startingBid, 'ether'), this.userData.uid, (3), (startTime), (0))
-            .send({ from: localStorage.getItem('account'), gas: 3000000, gasPrice: '35000000000' })
+            .send({ from: this.value, gas: 3000000, gasPrice: '35000000000' })
             .on('error', (error) => {
               console.log(error);
               this.isLoading = false;

@@ -167,6 +167,7 @@
                 :nfttype="nftDetails.supply"
                 :title="nftDetails.title"
                 :tokenid="nftDetails.tokenId"
+                :tokentype="nftDetails.tokentype"
                 @bidPlaced="showBuySuccess($event)"
               />
               <BuyModal
@@ -179,6 +180,7 @@
                 :price="nftDetails.price"
                 :title="nftDetails.title"
                 :tokenid="nftDetails.tokenId"
+                :tokentype="nftDetails.tokentype"
                 @bidPlaced="showBidSuccess($event)"
               />
             </template>

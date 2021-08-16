@@ -106,6 +106,7 @@ export default {
     image: { type: String, required: false, default: null },
     price: { type: Number, required: false, default: null },
     tokenid: { type: Number, required: false, default: null },
+    tokentype: { type: Number, required: false, default: null },
     accountbalance: { type: Number, required: false, default: null },
     creatoraddress: { type: String, required: false, default: null },
   },
@@ -125,7 +126,7 @@ export default {
       ],
       erc20ContractAddress: '0xEF55376cdD71225501E1d9763D907E3A14C10Bb1',
       erc721ContractAddress: '0xF3538d2696FF98396Aa0386d91bd7f9C02570511',
-      delegateContractAddress: '0x5498A45909AF60e140f1E64116DD786199905A40',
+      delegateContractAddress: '0x03A47fec4e862cFFec259E390B38eE677Ec828B0',
       erc1155ContractAddress: '0x24d5CaBE5A68653c1a6d10f65679839a5CD4a42A',
     };
   },
@@ -153,7 +154,7 @@ export default {
         const ercContract = new web3.eth.Contract(require('@/assets/abi/delegateContract').default, this.delegateContractAddress);
         const erc20Contract = new web3.eth.Contract(require('@/assets/abi/erc20').default, this.erc20ContractAddress);
         await erc20Contract.methods
-          .approve('0x5498A45909AF60e140f1E64116DD786199905A40',
+          .approve(this.delegateContractAddress,
             web3.utils.toWei('1000000000000000000000000'))
           .send({ from: this.Address, gas: 2000000, gasPrice: '30000000000' })
           .on('error', (error) => {
@@ -167,7 +168,7 @@ export default {
               this.isLoading = true;
               try {
                 await ercContract.methods
-                  .instantBuy(this.erc20ContractAddress, this.erc721ContractAddress, this.creatoraddress, this.Address, web3.utils.toWei(this.finalValue), (1), this.tokenid, (1), '0x0')
+                  .instantBuy(this.erc20ContractAddress, this.erc721ContractAddress, this.tokentype, this.tokenid, '0x0')
                   .send({ from: this.Address, gas: 2000000, gasPrice: '30000000000' })
                   .on('error', (error) => {
                     console.log(error);

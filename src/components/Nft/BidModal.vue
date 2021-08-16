@@ -126,7 +126,7 @@ export default {
       erc20ContractAddress: '0xEF55376cdD71225501E1d9763D907E3A14C10Bb1',
       erc721ContractAddress: '0xF3538d2696FF98396Aa0386d91bd7f9C02570511',
       erc1155ContractAddress: '0x24d5CaBE5A68653c1a6d10f65679839a5CD4a42A',
-      delegateContractAddress: '0x5498A45909AF60e140f1E64116DD786199905A40',
+      delegateContractAddress: '0x03A47fec4e862cFFec259E390B38eE677Ec828B0',
       userData: JSON.parse(localStorage.getItem('userData')),
     };
   },
