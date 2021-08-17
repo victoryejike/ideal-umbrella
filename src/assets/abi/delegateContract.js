@@ -379,6 +379,75 @@ export default [
     inputs: [
       {
         internalType: 'address',
+        name: '',
+        type: 'address',
+      },
+      {
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
+      },
+    ],
+    name: 'bidDetails',
+    outputs: [
+      {
+        internalType: 'address',
+        name: 'highestBidder',
+        type: 'address',
+      },
+      {
+        internalType: 'uint256',
+        name: 'highestBid',
+        type: 'uint256',
+      },
+      {
+        internalType: 'bool',
+        name: 'isOpen',
+        type: 'bool',
+      },
+      {
+        internalType: 'uint256',
+        name: 'quantity',
+        type: 'uint256',
+      },
+      {
+        internalType: 'address',
+        name: 'erc20TokenAddress',
+        type: 'address',
+      },
+      {
+        internalType: 'address',
+        name: 'creator',
+        type: 'address',
+      },
+      {
+        internalType: 'enum DelegateContract.PricingType',
+        name: 'pricingType',
+        type: 'uint8',
+      },
+      {
+        internalType: 'uint256',
+        name: 'startDate',
+        type: 'uint256',
+      },
+      {
+        internalType: 'uint256',
+        name: 'endDate',
+        type: 'uint256',
+      },
+      {
+        internalType: 'uint256',
+        name: 'bidsPlaced',
+        type: 'uint256',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'address',
         name: '_nftTokenAddress',
         type: 'address',
       },
@@ -404,7 +473,18 @@ export default [
     type: 'function',
   },
   {
-    inputs: [],
+    inputs: [
+      {
+        internalType: 'address',
+        name: '_nftTokenAddress',
+        type: 'address',
+      },
+      {
+        internalType: 'uint256',
+        name: '_tokenId',
+        type: 'uint256',
+      },
+    ],
     name: 'closeOrder',
     outputs: [],
     stateMutability: 'nonpayable',
@@ -412,11 +492,6 @@ export default [
   },
   {
     inputs: [
-      {
-        internalType: 'address',
-        name: '_erc20TokenContract',
-        type: 'address',
-      },
       {
         internalType: 'address',
         name: '_nftTokenAddress',
@@ -441,6 +516,50 @@ export default [
     name: 'instantBuy',
     outputs: [],
     stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'address',
+        name: '',
+        type: 'address',
+      },
+      {
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
+      },
+    ],
+    name: 'instantBuyDetails',
+    outputs: [
+      {
+        internalType: 'address',
+        name: 'seller',
+        type: 'address',
+      },
+      {
+        internalType: 'uint256',
+        name: 'price',
+        type: 'uint256',
+      },
+      {
+        internalType: 'bool',
+        name: 'isOpen',
+        type: 'bool',
+      },
+      {
+        internalType: 'uint256',
+        name: 'quantity',
+        type: 'uint256',
+      },
+      {
+        internalType: 'address',
+        name: 'erc20TokenAddress',
+        type: 'address',
+      },
+    ],
+    stateMutability: 'view',
     type: 'function',
   },
   {
@@ -492,11 +611,6 @@ export default [
   },
   {
     inputs: [
-      {
-        internalType: 'address',
-        name: '_erc20TokenAddress',
-        type: 'address',
-      },
       {
         internalType: 'address',
         name: '_nftTokenAddress',

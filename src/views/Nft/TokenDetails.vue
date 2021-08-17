@@ -130,20 +130,18 @@
           </div>
         </div>
         <div
-          v-if="nftDetails.owner_address !== Address"
           class="actions"
         >
           <BaseRoundButton
-            v-if="nftDetails.owner_address !== Address"
+            v-if="(nftDetails.owner_address !== Address)"
             class="buy-button btn-primary btn-md btn-bold"
             icon="arrow-right"
             :text="isAuction ? $t('nft_details.place_bid') : $t('nft_details.buy_now')"
             @click="showModal"
           />
           <BaseRoundButton
-            v-else-if="(nftDetails.owner_address === Address)
-              && isUnlimitedAuction && (closed == false)"
-            class="buy-button btn-primary btn-md btn-bold closeBid"
+            v-else-if="(nftDetails.owner_address === Address) && isUnlimitedAuction"
+            class="buy-button btn-primary btn-md btn-bold"
             :icon="isLoading ? 'loading' : 'arrow-right'"
             :text="$t('nft_details.close_bid')"
             @click="closeBid"
@@ -243,28 +241,6 @@
             </p>
           </template>
         </BaseModal>
-        <BaseForm
-          ref="close-bid-form"
-          class="close-bid-form show"
-          @submit="onSubmit"
-        >
-          <Field
-            name="nft_id"
-            type="hidden"
-            :value="NftId"
-          />
-          <Field
-            name="owner_address"
-            type="hidden"
-            :value="Address"
-          />
-          <BaseRoundButton
-            class="buy-button btn-primary btn-md btn-bold mb close"
-            :icon="isLoading ? 'loading' : 'arrow-right'"
-            :submit="true"
-            :text="$t('nft_details.buy_now')"
-          />
-        </BaseForm>
       </div>
     </div>
   </div>
@@ -276,7 +252,6 @@ import DetailsTab from '@/components/Nft/DetailsTab.vue';
 import HistoryTab from '@/components/Nft/HistoryTab.vue';
 import BidModal from '@/components/Nft/BidModal.vue';
 import BuyModal from '@/components/Nft/BuyModal.vue';
-import { Field } from 'vee-validate';
 import Web3 from 'web3';
 import { PriceType } from '@/utils/enums';
 import NoBid from './NoBid.vue';
@@ -297,7 +272,7 @@ export const walletLink = new WalletLink({
 export default {
   name: 'TokenDetails',
   components: {
-    DetailsTab, HistoryTab, BidModal, NoBid, BuyModal, Field,
+    DetailsTab, HistoryTab, BidModal, NoBid, BuyModal,
   },
   data() {
     return {
@@ -324,6 +299,8 @@ export default {
       bidsList: [],
       Address: localStorage.getItem('account'),
       erc721ContractAddress: '0xF3538d2696FF98396Aa0386d91bd7f9C02570511',
+      erc1155ContractAddress: '0x24d5CaBE5A68653c1a6d10f65679839a5CD4a42A',
+      delegateContractAddress: '0x5942b38Fa09D0457D699B3756259C4D8285d6E0b',
     };
   },
   computed: {
@@ -341,6 +318,7 @@ export default {
       });
     }
 
+    console.log(this.isUnlimitedAuction);
     this.screenStatus[this.isAuction ? 'bids' : 'details'] = true;
     this.bidsList = await this.$api.GET_BIDS(this.$route.params.id);
     this.detailsTabList = [
@@ -402,38 +380,22 @@ export default {
       this.placeBuy = false;
       this.closedBid = false;
     },
-    closeBid() {
+    async closeBid() {
       // this.isLoading = true;
-      document.querySelector('.close').click();
-    },
-    closedBidModal() {
-      this.closedBid = false;
-    },
-    async onSubmit(formData) {
       const web3 = new Web3(window.ethereum);
       this.isLoading = true;
-      const contract = new web3.eth.Contract(require('@/assets/abi/erc20').default, this.erc20ContractAddress);
-      await contract.methods
-        .closeBid(this.erc20ContractAddress, this.erc721ContractAddress,
-          this.nftDetails.tokenId, (1), this.userData.uid)
+      const delegateContract = new web3.eth.Contract(require('@/assets/abi/delegateContract').default, this.delegateContractAddress);
+      await delegateContract.methods
+        .closeBid(this.erc721ContractAddress, this.nftDetails.tokenId, (1), '0x00')
         .send({ from: this.Address, gas: 2000000, gasPrice: '30000000000' })
         .on('error', (error) => {
           console.log(error);
           this.isLoading = false;
         });
-      // try {
-      //   this.isLoading = true;
-      //   await this.$api.CLOSEBID(formData);
-      //   this.closedBid = true;
-      //   this.closed = true;
-      //   // const btn = document.querySelector('.closeBid');
-      //   // btn.classList.add('show');
-      //   this.isLoading = false;
-      //   // console.log(data, formData);
-      // } catch (error) {
-      //   // response = error.response.data;
-      //   this.isLoading = false;
-      // }
+      this.isLoading = false;
+    },
+    closedBidModal() {
+      this.closedBid = false;
     },
     toggleScreen(name) {
       Object.keys(this.screenStatus).forEach((key) => {

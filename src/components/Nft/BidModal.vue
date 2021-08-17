@@ -126,7 +126,7 @@ export default {
       erc20ContractAddress: '0xEF55376cdD71225501E1d9763D907E3A14C10Bb1',
       erc721ContractAddress: '0xF3538d2696FF98396Aa0386d91bd7f9C02570511',
       erc1155ContractAddress: '0x24d5CaBE5A68653c1a6d10f65679839a5CD4a42A',
-      delegateContractAddress: '0xa077A707FbfA89a28180a0d2468F58B7454094E1',
+      delegateContractAddress: '0x5942b38Fa09D0457D699B3756259C4D8285d6E0b',
       userData: JSON.parse(localStorage.getItem('userData')),
     };
   },
@@ -158,7 +158,7 @@ export default {
               this.isLoading = true;
               try {
                 await delegateContract.methods
-                  .placeBid(this.erc20ContractAddress, this.erc721ContractAddress,
+                  .placeBid(this.erc721ContractAddress,
                     web3.utils.toWei(this.initialBidValue), this.tokenid, this.userData.uid)
                   .send({ from: this.Address, gas: 2000000, gasPrice: '30000000000' })
                   .on('error', (error) => {
