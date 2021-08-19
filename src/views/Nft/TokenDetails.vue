@@ -239,6 +239,14 @@
             <p style="text-align: center;">
               {{ $t('buy_modal.closeBid_message') }}
             </p>
+            <router-link
+              to="/"
+            >
+              <BaseRoundButton
+                class="buy-button btn-primary btn-md btn-bold mb mt2"
+                :text="$t('buy_modal.btn')"
+              />
+            </router-link>
           </template>
         </BaseModal>
       </div>
@@ -391,6 +399,8 @@ export default {
         .on('error', (error) => {
           console.log(error);
           this.isLoading = false;
+        }).once('receipt', async () => {
+          this.closedBid = true;
         });
       this.isLoading = false;
     },

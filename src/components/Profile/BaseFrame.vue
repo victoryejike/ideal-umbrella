@@ -22,6 +22,20 @@
           >
         </h3>
       </div>
+      <div
+        class="wallet-address"
+      >
+        <img
+          src="@svg/huobi.svg"
+          width="15"
+        >
+        <span
+          v-if="account !== null"
+          class="address"
+        >
+          {{ account.replace(account.substring(11,34), "*******") }}
+        </span>
+      </div>
       <div class="profile-actions">
         <router-link to="/account/profile/edit">
           <BaseRoundButton
@@ -41,6 +55,11 @@
 <script>
 export default {
   name: 'ProfileBaseframe',
+  data() {
+    return {
+      account: localStorage.getItem('account'),
+    };
+  },
   computed: {
     avatar() { return this.$store.getters['auth/avatar']; },
   },
@@ -48,6 +67,18 @@ export default {
 </script>
 
 <style scoped>
+.address {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-left: 0.6rem;
+}
+
+.wallet-address {
+  margin-bottom: 1rem;
+  margin-top: -1rem;
+  cursor: pointer;
+}
+
 .top {
   background-image: url("~@img/banner-bg.png");
   border-radius: 0.625rem;
