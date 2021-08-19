@@ -16,6 +16,9 @@
     "closeBid_message": "You have Successfully closed bidding for this NFT",
     "success": "Congratulation 😊"
   },
+  "share": {
+    "share_title": "Choose Platform to share your Naffit NFT"
+  },
   "collectible": {
     "amount_label": "Amount",
     "amount_placeholder": "Enter price for one piece",

@@ -12,16 +12,17 @@
         class="gridbox-product-card"
         :css="cardCSS"
         :image="item.image"
+        :marketplace="true"
         :name="item.name"
         :period="item.period"
         :price="item.price"
         :verified="item.verified"
       />
     </div>
-    <!-- <BaseRoundButton
+    <BaseRoundButton
       class="load-more-btn btn-outline-primary btn-xl"
       :text="$t('index_screen.more')"
-    /> -->
+    />
     <NoNFT
       v-if="nft?.length === 0"
     />

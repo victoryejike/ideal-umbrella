@@ -56,6 +56,22 @@
         >
           {{ timeLeft }}
         </div>
+        <div
+          v-if="marketplace != null"
+        >
+          <div
+            v-if="marketplace === true"
+            class="timed-auction-badge"
+          >
+            Take off Market Place
+          </div>
+          <div
+            v-else
+            class="timed-auction-badge"
+          >
+            Resale
+          </div>
+        </div>
       </div>
       <div
         class="description"
@@ -130,6 +146,7 @@ export default {
     coinType: { type: Number, required: false, default: 0 },
     verified: { type: Boolean, required: false, default: false },
     period: { type: Object, required: false, default: null },
+    marketplace: { type: Object, required: false, default: null },
   },
   data() {
     return {

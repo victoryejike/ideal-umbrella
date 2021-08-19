@@ -106,6 +106,14 @@ export default {
   text-align: center;
 }
 
+.share {
+  text-align: center;
+}
+
+.share img {
+  margin: 1rem;
+}
+
 .verified {
   background: #2c43ad;
   border-radius: 22.5rem;
@@ -131,5 +139,7 @@ export default {
 .p1 {
   padding-left: 1.3rem;
   padding-right: 1.3rem;
+  height: fit-content;
 }
+
 </style>
