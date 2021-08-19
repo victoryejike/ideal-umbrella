@@ -63,7 +63,7 @@
             v-if="marketplace === true"
             class="timed-auction-badge"
           >
-            Take off Market Place
+            Keep NFT
           </div>
           <div
             v-else
@@ -315,6 +315,6 @@ img:not([src]) {
   padding: 0.4rem 0.6rem;
   position: absolute;
   text-align: center;
-  z-index: 1;
+  z-index: 100;
 }
 </style>
