@@ -68,7 +68,7 @@ export default {
 
 <style scoped>
 .address {
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   font-weight: bold;
   margin-left: 0.6rem;
 }
