@@ -484,6 +484,11 @@ export default [
         name: '_tokenId',
         type: 'uint256',
       },
+      {
+        internalType: 'enum DelegateContract.TokenType',
+        name: '_tokenType',
+        type: 'uint8',
+      },
     ],
     name: 'closeOrder',
     outputs: [],

@@ -106,6 +106,7 @@ export default {
     image: { type: String, required: false, default: null },
     minimumbid: { type: Number, required: false, default: null },
     tokenid: { type: Number, required: false, default: null },
+    tokentype: { type: String, required: false, default: null },
     accountbalance: { type: Number, required: false, default: null },
     bid: { type: Array, required: false, default: null },
   },
@@ -118,6 +119,7 @@ export default {
       biddingBalance: '',
       initialBidValue: '',
       finalBidValue: '',
+      nftTokenAddress: '',
       coinList: [
         { name: 'ETH' },
         { name: 'HT' },
@@ -136,8 +138,13 @@ export default {
       this.finalBidValue = (parseFloat(this.initialBidValue)
       + parseFloat(discountAmount)).toFixed(4);
     },
+    getTokenAddress() {
+      if (this.tokentype === 'single') this.nftTokenAddress = this.erc721ContractAddress;
+      else this.nftTokenAddress = this.erc1155ContractAddress;
+    },
     async onSubmit(formData) {
       if (this.initialBidValue >= this.minimumbid) {
+        this.getTokenAddress();
         this.isLoading = true;
         const web3 = new Web3(window.ethereum);
         const delegateContract = new web3.eth.Contract(require('@/assets/abi/delegateContract').default, this.delegateContractAddress);
@@ -145,7 +152,7 @@ export default {
         await erc20Contract.methods
           .approve(this.delegateContractAddress,
             web3.utils.toWei('1000000000000000000000000'))
-          .send({ from: this.Address, gas: 2000000, gasPrice: '30000000000' })
+          .send({ from: this.Address })
           .on('error', (error) => {
             console.log(error);
             this.isLoading = false;
@@ -158,9 +165,9 @@ export default {
               this.isLoading = true;
               try {
                 await delegateContract.methods
-                  .placeBid(this.erc721ContractAddress,
-                    web3.utils.toWei(this.initialBidValue), this.tokenid, this.userData.uid)
-                  .send({ from: this.Address, gas: 2000000, gasPrice: '30000000000' })
+                  .placeBid(this.tokentype, web3.utils.toWei(this.initialBidValue), this.tokenid,
+                    this.userData.uid)
+                  .send({ from: this.Address })
                   .on('error', (error) => {
                     console.log(error);
                     this.isLoading = false;

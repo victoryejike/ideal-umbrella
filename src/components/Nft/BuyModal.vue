@@ -120,6 +120,7 @@ export default {
       finalValue: '',
       amount: this.price,
       token: '',
+      nftTokenAddress: '',
       coinList: [
         { name: 'ETH' },
         { name: 'HT' },
@@ -136,8 +137,13 @@ export default {
     this.finalValue = (parseFloat(this.price) + parseFloat(finalBuyValue)).toFixed(4);
     console.log(this.creatoraddress);
     console.log(this.tokentype);
-    if (this.tokentype === '60e63dbdb890810780327cff') this.token = 1;
-    else this.token = 2;
+    if (this.tokentype === 'single') {
+      this.token = 1;
+      this.nftTokenAddress = this.erc721ContractAddress;
+    } else {
+      this.token = 2;
+      this.nftTokenAddress = this.erc1155ContractAddress;
+    }
     console.log(this.token);
   },
   methods: {
@@ -161,7 +167,7 @@ export default {
         await erc20Contract.methods
           .approve(this.delegateContractAddress,
             web3.utils.toWei('1000000000000000000000000'))
-          .send({ from: this.Address, gas: 2000000, gasPrice: '30000000000' })
+          .send({ from: this.Address })
           .on('error', (error) => {
             console.log(error);
             this.isLoading = false;
@@ -173,8 +179,8 @@ export default {
               this.isLoading = true;
               try {
                 await ercContract.methods
-                  .instantBuy(this.erc721ContractAddress, this.token, this.tokenid, '0x0')
-                  .send({ from: this.Address, gas: 2000000, gasPrice: '30000000000' })
+                  .instantBuy(this.nftTokenAddress, this.token, this.tokenid, '0x0')
+                  .send({ from: this.Address })
                   .on('error', (error) => {
                     console.log(error);
                     this.isLoading = false;

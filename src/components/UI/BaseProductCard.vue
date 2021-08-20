@@ -2,7 +2,6 @@
   <div
     class="card-container"
     :style="{background: bgColor, padding: padding}"
-    @click="handleClick"
   >
     <div
       class="card-inner-div"
@@ -41,6 +40,7 @@
           :onerror="handleImageError"
           :src="image"
           :width="size"
+          @click="handleClick"
           @load="onImgLoaded"
         >
         <img
@@ -49,6 +49,7 @@
           src="@img/no-image.png"
           :style="{opacity: (isLoading) ? 1 : 0}"
           :width="size"
+          @click="handleClick"
         >
         <div
           v-if="period != null"
@@ -61,13 +62,15 @@
         >
           <div
             v-if="marketplace === true"
-            class="timed-auction-badge"
+            class="timed-auction-badge off-marketplace"
+            @click="takeOffMarket"
           >
             Keep NFT
           </div>
           <div
             v-else
             class="timed-auction-badge"
+            @click="OfferForSale"
           >
             Resale
           </div>
@@ -116,10 +119,25 @@
       </div>
     </div>
   </div>
+  <BaseModal
+    v-show="placeBuy"
+    @close="closeModal"
+  >
+    <template #body>
+      <h2 style="text-align: center;">
+        {{ $t('buy_modal.success') }}
+      </h2>
+      <p style="text-align: center;">
+        {{ $t('buy_modal.buy_message') }}
+      </p>
+    </template>
+  </BaseModal>
 </template>
 
 <script>
 import NoImage from '@img/no-image.png';
+
+const Web3 = require('web3');
 
 export default {
   name: 'BaseProductCard',
@@ -143,6 +161,8 @@ export default {
     image: { type: String, required: true },
     name: { type: String, required: true },
     price: { type: Number, required: true },
+    tokenid: { type: Number, required: true },
+    tokentype: { type: String, required: true },
     coinType: { type: Number, required: false, default: 0 },
     verified: { type: Boolean, required: false, default: false },
     period: { type: Object, required: false, default: null },
@@ -152,6 +172,13 @@ export default {
     return {
       isLoading: true,
       timeLeft: null,
+      Address: localStorage.getItem('account'),
+      placeBuy: false,
+      nftAddress: '',
+      token: '',
+      erc721ContractAddress: '0xF3538d2696FF98396Aa0386d91bd7f9C02570511',
+      erc1155ContractAddress: '0x24d5CaBE5A68653c1a6d10f65679839a5CD4a42A',
+      delegateContractAddress: '0x5942b38Fa09D0457D699B3756259C4D8285d6E0b',
     };
   },
   computed: {
@@ -179,15 +206,57 @@ export default {
         }, 60);
       }, hf.second);
     }
+    if (this.tokentype === 'single') {
+      this.nftAddress = this.erc721ContractAddress;
+      this.token = 1;
+    } else {
+      this.nftAddress = this.erc1155ContractAddress;
+      this.token = 2;
+    }
   },
   methods: {
     handleImageError(event) {
       const { target } = event;
       target.src = NoImage;
     },
+    closeModal() {
+      this.placeBuy = false;
+    },
     handleClick() {
       this.$router.push({ name: 'TokenDetails', params: { id: this.id } });
     },
+    takeOffMarket() {
+      const web3 = new Web3(window.ethereum);
+      console.log(this.nftAddress, this.tokenid, this.tokentype, this.token);
+      const delegateContract = new web3.eth.Contract(require('@/assets/abi/delegateContract').default, this.delegateContractAddress);
+      delegateContract.methods
+        .closeOrder(this.nftAddress, this.tokenid, this.token)
+        .send({ from: this.Address })
+        .on('error', (error) => {
+          console.log(error);
+          this.isLoading = false;
+          this.$toast.error('An error occurred');
+        })
+        .once('receipt', (receipt) => {
+          console.log(receipt);
+          this.placeBuy = true;
+          // this.$toast.error('Successfully taken NFT off Marketplace');
+        });
+    },
+    // OfferForSale() {
+    //   const web3 = new Web3(window.ethereum);
+    //   console.log(this.nftAddress, this.tokenid, this.tokentype, this.token);
+    //   const delegateContract = new web3.eth.Contract(require('@/assets/abi/delegateContract').default,
+    // this.delegateContractAddress);
+    //   delegateContract.methods
+    //     .OfferForSale(this.erc20ContractAddress, this.erc721ContractAddress, this.tokenId, (1),
+    //       (1), web3.utils.toWei(startingBid, 'ether'), this.userData.uid, (3), (startTime), (0))
+    //     .send({ from: this.value, gas: 3000000, gasPrice: '35000000000' })
+    //     .on('error', (error) => {
+    //       console.log(error);
+    //       this.isLoading = false;
+    //     });
+    // },
     onImgLoaded() {
       this.isLoading = false;
     },
@@ -315,6 +384,5 @@ img:not([src]) {
   padding: 0.4rem 0.6rem;
   position: absolute;
   text-align: center;
-  z-index: 100;
 }
 </style>

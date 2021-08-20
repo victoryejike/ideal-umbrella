@@ -165,7 +165,7 @@
                 :nfttype="nftDetails.supply"
                 :title="nftDetails.title"
                 :tokenid="nftDetails.tokenId"
-                :tokentype="nftDetails.collectible_class"
+                :tokentype="nftDetails.collectible_type"
                 @bidPlaced="showBuySuccess($event)"
               />
               <BuyModal
@@ -178,7 +178,7 @@
                 :price="nftDetails.price"
                 :title="nftDetails.title"
                 :tokenid="nftDetails.tokenId"
-                :tokentype="nftDetails.collectible_class"
+                :tokentype="nftDetails.collectible_type"
                 @bidPlaced="showBidSuccess($event)"
               />
             </template>
@@ -326,7 +326,6 @@ export default {
       });
     }
 
-    console.log(this.isUnlimitedAuction);
     this.screenStatus[this.isAuction ? 'bids' : 'details'] = true;
     this.bidsList = await this.$api.GET_BIDS(this.$route.params.id);
     this.detailsTabList = [
@@ -395,7 +394,7 @@ export default {
       const delegateContract = new web3.eth.Contract(require('@/assets/abi/delegateContract').default, this.delegateContractAddress);
       await delegateContract.methods
         .closeBid(this.erc721ContractAddress, this.nftDetails.tokenId, (1), '0x00')
-        .send({ from: this.Address, gas: 2000000, gasPrice: '30000000000' })
+        .send({ from: this.Address })
         .on('error', (error) => {
           console.log(error);
           this.isLoading = false;

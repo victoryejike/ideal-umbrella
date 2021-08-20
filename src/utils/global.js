@@ -67,6 +67,8 @@ const GLOBAL_FUNCTION = {
           // eslint-disable-next-line no-underscore-dangle
           id: nft._id,
           name: nft.title,
+          tokenId: nft.tokenId,
+          tokenType: nft.collectible_type,
           // eslint-disable-next-line no-underscore-dangle
           price: nft.price || nft.bid?.highest_bid || nft.minimum_bid,
           image: `https://ipfs.io/ipfs/${nft.uri}`,
