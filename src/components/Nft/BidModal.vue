@@ -165,8 +165,8 @@ export default {
               this.isLoading = true;
               try {
                 await delegateContract.methods
-                  .placeBid(this.tokentype, web3.utils.toWei(this.initialBidValue), this.tokenid,
-                    this.userData.uid)
+                  .placeBid(this.erc721ContractAddress,
+                    web3.utils.toWei(this.initialBidValue), this.tokenid, this.userData.uid)
                   .send({ from: this.Address })
                   .on('error', (error) => {
                     console.log(error);
