@@ -29,7 +29,13 @@
       @input="getFinalBidAmount"
     >
       <template #element>
-        <span class="coin">ETH</span>
+        <!-- <span class="coin">ETH</span> -->
+        <BaseScrollableSelectBox
+          :css="selectBoxCSS"
+          key-name="name"
+          name="receivedBidCoinType"
+          :options="coinList"
+        />
       </template>
     </BaseUnderlinedInput>
     <Field

@@ -70,7 +70,7 @@
           <div
             v-else
             class="timed-auction-badge"
-            @click="OfferForSale"
+            @click="ResaleURL"
           >
             Resale
           </div>
@@ -246,7 +246,8 @@ export default {
     // OfferForSale() {
     //   const web3 = new Web3(window.ethereum);
     //   console.log(this.nftAddress, this.tokenid, this.tokentype, this.token);
-    //   const delegateContract = new web3.eth.Contract(require('@/assets/abi/delegateContract').default,
+    //   const delegateContract = new web3.eth
+    // .Contract(require('@/assets/abi/delegateContract').default,
     // this.delegateContractAddress);
     //   delegateContract.methods
     //     .OfferForSale(this.erc20ContractAddress, this.erc721ContractAddress, this.tokenId, (1),
@@ -257,6 +258,9 @@ export default {
     //       this.isLoading = false;
     //     });
     // },
+    ResaleURL() {
+      this.$router.push({ name: 'ResaleNFT', params: { id: this.id } });
+    },
     onImgLoaded() {
       this.isLoading = false;
     },

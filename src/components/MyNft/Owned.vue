@@ -12,7 +12,7 @@
         class="gridbox-product-card"
         :css="cardCSS"
         :image="item.image"
-        :marketplace="true"
+        :marketplace="item.market_visibility"
         :name="item.name"
         :period="item.period"
         :price="item.price"

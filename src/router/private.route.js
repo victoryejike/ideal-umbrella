@@ -24,6 +24,21 @@ const privateRoute = [
     },
   },
   {
+    path: '/nft/resale/:id',
+    name: 'ResaleNFT',
+    component: () => import('@view/Nft/ResaleNFT.vue'),
+    beforeEnter: async (to, from, next) => {
+      const data = await store.$api.GET_NFT_DETAILS(to.params?.id);
+      if (data) {
+        const { params } = to;
+        params.nft = data;
+        next();
+      } else {
+        this.$router.push({ name: 'PathNotFound' });
+      }
+    },
+  },
+  {
     path: '/wallet',
     name: 'Wallet',
     component: () => import('@view/Wallet/Index.vue'),
