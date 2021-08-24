@@ -72,6 +72,7 @@ const GLOBAL_FUNCTION = {
           // eslint-disable-next-line no-underscore-dangle
           price: nft.price || nft.bid?.highest_bid || nft.minimum_bid,
           image: `https://ipfs.io/ipfs/${nft.uri}`,
+          market_visibility: nft.market_visibility,
           author: nft.creator?.display_name,
           avatar: nft.creator?.image,
           verified: nft.creator?.is_kyc_verified || false,
