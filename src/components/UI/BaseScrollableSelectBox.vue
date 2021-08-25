@@ -17,6 +17,7 @@
     <div
       ref="selector"
       class="selector-root"
+      :class="id"
       :onClick="() => {toogleMenu()}"
       :style="customCSS"
       tabindex="0"
@@ -40,6 +41,7 @@
       <div
         v-if="isPullDown"
         class="selector-menu"
+        :class="dropClass"
         :style="{'--border-color': customCSS['--border-color']}"
       >
         <!-- <div class="selector-options">
@@ -108,6 +110,8 @@ export default {
     defaultSelected: { type: Boolean, required: false, default: true },
     name: { type: String, required: true },
     rules: { type: String, required: false, default: null },
+    id: { type: String, required: false, default: null },
+    dropClass: { type: String, required: false, default: null },
   },
   emits: ['selected'],
   data() {
@@ -169,6 +173,14 @@ export default {
 .selector-group {
   display: flex;
   flex-direction: column;
+}
+
+.coinList {
+  width: 5rem !important;
+}
+
+.listWidth {
+  width: 7.4rem;
 }
 
 .selector-root,

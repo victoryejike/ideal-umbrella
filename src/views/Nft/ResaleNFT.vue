@@ -50,7 +50,17 @@
             @input="getServiceFee"
           >
             <template #element>
-              <span style="font-weight: bold;">ETH</span>
+              <!-- <span style="font-weight: bold;">ETH</span> -->
+              <BaseScrollableSelectBox
+                id="coinList"
+                class="label"
+                :default-selected="true"
+                dropClass="listWidth"
+                key-name="_id"
+                name="name"
+                :options="coinList"
+                rules="required"
+              />
             </template>
           </BaseUnderlinedInput>
           <BaseUnderlinedInput
@@ -63,7 +73,17 @@
             type="number"
           >
             <template #element>
-              <span style="font-weight: bold;">ETH</span>
+              <!-- <span style="font-weight: bold;">ETH</span> -->
+              <BaseScrollableSelectBox
+                id="coinList"
+                class="label"
+                :default-selected="true"
+                dropClass="listWidth"
+                key-name="_id"
+                name="name"
+                :options="coinList"
+                rules="required"
+              />
             </template>
           </BaseUnderlinedInput>
         </template>
@@ -280,6 +300,11 @@ export default {
       selectedSwitch: true,
       coinType: 'ETH',
       collectible_type: '',
+      coinList: [
+        { name: 'ETH', id: 'ETH' },
+        { name: 'USDT', id: 'USDT' },
+        { name: 'NAFF', id: 'NAFF' },
+      ],
       collectibleList: [
         { name: 'ERC-721', id: 'erc' },
       ],
@@ -333,9 +358,13 @@ export default {
     },
   },
   async mounted() {
-    this.$global.isWalletConnected();
-    this.$global.isAddressExist();
-    this.fetchDetails();
+    if (this.$route.params.nft.success === false) {
+      this.$router.push('/');
+    } else {
+      this.$global.isWalletConnected();
+      this.$global.isAddressExist();
+      this.fetchDetails();
+    }
   },
   methods: {
     async fetchDetails() {

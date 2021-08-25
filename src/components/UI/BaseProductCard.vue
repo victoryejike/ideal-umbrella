@@ -58,7 +58,7 @@
           {{ timeLeft }}
         </div>
         <div
-          v-if="marketplace != null"
+          v-else-if="marketplace != null"
         >
           <div
             v-if="marketplace === true"
@@ -72,7 +72,7 @@
             class="timed-auction-badge"
             @click="ResaleURL"
           >
-            Resale
+            Sale NFT
           </div>
         </div>
       </div>
@@ -198,7 +198,8 @@ export default {
         const timer = setInterval(() => {
           hf = this.secondsToHumanFormat(timeEnd - now);
           if (this.isTimesUp(hf)) {
-            this.timeLeft = this.$t('components.times_up');
+            // this.timeLeft = this.$t('components.times_up');
+            this.timeLeft = null;
             clearInterval(timer);
           } else {
             this.timeLeft = this.getTimeLeftString(hf);
@@ -295,6 +296,7 @@ export default {
 .card-container {
   border-radius: 1.5rem;
   cursor: pointer;
+  margin: 0.5rem;
   display: inline-block;
 }
 
@@ -333,6 +335,10 @@ img:not([src]) {
   flex-grow: 1;
   overflow: hidden;
   white-space: nowrap;
+}
+
+.right{
+  right: 0.5rem;
 }
 
 .author-name {
