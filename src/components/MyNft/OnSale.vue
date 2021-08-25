@@ -60,10 +60,10 @@ export default {
 <style scoped>
 .gridbox {
   display: grid;
-  grid-column-gap: 1.25rem;
+  grid-column-gap: 3.25rem;
   grid-row-gap: 5rem;
   grid-template-columns: repeat(auto-fit, 11.875rem);
-  justify-content: space-between;
+  /* justify-content: space-between; */
   overflow: hidden;
 }
 
