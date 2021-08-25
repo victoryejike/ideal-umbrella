@@ -418,51 +418,7 @@ export default {
     closeModal() {
       this.isModalVisible = false;
     },
-    // async metaData() {
-    //   if (!(await this.$global.isWalletConnected()) || !(await this.$global.isAddressExist())) {
-    //     return;
-    //   }
-    //   this.$global.detectingChain();
-    //   const { valid } = await this.$refs['collectible-nft'].form.validate();
-    //   if (!valid) { return; }
-
-    //   this.isLoading = true;
-    //   const desc = document.querySelectorAll('.description')[1].value;
-    //   const title = document.querySelectorAll('.title')[1].value;
-    //   const ipfsHash = `https://ipfs.io/ipfs/${sessionStorage.getItem('ipfsHash')}`;
-    //   this.uri = sessionStorage.getItem('ipfsHash');
-    //   let cid;
-    //   if (this.standard === 'erc1155') {
-    //     this.isLoading = true;
-    //     const qty = document.querySelector('.supply').value;
-    //     const metadata = {
-    //       description: desc,
-    //       name: title,
-    //       image: ipfsHash,
-    //       quantity: qty,
-    //     };
-    //     const doc = JSON.stringify({ metadata });
-    //     cid = await ipfs.add(doc);
-    //     this.ipfsUrl = `https://${cid}.ipfs.dweb.link`;
-    //     await ipfs.cat(cid);
-    //     this.minting(qty, cid);
-    //   } else {
-    //     this.isLoading = true;
-    //     const metadata = {
-    //       description: desc,
-    //       name: title,
-    //       image: ipfsHash,
-    //     };
-    //     const doc = JSON.stringify({ metadata });
-    //     cid = await ipfs.add(doc);
-    //     await ipfs.cat(cid);
-    //     this.minting(null, cid);
-    //   }
-    // },
     async minting() {
-      console.log(1);
-      console.log(3);
-      this.isLoading = true;
       let provider;
       const obj = JSON.parse(localStorage.getItem('walletconnect'));
       if (obj && (obj.accounts[0]) === (this.value)) {
@@ -483,7 +439,8 @@ export default {
         const price = document.querySelector('.price').value;
         if (this.pricingType === PriceType.FIXED) {
           console.log(this.pricingType);
-          contract.methods
+          this.isLoading = true;
+          await contract.methods
             .setApprovalForAll(this.delegateContractAddress, true)
             .send({ from: this.value })
             .on('error', (error) => {
@@ -491,22 +448,32 @@ export default {
               this.isLoading = false;
             })
             .once('receipt', async (receipt) => {
-              delegateContract.methods
-                .OfferForSale(this.erc20ContractAddress, this.erc1155ContractAddress,
-                  this.tokenId, qty,
-                  this.tokentype, web3.utils.toWei(price, 'ether'), this.userData.uid, (1),
-                  (0), (0))
-                .send({ from: this.value })
-                .on('error', (error) => {
+              this.isLoading = true;
+              console.log(this.userData.uid);
+              if (receipt) {
+                this.isLoading = true;
+                try {
+                  await delegateContract.methods
+                    .OfferForSale(this.erc20ContractAddress, this.erc1155ContractAddress,
+                      this.tokenId, qty,
+                      this.tokentype, web3.utils.toWei(price, 'ether'), this.userData.uid, (1),
+                      (0), (0))
+                    .send({ from: this.value })
+                    .on('error', (error) => {
+                      console.log(error);
+                      this.isLoading = false;
+                    });
+                } catch (error) {
                   console.log(error);
-                  this.isLoading = false;
-                });
+                }
+              }
             });
         } if (this.pricingType === PriceType.UNLIMITED_AUCTION) {
           const startingBid = document.querySelector('.minimum_bid').value;
           const startDate = document.querySelector('.starting_date').value;
           const startTime = this.getTimestamp(startDate);
-          contract.methods
+          this.isLoading = true;
+          await contract.methods
             .setApprovalForAll(this.delegateContractAddress, true)
             .send({ from: this.value })
             .on('error', (error) => {
@@ -514,15 +481,24 @@ export default {
               this.isLoading = false;
             })
             .once('receipt', async (receipt) => {
-              delegateContract.methods
-                .OfferForSale(this.erc20ContractAddress, this.erc1155ContractAddress,
-                  this.tokenId, qty,
-                  this.tokentype, web3.utils.toWei(startingBid, 'ether'), this.userData.uid, (3), (startTime), (0))
-                .send({ from: this.value })
-                .on('error', (error) => {
+              this.isLoading = true;
+              console.log(this.userData.uid);
+              if (receipt) {
+                this.isLoading = true;
+                try {
+                  await delegateContract.methods
+                    .OfferForSale(this.erc20ContractAddress, this.erc1155ContractAddress,
+                      this.tokenId, qty,
+                      this.tokentype, web3.utils.toWei(startingBid, 'ether'), this.userData.uid, (3), (startTime), (0))
+                    .send({ from: this.value })
+                    .on('error', (error) => {
+                      console.log(error);
+                      this.isLoading = false;
+                    });
+                } catch (error) {
                   console.log(error);
-                  this.isLoading = false;
-                });
+                }
+              }
             });
         }
         this.$refs['collectible-nft'].submit();
@@ -530,28 +506,38 @@ export default {
         const contract = new web3.eth.Contract(require('@/assets/abi/erc721').default, this.erc721ContractAddress);
         this.tokentype = 1;
         if (this.pricingType === PriceType.FIXED) {
-          this.isLoading = true;
           console.log('yes');
           const price = document.querySelector('.price').value;
-          console.log(price);
           this.tokenId = this.nftDetails.tokenId;
           console.log(this.tokenId);
-          contract.methods
+          this.isLoading = true;
+          await contract.methods
             .setApprovalForAll(this.delegateContractAddress, true)
             .send({ from: this.value })
             .on('error', (error) => {
               console.log(error);
               this.isLoading = false;
-            });
-          delegateContract.methods
-            .OfferForSale(this.erc20ContractAddress, this.erc721ContractAddress,
-              this.tokenId, (1),
-              (1), web3.utils.toWei(price, 'ether'), this.userData.uid, (1),
-              (0), (0))
-            .send({ from: this.value })
-            .on('error', (error) => {
-              console.log(error);
-              this.isLoading = false;
+            })
+            .once('receipt', async (receipt) => {
+              this.isLoading = true;
+              console.log(this.userData.uid);
+              if (receipt) {
+                this.isLoading = true;
+                try {
+                  await delegateContract.methods
+                    .OfferForSale(this.erc20ContractAddress, this.erc721ContractAddress,
+                      this.tokenId, (1),
+                      (1), web3.utils.toWei(price, 'ether'), this.userData.uid, (1),
+                      (0), (0))
+                    .send({ from: this.value })
+                    .on('error', (error) => {
+                      console.log(error);
+                      this.isLoading = false;
+                    });
+                } catch (error) {
+                  console.log(error);
+                }
+              }
             });
         }
         if (this.pricingType === PriceType.TIMED_AUCTION) {
@@ -560,50 +546,68 @@ export default {
           const endDate = document.querySelector('.expiration_date').value;
           const startTime = this.getTimestamp(startDate);
           const endTime = this.getTimestamp(endDate);
-          contract.methods
+          this.isLoading = true;
+          await contract.methods
             .setApprovalForAll(this.delegateContractAddress, true)
             .send({ from: this.value })
             .on('error', (error) => {
               console.log(error);
               this.isLoading = false;
+            })
+            .once('receipt', async (receipt) => {
+              this.isLoading = true;
+              console.log(this.userData.uid);
+              if (receipt) {
+                this.isLoading = true;
+                try {
+                  await delegateContract.methods
+                    .OfferForSale(this.erc20ContractAddress, this.erc721ContractAddress,
+                      this.tokenId, (1),
+                      (1), web3.utils.toWei(startingBid, 'ether'), this.userData.uid, (2),
+                      (startTime), (endTime))
+                    .send({ from: this.value })
+                    .on('error', (error) => {
+                      console.log(error);
+                      this.isLoading = false;
+                    });
+                } catch (error) {
+                  console.log(error);
+                }
+              }
             });
-
-          if (this.selectedSwitch) {
-            delegateContract.methods
-              .OfferForSale(this.erc20ContractAddress, this.erc721ContractAddress,
-                this.tokenId, (1),
-                (1), web3.utils.toWei(startingBid, 'ether'), this.userData.uid, (2),
-                (startTime), (endTime))
-              .send({ from: this.value })
-              .on('error', (error) => {
-                console.log(error);
-                this.isLoading = false;
-              });
-          }
         }
         if (this.pricingType === PriceType.UNLIMITED_AUCTION) {
           const startingBid = document.querySelector('.minimum_bid').value;
           const startDate = document.querySelector('.starting_date').value;
           const startTime = this.getTimestamp(startDate);
-          contract.methods
+          this.isLoading = true;
+          await contract.methods
             .setApprovalForAll(this.delegateContractAddress, true)
             .send({ from: this.value })
             .on('error', (error) => {
               console.log(error);
               this.isLoading = false;
+            })
+            .once('receipt', async (receipt) => {
+              this.isLoading = true;
+              console.log(this.userData.uid);
+              if (receipt) {
+                this.isLoading = true;
+                try {
+                  await delegateContract.methods
+                    .OfferForSale(this.erc20ContractAddress, this.erc721ContractAddress,
+                      this.tokenId, (1),
+                      (1), web3.utils.toWei(startingBid, 'ether'), this.userData.uid, (3), (startTime), (0))
+                    .send({ from: this.value })
+                    .on('error', (error) => {
+                      console.log(error);
+                      this.isLoading = false;
+                    });
+                } catch (error) {
+                  console.log(error);
+                }
+              }
             });
-
-          if (this.selectedSwitch) {
-            delegateContract.methods
-              .OfferForSale(this.erc20ContractAddress, this.erc721ContractAddress,
-                this.tokenId, (1),
-                (1), web3.utils.toWei(startingBid, 'ether'), this.userData.uid, (3), (startTime), (0))
-              .send({ from: this.value })
-              .on('error', (error) => {
-                console.log(error);
-                this.isLoading = false;
-              });
-          }
         }
         this.$refs['collectible-nft'].submit();
       }

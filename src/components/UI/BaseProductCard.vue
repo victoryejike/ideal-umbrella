@@ -166,7 +166,7 @@ export default {
     coinType: { type: Number, required: false, default: 0 },
     verified: { type: Boolean, required: false, default: false },
     period: { type: Object, required: false, default: null },
-    marketplace: { type: Object, required: false, default: null },
+    marketplace: { type: Boolean, required: false, default: null },
   },
   data() {
     return {
@@ -244,21 +244,6 @@ export default {
           // this.$toast.error('Successfully taken NFT off Marketplace');
         });
     },
-    // OfferForSale() {
-    //   const web3 = new Web3(window.ethereum);
-    //   console.log(this.nftAddress, this.tokenid, this.tokentype, this.token);
-    //   const delegateContract = new web3.eth
-    // .Contract(require('@/assets/abi/delegateContract').default,
-    // this.delegateContractAddress);
-    //   delegateContract.methods
-    //     .OfferForSale(this.erc20ContractAddress, this.erc721ContractAddress, this.tokenId, (1),
-    //       (1), web3.utils.toWei(startingBid, 'ether'), this.userData.uid, (3), (startTime), (0))
-    //     .send({ from: this.value, gas: 3000000, gasPrice: '35000000000' })
-    //     .on('error', (error) => {
-    //       console.log(error);
-    //       this.isLoading = false;
-    //     });
-    // },
     ResaleURL() {
       this.$router.push({ name: 'ResaleNFT', params: { id: this.id } });
     },
