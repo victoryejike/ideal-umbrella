@@ -26,7 +26,7 @@
       <img
         v-if="options[activeIndex]?.image"
         class="options-image"
-        :src="require('@/assets/'+options[activeIndex].image+'')"
+        :src="options[activeIndex].image"
       >
       <span class="options-text">
         {{ options[activeIndex]?.[valueName] || $t('components.select_placeholder') }}
@@ -62,7 +62,7 @@
           <img
             v-if="item?.image"
             class="options-image"
-            :src="require(`@/assets/${item.image}`)"
+            :src="item.image"
           >
           <span class="options-text">
             {{ item[valueName] }}

@@ -301,9 +301,9 @@ export default {
         { name: 'ERC-721', id: 'erc' },
       ],
       coinList: [
-        { name: 'ETH', image: 'svg/ethereum.svg', id: 'ETH' },
-        { name: 'USDT', image: 'svg/tether.svg', id: 'USDT' },
-        { name: 'NAFF', image: 'svg/naff.svg', id: 'NAFF' },
+        { name: 'ETH', image: 'https://res.cloudinary.com/ddqrqm0ow/image/upload/v1629997919/ethereum_rynhsn.svg', id: 'ETH' },
+        { name: 'USDT', image: 'https://res.cloudinary.com/ddqrqm0ow/image/upload/v1629997919/tether_bnrumz.svg', id: 'USDT' },
+        { name: 'NAFF', image: 'https://res.cloudinary.com/ddqrqm0ow/image/upload/v1629997919/naff_mybxeu.svg', id: 'NAFF' },
       ],
       baseTabList: [
         {
