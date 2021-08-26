@@ -140,12 +140,32 @@
             @click="showModal"
           />
           <BaseRoundButton
-            v-else-if="(nftDetails.owner_address === Address) && isUnlimitedAuction"
-            class="buy-button btn-primary btn-md btn-bold"
+            v-else-if="(nftDetails.owner_address === Address)
+              && (isTimeAuction) && (bidsList?.length == 0)"
+            class="buy-button btn-primary btn-md btn-bold auction_actions"
             :icon="isLoading ? 'loading' : 'arrow-right'"
-            :text="$t('nft_details.close_bid')"
-            @click="closeBid"
+            :text="$t('nft_details.takeoff')"
+            @click="takeOffMarket"
           />
+          <div
+            v-else-if="(nftDetails.owner_address === Address) && (isUnlimitedAuction)"
+            class="actions"
+          >
+            <BaseRoundButton
+              v-if="bidsList?.length == 0"
+              class="buy-button btn-primary btn-md btn-bold"
+              :icon="isLoading ? 'loading' : 'arrow-right'"
+              :text="$t('nft_details.takeoff')"
+              @click="takeOffMarket"
+            />
+            <BaseRoundButton
+              v-else
+              class="buy-button btn-primary btn-md btn-bold"
+              :icon="isLoading ? 'loading' : 'arrow-right'"
+              :text="$t('nft_details.close_bid')"
+              @click="closeBid"
+            />
+          </div>
           <BaseModal
             v-show="isModalVisible"
             @close="closeModal"
@@ -615,8 +635,12 @@ label {
   line-height: 100%;
 }
 
-.actions {
+/* .actions {
   display: flex;
+} */
+
+.actions {
+  display: block;
 }
 
 .buy-button {
