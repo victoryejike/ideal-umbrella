@@ -26,7 +26,7 @@
       <img
         v-if="options[activeIndex]?.image"
         class="options-image"
-        :src="options[activeIndex].image"
+        :src="require('@/assets/'+options[activeIndex].image+'')"
       >
       <span class="options-text">
         {{ options[activeIndex]?.[valueName] || $t('components.select_placeholder') }}
@@ -62,7 +62,7 @@
           <img
             v-if="item?.image"
             class="options-image"
-            :src="item.image"
+            :src="require(`@/assets/${item.image}`)"
           >
           <span class="options-text">
             {{ item[valueName] }}
@@ -176,11 +176,11 @@ export default {
 }
 
 .coinList {
-  width: 5rem !important;
+  width: 6rem !important;
 }
 
 .listWidth {
-  width: 7.4rem;
+  width: 8.4rem;
 }
 
 .selector-root,

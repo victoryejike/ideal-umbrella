@@ -73,7 +73,6 @@
             type="number"
           >
             <template #element>
-              <!-- <span style="font-weight: bold;">ETH</span> -->
               <BaseScrollableSelectBox
                 id="coinList"
                 class="label"
@@ -301,9 +300,9 @@ export default {
       coinType: 'ETH',
       collectible_type: '',
       coinList: [
-        { name: 'ETH', id: 'ETH' },
-        { name: 'USDT', id: 'USDT' },
-        { name: 'NAFF', id: 'NAFF' },
+        { name: 'ETH', image: 'svg/ethereum.svg', id: 'ETH' },
+        { name: 'USDT', image: 'svg/tether.svg', id: 'USDT' },
+        { name: 'NAFF', image: 'svg/naff.svg', id: 'NAFF' },
       ],
       collectibleList: [
         { name: 'ERC-721', id: 'erc' },

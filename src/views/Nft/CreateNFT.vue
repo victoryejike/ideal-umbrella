@@ -49,7 +49,17 @@
             @input="getServiceFee"
           >
             <template #element>
-              <span style="font-weight: bold;">ETH</span>
+              <!-- <span style="font-weight: bold;">ETH</span> -->
+              <BaseScrollableSelectBox
+                id="coinList"
+                class="label"
+                :default-selected="true"
+                dropClass="listWidth"
+                key-name="_id"
+                name="name"
+                :options="coinList"
+                rules="required"
+              />
             </template>
           </BaseUnderlinedInput>
           <BaseUnderlinedInput
@@ -62,7 +72,17 @@
             type="number"
           >
             <template #element>
-              <span style="font-weight: bold;">ETH</span>
+              <!-- <span style="font-weight: bold;">ETH</span> -->
+              <BaseScrollableSelectBox
+                id="coinList"
+                class="label"
+                :default-selected="true"
+                dropClass="listWidth"
+                key-name="_id"
+                name="name"
+                :options="coinList"
+                rules="required"
+              />
             </template>
           </BaseUnderlinedInput>
         </template>
@@ -279,6 +299,11 @@ export default {
       collectible_type: '',
       collectibleList: [
         { name: 'ERC-721', id: 'erc' },
+      ],
+      coinList: [
+        { name: 'ETH', image: 'svg/ethereum.svg', id: 'ETH' },
+        { name: 'USDT', image: 'svg/tether.svg', id: 'USDT' },
+        { name: 'NAFF', image: 'svg/naff.svg', id: 'NAFF' },
       ],
       baseTabList: [
         {

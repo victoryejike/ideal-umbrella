@@ -26,7 +26,13 @@
       :text="$t('nft_details.buy.user_buy_label')"
     >
       <template #element>
-        <span class="coin">ETH</span>
+        <!-- <span class="coin">ETH</span> -->
+        <BaseScrollableSelectBox
+          :css="selectBoxCSS"
+          key-name="name"
+          name="receivedBidCoinType"
+          :options="coinList"
+        />
       </template>
     </BaseUnderlinedInput>
     <Field
@@ -122,9 +128,9 @@ export default {
       token: '',
       nftTokenAddress: '',
       coinList: [
-        { name: 'ETH' },
-        { name: 'HT' },
-        { name: 'FC' },
+        { name: 'ETH', image: 'svg/ethereum.svg', id: 'ETH' },
+        { name: 'USDT', image: 'svg/tether.svg', id: 'USDT' },
+        { name: 'NAFF', image: 'svg/naff.svg', id: 'NAFF' },
       ],
       erc20ContractAddress: '0xdD53639C704d46Fb22f7Add37a7CA590b75c08d5',
       erc721ContractAddress: '0xF3538d2696FF98396Aa0386d91bd7f9C02570511',
