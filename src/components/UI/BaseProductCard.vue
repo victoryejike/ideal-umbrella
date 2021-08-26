@@ -199,8 +199,7 @@ export default {
         const timer = setInterval(() => {
           hf = this.secondsToHumanFormat(timeEnd - now);
           if (this.isTimesUp(hf)) {
-            // this.timeLeft = this.$t('components.times_up');
-            this.timeLeft = null;
+            this.timeLeft = this.$t('components.times_up');
             clearInterval(timer);
           } else {
             this.timeLeft = this.getTimeLeftString(hf);
