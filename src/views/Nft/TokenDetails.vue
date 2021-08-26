@@ -325,6 +325,9 @@ export default {
       placeBid: false,
       closedBid: false,
       bidsList: [],
+      nftAddress: '',
+      token: '',
+      userData: JSON.parse(localStorage.getItem('userData')),
       Address: localStorage.getItem('account'),
       erc721ContractAddress: '0xF3538d2696FF98396Aa0386d91bd7f9C02570511',
       erc1155ContractAddress: '0x24d5CaBE5A68653c1a6d10f65679839a5CD4a42A',
@@ -362,6 +365,13 @@ export default {
         value: this.$t('nft_details.blockchain_value'),
       },
     ];
+    if (this.nftDetails.collectible_type === 'single') {
+      this.nftAddress = this.erc721ContractAddress;
+      this.token = 1;
+    } else {
+      this.nftAddress = this.erc1155ContractAddress;
+      this.token = 2;
+    }
   },
   methods: {
     showBidSuccess(s) {
@@ -430,6 +440,25 @@ export default {
       Object.keys(this.screenStatus).forEach((key) => {
         this.screenStatus[key] = (key === name);
       });
+    },
+    takeOffMarket() {
+      const web3 = new Web3(window.ethereum);
+      console.log(this.nftAddress, this.nftDetails.tokenId,
+        this.nftDetails.collectible_type, this.token);
+      const delegateContract = new web3.eth.Contract(require('@/assets/abi/delegateContract').default, this.delegateContractAddress);
+      delegateContract.methods
+        .closeOrder(this.nftAddress, this.nftDetails.tokenId, this.token, this.userData.uid)
+        .send({ from: this.Address })
+        .on('error', (error) => {
+          console.log(error);
+          this.isLoading = false;
+          this.$toast.error('An error occurred');
+        })
+        .once('receipt', (receipt) => {
+          console.log(receipt);
+          this.placeBuy = true;
+          // this.$toast.error('Successfully taken NFT off Marketplace');
+        });
     },
     async isWalletConnected() {
       if (!(await this.$global.isWalletConnected()) || !(await this.$global.isAddressExist())) {
