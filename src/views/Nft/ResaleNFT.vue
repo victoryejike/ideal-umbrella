@@ -336,8 +336,8 @@ export default {
       userData: JSON.parse(localStorage.getItem('userData')),
       erc721ContractAddress: '0xF3538d2696FF98396Aa0386d91bd7f9C02570511',
       erc1155ContractAddress: '0x24d5CaBE5A68653c1a6d10f65679839a5CD4a42A',
-      erc20ContractAddress: '0xEF55376cdD71225501E1d9763D907E3A14C10Bb1',
-      delegateContractAddress: '0x5942b38Fa09D0457D699B3756259C4D8285d6E0b',
+      erc20ContractAddress: '0xdD53639C704d46Fb22f7Add37a7CA590b75c08d5',
+      delegateContractAddress: '0xe6cC989A64dd61f889D350e3eDB4A381Ee86b6e2',
     };
   },
   computed: {

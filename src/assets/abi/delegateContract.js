@@ -176,6 +176,55 @@ export default [
       {
         indexed: false,
         internalType: 'address',
+        name: '_nftTokenAddress',
+        type: 'address',
+      },
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: '_tokenId',
+        type: 'uint256',
+      },
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: '_quantity',
+        type: 'uint256',
+      },
+      {
+        indexed: false,
+        internalType: 'enum DelegateContract.TokenType',
+        name: '_tokenType',
+        type: 'uint8',
+      },
+      {
+        indexed: false,
+        internalType: 'address',
+        name: '_creator',
+        type: 'address',
+      },
+      {
+        indexed: false,
+        internalType: 'string',
+        name: '_userId',
+        type: 'string',
+      },
+      {
+        indexed: false,
+        internalType: 'enum DelegateContract.PricingType',
+        name: '_paymentMode',
+        type: 'uint8',
+      },
+    ],
+    name: 'OrderClosed',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: 'address',
         name: '_erc20TokenAddress',
         type: 'address',
       },
@@ -376,6 +425,19 @@ export default [
     type: 'function',
   },
   {
+    inputs: [],
+    name: 'authorizedCaller',
+    outputs: [
+      {
+        internalType: 'address',
+        name: '',
+        type: 'address',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
     inputs: [
       {
         internalType: 'address',
@@ -488,6 +550,11 @@ export default [
         internalType: 'enum DelegateContract.TokenType',
         name: '_tokenType',
         type: 'uint8',
+      },
+      {
+        internalType: 'string',
+        name: '_userId',
+        type: 'string',
       },
     ],
     name: 'closeOrder',
