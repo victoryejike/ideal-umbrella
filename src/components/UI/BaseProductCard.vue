@@ -65,7 +65,21 @@
             class="timed-auction-badge off-marketplace"
             @click="takeOffMarket"
           >
-            Keep NFT
+            <span>Keep NFT</span>
+            <span
+              v-if="isNftActionClick"
+              class="unshow"
+            >
+              <img
+                src="@svg/loading.svg"
+                style=" background-color: #fff; border-radius: 50%; height: 0.8rem; width: 0.8rem;"
+              >
+              <!-- <img
+                class="unshow"
+                src="@svg/loading.svg"
+                style=" background-color: #fff; border-radius: 50%; height: 1.1rem; width: 1.1rem;"
+              > -->
+            </span>
           </div>
           <div
             v-else
@@ -171,6 +185,7 @@ export default {
   data() {
     return {
       isLoading: true,
+      isNftActionClick: false,
       timeLeft: null,
       Address: localStorage.getItem('account'),
       placeBuy: false,
@@ -227,6 +242,7 @@ export default {
       this.$router.push({ name: 'TokenDetails', params: { id: this.id } });
     },
     takeOffMarket() {
+      this.isNftActionClick = true;
       const web3 = new Web3(window.ethereum);
       console.log(this.nftAddress, this.tokenid, this.tokentype, this.token);
       const delegateContract = new web3.eth.Contract(require('@/assets/abi/delegateContract').default, this.delegateContractAddress);
@@ -235,11 +251,12 @@ export default {
         .send({ from: this.Address })
         .on('error', (error) => {
           console.log(error);
-          this.isLoading = false;
+          this.isNftActionClick = false;
           this.$toast.error('An error occurred');
         })
         .once('receipt', (receipt) => {
           console.log(receipt);
+          this.isNftActionClick = false;
           this.placeBuy = true;
           // this.$toast.error('Successfully taken NFT off Marketplace');
         });
@@ -367,7 +384,15 @@ img:not([src]) {
   margin-left: 0.375rem;
 }
 
+.unshow {
+  margin: 0 0.12rem;
+  margin-top: -0.6rem;
+}
+
 .timed-auction-badge {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   background: #5d6ec2;
   border: 0.1rem solid #fff;
   border-radius: 1rem;
@@ -376,7 +401,7 @@ img:not([src]) {
   font-size: 0.75rem;
   margin-bottom: 0.5rem;
   margin-left: 0.5rem;
-  padding: 0.4rem 0.6rem;
+  padding: 0.4rem 0.75rem;
   position: absolute;
   text-align: center;
 }

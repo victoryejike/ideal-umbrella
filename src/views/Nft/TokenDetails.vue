@@ -331,7 +331,7 @@ export default {
       Address: localStorage.getItem('account'),
       erc721ContractAddress: '0xF3538d2696FF98396Aa0386d91bd7f9C02570511',
       erc1155ContractAddress: '0x24d5CaBE5A68653c1a6d10f65679839a5CD4a42A',
-      delegateContractAddress: '0x5942b38Fa09D0457D699B3756259C4D8285d6E0b',
+      delegateContractAddress: '0xe6cC989A64dd61f889D350e3eDB4A381Ee86b6e2',
     };
   },
   computed: {
@@ -442,6 +442,7 @@ export default {
       });
     },
     takeOffMarket() {
+      this.isLoading = true;
       const web3 = new Web3(window.ethereum);
       console.log(this.nftAddress, this.nftDetails.tokenId,
         this.nftDetails.collectible_type, this.token);
@@ -456,6 +457,7 @@ export default {
         })
         .once('receipt', (receipt) => {
           console.log(receipt);
+          this.isLoading = false;
           this.placeBuy = true;
           // this.$toast.error('Successfully taken NFT off Marketplace');
         });
