@@ -96,7 +96,17 @@
             type="number"
           >
             <template #element>
-              <span style="font-weight: bold;">ETH</span>
+              <!-- <span style="font-weight: bold;">ETH</span> -->
+              <BaseScrollableSelectBox
+                id="coinList"
+                class="label"
+                :default-selected="true"
+                dropClass="listWidth"
+                key-name="_id"
+                name="name"
+                :options="coinList"
+                rules="required"
+              />
             </template>
           </BaseUnderlinedInput>
           <BaseUnderlinedInput
