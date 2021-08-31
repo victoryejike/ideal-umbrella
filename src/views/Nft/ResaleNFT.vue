@@ -240,16 +240,6 @@
           :placeholder="$t('collectible.discription_placeholder')"
           :text="$t('collectible.discription_label')"
         />
-        <BaseModal
-          v-show="isModalVisible"
-          @close="closeModal"
-        >
-          <template #body>
-            <h4 class="modal-text">
-              Mint Successful!
-            </h4>
-          </template>
-        </BaseModal>
         <div>
           <BaseRoundButton
             class="btn-primary btn-md btn-bold"
@@ -260,6 +250,19 @@
         </div>
       </BaseForm>
     </Base>
+    <BaseModal
+      v-show="placeBuy"
+      @close="closeModal"
+    >
+      <template #body>
+        <h2 style="text-align: center;">
+          {{ $t('buy_modal.success') }}
+        </h2>
+        <p style="text-align: center;">
+          {{ $t('buy_modal.resale_message') }}
+        </p>
+      </template>
+    </BaseModal>
   </div>
 </template>
 <script>
@@ -295,7 +298,7 @@ export default {
       PriceType,
       isLoading: false,
       categories: [],
-      isModalVisible: false,
+      placeBuy: false,
       selectedSwitch: true,
       coinType: 'ETH',
       collectible_type: '',
@@ -335,7 +338,7 @@ export default {
       userData: JSON.parse(localStorage.getItem('userData')),
       erc721ContractAddress: '0xF3538d2696FF98396Aa0386d91bd7f9C02570511',
       erc1155ContractAddress: '0x24d5CaBE5A68653c1a6d10f65679839a5CD4a42A',
-      erc20ContractAddress: '0xdD53639C704d46Fb22f7Add37a7CA590b75c08d5',
+      erc20ContractAddress: '0x1e66b9EA1Fb1551a5CD616A6bCb619d36B8Aa0F1',
       delegateContractAddress: '0xe6cC989A64dd61f889D350e3eDB4A381Ee86b6e2',
     };
   },
@@ -415,7 +418,7 @@ export default {
       return (timeStamp / 1000);
     },
     closeModal() {
-      this.isModalVisible = false;
+      this.placeBuy = false;
     },
     async minting() {
       let provider;
@@ -445,6 +448,7 @@ export default {
             .on('error', (error) => {
               console.log(error);
               this.isLoading = false;
+              this.$toast.error('An error occurred');
             })
             .once('receipt', async (receipt) => {
               this.isLoading = true;
@@ -461,6 +465,9 @@ export default {
                     .on('error', (error) => {
                       console.log(error);
                       this.isLoading = false;
+                      this.$toast.error('An error occurred');
+                    }).once('receipt', async () => {
+                      this.placeBuy = true;
                     });
                 } catch (error) {
                   console.log(error);
@@ -478,6 +485,7 @@ export default {
             .on('error', (error) => {
               console.log(error);
               this.isLoading = false;
+              this.$toast.error('An error occurred');
             })
             .once('receipt', async (receipt) => {
               this.isLoading = true;
@@ -493,6 +501,9 @@ export default {
                     .on('error', (error) => {
                       console.log(error);
                       this.isLoading = false;
+                      this.$toast.error('An error occurred');
+                    }).once('receipt', async () => {
+                      this.placeBuy = true;
                     });
                 } catch (error) {
                   console.log(error);
@@ -516,6 +527,7 @@ export default {
             .on('error', (error) => {
               console.log(error);
               this.isLoading = false;
+              this.$toast.error('An error occurred');
             })
             .once('receipt', async (receipt) => {
               this.isLoading = true;
@@ -532,6 +544,9 @@ export default {
                     .on('error', (error) => {
                       console.log(error);
                       this.isLoading = false;
+                      this.$toast.error('An error occurred');
+                    }).once('receipt', async () => {
+                      this.placeBuy = true;
                     });
                 } catch (error) {
                   console.log(error);
@@ -552,6 +567,7 @@ export default {
             .on('error', (error) => {
               console.log(error);
               this.isLoading = false;
+              this.$toast.error('An error occurred');
             })
             .once('receipt', async (receipt) => {
               this.isLoading = true;
@@ -568,6 +584,9 @@ export default {
                     .on('error', (error) => {
                       console.log(error);
                       this.isLoading = false;
+                      this.$toast.error('An error occurred');
+                    }).once('receipt', async () => {
+                      this.placeBuy = true;
                     });
                 } catch (error) {
                   console.log(error);
@@ -586,6 +605,7 @@ export default {
             .on('error', (error) => {
               console.log(error);
               this.isLoading = false;
+              this.$toast.error('An error occurred');
             })
             .once('receipt', async (receipt) => {
               this.isLoading = true;
@@ -601,6 +621,9 @@ export default {
                     .on('error', (error) => {
                       console.log(error);
                       this.isLoading = false;
+                      this.$toast.error('An error occurred');
+                    }).once('receipt', async () => {
+                      this.placeBuy = true;
                     });
                 } catch (error) {
                   console.log(error);
@@ -618,11 +641,10 @@ export default {
         // const { data } = this.$api.CREATENFT(CollectibleNftData);
         // response = data;
         // this.$api.CREATENFT(CollectibleNftData);
-        // this.$router.push({ name: 'Profile' });
+        this.$router.push({ name: 'Profile' });
       } catch (error) {
         // response = error.response.data;
         this.isLoading = false;
-        this.isModalVisible = false;
       }
       this.isLoading = false;
     },

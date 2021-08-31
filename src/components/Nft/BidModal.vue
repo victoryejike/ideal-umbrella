@@ -131,7 +131,7 @@ export default {
         { name: 'USDT', image: 'https://res.cloudinary.com/ddqrqm0ow/image/upload/v1629997919/tether_bnrumz.svg', id: 'USDT' },
         { name: 'NAFF', image: 'https://res.cloudinary.com/ddqrqm0ow/image/upload/v1629997919/naff_mybxeu.svg', id: 'NAFF' },
       ],
-      erc20ContractAddress: '0xdD53639C704d46Fb22f7Add37a7CA590b75c08d5',
+      erc20ContractAddress: '0x1e66b9EA1Fb1551a5CD616A6bCb619d36B8Aa0F1',
       erc721ContractAddress: '0xF3538d2696FF98396Aa0386d91bd7f9C02570511',
       erc1155ContractAddress: '0x24d5CaBE5A68653c1a6d10f65679839a5CD4a42A',
       delegateContractAddress: '0xe6cC989A64dd61f889D350e3eDB4A381Ee86b6e2',
@@ -148,8 +148,17 @@ export default {
       if (this.tokentype === 'single') this.nftTokenAddress = this.erc721ContractAddress;
       else this.nftTokenAddress = this.erc1155ContractAddress;
     },
+    async getBalance() {
+      const web3 = new Web3(window.ethereum);
+      const ercContract = new web3.eth.Contract(require('@/assets/abi/erc20').default, this.erc20ContractAddress);
+      const result = await ercContract.methods.balanceOf(this.Address).call();
+      const naff = web3.utils.fromWei(result);
+      // console.log(naff);
+      return naff;
+    },
     async onSubmit(formData) {
-      if (this.initialBidValue >= this.minimumbid) {
+      const amount = await this.getBalance();
+      if ((this.initialBidValue >= this.minimumbid) && (amount >= this.initialBidValue)) {
         this.getTokenAddress();
         this.isLoading = true;
         const web3 = new Web3(window.ethereum);
@@ -200,7 +209,7 @@ export default {
             // }
           });
       } else {
-        this.$toast.error('You can not bid lower than the mlnimum required bid price');
+        this.$toast.error('Sorry, cannot place bid. Either bid is lower than last bid or not enough Naff token');
       }
     },
   },

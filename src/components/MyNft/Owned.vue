@@ -52,7 +52,6 @@ export default {
 
     const response = await this.$api.GET_OWNED_NFT();
     this.nft = this.$global.translateNFTDetails(response);
-    console.log(this.nft);
   },
 };
 </script>

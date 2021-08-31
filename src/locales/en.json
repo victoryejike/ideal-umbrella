@@ -12,7 +12,9 @@
   "buy_modal": {
     "bid_message": "Confirmation will be sent to you mail once it is created",
     "btn": "Go to Market Place",
+    "resale-btn": "Go to Profile",
     "buy_message": "Confirmation will be sent to you mail once it is created",
+    "resale_message": "Confirmation will be sent to you mail once it is added to marketplace",
     "closeBid_message": "You have Successfully closed bidding for this NFT",
     "success": "Congratulation 😊"
   },
