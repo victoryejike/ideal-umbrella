@@ -132,7 +132,7 @@ export default {
         { name: 'USDT', image: 'https://res.cloudinary.com/ddqrqm0ow/image/upload/v1629997919/tether_bnrumz.svg', id: 'USDT' },
         { name: 'NAFF', image: 'https://res.cloudinary.com/ddqrqm0ow/image/upload/v1629997919/naff_mybxeu.svg', id: 'NAFF' },
       ],
-      erc20ContractAddress: '0x1e66b9EA1Fb1551a5CD616A6bCb619d36B8Aa0F1',
+      erc20ContractAddress: '0x82ccaff54be0d4cf6b10de0a225584adb9adf7d3',
       erc721ContractAddress: '0xF3538d2696FF98396Aa0386d91bd7f9C02570511',
       delegateContractAddress: '0xe6cC989A64dd61f889D350e3eDB4A381Ee86b6e2',
       erc1155ContractAddress: '0x24d5CaBE5A68653c1a6d10f65679839a5CD4a42A',
@@ -158,7 +158,7 @@ export default {
       const ercContract = new web3.eth.Contract(require('@/assets/abi/erc20').default, this.erc20ContractAddress);
       const result = await ercContract.methods.balanceOf(this.Address).call();
       const naff = web3.utils.fromWei(result);
-      // console.log(naff);
+      console.log(naff);
       return naff;
     },
     async onSubmit(formData) {

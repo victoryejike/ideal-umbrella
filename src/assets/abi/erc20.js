@@ -76,24 +76,6 @@ export default [
   {
     inputs: [
       {
-        internalType: 'address payable',
-        name: '_beneficiary',
-        type: 'address',
-      },
-      {
-        internalType: 'uint256',
-        name: '_totalAllocation',
-        type: 'uint256',
-      },
-    ],
-    name: 'addBeneficiary',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
         internalType: 'address',
         name: 'owner',
         type: 'address',
@@ -159,108 +141,6 @@ export default [
     type: 'function',
   },
   {
-    inputs: [
-      {
-        internalType: 'address',
-        name: '',
-        type: 'address',
-      },
-    ],
-    name: 'beneficiaryAccountStatus',
-    outputs: [
-      {
-        internalType: 'enum FunToken.AccountStatus',
-        name: '',
-        type: 'uint8',
-      },
-    ],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'address',
-        name: '',
-        type: 'address',
-      },
-    ],
-    name: 'beneficiaryBalance',
-    outputs: [
-      {
-        internalType: 'uint256',
-        name: '',
-        type: 'uint256',
-      },
-    ],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'address',
-        name: '',
-        type: 'address',
-      },
-    ],
-    name: 'beneficiaryLastClaimTime',
-    outputs: [
-      {
-        internalType: 'uint256',
-        name: '',
-        type: 'uint256',
-      },
-    ],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'address',
-        name: '',
-        type: 'address',
-      },
-    ],
-    name: 'beneficiaryMaxWithdrawPerPeriod',
-    outputs: [
-      {
-        internalType: 'uint256',
-        name: '',
-        type: 'uint256',
-      },
-    ],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'address',
-        name: '',
-        type: 'address',
-      },
-    ],
-    name: 'beneficiaryTotalWithdrawn',
-    outputs: [
-      {
-        internalType: 'uint256',
-        name: '',
-        type: 'uint256',
-      },
-    ],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [],
-    name: 'claimSeedReward',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
     inputs: [],
     name: 'decimals',
     outputs: [
@@ -322,38 +202,6 @@ export default [
     type: 'function',
   },
   {
-    inputs: [
-      {
-        internalType: 'address',
-        name: '',
-        type: 'address',
-      },
-    ],
-    name: 'isBeneficiary',
-    outputs: [
-      {
-        internalType: 'bool',
-        name: '',
-        type: 'bool',
-      },
-    ],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'address payable',
-        name: '_beneficiary',
-        type: 'address',
-      },
-    ],
-    name: 'lockBeneficiaryWithdrawal',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
     inputs: [],
     name: 'name',
     outputs: [
@@ -384,19 +232,6 @@ export default [
     name: 'renounceOwnership',
     outputs: [],
     stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [],
-    name: 'seedAllocated',
-    outputs: [
-      {
-        internalType: 'uint256',
-        name: '',
-        type: 'uint256',
-      },
-    ],
-    stateMutability: 'view',
     type: 'function',
   },
   {
@@ -494,53 +329,19 @@ export default [
   {
     inputs: [
       {
-        internalType: 'address payable',
-        name: '_beneficiary',
+        internalType: 'address',
+        name: '_recipient',
         type: 'address',
       },
+      {
+        internalType: 'uint256',
+        name: '_amount',
+        type: 'uint256',
+      },
     ],
-    name: 'unlockBeneficiaryWithdrawal',
+    name: 'withdraw',
     outputs: [],
     stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'address payable',
-        name: '_beneficiary',
-        type: 'address',
-      },
-    ],
-    name: 'viewBeneficiary',
-    outputs: [
-      {
-        internalType: 'uint256',
-        name: 'totalAmountLeft',
-        type: 'uint256',
-      },
-      {
-        internalType: 'uint256',
-        name: 'totalAmountWithdrawn',
-        type: 'uint256',
-      },
-      {
-        internalType: 'enum FunToken.AccountStatus',
-        name: 'accountStatus',
-        type: 'uint8',
-      },
-      {
-        internalType: 'bool',
-        name: 'isABeneficiary',
-        type: 'bool',
-      },
-      {
-        internalType: 'uint256',
-        name: 'amountWithdrawable',
-        type: 'uint256',
-      },
-    ],
-    stateMutability: 'view',
     type: 'function',
   },
 ];
