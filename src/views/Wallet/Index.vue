@@ -5,6 +5,7 @@
       <BaseRoundButton
         class="btn-outline-primary btn-sm other-wallet"
         text="Create New Wallet"
+        @click="$router.push('/wallet/connect')"
       />
     </div>
     <div>
@@ -22,7 +23,9 @@
         >
           {{ account.replace(account.substring(5,34), "*******") }}
         </span>
-        <span v-else>
+        <span
+          v-else
+        >
           Please Connect Wallet
         </span>
         <b
