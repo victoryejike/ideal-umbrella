@@ -1,6 +1,6 @@
 <template>
   <div class="wallet-table">
-    <h3>Wallet</h3>
+    <!-- <h3>Wallet</h3> -->
     <div class="overflow">
       <table style="width: 100%;">
         <tr>
@@ -48,6 +48,20 @@ export default {
   data() {
     return {
       tableData: [
+        {
+          name: 'Ethereum',
+          shortForm: 'ETH',
+          availabel: 0,
+          frozen: 0,
+          estimatedValue: 0,
+        },
+        {
+          name: 'Ethereum',
+          shortForm: 'ETH',
+          availabel: 0,
+          frozen: 0,
+          estimatedValue: 0,
+        },
         {
           name: 'Ethereum',
           shortForm: 'ETH',

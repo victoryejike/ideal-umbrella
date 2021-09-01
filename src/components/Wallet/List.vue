@@ -1,62 +1,34 @@
 <template>
-  <div class="container">
-    <div>
-      <b>Wallet</b>
+  <div>
+    <div class="mt-2 active-options">
+      <img
+        class="logo"
+        src="@svg/huobi.svg"
+        width="13"
+      >
+      <span
+        id="address"
+      >
+        {{ account.replace(account.substring(5,34), "*******") }}
+      </span>
+      <b
+        v-if="account"
+        class="copy-text"
+        @click="copyAddress"
+      > Copy
+      </b>
       <BaseRoundButton
-        class="btn-outline-primary btn-sm other-wallet"
-        text="Create New Wallet"
+        class="btn-outline-primary btn-sm other-wallet l-2"
+        text="Connect"
       />
     </div>
-    <div>
-      <div
-        class="mt-2 active"
-      >
-        <img
-          class="logo"
-          src="@svg/huobi.svg"
-          width="13"
-        >
-        <span
-          v-if="account !== null"
-          id="address"
-        >
-          {{ account.replace(account.substring(5,34), "*******") }}
-        </span>
-        <span v-else>
-          Please Connect Wallet
-        </span>
-        <b
-          v-if="account"
-          class="copy-text"
-          @click="copyAddress"
-        > Copy
-        </b>
-        <img
-          class="connected"
-          src="@/assets/svg/dropdown.svg"
-          width="20"
-        >
-        <img
-          class="connected"
-          src="@/assets/svg/connected.svg"
-          width="80"
-        >
-      </div>
-      <Table />
-    </div>
-    <List />
-    <List />
-    <List />
-    <List />
   </div>
 </template>
+
 <script>
-import Table from '@/components/Wallet/Table.vue';
-import List from '@/components/Wallet/List.vue';
 
 export default {
-  name: 'WalletIndex',
-  components: { Table, List },
+  name: 'List',
   data() {
     return {
       account: localStorage.getItem('account'),
@@ -71,6 +43,7 @@ export default {
 };
 
 </script>
+
 <style scoped>
 
 .mt-2 {
