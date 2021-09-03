@@ -494,6 +494,8 @@ export default {
             .send({ from: this.value }).on('error', (error) => {
               console.log(error);
               this.isLoading = false;
+            }).once('receipt', (receipt) => {
+              console.log(receipt);
             });
           this.ipfsUrl = cid;
           this.tokenId = result.events.TokenMinted.returnValues.tokenType;
@@ -528,6 +530,8 @@ export default {
             .send({ from: this.value, gas: 2900000, gasPrice: '29000000000' }).on('error', (error) => {
               console.log(error);
               this.isLoading = false;
+            }).once('receipt', (receipt) => {
+              console.log(receipt);
             });
           this.ipfsUrl = cid;
           this.tokenId = result.events.Transfer.returnValues.tokenId;
@@ -600,7 +604,10 @@ export default {
             .send({ from: this.value, gas: 2900000, gasPrice: '29000000000' }).on('error', (error) => {
               console.log(error);
               this.isLoading = false;
+            }).once('receipt', (receipt) => {
+              console.log(receipt);
             });
+          console.log(result);
           this.ipfsUrl = cid;
           this.tokenId = result.events.Transfer.returnValues.tokenId;
           this.blockNumber = result.blockNumber;
@@ -659,6 +666,7 @@ export default {
       try {
         // const { data } = this.$api.CREATENFT(CollectibleNftData);
         // response = data;
+        console.log(CollectibleNftData);
         this.$api.CREATENFT(CollectibleNftData);
         this.$router.push({ name: 'Profile' });
       } catch (error) {

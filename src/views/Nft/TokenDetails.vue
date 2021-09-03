@@ -141,6 +141,7 @@
           />
           <BaseRoundButton
             v-else-if="(nftDetails.owner_address === Address)
+              &&(nftDetails.market_visibility === true)
               && (isTimeAuction) && (bidsList?.length == 0)"
             class="buy-button btn-primary btn-md btn-bold auction_actions"
             :icon="isLoading ? 'loading' : 'arrow-right'"
@@ -372,6 +373,7 @@ export default {
       this.nftAddress = this.erc1155ContractAddress;
       this.token = 2;
     }
+    console.log(this.nftDetails.market_visibility);
   },
   methods: {
     showBidSuccess(s) {
