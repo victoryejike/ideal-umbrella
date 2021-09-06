@@ -604,8 +604,8 @@ export default {
             .send({ from: this.value, gas: 2900000, gasPrice: '29000000000' }).on('error', (error) => {
               console.log(error);
               this.isLoading = false;
-            }).once('receipt', (receipt) => {
-              console.log(receipt);
+            }).once('confirmation', (confirmation, receipt) => {
+              console.log(confirmation, receipt);
             });
           console.log(result);
           this.ipfsUrl = cid;

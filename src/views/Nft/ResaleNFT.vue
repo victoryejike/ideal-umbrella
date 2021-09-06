@@ -441,6 +441,7 @@ export default {
         const price = document.querySelector('.price').value;
         if (this.pricingType === PriceType.FIXED) {
           console.log(this.pricingType);
+          this.tokenId = this.nftDetails.tokenId;
           this.isLoading = true;
           await contract.methods
             .setApprovalForAll(this.delegateContractAddress, true)
@@ -451,6 +452,7 @@ export default {
               this.$toast.error('An error occurred');
             })
             .once('receipt', async (receipt) => {
+              console.log(receipt);
               this.isLoading = true;
               console.log(this.userData.uid);
               if (receipt) {
@@ -478,6 +480,7 @@ export default {
           const startingBid = document.querySelector('.minimum_bid').value;
           const startDate = document.querySelector('.starting_date').value;
           const startTime = this.getTimestamp(startDate);
+          this.tokenId = this.nftDetails.tokenId;
           this.isLoading = true;
           await contract.methods
             .setApprovalForAll(this.delegateContractAddress, true)
@@ -560,6 +563,7 @@ export default {
           const endDate = document.querySelector('.expiration_date').value;
           const startTime = this.getTimestamp(startDate);
           const endTime = this.getTimestamp(endDate);
+          this.tokenId = this.nftDetails.tokenId;
           this.isLoading = true;
           await contract.methods
             .setApprovalForAll(this.delegateContractAddress, true)
@@ -570,8 +574,8 @@ export default {
               this.$toast.error('An error occurred');
             })
             .once('receipt', async (receipt) => {
-              this.isLoading = true;
-              console.log(this.userData.uid);
+              // this.isLoading = true;
+              console.log(this.userData.uid, receipt);
               if (receipt) {
                 this.isLoading = true;
                 try {
@@ -598,6 +602,7 @@ export default {
           const startingBid = document.querySelector('.minimum_bid').value;
           const startDate = document.querySelector('.starting_date').value;
           const startTime = this.getTimestamp(startDate);
+          this.tokenId = this.nftDetails.tokenId;
           this.isLoading = true;
           await contract.methods
             .setApprovalForAll(this.delegateContractAddress, true)
@@ -642,6 +647,7 @@ export default {
         // response = data;
         // this.$api.CREATENFT(CollectibleNftData);
         this.$router.push({ name: 'Profile' });
+        // this.placeBuy = true;
       } catch (error) {
         // response = error.response.data;
         this.isLoading = false;

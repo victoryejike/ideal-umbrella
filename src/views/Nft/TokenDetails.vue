@@ -148,6 +148,15 @@
             :text="$t('nft_details.takeoff')"
             @click="takeOffMarket"
           />
+          <BaseRoundButton
+            v-else-if="(nftDetails.owner_address === Address)
+              &&(nftDetails.market_visibility === false)
+              && (isTimeAuction) && (bidsList?.length == 0)"
+            class="buy-button btn-primary btn-md btn-bold auction_actions"
+            :icon="isLoading ? 'loading' : 'arrow-right'"
+            :text="$t('nft_details.puton')"
+            @click="resale"
+          />
           <div
             v-else-if="(nftDetails.owner_address === Address) && (isUnlimitedAuction)"
             class="actions"
@@ -373,7 +382,7 @@ export default {
       this.nftAddress = this.erc1155ContractAddress;
       this.token = 2;
     }
-    console.log(this.nftDetails.market_visibility);
+    // console.log(this.nftDetails.market_visibility);
   },
   methods: {
     showBidSuccess(s) {
@@ -463,6 +472,9 @@ export default {
           this.placeBuy = true;
           // this.$toast.error('Successfully taken NFT off Marketplace');
         });
+    },
+    resale() {
+      this.$router.push({ name: 'ResaleNFT', params: { id: this.NftId } });
     },
     async isWalletConnected() {
       if (!(await this.$global.isWalletConnected()) || !(await this.$global.isAddressExist())) {
