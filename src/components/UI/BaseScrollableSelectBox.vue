@@ -144,7 +144,7 @@ export default {
   created() {
     if (this.defaultSelected) {
       this.activeIndex = typeof this.value === 'string'
-        ? this.options.findIndex((item) => item.[this.keyName] === this.value)
+        ? this.options.findIndex((item) => item?.[this.keyName] === this.value)
         : this.value || 0;
     }
     this.selectedValue = this.options[this.activeIndex]?.[this.keyName] || this.activeIndex;
