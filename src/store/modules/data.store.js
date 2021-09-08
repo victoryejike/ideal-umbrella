@@ -4,6 +4,7 @@ const initialState = () => ({
   searchValue: null,
   isWrongChain: false,
   isMonitoringChain: false,
+  isWalletConnected: false,
 });
 
 const getters = {
@@ -21,6 +22,9 @@ const getters = {
   },
   isMonitoringChain(state) {
     return state.isMonitoringChain;
+  },
+  isWalletConnected(state) {
+    return state.isWalletConnected;
   },
 };
 
@@ -49,6 +53,9 @@ const mutations = {
   },
   setIsMonitoringChain(state, value) {
     state.isMonitoringChain = value;
+  },
+  isWalletConnected(state, value) {
+    state.isWalletConnected = value;
   },
 };
 

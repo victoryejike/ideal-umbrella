@@ -8,7 +8,7 @@
         width="102"
       >
     </router-link>
-    <template v-if="$store.getters['auth/isLoggedIn']">
+    <template v-if="$store.getters['data/isWalletConnected'] === true">
       <div class="menu">
         <router-link
           v-for="(item, index) in privateLinks"
@@ -69,6 +69,7 @@
 </template>
 
 <script>
+// import store from '@/store';
 import MobileMenuButton from './MobileMenuButton.vue';
 
 export default {
@@ -104,9 +105,10 @@ export default {
   computed: {
     privateLinks() {
       const privateLinks = this.publicLinks.slice(0);
-      privateLinks.pop();
+      // privateLinks.pop();
       return privateLinks;
     },
+    // showWallet() { return this.$store.getters['data/isWalletConnected']; },
     avatar() { return this.$store.getters['auth/avatar']; },
   },
 };

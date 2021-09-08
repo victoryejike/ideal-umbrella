@@ -64,7 +64,10 @@
             <div
               class="parent-menu-btn"
             >
-              <div class="parent-menu-btn-title">
+              <div
+                class="parent-menu-btn-title"
+                @click="$router.push('/wallet/connect')"
+              >
                 Connect Wallet
               </div>
             </div>

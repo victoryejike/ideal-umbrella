@@ -40,6 +40,7 @@ import coinBase from '@svg/coinbase.svg';
 import WalletLink from 'walletlink';
 import ConnectCard from '@/components/Wallet/ConnectCard.vue';
 import BaseFrame from '@/components/Nft/BaseFrame.vue';
+import store from '@/store';
 
 //  const Contract = require('web3-eth-contract')
 const Web3 = require('web3');
@@ -79,6 +80,7 @@ export default {
         const web3 = new Web3(provider);
         const account = await web3.eth.getAccounts();
         this.accountAddress = localStorage.setItem('account', account);
+        store.commit('data/isWalletConnected', true);
         this.$router.back();
       } catch (error) {
         //
@@ -103,6 +105,7 @@ export default {
         const web3 = new Web3(window.ethereum);
         const [accounts] = await web3.eth.getAccounts();
         this.accountAddress = localStorage.setItem('account', accounts);
+        store.commit('data/isWalletConnected', true);
         this.$router.back();
       } catch (error) {
         console.error(error);
@@ -116,6 +119,7 @@ export default {
           const userAddress = accounts[0];
           web3.eth.defaultAccount = userAddress;
           this.accountAddress = localStorage.setItem('account', userAddress);
+          store.commit('data/isWalletConnected', true);
           this.$router.back();
         });
       } catch (error) {
