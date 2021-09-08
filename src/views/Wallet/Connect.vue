@@ -6,19 +6,19 @@
     <div class="flex">
       <ConnectCard
         btn="true"
-        btntext="Recommended"
-        :img="huobi"
-        text="Connect via app on your phone"
-        type="HUOBI WALLET"
-        @click="connectHuobi"
-      />
-      <ConnectCard
-        btn="true"
         btntext="Most popular"
         :img="metaMask"
         text="One of the most secure wallets with great flexibility"
         type="METAMASK"
         @click="connectMetamask"
+      />
+      <ConnectCard
+        btn="true"
+        btntext="Recommended"
+        :img="huobi"
+        text="Connect via app on your phone"
+        type="HUOBI WALLET"
+        @click="connectHuobi"
       />
       <ConnectCard
         btn="true"
