@@ -44,8 +44,8 @@ router.smoothlyScroll = (pos = 0, time = 250) => {
 
 //     if (store.getters['auth/isExpired']) {
 //       store.dispatch('auth/logout');
-//       return router.push({ name: 'Login', params: {
-//  redirectFrom: to.path, errorMsg: $t('router.expired') } });
+//       return router.push({ name: 'Login', params:
+// { redirectFrom: to.path, errorMsg: $t('router.expired') } });
 //     }
 //   }
 //   return next();

@@ -58,6 +58,17 @@
               </div>
             </div>
           </div>
+          <div
+            class="parent-menu-root"
+          >
+            <div
+              class="parent-menu-btn"
+            >
+              <div class="parent-menu-btn-title">
+                Connect Wallet
+              </div>
+            </div>
+          </div>
         </div>
         <SocialAndCopyRightBlock class="menu-footer" />
       </div>
@@ -98,21 +109,22 @@ export default {
   computed: {
     unLoginList() {
       return [...this.baseList,
-        { name: this.$t('menu.login'), action: '/login' },
-        { name: this.$t('menu.register'), action: '/register' },
+        // { name: this.$t('menu.login'), action: '/login' },
+        // { name: this.$t('menu.register'), action: '/register' },
       ];
     },
-    loggedInList() {
-      return [...this.baseList, {
-        name: this.$store.getters['auth/username'],
-        avatar: this.$store.getters['auth/avatar'],
-        child: [
-          { name: this.$t('menu.profile.edit_profile'), action: '/account/profile' },
-          { name: this.$t('menu.profile.setting'), action: '/account/setting' },
-          { name: this.$t('menu.profile.logout'), action: () => { this.$store.dispatch('auth/logout'); } },
-        ],
-      }];
-    },
+    // loggedInList() {
+    //   return [...this.baseList, {
+    //     name: this.$store.getters['auth/username'],
+    //     avatar: this.$store.getters['auth/avatar'],
+    //     child: [
+    //       { name: this.$t('menu.profile.edit_profile'), action: '/account/profile' },
+    //       { name: this.$t('menu.profile.setting'), action: '/account/setting' },
+    //       { name: this.$t('menu.profile.logout'),
+    //  action: () => { this.$store.dispatch('auth/logout'); } },
+    //     ],
+    //   }];
+    // },
     menuItemList() {
       return this.$store.getters['auth/isLoggedIn'] ? this.loggedInList : this.unLoginList;
     },

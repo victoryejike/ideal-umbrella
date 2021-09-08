@@ -57,12 +57,6 @@
         <hr class="vl">
         <BaseRoundButton
           class="btn-secondary btn-lg btn-bold"
-          :text="$t('header.create')"
-          url="/nft"
-        />
-        <hr class="vl">
-        <BaseRoundButton
-          class="btn-secondary btn-lg btn-bold"
           :text="$t('header.connect')"
           url="/wallet/connect"
         />

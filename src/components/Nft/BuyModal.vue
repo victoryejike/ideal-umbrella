@@ -285,7 +285,7 @@ export default {
 .notify {
   display: flex;
   justify-content: space-around;
-  align-items: start;
+  align-items: flex-start;
 }
 
 .notify > p {
