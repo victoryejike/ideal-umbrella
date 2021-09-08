@@ -57,8 +57,14 @@
         <hr class="vl">
         <BaseRoundButton
           class="btn-secondary btn-lg btn-bold"
-          :text="$t('header.register')"
-          url="/register"
+          :text="$t('header.create')"
+          url="/nft"
+        />
+        <hr class="vl">
+        <BaseRoundButton
+          class="btn-secondary btn-lg btn-bold"
+          :text="$t('header.connect')"
+          url="/wallet/connect"
         />
       </div>
     </template>
@@ -89,10 +95,10 @@ export default {
           name: this.$t('header.how_it_works'),
           url: '/FAQ',
         },
-        {
-          name: this.$t('header.login'),
-          url: '/login',
-        },
+        // {
+        //   name: this.$t('header.login'),
+        //   url: '/login',
+        // },
       ],
       menuList: [
         { name: this.$t('header.profile'), action: '/account/profile' },

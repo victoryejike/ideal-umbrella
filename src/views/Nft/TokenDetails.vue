@@ -400,24 +400,25 @@ export default {
       }
     },
     showModal() {
-      if (!this.$store.getters['auth/isLoggedIn']) {
-        return this.$router.push({ name: 'Login', params: { redirectFrom: this.$route.path } });
-      }
+      // if (!this.$store.getters['auth/isLoggedIn']) {
+      //   return this.$router.push({ name: 'Login', params: { redirectFrom: this.$route.path } });
+      // }
 
-      if (this.$store.getters['auth/isExpired']) {
-        this.$store.dispatch('auth/logout');
-        return this.$router.push({
-          name: 'Login',
-          params: {
-            redirectFrom: this.$route.path,
-            errorMsg: this.$t('router.expired'),
-          },
-        });
-      }
+      // if (this.$store.getters['auth/isExpired']) {
+      //   this.$store.dispatch('auth/logout');
+      //   return this.$router.push({
+      //     name: 'Login',
+      //     params: {
+      //       redirectFrom: this.$route.path,
+      //       errorMsg: this.$t('router.expired'),
+      //     },
+      //   });
+      // }
 
-      if (this.username == null) {
-        return this.$router.push({ name: 'EditProfile', params: { errorMsg: this.$t('router.fill_in_username') } });
-      }
+      // if (this.username == null) {
+      //   return this.$router.push({ name: 'EditProfile',
+      // params: { errorMsg: this.$t('router.fill_in_username') } });
+      // }
 
       this.isWalletConnected();
       return true;

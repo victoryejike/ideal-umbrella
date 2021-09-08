@@ -96,6 +96,13 @@
       :text="$t('nft_details.place_bid')"
     />
   </BaseForm>
+  <div class="notify">
+    <img
+      alt="notification"
+      src="@img/notifications_active.png"
+    >
+    <p>{{ $t('buy_modal.notification') }}</p>
+  </div>
 </template>
 <script>
 import { Field } from 'vee-validate';
@@ -281,5 +288,15 @@ export default {
   font-size: 0.9375rem;
   font-weight: bold;
   line-height: 1.75rem;
+}
+
+.notify {
+  display: flex;
+  justify-content: space-around;
+  align-items: start;
+}
+
+.notify > p {
+  margin: -0.2rem 0.5rem;
 }
 </style>

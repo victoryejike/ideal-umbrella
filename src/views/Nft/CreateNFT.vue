@@ -526,7 +526,7 @@ export default {
               this.isLoading = false;
             });
           const result = await contract.methods
-            .mint(`https://${cid}.ipfs.dweb.link`)
+            .mint(qty)
             .send({ from: this.value, gas: 2900000, gasPrice: '29000000000' }).on('error', (error) => {
               console.log(error);
               this.isLoading = false;
@@ -534,7 +534,7 @@ export default {
               console.log(receipt);
             });
           this.ipfsUrl = cid;
-          this.tokenId = result.events.Transfer.returnValues.tokenId;
+          this.tokenId = result.events.TokenMinted.returnValues.tokenType;
           this.blockNumber = result.blockNumber;
           this.transactionHash = result.transactionHash;
           if (this.selectedSwitch) {
