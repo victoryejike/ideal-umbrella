@@ -9,44 +9,45 @@ const publicRoute = [
     name: 'Index',
     component: () => import('@view/Index.vue'),
   },
-  {
-    path: '/login',
-    name: 'Login',
-    component: () => import('@view/Login.vue'),
-    beforeEnter: (to, from, next) => {
-      if (store.getters['auth/isLoggedIn']) {
-        if (!store.getters['auth/isExpired']) {
-          return next({ name: 'Profile' });
-        }
-        store.dispatch('auth/logout');
-        const { params } = to;
-        params.errorMsg = $t('router.expired');
-      }
-      return next();
-    },
-  },
+  // {
+  //   path: '/login',
+  //   name: 'Login',
+  //   component: () => import('@view/Login.vue'),
+  //   beforeEnter: (to, from, next) => {
+  //     if (store.getters['auth/isLoggedIn']) {
+  //       if (!store.getters['auth/isExpired']) {
+  //         return next({ name: 'Profile' });
+  //       }
+  //       store.dispatch('auth/logout');
+  //       const { params } = to;
+  //       params.errorMsg = $t('router.expired');
+  //     }
+  //     return next();
+  //   },
+  // },
   {
     path: '/2fa',
     name: '2FA',
     component: () => import('@view/2FA.vue'),
     beforeEnter: (to, from, next) => (to.params?.formData ? next() : next({ name: 'Login', params: { errorMsg: $t('router.invalid_access') } })),
   },
-  {
-    path: '/register',
-    name: 'Register',
-    component: () => import('@view/Register.vue'),
-  },
-  {
-    path: '/forgot-password',
-    name: 'ForgotPassword',
-    component: () => import('@view/ForgotPassword.vue'),
-  },
-  {
-    path: '/update-password',
-    name: 'UpdatePassword',
-    component: () => import('@view/UpdatePassword.vue'),
-    beforeEnter: (to, from, next) => (to.params?.token ? next() : next({ name: 'ForgotPassword', params: { errorMsg: $t('router.invalid_access') } })),
-  },
+  // {
+  //   path: '/register',
+  //   name: 'Register',
+  //   component: () => import('@view/Register.vue'),
+  // },
+  // {
+  //   path: '/forgot-password',
+  //   name: 'ForgotPassword',
+  //   component: () => import('@view/ForgotPassword.vue'),
+  // },
+  // {
+  //   path: '/update-password',
+  //   name: 'UpdatePassword',
+  //   component: () => import('@view/UpdatePassword.vue'),
+  //   beforeEnter: (to, from, next) => (to.params?.token ? next() : next({
+  // name: 'ForgotPassword', params: { errorMsg: $t('router.invalid_access') } })),
+  // },
   {
     path: '/discover',
     name: 'Discover',

@@ -1,6 +1,6 @@
+import DefaultAvatar from '@img/default-avatar.png';
 import store from '@/store';
 import i18n from '@/utils/i18n';
-import DefaultAvatar from '@img/default-avatar.png';
 
 const $t = i18n.global.t;
 

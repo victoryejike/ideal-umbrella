@@ -268,10 +268,10 @@
 <script>
 
 // import UploadCard from '@/components/Nft/UploadCard.vue';
-import Base from '@/components/Nft/BaseFrame.vue';
 import WalletLink from 'walletlink';
 import WalletConnectProvider from '@walletconnect/web3-provider';
 import { Field } from 'vee-validate';
+import Base from '@/components/Nft/BaseFrame.vue';
 import { PriceType } from '@/utils/enums';
 
 const Web3 = require('web3');

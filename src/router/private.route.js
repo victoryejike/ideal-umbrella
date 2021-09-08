@@ -85,16 +85,16 @@ const privateRoute = [
     name: 'ResetPassword',
     component: () => import('@view/Account/Setting/ResetPassword.vue'),
   },
-  {
-    path: '/account/setting/id-verification',
-    name: 'IdentityVerification',
-    component: () => import('@view/Account/Setting/Kyc.vue'),
-  },
-  {
-    path: '/account/setting/rebind-phone',
-    name: 'RebindPhone',
-    component: () => import('@view/Account/Setting/RebindPhone.vue'),
-  },
+  // {
+  //   path: '/account/setting/id-verification',
+  //   name: 'IdentityVerification',
+  //   component: () => import('@view/Account/Setting/Kyc.vue'),
+  // },
+  // {
+  //   path: '/account/setting/rebind-phone',
+  //   name: 'RebindPhone',
+  //   component: () => import('@view/Account/Setting/RebindPhone.vue'),
+  // },
   {
     path: '/account/setting/rebind-email',
     name: 'RebindEmail',

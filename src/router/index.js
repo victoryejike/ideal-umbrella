@@ -1,10 +1,10 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
-import store from '@/store';
-import i18n from '@/utils/i18n';
+// import store from '@/store';
+// import i18n from '@/utils/i18n';
 import publicRoute from './public.route';
 import privateRoute from './private.route';
 
-const $t = i18n.global.t;
+// const $t = i18n.global.t;
 
 const routes = [
   ...publicRoute,
@@ -35,20 +35,21 @@ router.smoothlyScroll = (pos = 0, time = 250) => {
   });
 };
 
-router.beforeEach(async (to, from, next) => {
-  const requiresAuth = to.matched.some((route) => route.meta.requiresAuth);
-  if (requiresAuth) {
-    if (!store.getters['auth/isLoggedIn']) {
-      return router.push({ name: 'Login', params: { redirectFrom: to.path } });
-    }
+// router.beforeEach(async (to, from, next) => {
+//   const requiresAuth = to.matched.some((route) => route.meta.requiresAuth);
+//   if (requiresAuth) {
+//     if (!store.getters['auth/isLoggedIn']) {
+//       return router.push({ name: 'Login', params: { redirectFrom: to.path } });
+//     }
 
-    if (store.getters['auth/isExpired']) {
-      store.dispatch('auth/logout');
-      return router.push({ name: 'Login', params: { redirectFrom: to.path, errorMsg: $t('router.expired') } });
-    }
-  }
-  return next();
-});
+//     if (store.getters['auth/isExpired']) {
+//       store.dispatch('auth/logout');
+//       return router.push({ name: 'Login', params: {
+//  redirectFrom: to.path, errorMsg: $t('router.expired') } });
+//     }
+//   }
+//   return next();
+// });
 
 router.afterEach((to, from) => {
   /**

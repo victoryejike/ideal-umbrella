@@ -37,8 +37,8 @@ import WalletConnectProvider from '@walletconnect/web3-provider';
 import Huobi from '@svg/huobi.svg';
 import MetaMask from '@img/metamask.png';
 import coinBase from '@svg/coinbase.svg';
-import ConnectCard from '@/components/Wallet/ConnectCard.vue';
 import WalletLink from 'walletlink';
+import ConnectCard from '@/components/Wallet/ConnectCard.vue';
 import BaseFrame from '@/components/Nft/BaseFrame.vue';
 
 //  const Contract = require('web3-eth-contract')

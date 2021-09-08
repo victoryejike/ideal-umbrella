@@ -144,7 +144,7 @@
     "fanschain": "Fanschain",
     "how_it_works": "How it works",
     "login": "Login",
-    "logout": "Logout",
+    "logout": "Disconnect Wallet",
     "my_nft": "My NFT",
     "profile": "Profile",
     "register": "Register",
@@ -216,7 +216,7 @@
     },
     "profile": {
       "edit_profile": "Edit Profile",
-      "logout": "Logout",
+      "logout": "Disconnect Wallet",
       "setting": "Account Setting"
     },
     "register": "Register"

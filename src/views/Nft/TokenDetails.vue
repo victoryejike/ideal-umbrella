@@ -286,11 +286,11 @@
 <script>
 import WalletLink from 'walletlink';
 import WalletConnectProvider from '@walletconnect/web3-provider';
+import Web3 from 'web3';
 import DetailsTab from '@/components/Nft/DetailsTab.vue';
 import HistoryTab from '@/components/Nft/HistoryTab.vue';
 import BidModal from '@/components/Nft/BidModal.vue';
 import BuyModal from '@/components/Nft/BuyModal.vue';
-import Web3 from 'web3';
 import { PriceType } from '@/utils/enums';
 import NoBid from './NoBid.vue';
 
