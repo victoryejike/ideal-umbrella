@@ -286,11 +286,11 @@
 <script>
 import WalletLink from 'walletlink';
 import WalletConnectProvider from '@walletconnect/web3-provider';
+import Web3 from 'web3';
 import DetailsTab from '@/components/Nft/DetailsTab.vue';
 import HistoryTab from '@/components/Nft/HistoryTab.vue';
 import BidModal from '@/components/Nft/BidModal.vue';
 import BuyModal from '@/components/Nft/BuyModal.vue';
-import Web3 from 'web3';
 import { PriceType } from '@/utils/enums';
 import NoBid from './NoBid.vue';
 
@@ -400,24 +400,25 @@ export default {
       }
     },
     showModal() {
-      if (!this.$store.getters['auth/isLoggedIn']) {
-        return this.$router.push({ name: 'Login', params: { redirectFrom: this.$route.path } });
-      }
+      // if (!this.$store.getters['auth/isLoggedIn']) {
+      //   return this.$router.push({ name: 'Login', params: { redirectFrom: this.$route.path } });
+      // }
 
-      if (this.$store.getters['auth/isExpired']) {
-        this.$store.dispatch('auth/logout');
-        return this.$router.push({
-          name: 'Login',
-          params: {
-            redirectFrom: this.$route.path,
-            errorMsg: this.$t('router.expired'),
-          },
-        });
-      }
+      // if (this.$store.getters['auth/isExpired']) {
+      //   this.$store.dispatch('auth/logout');
+      //   return this.$router.push({
+      //     name: 'Login',
+      //     params: {
+      //       redirectFrom: this.$route.path,
+      //       errorMsg: this.$t('router.expired'),
+      //     },
+      //   });
+      // }
 
-      if (this.username == null) {
-        return this.$router.push({ name: 'EditProfile', params: { errorMsg: this.$t('router.fill_in_username') } });
-      }
+      // if (this.username == null) {
+      //   return this.$router.push({ name: 'EditProfile',
+      // params: { errorMsg: this.$t('router.fill_in_username') } });
+      // }
 
       this.isWalletConnected();
       return true;

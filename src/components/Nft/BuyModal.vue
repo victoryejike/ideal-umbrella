@@ -82,6 +82,13 @@
       :submit="true"
       :text="$t('nft_details.buy_now')"
     />
+    <div class="notify">
+      <img
+        alt="notification"
+        src="@img/notifications_active.png"
+      >
+      <p>{{ $t('buy_modal.notification') }}</p>
+    </div>
   </BaseForm>
 </template>
 <script>
@@ -273,5 +280,15 @@ export default {
 
 .coin {
   margin-right: 0.5rem;
+}
+
+.notify {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+}
+
+.notify > p {
+  margin: -0.2rem 0.5rem;
 }
 </style>

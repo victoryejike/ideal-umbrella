@@ -1,9 +1,12 @@
+import router from '@/router';
+
 const initialState = () => ({
   countryList: [],
   filterCategory: [],
   searchValue: null,
   isWrongChain: false,
   isMonitoringChain: false,
+  isWalletConnected: false,
 });
 
 const getters = {
@@ -22,10 +25,17 @@ const getters = {
   isMonitoringChain(state) {
     return state.isMonitoringChain;
   },
+  isWalletConnected(state) {
+    return state.isWalletConnected;
+  },
 };
 
 const actions = {
-
+  disconnect({ commit, state }) {
+    localStorage.removeItem('account');
+    commit('isWalletConnected', false);
+    router.push('/');
+  },
 };
 
 const mutations = {
@@ -49,6 +59,9 @@ const mutations = {
   },
   setIsMonitoringChain(state, value) {
     state.isMonitoringChain = value;
+  },
+  isWalletConnected(state, value) {
+    state.isWalletConnected = value;
   },
 };
 

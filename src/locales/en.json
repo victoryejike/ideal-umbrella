@@ -16,7 +16,8 @@
     "buy_message": "Confirmation will be sent to you mail once it is created",
     "resale_message": "Confirmation will be sent to you mail once it is added to marketplace",
     "closeBid_message": "You have Successfully closed bidding for this NFT",
-    "success": "Congratulation 😊"
+    "success": "Congratulation 😊",
+    "notification": "Please be advised that you will have to accept two transactions requests on your wallet for the transaction and gas fees to complete your NFT purchase."
   },
   "share": {
     "share_title": "Choose Platform to share your Naffit NFT"
@@ -140,11 +141,12 @@
   },
   "header": {
     "create": "Create",
+    "connect": "Connect Wallet",
     "discover": "Discover",
     "fanschain": "Fanschain",
     "how_it_works": "How it works",
     "login": "Login",
-    "logout": "Logout",
+    "logout": "Disconnect Wallet",
     "my_nft": "My NFT",
     "profile": "Profile",
     "register": "Register",
@@ -216,7 +218,7 @@
     },
     "profile": {
       "edit_profile": "Edit Profile",
-      "logout": "Logout",
+      "logout": "Disconnect Wallet",
       "setting": "Account Setting"
     },
     "register": "Register"

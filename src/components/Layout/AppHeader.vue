@@ -8,7 +8,7 @@
         width="102"
       >
     </router-link>
-    <template v-if="$store.getters['auth/isLoggedIn']">
+    <template v-if="showWallet === true">
       <div class="menu">
         <router-link
           v-for="(item, index) in privateLinks"
@@ -57,8 +57,8 @@
         <hr class="vl">
         <BaseRoundButton
           class="btn-secondary btn-lg btn-bold"
-          :text="$t('header.register')"
-          url="/register"
+          :text="$t('header.connect')"
+          url="/wallet/connect"
         />
       </div>
     </template>
@@ -69,6 +69,8 @@
 </template>
 
 <script>
+// import store from '@/store';
+import Web3 from 'web3';
 import MobileMenuButton from './MobileMenuButton.vue';
 
 export default {
@@ -89,23 +91,31 @@ export default {
           name: this.$t('header.how_it_works'),
           url: '/FAQ',
         },
-        {
-          name: this.$t('header.login'),
-          url: '/login',
-        },
+        // {
+        //   name: this.$t('header.login'),
+        //   url: '/login',
+        // },
       ],
       menuList: [
         { name: this.$t('header.profile'), action: '/account/profile' },
         { name: this.$t('header.setting'), action: '/account/setting' },
-        { name: this.$t('header.logout'), action: () => { this.$store.dispatch('auth/logout'); } },
+        { name: this.$t('header.logout'), action: () => { this.$store.dispatch('data/disconnect'); } },
       ],
     };
   },
   computed: {
     privateLinks() {
       const privateLinks = this.publicLinks.slice(0);
-      privateLinks.pop();
+      // privateLinks.pop();
       return privateLinks;
+    },
+    showWallet() {
+      const Address = localStorage.getItem('account');
+      const web3 = new Web3(window.ethereum);
+      web3.eth.getAccounts((err, accounts) => {
+        if ((accounts.length !== 0) && (Address !== null)) this.$store.commit('data/isWalletConnected', true);
+      });
+      return this.$store.getters['data/isWalletConnected'];
     },
     avatar() { return this.$store.getters['auth/avatar']; },
   },
