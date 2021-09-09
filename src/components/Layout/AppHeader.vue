@@ -70,6 +70,7 @@
 
 <script>
 // import store from '@/store';
+import Web3 from 'web3';
 import MobileMenuButton from './MobileMenuButton.vue';
 
 export default {
@@ -110,10 +111,10 @@ export default {
     },
     showWallet() {
       const Address = localStorage.getItem('account');
-      console.log(Address);
-      if (Address !== null) {
-        this.$store.commit('data/isWalletConnected', true);
-      }
+      const web3 = new Web3(window.ethereum);
+      web3.eth.getAccounts((err, accounts) => {
+        if ((accounts.length !== 0) && (Address !== null)) this.$store.commit('data/isWalletConnected', true);
+      });
       return this.$store.getters['data/isWalletConnected'];
     },
     avatar() { return this.$store.getters['auth/avatar']; },

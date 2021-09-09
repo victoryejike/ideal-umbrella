@@ -110,10 +110,6 @@ const GLOBAL_FUNCTION = {
     });
   },
 
-  // const addressStorage = () => {
-
-  // }
-
   /**
    * Check whether the wallet has address or not, you should check isWalletConnected()
    * first before checking isAddressExist()
