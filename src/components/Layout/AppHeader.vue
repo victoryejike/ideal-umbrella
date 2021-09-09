@@ -8,7 +8,7 @@
         width="102"
       >
     </router-link>
-    <template v-if="$store.getters['data/isWalletConnected'] === true">
+    <template v-if="showWallet === true">
       <div class="menu">
         <router-link
           v-for="(item, index) in privateLinks"
@@ -98,7 +98,7 @@ export default {
       menuList: [
         { name: this.$t('header.profile'), action: '/account/profile' },
         { name: this.$t('header.setting'), action: '/account/setting' },
-        { name: this.$t('header.logout'), action: () => { this.$store.dispatch('auth/logout'); } },
+        { name: this.$t('header.logout'), action: () => { this.$store.dispatch('data/disconnect'); } },
       ],
     };
   },
@@ -108,7 +108,14 @@ export default {
       // privateLinks.pop();
       return privateLinks;
     },
-    // showWallet() { return this.$store.getters['data/isWalletConnected']; },
+    showWallet() {
+      const Address = localStorage.getItem('account');
+      console.log(Address);
+      if (Address !== null) {
+        this.$store.commit('data/isWalletConnected', true);
+      }
+      return this.$store.getters['data/isWalletConnected'];
+    },
     avatar() { return this.$store.getters['auth/avatar']; },
   },
 };

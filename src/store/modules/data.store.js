@@ -1,3 +1,5 @@
+import router from '@/router';
+
 const initialState = () => ({
   countryList: [],
   filterCategory: [],
@@ -29,7 +31,11 @@ const getters = {
 };
 
 const actions = {
-
+  disconnect({ commit, state }) {
+    localStorage.removeItem('account');
+    commit('isWalletConnected', false);
+    router.push('/');
+  },
 };
 
 const mutations = {
