@@ -73,9 +73,9 @@ const GLOBAL_FUNCTION = {
           price: nft.price || nft.bid?.highest_bid || nft.minimum_bid,
           image: `https://ipfs.io/ipfs/${nft.uri}`,
           market_visibility: nft.market_visibility,
-          author: nft.creator?.display_name || ((nft.owner?.address).replace((nft.owner?.address).substring(5, 36), '*******')),
-          avatar: nft.creator?.image,
-          verified: nft.creator?.is_kyc_verified || false,
+          author: nft.owner?.display_name || ((nft.owner?.address).replace((nft.owner?.address).substring(5, 36), '*******')),
+          avatar: nft.owner?.image,
+          verified: nft.owner?.is_kyc_verified || false,
           period: null,
         };
 

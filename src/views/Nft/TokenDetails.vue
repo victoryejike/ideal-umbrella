@@ -30,14 +30,24 @@
                 class="creater-image"
                 height="40"
                 :onerror="$global.handleAvatarError"
-                :src="$global.handleAvatarURL(nftDetails.creator?.image)"
+                :src="$global.handleAvatarURL(nftDetails.owner?.image)"
                 width="40"
               >
-              <span class="creater-name">{{ nftDetails.owner?.display_name
-                || ((nftDetails.owner?.address)
-                  .replace((nftDetails.owner?.address).substring(5, 36), '*******')) }}</span>
+              <span
+                v-if="nftDetails.owner?.display_name"
+                class="creater-name"
+              >
+                {{ nftDetails.owner?.display_name }}
+              </span>
+              <span
+                v-else
+                class="creater-name"
+              >{{
+                ((nftDetails.owner?.address).
+                  replace((nftDetails.owner?.address).substring(5, 36), '*******'))
+              }}</span>
               <img
-                v-if="nftDetails.creator?.is_kyc_verified"
+                v-if="nftDetails.owner?.is_kyc_verified"
                 class="tick-icon"
                 height="16"
                 src="@svg/tick.svg"

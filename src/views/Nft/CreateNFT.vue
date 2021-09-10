@@ -241,13 +241,13 @@
           :placeholder="$t('collectible.discription_placeholder')"
           :text="$t('collectible.discription_label')"
         />
-        <BaseUnderlinedInput
+        <!-- <BaseUnderlinedInput
           v-model="value"
           class="input-field unshow"
           name="owner_address"
           :placeholder="$t('collectible.discription_placeholder')"
           :text="$t('collectible.discription_label')"
-        />
+        /> -->
         <BaseModal
           v-show="isModalVisible"
           @close="closeModal"

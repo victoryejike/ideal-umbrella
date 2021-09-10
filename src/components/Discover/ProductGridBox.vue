@@ -26,7 +26,6 @@
         :period="item.period"
         :price="item.price"
         :verified="item.verified"
-        :walletAddress="item.verified"
       />
     </div>
     <div
