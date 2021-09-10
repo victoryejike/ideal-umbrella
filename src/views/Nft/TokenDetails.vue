@@ -33,9 +33,9 @@
                 :src="$global.handleAvatarURL(nftDetails.creator?.image)"
                 width="40"
               >
-              <span class="creater-name">{{ nftDetails.creator?.display_name
-                || ((nft.creator?.address)
-                  .replace((nft.creator?.address).substring(5, 36), '*******')) }}</span>
+              <span class="creater-name">{{ nftDetails.owner?.display_name
+                || ((nftDetails.owner?.address)
+                  .replace((nftDetails.owner?.address).substring(5, 36), '*******')) }}</span>
               <img
                 v-if="nftDetails.creator?.is_kyc_verified"
                 class="tick-icon"
