@@ -32,7 +32,7 @@ const getters = {
 
 const actions = {
   disconnect({ commit, state }) {
-    localStorage.removeItem('account');
+    localStorage.clear();
     commit('isWalletConnected', false);
     router.push('/');
   },
