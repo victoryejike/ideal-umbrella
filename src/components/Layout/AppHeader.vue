@@ -55,10 +55,22 @@
           {{ item.name }}
         </router-link>
         <hr class="vl">
-        <BaseRoundButton
+        <!-- <BaseRoundButton
           class="btn-secondary btn-lg btn-bold"
           :text="$t('header.connect')"
           url="/wallet/connect"
+        /> -->
+        <img
+          class="avatar"
+          height="40"
+          :onerror="$global.handleAvatarError"
+          :src="$global.handleAvatarURL(avatar)"
+          width="40"
+          @click="$refs.avatarMenu.toogle"
+        >
+        <BaseMenu
+          ref="avatarMenu"
+          :list="publicMenuList"
         />
       </div>
     </template>
@@ -91,10 +103,10 @@ export default {
           name: this.$t('header.how_it_works'),
           url: '/FAQ',
         },
-        // {
-        //   name: this.$t('header.login'),
-        //   url: '/login',
-        // },
+      ],
+      publicMenuList: [
+        { name: this.$t('header.profile'), action: '/account/profile' },
+        { name: this.$t('header.setting'), action: '/account/setting' },
       ],
       menuList: [
         { name: this.$t('header.profile'), action: '/account/profile' },

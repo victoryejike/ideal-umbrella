@@ -26,6 +26,7 @@
         :period="item.period"
         :price="item.price"
         :verified="item.verified"
+        :walletAddress="item.verified"
       />
     </div>
     <div
@@ -104,6 +105,7 @@ export default {
     this.$store.commit('data/setSearchValue', null);
   },
   mounted() {
+    console.log(this.activeList);
     this.$global.handleResponsive(62.5,
       () => { this.cardCSS.size = 190; },
       () => { this.cardCSS.size = 140; });

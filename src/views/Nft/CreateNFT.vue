@@ -272,11 +272,11 @@
 </template>
 <script>
 
+import UploadCard from '@/components/Nft/UploadCard.vue';
+import Base from '@/components/Nft/BaseFrame.vue';
 import WalletLink from 'walletlink';
 import WalletConnectProvider from '@walletconnect/web3-provider';
 import { Field } from 'vee-validate';
-import Base from '@/components/Nft/BaseFrame.vue';
-import UploadCard from '@/components/Nft/UploadCard.vue';
 import { PriceType } from '@/utils/enums';
 
 const Web3 = require('web3');
@@ -526,15 +526,19 @@ export default {
               this.isLoading = false;
             });
           const result = await contract.methods
-            .mint(qty)
+            .mint(`https://${cid}.ipfs.dweb.link`)
             .send({ from: this.value, gas: 2900000, gasPrice: '29000000000' }).on('error', (error) => {
               console.log(error);
               this.isLoading = false;
             }).once('receipt', (receipt) => {
-              console.log(receipt);
+              // console.log(receipt);
             });
+            // .once('confirmation', (confirmationNumber, receipt) => {
+            //   console.log(receipt);
+            //   console.log(confirmationNumber);
+            // });
           this.ipfsUrl = cid;
-          this.tokenId = result.events.TokenMinted.returnValues.tokenType;
+          this.tokenId = result.events.Transfer.returnValues.tokenId;
           this.blockNumber = result.blockNumber;
           this.transactionHash = result.transactionHash;
           if (this.selectedSwitch) {
@@ -604,8 +608,8 @@ export default {
             .send({ from: this.value, gas: 2900000, gasPrice: '29000000000' }).on('error', (error) => {
               console.log(error);
               this.isLoading = false;
-            }).once('confirmation', (confirmation, receipt) => {
-              console.log(confirmation, receipt);
+            }).once('receipt', (receipt) => {
+              console.log(receipt);
             });
           console.log(result);
           this.ipfsUrl = cid;

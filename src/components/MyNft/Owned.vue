@@ -22,6 +22,7 @@
       />
     </div>
     <BaseRoundButton
+      v-if="nft?.length != 0"
       class="load-more-btn btn-outline-primary btn-xl"
       :text="$t('index_screen.more')"
     />

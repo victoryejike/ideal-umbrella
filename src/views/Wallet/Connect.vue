@@ -69,6 +69,28 @@ export default {
     };
   },
   methods: {
+    async Register() {
+      const params = {
+        address: localStorage.getItem('account'),
+      };
+      let response = null;
+      try {
+        const { data } = await this.$api.REGISTER(params);
+        response = data;
+      } catch (error) {
+        response = error?.response?.data;
+      }
+
+      if (response?.success) {
+        console.log(response);
+        this.$store.dispatch('auth/login', response?.data);
+        localStorage.setItem('userUID', response?.data.uid);
+        this.$router.push('/account/profile');
+        this.$toast.success(response?.message);
+      } else {
+        this.$toast.error(response?.error);
+      }
+    },
     async connectHuobi() {
       try {
         const provider = new WalletConnectProvider({
@@ -81,7 +103,8 @@ export default {
         const account = await web3.eth.getAccounts();
         this.accountAddress = localStorage.setItem('account', account);
         store.commit('data/isWalletConnected', true);
-        this.$router.back();
+        this.Register();
+        // this.$router.back();
       } catch (error) {
         //
       }
@@ -106,7 +129,8 @@ export default {
         const [accounts] = await web3.eth.getAccounts();
         this.accountAddress = localStorage.setItem('account', accounts);
         store.commit('data/isWalletConnected', true);
-        this.$router.back();
+        this.Register();
+        // this.$router.back();
       } catch (error) {
         console.error(error);
       }
@@ -120,7 +144,8 @@ export default {
           web3.eth.defaultAccount = userAddress;
           this.accountAddress = localStorage.setItem('account', userAddress);
           store.commit('data/isWalletConnected', true);
-          this.$router.back();
+          // this.$router.back();
+          this.Register();
         });
       } catch (error) {
         //

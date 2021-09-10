@@ -75,11 +75,23 @@ const privateRoute = [
         },
       },
     ],
+    beforeEnter: (to, from, next) => {
+      if (localStorage.getItem('account') === undefined || localStorage.getItem('account') === null) {
+        return next({ name: 'ConnectWallet' });
+      }
+      return next();
+    },
   },
   {
     path: '/account/profile',
     name: 'Profile',
     component: () => import('@view/Account/Profile.vue'),
+    beforeEnter: (to, from, next) => {
+      if (localStorage.getItem('account') === undefined || localStorage.getItem('account') === null) {
+        return next({ name: 'ConnectWallet' });
+      }
+      return next();
+    },
   },
   {
     path: '/account/setting/reset-password',
