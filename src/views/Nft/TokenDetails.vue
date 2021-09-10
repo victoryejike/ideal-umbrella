@@ -33,7 +33,9 @@
                 :src="$global.handleAvatarURL(nftDetails.creator?.image)"
                 width="40"
               >
-              <span class="creater-name">{{ nftDetails.creator?.display_name }}</span>
+              <span class="creater-name">{{ nftDetails.creator?.display_name
+                || ((nft.creator?.address)
+                  .replace((nft.creator?.address).substring(5, 36), '*******')) }}</span>
               <img
                 v-if="nftDetails.creator?.is_kyc_verified"
                 class="tick-icon"
@@ -133,14 +135,14 @@
           class="actions"
         >
           <BaseRoundButton
-            v-if="(nftDetails.owner_address !== Address)"
+            v-if="(nftDetails.owner._id !== Address)"
             class="buy-button btn-primary btn-md btn-bold"
             icon="arrow-right"
             :text="isAuction ? $t('nft_details.place_bid') : $t('nft_details.buy_now')"
             @click="showModal"
           />
           <BaseRoundButton
-            v-else-if="(nftDetails.owner_address === Address)
+            v-else-if="(nftDetails.owner._id === Address)
               &&(nftDetails.market_visibility === true)
               && (isTimeAuction) && (bidsList?.length == 0)"
             class="buy-button btn-primary btn-md btn-bold auction_actions"
@@ -149,7 +151,7 @@
             @click="takeOffMarket"
           />
           <BaseRoundButton
-            v-else-if="(nftDetails.owner_address === Address)
+            v-else-if="(nftDetails.owner._id === Address)
               &&(nftDetails.market_visibility === false)
               && (isTimeAuction) && (bidsList?.length == 0)"
             class="buy-button btn-primary btn-md btn-bold auction_actions"
@@ -158,7 +160,7 @@
             @click="resale"
           />
           <div
-            v-else-if="(nftDetails.owner_address === Address) && (isUnlimitedAuction)"
+            v-else-if="(nftDetails.owner._id === Address) && (isUnlimitedAuction)"
             class="actions"
           >
             <BaseRoundButton
