@@ -145,14 +145,14 @@
           class="actions"
         >
           <BaseRoundButton
-            v-if="(nftDetails.owner._id !== Address)"
+            v-if="(nftDetails.owner._id !== userData.uid)"
             class="buy-button btn-primary btn-md btn-bold"
             icon="arrow-right"
             :text="isAuction ? $t('nft_details.place_bid') : $t('nft_details.buy_now')"
             @click="showModal"
           />
           <BaseRoundButton
-            v-else-if="(nftDetails.owner._id === Address)
+            v-else-if="(nftDetails.owner._id === userData.uid)
               &&(nftDetails.market_visibility === true)
               && (isTimeAuction) && (bidsList?.length == 0)"
             class="buy-button btn-primary btn-md btn-bold auction_actions"
@@ -161,7 +161,7 @@
             @click="takeOffMarket"
           />
           <BaseRoundButton
-            v-else-if="(nftDetails.owner._id === Address)
+            v-else-if="(nftDetails.owner._id === userData.uid)
               &&(nftDetails.market_visibility === false)
               && (isTimeAuction) && (bidsList?.length == 0)"
             class="buy-button btn-primary btn-md btn-bold auction_actions"
@@ -170,7 +170,7 @@
             @click="resale"
           />
           <div
-            v-else-if="(nftDetails.owner._id === Address) && (isUnlimitedAuction)"
+            v-else-if="(nftDetails.owner._id === userData.uid) && (isUnlimitedAuction)"
             class="actions"
           >
             <BaseRoundButton
