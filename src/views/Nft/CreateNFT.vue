@@ -489,18 +489,18 @@ export default {
               console.log(error);
               this.isLoading = false;
             });
-          const result = await contract.methods
+          await contract.methods
             .mint(qty)
             .send({ from: this.value }).on('error', (error) => {
               console.log(error);
               this.isLoading = false;
-            }).once('receipt', (receipt) => {
-              console.log(receipt);
+            }).on('confirmation', async (confirmation, receipt) => {
+              // console.log(receipt);
+              this.ipfsUrl = cid;
+              this.tokenId = receipt.events.TokenMinted.returnValues.tokenType;
+              this.blockNumber = receipt.blockNumber;
+              this.transactionHash = receipt.transactionHash;
             });
-          this.ipfsUrl = cid;
-          this.tokenId = result.events.TokenMinted.returnValues.tokenType;
-          this.blockNumber = result.blockNumber;
-          this.transactionHash = result.transactionHash;
           const price = document.querySelector('.price').value;
           if (this.selectedSwitch) {
             delegateContract.methods
@@ -525,22 +525,18 @@ export default {
               console.log(error);
               this.isLoading = false;
             });
-          const result = await contract.methods
-            .mint(`https://${cid}.ipfs.dweb.link`)
+          await contract.methods
+            .mint(qty)
             .send({ from: this.value, gas: 2900000, gasPrice: '29000000000' }).on('error', (error) => {
               console.log(error);
               this.isLoading = false;
-            }).once('receipt', (receipt) => {
-              // console.log(receipt);
+            }).on('confirmation', async (confirmation, receipt) => {
+              console.log(receipt);
+              this.ipfsUrl = cid;
+              this.tokenId = receipt.events.TokenMinted.returnValues.tokenType;
+              this.blockNumber = receipt.blockNumber;
+              this.transactionHash = receipt.transactionHash;
             });
-            // .once('confirmation', (confirmationNumber, receipt) => {
-            //   console.log(receipt);
-            //   console.log(confirmationNumber);
-            // });
-          this.ipfsUrl = cid;
-          this.tokenId = result.events.Transfer.returnValues.tokenId;
-          this.blockNumber = result.blockNumber;
-          this.transactionHash = result.transactionHash;
           if (this.selectedSwitch) {
             delegateContract.methods
               .OfferForSale(this.erc20ContractAddress, this.erc1155ContractAddress,
@@ -566,16 +562,18 @@ export default {
               console.log(error);
               this.isLoading = false;
             });
-          const result = await contract.methods
+          await contract.methods
             .mint(`https://${cid}.ipfs.dweb.link`)
             .send({ from: this.value }).on('error', (error) => {
               console.log(error);
               this.isLoading = false;
+            }).on('confirmation', async (confirmation, receipt) => {
+              // console.log(receipt);
+              this.ipfsUrl = cid;
+              this.tokenId = receipt.events.Transfer.returnValues.tokenId;
+              this.blockNumber = receipt.blockNumber;
+              this.transactionHash = receipt.transactionHash;
             });
-          this.ipfsUrl = cid;
-          this.tokenId = result.events.Transfer.returnValues.tokenId;
-          this.blockNumber = result.blockNumber;
-          this.transactionHash = result.transactionHash;
           const price = document.querySelector('.price').value;
           if (this.selectedSwitch) {
             delegateContract.methods
@@ -603,19 +601,18 @@ export default {
               console.log(error);
               this.isLoading = false;
             });
-          const result = await contract.methods
+          await contract.methods
             .mint(`https://${cid}.ipfs.dweb.link`)
             .send({ from: this.value, gas: 2900000, gasPrice: '29000000000' }).on('error', (error) => {
               console.log(error);
               this.isLoading = false;
-            }).once('receipt', (receipt) => {
-              console.log(receipt);
+            }).on('confirmation', async (confirmation, receipt) => {
+              // console.log(receipt);
+              this.ipfsUrl = cid;
+              this.tokenId = receipt.events.Transfer.returnValues.tokenId;
+              this.blockNumber = receipt.blockNumber;
+              this.transactionHash = receipt.transactionHash;
             });
-          console.log(result);
-          this.ipfsUrl = cid;
-          this.tokenId = result.events.Transfer.returnValues.tokenId;
-          this.blockNumber = result.blockNumber;
-          this.transactionHash = result.transactionHash;
           if (this.selectedSwitch) {
             delegateContract.methods
               .OfferForSale(this.erc20ContractAddress, this.erc721ContractAddress,
@@ -640,16 +637,22 @@ export default {
               console.log(error);
               this.isLoading = false;
             });
-          const result = await contract.methods
+          await contract.methods
             .mint(`https://${cid}.ipfs.dweb.link`)
             .send({ from: this.value, gas: 2900000, gasPrice: '29000000000' }).on('error', (error) => {
               console.log(error);
               this.isLoading = false;
+            }).on('confirmation', async (confirmation, receipt) => {
+              // console.log(receipt);
+              this.ipfsUrl = cid;
+              this.tokenId = receipt.events.Transfer.returnValues.tokenId;
+              this.blockNumber = receipt.blockNumber;
+              this.transactionHash = receipt.transactionHash;
             });
-          this.ipfsUrl = cid;
-          this.tokenId = result.events.Transfer.returnValues.tokenId;
-          this.blockNumber = result.blockNumber;
-          this.transactionHash = result.transactionHash;
+          // this.ipfsUrl = cid;
+          // this.tokenId = result.events.Transfer.returnValues.tokenId;
+          // this.blockNumber = result.blockNumber;
+          // this.transactionHash = result.transactionHash;
           if (this.selectedSwitch) {
             delegateContract.methods
               .OfferForSale(this.erc20ContractAddress, this.erc721ContractAddress,
