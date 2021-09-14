@@ -1,7 +1,7 @@
 import store from '@/store';
-// import i18n from '@/utils/i18n';
+import i18n from '@/utils/i18n';
 
-// const $t = i18n.global.t;
+const $t = i18n.global.t;
 
 const privateRoute = [
   {
@@ -17,10 +17,9 @@ const privateRoute = [
       if (!['erc721', 'erc1155'].includes(to.params.standard)) {
         return next({ name: 'NFT' });
       }
-      // if (!store.getters['auth/username']) {
-      //   return next({ name: 'EditProfile',
-      // params: { errorMsg: $t('router.fill_in_username') } });
-      // }
+      if (store.getters['auth/isExpired'] === true) {
+        return next({ name: 'ConnectWallet', params: { errorMsg: $t('router.fill_in_username') } });
+      }
       return next();
     },
   },

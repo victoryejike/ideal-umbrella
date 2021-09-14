@@ -502,18 +502,16 @@ export default {
               this.transactionHash = receipt.transactionHash;
             });
           const price = document.querySelector('.price').value;
-          if (this.selectedSwitch) {
-            delegateContract.methods
-              .OfferForSale(this.erc20ContractAddress, this.erc1155ContractAddress,
-                this.tokenId, qty,
-                this.tokentype, web3.utils.toWei(price, 'ether'), this.userData.uid, (1),
-                (0), (0))
-              .send({ from: this.value })
-              .on('error', (error) => {
-                console.log(error);
-                this.isLoading = false;
-              });
-          }
+          await delegateContract.methods
+            .OfferForSale(this.erc20ContractAddress, this.erc1155ContractAddress,
+              this.tokenId, qty,
+              this.tokentype, web3.utils.toWei(price, 'ether'), this.userData.uid, (1),
+              (0), (0))
+            .send({ from: this.value })
+            .on('error', (error) => {
+              console.log(error);
+              this.isLoading = false;
+            });
         } if (this.pricingType === PriceType.UNLIMITED_AUCTION) {
           const startingBid = document.querySelector('.minimum_bid').value;
           const startDate = document.querySelector('.starting_date').value;
@@ -548,12 +546,53 @@ export default {
                 this.isLoading = false;
               });
           }
+        } if (this.selectedSwitch === false) {
+          contract.methods
+            .setApprovalForAll(this.delegateContractAddress, true)
+            .send({ from: this.value })
+            .on('error', (error) => {
+              console.log(error);
+              this.isLoading = false;
+            });
+          await contract.methods
+            .mint(qty)
+            .send({ from: this.value, gas: 2900000, gasPrice: '29000000000' }).on('error', (error) => {
+              console.log(error);
+              this.isLoading = false;
+            }).on('confirmation', async (confirmation, receipt) => {
+              console.log(receipt);
+              this.ipfsUrl = cid;
+              this.tokenId = receipt.events.TokenMinted.returnValues.tokenType;
+              this.blockNumber = receipt.blockNumber;
+              this.transactionHash = receipt.transactionHash;
+            });
         }
         this.$refs['collectible-nft'].submit();
       } else {
         const contract = new web3.eth.Contract(require('@/assets/abi/erc721').default, this.erc721ContractAddress);
         this.tokentype = 1;
-        if (this.pricingType === PriceType.FIXED) {
+        if (this.selectedSwitch === false) {
+          console.log('works');
+          contract.methods
+            .setApprovalForAll(this.delegateContractAddress, true)
+            .send({ from: this.value })
+            .on('error', (error) => {
+              console.log(error);
+              this.isLoading = false;
+            });
+          await contract.methods
+            .mint(`https://${cid}.ipfs.dweb.link`)
+            .send({ from: this.value, gas: 2900000, gasPrice: '29000000000' }).on('error', (error) => {
+              console.log(error);
+              this.isLoading = false;
+            }).on('confirmation', async (confirmation, receipt) => {
+              // console.log(receipt);
+              this.ipfsUrl = cid;
+              this.tokenId = receipt.events.Transfer.returnValues.tokenId;
+              this.blockNumber = receipt.blockNumber;
+              this.transactionHash = receipt.transactionHash;
+            });
+        } else if (this.pricingType === PriceType.FIXED) {
           console.log('yes');
           contract.methods
             .setApprovalForAll(this.delegateContractAddress, true)
@@ -575,20 +614,17 @@ export default {
               this.transactionHash = receipt.transactionHash;
             });
           const price = document.querySelector('.price').value;
-          if (this.selectedSwitch) {
-            delegateContract.methods
-              .OfferForSale(this.erc20ContractAddress, this.erc721ContractAddress,
-                this.tokenId, (1),
-                (1), web3.utils.toWei(price, 'ether'), this.userData.uid, (1),
-                (0), (0))
-              .send({ from: this.value })
-              .on('error', (error) => {
-                console.log(error);
-                this.isLoading = false;
-              });
-          }
-        }
-        if (this.pricingType === PriceType.TIMED_AUCTION) {
+          await delegateContract.methods
+            .OfferForSale(this.erc20ContractAddress, this.erc721ContractAddress,
+              this.tokenId, (1),
+              (1), web3.utils.toWei(price, 'ether'), this.userData.uid, (1),
+              (0), (0))
+            .send({ from: this.value })
+            .on('error', (error) => {
+              console.log(error);
+              this.isLoading = false;
+            });
+        } else if (this.pricingType === PriceType.TIMED_AUCTION) {
           const startingBid = document.querySelector('.minimum_bid').value;
           const startDate = document.querySelector('.starting_date').value;
           const endDate = document.querySelector('.expiration_date').value;
@@ -613,20 +649,17 @@ export default {
               this.blockNumber = receipt.blockNumber;
               this.transactionHash = receipt.transactionHash;
             });
-          if (this.selectedSwitch) {
-            delegateContract.methods
-              .OfferForSale(this.erc20ContractAddress, this.erc721ContractAddress,
-                this.tokenId, (1),
-                (1), web3.utils.toWei(startingBid, 'ether'), this.userData.uid, (2),
-                (startTime), (endTime))
-              .send({ from: this.value })
-              .on('error', (error) => {
-                console.log(error);
-                this.isLoading = false;
-              });
-          }
-        }
-        if (this.pricingType === PriceType.UNLIMITED_AUCTION) {
+          await delegateContract.methods
+            .OfferForSale(this.erc20ContractAddress, this.erc721ContractAddress,
+              this.tokenId, (1),
+              (1), web3.utils.toWei(startingBid, 'ether'), this.userData.uid, (2),
+              (startTime), (endTime))
+            .send({ from: this.value })
+            .on('error', (error) => {
+              console.log(error);
+              this.isLoading = false;
+            });
+        } else if (this.pricingType === PriceType.UNLIMITED_AUCTION) {
           const startingBid = document.querySelector('.minimum_bid').value;
           const startDate = document.querySelector('.starting_date').value;
           const startTime = this.getTimestamp(startDate);
@@ -649,21 +682,15 @@ export default {
               this.blockNumber = receipt.blockNumber;
               this.transactionHash = receipt.transactionHash;
             });
-          // this.ipfsUrl = cid;
-          // this.tokenId = result.events.Transfer.returnValues.tokenId;
-          // this.blockNumber = result.blockNumber;
-          // this.transactionHash = result.transactionHash;
-          if (this.selectedSwitch) {
-            delegateContract.methods
-              .OfferForSale(this.erc20ContractAddress, this.erc721ContractAddress,
-                this.tokenId, (1),
-                (1), web3.utils.toWei(startingBid, 'ether'), this.userData.uid, (3), (startTime), (0))
-              .send({ from: this.value })
-              .on('error', (error) => {
-                console.log(error);
-                this.isLoading = false;
-              });
-          }
+          await delegateContract.methods
+            .OfferForSale(this.erc20ContractAddress, this.erc721ContractAddress,
+              this.tokenId, (1),
+              (1), web3.utils.toWei(startingBid, 'ether'), this.userData.uid, (3), (startTime), (0))
+            .send({ from: this.value })
+            .on('error', (error) => {
+              console.log(error);
+              this.isLoading = false;
+            });
         }
         this.$refs['collectible-nft'].submit();
       }
