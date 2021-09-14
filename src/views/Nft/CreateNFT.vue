@@ -32,6 +32,7 @@
             :width="10.6"
           />
           <Field
+            v-if="selectedSwitch !== false"
             v-model="pricingType"
             class="input-field unshow"
             name="pricing_type"
@@ -201,6 +202,13 @@
           :text="$t('collectible.discription_label')"
         />
         <BaseUnderlinedInput
+          v-model="market_visibility"
+          class="input-field unshow"
+          name="market_visibility"
+          :placeholder="$t('collectible.discription_placeholder')"
+          :text="$t('collectible.discription_label')"
+        />
+        <BaseUnderlinedInput
           v-if="standard === 'erc1155'"
           class="input-field copies-input"
           name="supply"
@@ -337,6 +345,7 @@ export default {
       tokentype: '',
       blockNumber: '',
       transactionHash: '',
+      market_visibility: '',
       receivedAmount: '',
       pricingType: PriceType.FIXED,
       ipfsUrl: '',
@@ -481,7 +490,31 @@ export default {
       if (this.standard === 'erc1155') {
         this.tokentype = 2;
         const contract = new web3.eth.Contract(require('@/assets/abi/erc1155').default, this.erc1155ContractAddress);
-        if (this.pricingType === PriceType.FIXED) {
+        if (this.selectedSwitch === false) {
+          console.log('multi');
+          this.market_visibility = false;
+          this.pricingType = 'not set';
+          contract.methods
+            .setApprovalForAll(this.delegateContractAddress, true)
+            .send({ from: this.value })
+            .on('error', (error) => {
+              console.log(error);
+              this.isLoading = false;
+            });
+          await contract.methods
+            .mint(qty)
+            .send({ from: this.value, gas: 2900000, gasPrice: '29000000000' }).on('error', (error) => {
+              console.log(error);
+              this.isLoading = false;
+            }).on('confirmation', async (confirmation, receipt) => {
+              // console.log(receipt);
+              this.ipfsUrl = cid;
+              this.tokenId = receipt.events.TokenMinted.returnValues.tokenType;
+              this.blockNumber = receipt.blockNumber;
+              this.transactionHash = receipt.transactionHash;
+            });
+        } else if (this.pricingType === PriceType.FIXED) {
+          this.market_visibility = true;
           contract.methods
             .setApprovalForAll(this.delegateContractAddress, true)
             .send({ from: this.value })
@@ -512,10 +545,11 @@ export default {
               console.log(error);
               this.isLoading = false;
             });
-        } if (this.pricingType === PriceType.UNLIMITED_AUCTION) {
+        } else if (this.pricingType === PriceType.UNLIMITED_AUCTION) {
           const startingBid = document.querySelector('.minimum_bid').value;
           const startDate = document.querySelector('.starting_date').value;
           const startTime = this.getTimestamp(startDate);
+          this.market_visibility = true;
           contract.methods
             .setApprovalForAll(this.delegateContractAddress, true)
             .send({ from: this.value })
@@ -546,32 +580,14 @@ export default {
                 this.isLoading = false;
               });
           }
-        } if (this.selectedSwitch === false) {
-          contract.methods
-            .setApprovalForAll(this.delegateContractAddress, true)
-            .send({ from: this.value })
-            .on('error', (error) => {
-              console.log(error);
-              this.isLoading = false;
-            });
-          await contract.methods
-            .mint(qty)
-            .send({ from: this.value, gas: 2900000, gasPrice: '29000000000' }).on('error', (error) => {
-              console.log(error);
-              this.isLoading = false;
-            }).on('confirmation', async (confirmation, receipt) => {
-              console.log(receipt);
-              this.ipfsUrl = cid;
-              this.tokenId = receipt.events.TokenMinted.returnValues.tokenType;
-              this.blockNumber = receipt.blockNumber;
-              this.transactionHash = receipt.transactionHash;
-            });
         }
         this.$refs['collectible-nft'].submit();
       } else {
         const contract = new web3.eth.Contract(require('@/assets/abi/erc721').default, this.erc721ContractAddress);
         this.tokentype = 1;
         if (this.selectedSwitch === false) {
+          this.market_visibility = false;
+          this.pricingType = '';
           console.log('works');
           contract.methods
             .setApprovalForAll(this.delegateContractAddress, true)
@@ -594,6 +610,7 @@ export default {
             });
         } else if (this.pricingType === PriceType.FIXED) {
           console.log('yes');
+          this.market_visibility = true;
           contract.methods
             .setApprovalForAll(this.delegateContractAddress, true)
             .send({ from: this.value })
@@ -630,6 +647,7 @@ export default {
           const endDate = document.querySelector('.expiration_date').value;
           const startTime = this.getTimestamp(startDate);
           const endTime = this.getTimestamp(endDate);
+          this.market_visibility = true;
           contract.methods
             .setApprovalForAll(this.delegateContractAddress, true)
             .send({ from: this.value })
@@ -663,6 +681,7 @@ export default {
           const startingBid = document.querySelector('.minimum_bid').value;
           const startDate = document.querySelector('.starting_date').value;
           const startTime = this.getTimestamp(startDate);
+          this.market_visibility = true;
           contract.methods
             .setApprovalForAll(this.delegateContractAddress, true)
             .send({ from: this.value })
@@ -702,7 +721,7 @@ export default {
         // response = data;
         console.log(CollectibleNftData);
         this.$api.CREATENFT(CollectibleNftData);
-        this.$router.push({ name: 'Profile' });
+        // this.$router.push({ name: 'Profile' });
       } catch (error) {
         // response = error.response.data;
         this.isLoading = false;
