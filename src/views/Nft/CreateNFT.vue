@@ -494,13 +494,6 @@ export default {
           console.log('multi');
           this.market_visibility = false;
           this.pricingType = 'not set';
-          contract.methods
-            .setApprovalForAll(this.delegateContractAddress, true)
-            .send({ from: this.value })
-            .on('error', (error) => {
-              console.log(error);
-              this.isLoading = false;
-            });
           await contract.methods
             .mint(qty)
             .send({ from: this.value, gas: 2900000, gasPrice: '29000000000' }).on('error', (error) => {
@@ -528,7 +521,7 @@ export default {
               console.log(error);
               this.isLoading = false;
             }).on('confirmation', async (confirmation, receipt) => {
-              // console.log(receipt);
+              console.log(receipt);
               this.ipfsUrl = cid;
               this.tokenId = receipt.events.TokenMinted.returnValues.tokenType;
               this.blockNumber = receipt.blockNumber;
@@ -569,17 +562,15 @@ export default {
               this.blockNumber = receipt.blockNumber;
               this.transactionHash = receipt.transactionHash;
             });
-          if (this.selectedSwitch) {
-            delegateContract.methods
-              .OfferForSale(this.erc20ContractAddress, this.erc1155ContractAddress,
-                this.tokenId, qty,
-                this.tokentype, web3.utils.toWei(startingBid, 'ether'), this.userData.uid, (3), (startTime), (0))
-              .send({ from: this.value })
-              .on('error', (error) => {
-                console.log(error);
-                this.isLoading = false;
-              });
-          }
+          await delegateContract.methods
+            .OfferForSale(this.erc20ContractAddress, this.erc1155ContractAddress,
+              this.tokenId, qty,
+              this.tokentype, web3.utils.toWei(startingBid, 'ether'), this.userData.uid, (3), (startTime), (0))
+            .send({ from: this.value })
+            .on('error', (error) => {
+              console.log(error);
+              this.isLoading = false;
+            });
         }
         this.$refs['collectible-nft'].submit();
       } else {
@@ -589,13 +580,6 @@ export default {
           this.market_visibility = false;
           this.pricingType = '';
           console.log('works');
-          contract.methods
-            .setApprovalForAll(this.delegateContractAddress, true)
-            .send({ from: this.value })
-            .on('error', (error) => {
-              console.log(error);
-              this.isLoading = false;
-            });
           await contract.methods
             .mint(`https://${cid}.ipfs.dweb.link`)
             .send({ from: this.value, gas: 2900000, gasPrice: '29000000000' }).on('error', (error) => {
