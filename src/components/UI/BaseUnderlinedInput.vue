@@ -144,6 +144,24 @@
           @keypress="isInteger($event)"
         />
       </template>
+      <template v-else-if="disabled">
+        <Field
+          v-model="value"
+          v-bind="$attrs"
+          class="input-box"
+          :class="name"
+          :disabled="true"
+          :name="name"
+          :placeholder="placeholder"
+          :rules="rules"
+          :type="type"
+          :validate-on-change="false"
+          @change="$emit('input', $event.target.value)"
+          @focus="isFocus = true"
+          @focusout="isFocus = false"
+          @keypress="type === 'number' ? isNumber($event) : null"
+        />
+      </template>
       <template v-else>
         <Field
           v-model="value"
@@ -194,6 +212,7 @@ export default {
   components: { ErrorMessage, Field },
   props: {
     name: { type: String, required: true },
+    disabled: { type: Boolean, required: false },
     placeholder: { type: String, required: false, default: null },
     rules: { type: String, required: false, default: null },
     text: { type: String, required: false, default: null },

@@ -85,7 +85,7 @@ export default {
         console.log(response);
         this.$store.dispatch('auth/login', response?.data);
         localStorage.setItem('userUID', response?.data.uid);
-        this.$router.push('/account/profile');
+        this.$router.push(`/account/profile/${localStorage.getItem('account')}`);
         this.$toast.success(response?.message);
       } else {
         this.$toast.error(response?.error);

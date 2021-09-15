@@ -25,10 +25,6 @@
       <div
         class="wallet-address"
       >
-        <img
-          src="@svg/huobi.svg"
-          width="15"
-        >
         <span
           v-if="account !== null"
           class="address"

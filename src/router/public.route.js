@@ -74,6 +74,33 @@ const publicRoute = [
     },
   },
   {
+    path: '/account/profile/:walletAddress',
+    name: 'Profile',
+    component: () => import('@view/Account/Profile.vue'),
+    beforeEnter: async (to, from, next) => {
+      console.log(to.params?.walletAddress);
+      if (to.params?.walletAddress !== null || to.params?.walletAddress !== undefined) {
+        const data = await store.$api.GET_OWNED_NFT(to.params?.walletAddress);
+        console.log(data.data.success);
+        if (data.success === true) {
+          // if (data.success === false) {
+          //   return next();
+          // }
+          console.log('works');
+          // const { params } = to;
+          // params.nft = data;
+          // console.log('works');
+          next();
+        } else {
+          return next({ name: 'ConnectWallet' });
+        }
+      } else {
+        return next({ name: 'ConnectWallet' });
+      }
+      return next();
+    },
+  },
+  {
     path: '/:pathMatch(.*)*',
     name: 'PathNotFound',
     component: () => import('@view/404.vue'),

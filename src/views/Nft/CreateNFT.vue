@@ -66,6 +66,7 @@
           <BaseUnderlinedInput
             ref="receivedAmount"
             class="input-field"
+            disabled
             name="receivedAmount"
             :placeholder="$t('collectible.received_amount_placeholder')"
             rules="required"

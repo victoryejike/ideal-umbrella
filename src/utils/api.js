@@ -62,10 +62,10 @@ const API_SERVICES = {
     }
     return response;
   },
-  GET_OWNED_NFT: async () => {
+  GET_OWNED_NFT: async (params) => {
     let response = null;
     try {
-      response = (await axios.get(`nft/owned/${localStorage.getItem('account')}`)).data;
+      response = (await axios.get(`nft/owned/${params}`)).data;
     } catch (error) {
       response = error?.response?.data;
     }

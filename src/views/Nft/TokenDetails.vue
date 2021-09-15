@@ -1,6 +1,16 @@
 <template>
   <div>
     <div
+      v-if="loading === true"
+      class="tokenLoading"
+    >
+      <img
+        src="@svg/loading.svg"
+        style="text-align: center"
+      >
+    </div>
+    <div
+      v-else
       class="token-details"
     >
       <div class="display-token-image">
@@ -332,6 +342,7 @@ export default {
       accountBalance: 0,
       NftId: this.$route.params.id,
       closed: false,
+      loading: true,
       tabList: [
         {
           name: this.$t('nft_details.tabs.details'),
@@ -395,6 +406,9 @@ export default {
       this.token = 2;
     }
     // console.log(this.nftDetails.market_visibility);
+    if (this.nftDetails) {
+      this.loading = false;
+    }
   },
   methods: {
     showBidSuccess(s) {
@@ -412,20 +426,20 @@ export default {
       }
     },
     showModal() {
-      // if (!this.$store.getters['auth/isLoggedIn']) {
-      //   return this.$router.push({ name: 'Login', params: { redirectFrom: this.$route.path } });
-      // }
+      if (!this.$store.getters['auth/isLoggedIn']) {
+        return this.$router.push({ name: 'ConnectWallet', params: { redirectFrom: this.$route.path } });
+      }
 
-      // if (this.$store.getters['auth/isExpired']) {
-      //   this.$store.dispatch('auth/logout');
-      //   return this.$router.push({
-      //     name: 'Login',
-      //     params: {
-      //       redirectFrom: this.$route.path,
-      //       errorMsg: this.$t('router.expired'),
-      //     },
-      //   });
-      // }
+      if (this.$store.getters['auth/isExpired']) {
+        this.$store.dispatch('auth/logout');
+        return this.$router.push({
+          name: 'ConnectWallet',
+          params: {
+            redirectFrom: this.$route.path,
+            errorMsg: this.$t('router.expired'),
+          },
+        });
+      }
 
       // if (this.username == null) {
       //   return this.$router.push({ name: 'EditProfile',
@@ -731,6 +745,11 @@ label {
   margin-bottom: 3rem;
   margin-top: 3rem;
   min-height: 10rem;
+}
+
+.tokenLoading {
+  text-align: center;
+  width: 100%;
 }
 
 @media (max-width: 34em) {

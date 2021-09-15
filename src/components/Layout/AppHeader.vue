@@ -23,12 +23,6 @@
           :text="$t('header.create')"
           url="/nft"
         />
-        <router-link
-          class="link"
-          to="/wallet"
-        >
-          {{ $t('header.wallet') }}
-        </router-link>
         <img
           class="avatar"
           height="40"
@@ -105,11 +99,11 @@ export default {
         },
       ],
       publicMenuList: [
-        { name: this.$t('header.profile'), action: '/account/profile' },
+        { name: this.$t('header.profile'), action: `/account/profile/${localStorage.getItem('account')}` },
         { name: this.$t('header.setting'), action: '/account/setting' },
       ],
       menuList: [
-        { name: this.$t('header.profile'), action: '/account/profile' },
+        { name: this.$t('header.profile'), action: `/account/profile/${localStorage.getItem('account')}` },
         { name: this.$t('header.setting'), action: '/account/setting' },
         { name: this.$t('header.logout'), action: () => { this.$store.dispatch('data/disconnect'); } },
       ],

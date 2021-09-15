@@ -16,7 +16,7 @@
     <BaseRoundButton
       class="logout-btn btn-outline-primary"
       text="Logout"
-      @click="$store.dispatch('auth/logout')"
+      @click="$store.dispatch('data/disconnect')"
     />
   </div>
 </template>
