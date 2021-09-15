@@ -251,7 +251,6 @@
         />
         <div>
           <BaseRoundButton
-            v-if="ipfsHash == null || ipfsHash == undefined || ipfsHash == ''"
             class="btn-primary btn-md btn-bold"
             :icon="isLoading ? 'loading' : 'arrow-right'"
             :text="$t('collectible.create_button_text')"
