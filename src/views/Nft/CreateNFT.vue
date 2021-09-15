@@ -241,25 +241,17 @@
           :placeholder="$t('collectible.discription_placeholder')"
           :text="$t('collectible.discription_label')"
         />
-        <!-- <BaseUnderlinedInput
-          v-model="value"
-          class="input-field unshow"
-          name="owner_address"
-          :placeholder="$t('collectible.discription_placeholder')"
-          :text="$t('collectible.discription_label')"
-        /> -->
-        <BaseModal
-          v-show="isModalVisible"
-          @close="closeModal"
-        >
-          <template #body>
-            <h4 class="modal-text">
-              Mint Successful!
-            </h4>
-          </template>
-        </BaseModal>
+        <BaseUnderlinedInput
+          v-model="assetType"
+          class="input-field copies-input unshow"
+          name="asset_type"
+          :placeholder="$t('collectible.number_of_copies_placeholder')"
+          rules="required"
+          :text="$t('collectible.number_of_copies_label')"
+        />
         <div>
           <BaseRoundButton
+            v-if="ipfsHash == null || ipfsHash == undefined || ipfsHash == ''"
             class="btn-primary btn-md btn-bold"
             :icon="isLoading ? 'loading' : 'arrow-right'"
             :text="$t('collectible.create_button_text')"
@@ -351,6 +343,9 @@ export default {
     standard() { return this.$route.params.standard; },
     title() {
       return this.standard === 'erc721' ? this.$t('collectible.title_single') : this.$t('collectible.title_multiple');
+    },
+    assetType() {
+      return this.$store.getters['data/getAssetType'];
     },
     tabList() {
       const result = this.baseTabList;
@@ -696,6 +691,7 @@ export default {
       }
     },
     async onSubmit(CollectibleNftData) {
+      sessionStorage.clear();
       // let response = null;
       try {
         // const { data } = this.$api.CREATENFT(CollectibleNftData);

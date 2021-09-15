@@ -7,6 +7,7 @@ const initialState = () => ({
   isWrongChain: false,
   isMonitoringChain: false,
   isWalletConnected: false,
+  asset_type: '',
 });
 
 const getters = {
@@ -27,6 +28,9 @@ const getters = {
   },
   isWalletConnected(state) {
     return state.isWalletConnected;
+  },
+  getAssetType(state) {
+    return state.asset_type;
   },
 };
 
@@ -62,6 +66,9 @@ const mutations = {
   },
   isWalletConnected(state, value) {
     state.isWalletConnected = value;
+  },
+  setAssetsType(state, value) {
+    state.asset_type = value;
   },
 };
 

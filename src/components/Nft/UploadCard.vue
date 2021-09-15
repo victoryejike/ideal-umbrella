@@ -3,8 +3,26 @@
     {{ text }}
   </div>
   <div class="upload-box">
-    {{ $t('collectible.file_type_text') }}
+    {{ message }}
+
+    <video
+      v-if="fileType === 'video'"
+      controls
+      height="240"
+      width="320"
+    >
+      <source
+        :src="video"
+        type="video/mp4"
+      >
+      <source
+        :src="video"
+        type="video/ogg"
+      >
+      Your browser does not support the video tag.
+    </video>
     <img
+      v-else-if="fileType === 'image'"
       class="p1"
       :src="img"
       width="200"
@@ -26,6 +44,8 @@
   </div>
 </template>
 <script>
+import store from '@/store';
+
 const { create } = require('ipfs-http-client');
 
 const ipfsClient = {
@@ -45,6 +65,9 @@ export default {
     return {
       fileName: '',
       img: '',
+      fileType: '',
+      video: '',
+      message: 'PNG, GIF, WEBP, MP4 or MP3. Max 20mb.',
     };
   },
   methods: {
@@ -53,12 +76,27 @@ export default {
     },
     async fileChange(event) {
       try {
-        const img = this.$refs.file.files[0];
+        const type = this.$refs.file.files[0];
         const [file] = event.target.files;
-        // this.fileName = file.name;
-        this.img = URL.createObjectURL(img);
-        const { cid } = await client.add(file);
-        this.ipfsHash = cid.string;
+        this.fileName = file.name;
+
+        const size = (type.size / 1024 / 1024);
+        if (size > 20) {
+          this.message = 'File size is to large. Try a file lesser than 20MB';
+        } else {
+          // eslint-disable-next-line prefer-destructuring
+          this.fileType = type.type.split('/')[0];
+          this.message = 'PNG, GIF, WEBP, MP4 or MP3. Max 20mb.';
+          store.commit('data/setAssetsType', type.type.split('/')[0]);
+          if (type.type.split('/')[0] === 'image') {
+            this.img = URL.createObjectURL(type);
+          } else if (type.type.split('/')[0] === 'video') {
+            this.video = URL.createObjectURL(type);
+          }
+          const { cid } = await client.add(file);
+          this.ipfsHash = cid.string;
+          console.log(this.ipfsHash);
+        }
       } catch (error) {
         //
       }
