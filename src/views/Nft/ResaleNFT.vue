@@ -436,7 +436,7 @@ export default {
       const delegateContract = new web3.eth.Contract(require('@/assets/abi/delegateContract').default, this.delegateContractAddress);
       if (this.nfttype === 'multiple') {
         this.tokentype = 2;
-        const qty = document.querySelector('.supply').value;
+        const qty = this.nftDetails.supply;
         const contract = new web3.eth.Contract(require('@/assets/abi/erc1155').default, this.erc1155ContractAddress);
         const price = document.querySelector('.price').value;
         if (this.pricingType === PriceType.FIXED) {

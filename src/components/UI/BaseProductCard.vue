@@ -86,7 +86,7 @@
             class="timed-auction-badge"
             @click="ResaleURL"
           >
-            Sale NFT
+            Sell NFT
           </div>
         </div>
       </div>
