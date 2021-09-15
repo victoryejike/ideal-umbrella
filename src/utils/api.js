@@ -75,10 +75,10 @@ const API_SERVICES = {
     }
     return response;
   },
-  GET_ONSALES_NFT: async () => {
+  GET_ONSALES_NFT: async (params) => {
     let response = null;
     try {
-      response = (await axios.get('nft/on-sale')).data;
+      response = (await axios.get(`nft/on-sale/${params}`)).data;
     } catch (error) {
       response = error?.response?.data;
     }
@@ -88,10 +88,10 @@ const API_SERVICES = {
     }
     return response;
   },
-  GET_CREATED_NFT: async () => {
+  GET_CREATED_NFT: async (params) => {
     let response = null;
     try {
-      response = (await axios.get('nft/created')).data;
+      response = (await axios.get(`nft/created/${params}`)).data;
     } catch (error) {
       response = error?.response?.data;
     }

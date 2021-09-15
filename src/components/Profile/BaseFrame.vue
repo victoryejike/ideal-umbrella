@@ -59,7 +59,7 @@ export default {
   },
   data() {
     return {
-      account: localStorage.getItem('account'),
+      account: this.$route.params.walletAddress,
     };
   },
   computed: {
