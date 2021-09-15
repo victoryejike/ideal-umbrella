@@ -721,7 +721,7 @@ export default {
         // response = data;
         console.log(CollectibleNftData);
         this.$api.CREATENFT(CollectibleNftData);
-        // this.$router.push({ name: 'Profile' });
+        this.$router.push({ name: 'Profile' });
       } catch (error) {
         // response = error.response.data;
         this.isLoading = false;
