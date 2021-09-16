@@ -18,6 +18,7 @@ const privateRoute = [
         return next({ name: 'NFT' });
       }
       if (store.getters['auth/isExpired'] === true) {
+        localStorage.clear();
         return next({ name: 'ConnectWallet', params: { errorMsg: $t('router.fill_in_username') } });
       }
       return next();
@@ -75,8 +76,9 @@ const privateRoute = [
       },
     ],
     beforeEnter: (to, from, next) => {
-      if (localStorage.getItem('account') === undefined || localStorage.getItem('account') === null) {
-        return next({ name: 'ConnectWallet' });
+      if (store.getters['auth/isExpired'] === true) {
+        localStorage.clear();
+        return next({ name: 'ConnectWallet', params: { errorMsg: $t('router.fill_in_username') } });
       }
       return next();
     },

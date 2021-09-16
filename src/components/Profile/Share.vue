@@ -1,13 +1,17 @@
 <template>
   <div class="share">
-    <a>Share: </a>
+    <a id="share">Share: </a>
     <div class="platform">
       <img
         src="@/assets/svg/fb.svg"
         width="25"
       >
       <div class="p2">
-        <a class="p2">Facebook</a>
+        <a
+          class="p2"
+          :href="'https://www.facebook.com/sharer/sharer.php?u='+ href"
+          target="_blank"
+        >Facebook</a>
       </div>
     </div>
     <div class="platform">
@@ -31,6 +35,18 @@
   </div>
 </template>
 
+<script>
+
+export default {
+  name: 'Share',
+  data() {
+    return {
+      href: window.location.href,
+    };
+  },
+};
+</script>
+
 <style scoped>
   .share {
     max-width: 27rem;
@@ -40,6 +56,9 @@
     margin: 2rem auto;
     display: flex;
     padding: 0.5rem;
+  }
+  #share {
+    margin-top: 0.2rem;
   }
   .share a {
     color: #5D6EC2;

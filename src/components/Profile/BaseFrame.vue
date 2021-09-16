@@ -3,8 +3,16 @@
     <div class="top" />
     <div class="profile-div">
       <img
+        v-if="profile.image"
         class="profile-img"
-        :class="avatar == null ? 'profile' : 'profile-border'"
+        :class="profile.image == null ? 'profile' : 'profile-border'"
+        :onerror="$global.handleAvatarError"
+        :src="profile.image"
+      >
+      <img
+        v-else
+        class="profile-img"
+        :class="profile.image == null ? 'profile' : 'profile-border'"
         :onerror="$global.handleAvatarError"
         :src="$global.handleAvatarURL(avatar)"
       >
@@ -14,7 +22,7 @@
         class="username"
       >
         <h3>
-          {{ $store.getters['auth/username'] }}
+          {{ profile.display_name }}
           <img
             v-if="$store.getters['auth/isVerified']"
             src="@svg/tick.svg"
@@ -60,10 +68,18 @@ export default {
   data() {
     return {
       account: this.$route.params.walletAddress,
+      profile: [],
     };
   },
   computed: {
-    avatar() { return this.$store.getters['auth/avatar']; },
+    // avatar() {
+    //   return this.$store.getters['auth/avatar'];
+    // },
+  },
+  async mounted() {
+    const profile = await this.$api.GET_PROFILE(this.$route.params.walletAddress);
+    this.profile = profile.data.data;
+    console.log(this.profile);
   },
 };
 </script>

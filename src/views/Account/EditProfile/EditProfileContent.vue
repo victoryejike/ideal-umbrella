@@ -10,6 +10,7 @@
     </div>
     <div class="avatar-group">
       <img
+        ref="profile"
         class="profile"
         :onerror="$global.handleAvatarError"
         :src="$global.handleAvatarURL(avatar)"
@@ -125,7 +126,7 @@ export default {
       this.isUploadingImage = false;
     },
     async updateStoreValue() {
-      const { data } = await this.$api.GET_PROFILE();
+      const { data } = await this.$api.GET_PROFILE(localStorage.getItem('account'));
       this.$store.dispatch('auth/updateProfile', data.data);
     },
   },

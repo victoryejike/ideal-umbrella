@@ -46,7 +46,6 @@ export default {
     this.$global.handleResponsive(62.5,
       () => { this.cardCSS.size = 190; },
       () => { this.cardCSS.size = 140; });
-
     const response = await this.$api.GET_CREATED_NFT(this.$route.params.walletAddress);
     this.nft = this.$global.translateNFTDetails(response);
   },

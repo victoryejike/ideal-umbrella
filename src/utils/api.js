@@ -179,7 +179,7 @@ const API_SERVICES = {
     return store.getters['data/filterCategory'];
   },
   KYC: (params) => axios.post('auth/kyc/submissions', params, false),
-  GET_PROFILE: (params) => axios.get('users/profile', params, false),
+  GET_PROFILE: (params) => axios.get(`users/profile/${params}`, false),
   UPLOADAVATAR: (params) => axios.post('users/update-profile-avatar', params, { headers: { 'Content-Type': 'multipart/form-data' } }),
   UPDATEPROFILE: (params) => axios.post('users/update-profile', params, false),
   GETCOLLECTIBLE: (params, type) => axios.get(`collectible/user/${params}?single=${type}`),
