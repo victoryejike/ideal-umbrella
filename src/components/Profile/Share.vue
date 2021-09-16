@@ -22,6 +22,7 @@
       <div class="p2">
         <a
           :href="'http://twitter.com/share?url'+ href"
+          target="_blank"
         >
           Twitter
         </a>
