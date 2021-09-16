@@ -8,6 +8,13 @@ const privateRoute = [
     path: '/nft',
     name: 'NFT',
     component: () => import('@view/Nft/Index.vue'),
+    beforeEnter: (to, from, next) => {
+      if (store.getters['auth/isExpired'] === true) {
+        localStorage.clear();
+        return next({ name: 'ConnectWallet', params: { errorMsg: $t('router.fill_in_username') } });
+      }
+      return next();
+    },
   },
   {
     path: '/nft/create/:standard',
@@ -83,16 +90,16 @@ const privateRoute = [
       return next();
     },
   },
-  {
-    path: '/account/setting/reset-password',
-    name: 'ResetPassword',
-    component: () => import('@view/Account/Setting/ResetPassword.vue'),
-  },
   // {
-  //   path: '/account/setting/id-verification',
-  //   name: 'IdentityVerification',
-  //   component: () => import('@view/Account/Setting/Kyc.vue'),
+  //   path: '/account/setting/reset-password',
+  //   name: 'ResetPassword',
+  //   component: () => import('@view/Account/Setting/ResetPassword.vue'),
   // },
+  {
+    path: '/account/setting/id-verification',
+    name: 'IdentityVerification',
+    component: () => import('@view/Account/Setting/Kyc.vue'),
+  },
   // {
   //   path: '/account/setting/rebind-phone',
   //   name: 'RebindPhone',

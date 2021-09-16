@@ -385,10 +385,10 @@ export default {
     this.screenStatus[this.isAuction ? 'bids' : 'details'] = true;
     this.bidsList = await this.$api.GET_BIDS(this.$route.params.id);
     this.detailsTabList = [
-      {
-        text: this.$t('nft_details.contact_details'),
-        value: `${this.nftDetails.owner_address?.slice(0, 15)}...`,
-      },
+      // {
+      //   text: this.$t('nft_details.contact_details'),
+      //   value: `${this.nftDetails.owner_address?.slice(0, 15)}...`,
+      // },
       {
         text: this.$t('nft_details.price'),
         value: `${this.nftDetails.minimum_bid || this.nftDetails.price} ETH`,

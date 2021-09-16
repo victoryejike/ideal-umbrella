@@ -55,7 +55,7 @@ export default {
 .account-setting-content {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  grid-gap: 2rem;
   margin-top: 3rem;
 }
 

@@ -91,7 +91,7 @@ export default {
         },
         {
           name: this.$t('header.my_nft'),
-          url: '/account/profile',
+          url: `/account/profile/${localStorage.getItem('account')}`,
         },
         {
           name: this.$t('header.how_it_works'),

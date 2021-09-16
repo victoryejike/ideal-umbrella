@@ -1,5 +1,5 @@
 <template>
-  <div class="share">
+  <!-- <div class="share">
     <a id="share">Share: </a>
     <div class="platform">
       <img
@@ -42,6 +42,19 @@
         </a>
       </div>
     </div>
+  </div> -->
+  <div class="profile-actions">
+    <router-link to="/account/profile/edit">
+      <BaseRoundButton
+        class="btn-outline-primary btn-sm action"
+        :text="$t('profile.edit_profile')"
+      />
+    </router-link>
+    <BaseRoundButton
+      class="btn-outline-primary btn-sm action p1"
+      :text="$t('profile.share')"
+      @click="copyURL"
+    />
   </div>
 </template>
 
@@ -65,7 +78,24 @@ export default {
 </script>
 
 <style scoped>
-  .share {
+  .profile-actions {
+    display: flex;
+    justify-content: center;
+  }
+
+  .action {
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin: 0.3125rem;
+  }
+
+  .p1 {
+    padding-left: 1.3rem;
+    padding-right: 1.3rem;
+    height: fit-content;
+  }
+
+  /* .share {
     max-width: 27rem;
     border: 1px solid rgba(44, 67, 173, 0.25);
     border-radius: 32px;
@@ -96,5 +126,5 @@ export default {
     .share {
       display: none;
     }
-  }
+  } */
 </style>

@@ -40,18 +40,6 @@
           {{ account.replace(account.substring(5,34), "*******") }}
         </span>
       </div>
-      <!-- <div class="profile-actions">
-        <router-link to="/account/profile/edit">
-          <BaseRoundButton
-            class="btn-outline-primary btn-sm action"
-            :text="$t('profile.edit_profile')"
-          />
-        </router-link>
-        <BaseRoundButton
-          class="btn-outline-primary btn-sm action p1"
-          :text="$t('profile.share')"
-        />
-      </div> -->
       <Share />
     </div>
   </div>

@@ -25,14 +25,14 @@ export default {
   data() {
     return {
       settingList: [
-        {
-          title: this.$t('user_index_screen.settings.header.login_pwd'),
-          body: null,
-          notes: null,
-          btnText: this.$t('user_index_screen.settings.button.change'),
-          icon: 'lock',
-          url: '/account/setting/reset-password',
-        },
+        // {
+        //   title: this.$t('user_index_screen.settings.header.login_pwd'),
+        //   body: null,
+        //   notes: null,
+        //   btnText: this.$t('user_index_screen.settings.button.change'),
+        //   icon: 'lock',
+        //   url: '/account/setting/reset-password',
+        // },
         {
           title: this.$t('user_index_screen.settings.header.email'),
           body: this.$t('user_index_screen.settings.body.for_security'),
@@ -49,14 +49,14 @@ export default {
         //   icon: 'phone',
         //   url: '/account/setting/rebind-phone',
         // },
-        // {
-        //   title: this.$t('user_index_screen.settings.header.id_ver'),
-        //   body: this.$t('user_index_screen.settings.body.id_ver'),
-        //   notes: null,
-        //   btnText: this.$t('user_index_screen.settings.button.verify'),
-        //   icon: 'identity',
-        //   url: '/account/setting/id-verification',
-        // },
+        {
+          title: this.$t('user_index_screen.settings.header.id_ver'),
+          body: this.$t('user_index_screen.settings.body.id_ver'),
+          notes: null,
+          btnText: this.$t('user_index_screen.settings.button.verify'),
+          icon: 'identity',
+          url: '/account/setting/id-verification',
+        },
       ],
     };
   },

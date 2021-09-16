@@ -83,8 +83,7 @@ export default {
           content: [
             { name: this.$t('footer.nft.discover'), url: '/discover' },
             { name: this.$t('footer.nft.create'), url: '/nft' },
-            { name: this.$t('footer.nft.profile'), url: '/account/profile' },
-            { name: this.$t('footer.nft.wallet'), url: '/wallet' },
+            { name: this.$t('footer.nft.profile'), url: `/account/profile/${localStorage.getItem('account')}` },
             { name: this.$t('footer.nft.how_it_works'), url: '/FAQ' },
           ],
         },
