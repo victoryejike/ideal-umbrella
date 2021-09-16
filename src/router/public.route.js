@@ -76,16 +76,14 @@ const publicRoute = [
     name: 'Profile',
     component: () => import('@view/Account/Profile.vue'),
     beforeEnter: async (to, from, next) => {
-      if (to.params?.walletAddress !== null || to.params?.walletAddress !== undefined) {
-        const data = await store.$api.GET_OWNED_NFT(to.params?.walletAddress);
-        console.log(data);
-        if (data) {
-          const { params } = to;
-          params.nft = data;
-          next();
-        } else {
-          return next({ name: 'ConnectWallet' });
-        }
+      if (to.params?.walletAddress === 'null') {
+        return next({ name: 'ConnectWallet' });
+      }
+      const data = await store.$api.GET_OWNED_NFT(to.params?.walletAddress);
+      if (data) {
+        const { params } = to;
+        params.nft = data;
+        next();
       } else {
         return next({ name: 'ConnectWallet' });
       }

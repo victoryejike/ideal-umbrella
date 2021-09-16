@@ -76,7 +76,7 @@ const privateRoute = [
       },
     ],
     beforeEnter: (to, from, next) => {
-      if (store.getters['auth/isExpired'] === true) {
+      if (store.getters['auth/isExpired'] === true || localStorage.getItem('account') === null || localStorage.getItem('account') === undefined) {
         localStorage.clear();
         return next({ name: 'ConnectWallet', params: { errorMsg: $t('router.fill_in_username') } });
       }
