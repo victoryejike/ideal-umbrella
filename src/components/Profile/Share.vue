@@ -34,7 +34,12 @@
         width="25"
       >
       <div class="p2">
-        <a>Copy Link</a>
+        <a
+          class="copy"
+          @click="copyURL"
+        >
+          Copy Link
+        </a>
       </div>
     </div>
   </div>
@@ -48,6 +53,13 @@ export default {
     return {
       href: window.location.href,
     };
+  },
+  methods: {
+    copyURL() {
+      console.log(1);
+      navigator.clipboard.writeText(this.href);
+      this.$toast.success('Profile Link Copied Successfully');
+    },
   },
 };
 </script>
@@ -69,6 +81,9 @@ export default {
     color: #5D6EC2;
     font-size: 0.9rem;
     margin-left: 1rem;
+  }
+  .copy {
+    cursor: pointer;
   }
   .platform {
     margin-left: 0.9rem;
