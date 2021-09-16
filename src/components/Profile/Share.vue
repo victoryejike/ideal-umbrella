@@ -20,7 +20,11 @@
         width="25"
       >
       <div class="p2">
-        <a>Twitter</a>
+        <a
+          :href="'http://twitter.com/share?url'+ href"
+        >
+          Twitter
+        </a>
       </div>
     </div>
     <div class="platform">
