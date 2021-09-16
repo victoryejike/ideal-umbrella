@@ -40,7 +40,11 @@
           {{ account.replace(account.substring(5,34), "*******") }}
         </span>
       </div>
-      <Share />
+      <div
+        v-if="account === accountStored"
+      >
+        <Share />
+      </div>
     </div>
   </div>
 </template>
@@ -56,6 +60,7 @@ export default {
   data() {
     return {
       account: this.$route.params.walletAddress,
+      accountStored: localStorage.getItem('account'),
       profile: [],
     };
   },
