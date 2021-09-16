@@ -65,6 +65,8 @@ const publicRoute = [
     beforeEnter: async (to, from, next) => {
       const data = await store.$api.GET_NFT_DETAILS(to.params?.id);
       if (data) {
+        const { params } = to;
+        params.nft = data;
         next();
       } else {
         this.$router.push({ name: 'PathNotFound' });
@@ -81,8 +83,6 @@ const publicRoute = [
       }
       const data = await store.$api.GET_OWNED_NFT(to.params?.walletAddress);
       if (data) {
-        const { params } = to;
-        params.nft = data;
         next();
       } else {
         return next({ name: 'ConnectWallet' });
