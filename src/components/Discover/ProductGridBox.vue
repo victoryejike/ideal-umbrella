@@ -203,7 +203,7 @@ export default {
 
 .end-of-content {
   color: #6d6565;
-  font-size: 1.3rem;
+  font-size: 1rem;
   margin-top: 3.5rem;
   text-align: center;
 }

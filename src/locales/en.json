@@ -59,7 +59,7 @@
   "components": {
     "country_code": "Country Code",
     "search": "Search",
-    "search_placeholder": "Search by NFT Name",
+    "search_placeholder": "Search by NFT or collectible name",
     "select_placeholder": "Select Item",
     "times_up": "Time's up"
   },
