@@ -33,8 +33,10 @@
       <div
         class="product-div"
         :style="[{height: `${size}px`}, {width: `${size}px`}]"
+        @click="handleClick"
       >
         <img
+          v-if="assetType === 'image'"
           class="product-image"
           :height="size"
           :onerror="handleImageError"
@@ -43,7 +45,27 @@
           @click="handleClick"
           @load="onImgLoaded"
         >
+        <video
+          v-else-if="assetType === 'video'"
+          class="product-image product-placeholde"
+          controls
+          :height="size"
+          :style="{opacity: (isLoading) ? 1 : 0}"
+          :width="size"
+          @click="handleClick"
+        >
+          <source
+            :src="image"
+            type="video/mp4"
+          >
+          <source
+            :src="image"
+            type="video/ogg"
+          >
+          Your browser does not support the video tag.
+        </video>
         <img
+          v-if="assetType != 'video'"
           class="product-placeholder"
           :height="size"
           src="@img/no-image.png"
@@ -170,6 +192,7 @@ export default {
       },
     },
     author: { type: String, required: false, default: null },
+    assetType: { type: String, required: false, default: null },
     avatar: { type: String, required: false, default: null },
     id: { type: String, required: true },
     image: { type: String, required: true },

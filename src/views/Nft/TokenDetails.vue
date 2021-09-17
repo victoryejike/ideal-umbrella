@@ -27,9 +27,27 @@
           </div>
         </div>
         <img
+          v-if="nftDetails.asset_type === 'image'"
           class="token-image"
           :src="nftDetails.uri"
         >
+        <video
+          v-else-if="nftDetails.asset_type === 'video'"
+          class="token-image mt2"
+          controls
+          width="400"
+          @click="handleClick"
+        >
+          <source
+            :src="nftDetails.uri"
+            type="video/mp4"
+          >
+          <source
+            :src="nftDetails.uri"
+            type="video/ogg"
+          >
+          Your browser does not support the video tag.
+        </video>
       </div>
       <div class="display-token-details">
         <div class="user-details">

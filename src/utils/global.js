@@ -68,6 +68,7 @@ const GLOBAL_FUNCTION = {
           id: nft._id,
           name: nft.title,
           tokenId: nft.tokenId,
+          assetType: nft.asset_type,
           tokenType: nft.collectible_type,
           // eslint-disable-next-line no-underscore-dangle
           price: nft.price || nft.bid?.highest_bid || nft.minimum_bid,
