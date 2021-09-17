@@ -7,6 +7,7 @@
         v-for="(item, index) in nft"
         :id="item.id"
         :key="index"
+        :assetType="item.assetType"
         :author="item.author"
         :avatar="item.avatar"
         class="gridbox-product-card"
