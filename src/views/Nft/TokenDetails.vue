@@ -125,9 +125,12 @@
                 <div class="bids-inner-div">
                   <div>
                     <div class="author">
-                      {{ item.user_id.display_name }}
+                      {{
+                        ((item?.user_address).
+                          replace((item?.user_address).substring(5, 36), '*******'))
+                      }}
                       <img
-                        v-if="item.user_id.is_kyc_verified"
+                        v-if="item.user_address"
                         class="tick-icon"
                         height="16"
                         src="@svg/tick.svg"
@@ -402,6 +405,7 @@ export default {
 
     this.screenStatus[this.isAuction ? 'bids' : 'details'] = true;
     this.bidsList = await this.$api.GET_BIDS(this.$route.params.id);
+    console.log(this.bidsList);
     this.detailsTabList = [
       // {
       //   text: this.$t('nft_details.contact_details'),
