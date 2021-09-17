@@ -382,7 +382,7 @@ export default {
       Address: localStorage.getItem('account'),
       erc721ContractAddress: '0xF3538d2696FF98396Aa0386d91bd7f9C02570511',
       erc1155ContractAddress: '0x24d5CaBE5A68653c1a6d10f65679839a5CD4a42A',
-      delegateContractAddress: '0xe6cC989A64dd61f889D350e3eDB4A381Ee86b6e2',
+      delegateContractAddress: '0xD5B6FbB0728A55596eFDE6F5412396AF39366Ed4',
     };
   },
   computed: {
