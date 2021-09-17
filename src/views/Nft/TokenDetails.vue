@@ -28,7 +28,7 @@
         </div>
         <img
           class="token-image"
-          :src="`https://ipfs.io/ipfs/${nftDetails.uri}`"
+          :src="nftDetails.uri"
         >
       </div>
       <div class="display-token-details">

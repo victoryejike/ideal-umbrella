@@ -239,6 +239,11 @@ export default [
         name: 'quantity',
         type: 'uint256',
       },
+      {
+        internalType: 'string',
+        name: 'uri',
+        type: 'string',
+      },
     ],
     name: 'mint',
     outputs: [
@@ -355,6 +360,25 @@ export default [
     type: 'function',
   },
   {
+    inputs: [
+      {
+        internalType: 'uint256',
+        name: 'tokenType',
+        type: 'uint256',
+      },
+    ],
+    name: 'tokenUri',
+    outputs: [
+      {
+        internalType: 'string',
+        name: '',
+        type: 'string',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
     inputs: [],
     name: 'totalTokens',
     outputs: [
@@ -371,7 +395,7 @@ export default [
     inputs: [
       {
         internalType: 'uint256',
-        name: '',
+        name: 'tokenType',
         type: 'uint256',
       },
     ],

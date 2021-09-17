@@ -57,7 +57,7 @@
                 :default-selected="true"
                 dropClass="listWidth"
                 key-name="_id"
-                name="name"
+                name="coin"
                 :options="coinList"
                 rules="required"
               />
@@ -135,7 +135,7 @@
           class="input-div label"
           :default-selected="false"
           key-name="_id"
-          name="name"
+          name="collection"
           :options="collectible_class"
           rules="required"
           :text="$t('collectible.choose_collection_label')"
@@ -262,11 +262,32 @@
           <BaseRoundButton
             class="btn-primary btn-md btn-bold"
             :icon="isLoading ? 'loading' : 'arrow-right'"
+            :submit="true"
             :text="$t('collectible.create_button_text')"
-            @click="metaData"
           />
         </div>
       </BaseForm>
+      <BaseModal
+        v-show="closedBid"
+        @close="closeModal"
+      >
+        <template #body>
+          <h2 style="text-align: center;">
+            {{ $t('buy_modal.success') }}
+          </h2>
+          <p style="text-align: center;">
+            {{ $t('buy_modal.closeBid_message') }}
+          </p>
+          <router-link
+            to="/"
+          >
+            <BaseRoundButton
+              class="buy-button btn-primary btn-md btn-bold mb mt2"
+              :text="$t('buy_modal.btn')"
+            />
+          </router-link>
+        </template>
+      </BaseModal>
     </Base>
   </div>
 </template>
@@ -305,6 +326,7 @@ export default {
       categories: [],
       isModalVisible: false,
       selectedSwitch: true,
+      closedBid: false,
       coinType: 'ETH',
       collectible_type: '',
       collectibleList: [
@@ -342,8 +364,8 @@ export default {
       pricingType: PriceType.FIXED,
       ipfsUrl: '',
       userData: JSON.parse(localStorage.getItem('userData')),
-      erc721ContractAddress: '0xF3538d2696FF98396Aa0386d91bd7f9C02570511',
-      erc1155ContractAddress: '0x24d5CaBE5A68653c1a6d10f65679839a5CD4a42A',
+      erc721ContractAddress: '0x9684836C7adA86cc99b1B747d87aAae1494F8ad3',
+      erc1155ContractAddress: '0xDCB2fA7857b2fbF9e977b9180d4B9cD1A7f942b2',
       erc20ContractAddress: '0x82ccaff54be0d4cf6b10de0a225584adb9adf7d3',
       delegateContractAddress: '0xe6cC989A64dd61f889D350e3eDB4A381Ee86b6e2',
     };
@@ -427,7 +449,7 @@ export default {
     closeModal() {
       this.isModalVisible = false;
     },
-    async metaData() {
+    async metaData(newMeta) {
       if (!(await this.$global.isWalletConnected()) || !(await this.$global.isAddressExist())) {
         return;
       }
@@ -440,35 +462,44 @@ export default {
       const title = document.querySelectorAll('.title')[1].value;
       const ipfsHash = `https://ipfs.io/ipfs/${sessionStorage.getItem('ipfsHash')}`;
       this.uri = sessionStorage.getItem('ipfsHash');
+      if (this.selectedSwitch === false) {
+        this.market_visibility = false;
+      } else {
+        this.market_visibility = true;
+      }
+      const meta = { ...newMeta, market_visibility: this.market_visibility };
       let cid;
       if (this.standard === 'erc1155') {
         this.isLoading = true;
         const qty = document.querySelector('.supply').value;
-        const metadata = {
+        const doc = JSON.stringify({
           description: desc,
           name: title,
           image: ipfsHash,
           quantity: qty,
-        };
-        const doc = JSON.stringify({ metadata });
+          meta,
+        });
+        console.log(doc);
         cid = await ipfs.add(doc);
         this.ipfsUrl = `https://${cid}.ipfs.dweb.link`;
         await ipfs.cat(cid);
         this.minting(qty, cid);
       } else {
         this.isLoading = true;
-        const metadata = {
+        const doc = JSON.stringify({
           description: desc,
           name: title,
           image: ipfsHash,
-        };
-        const doc = JSON.stringify({ metadata });
+          meta,
+        });
+        console.log(doc);
         cid = await ipfs.add(doc);
         await ipfs.cat(cid);
         this.minting(null, cid);
       }
     },
     async minting(qty, cid) {
+      sessionStorage.clear();
       let provider;
       const obj = JSON.parse(localStorage.getItem('walletconnect'));
       if (obj && (obj.accounts[0]) === (this.value)) {
@@ -488,22 +519,23 @@ export default {
         if (this.selectedSwitch === false) {
           console.log('multi');
           this.market_visibility = false;
-          this.pricingType = 'not set';
+          this.pricingType = '';
           await contract.methods
-            .mint(qty)
+            .mint(qty, `https://${cid}.ipfs.dweb.link`)
             .send({ from: this.value, gas: 2900000, gasPrice: '29000000000' }).on('error', (error) => {
               console.log(error);
               this.isLoading = false;
             }).on('confirmation', async (confirmation, receipt) => {
-              // console.log(receipt);
+              console.log(receipt);
               this.ipfsUrl = cid;
               this.tokenId = receipt.events.TokenMinted.returnValues.tokenType;
               this.blockNumber = receipt.blockNumber;
               this.transactionHash = receipt.transactionHash;
+              this.$router.push({ name: 'Profile', params: { walletAddress: this.value } });
             });
         } else if (this.pricingType === PriceType.FIXED) {
           this.market_visibility = true;
-          contract.methods
+          await contract.methods
             .setApprovalForAll(this.delegateContractAddress, true)
             .send({ from: this.value })
             .on('error', (error) => {
@@ -511,7 +543,7 @@ export default {
               this.isLoading = false;
             });
           await contract.methods
-            .mint(qty)
+            .mint(qty, `https://${cid}.ipfs.dweb.link`)
             .send({ from: this.value }).on('error', (error) => {
               console.log(error);
               this.isLoading = false;
@@ -532,13 +564,21 @@ export default {
             .on('error', (error) => {
               console.log(error);
               this.isLoading = false;
+            }).on('confirmation', async (confirmation, receipt) => {
+              this.isLoading = false;
+              // console.log(receipt);
+              // this.ipfsUrl = cid;
+              // this.tokenId = receipt.events.Transfer.returnValues.tokenId;
+              // this.blockNumber = receipt.blockNumber;
+              // this.transactionHash = receipt.transactionHash;
+              this.$router.push({ name: 'Profile', params: { walletAddress: this.value } });
             });
         } else if (this.pricingType === PriceType.UNLIMITED_AUCTION) {
           const startingBid = document.querySelector('.minimum_bid').value;
           const startDate = document.querySelector('.starting_date').value;
           const startTime = this.getTimestamp(startDate);
           this.market_visibility = true;
-          contract.methods
+          await contract.methods
             .setApprovalForAll(this.delegateContractAddress, true)
             .send({ from: this.value })
             .on('error', (error) => {
@@ -546,12 +586,12 @@ export default {
               this.isLoading = false;
             });
           await contract.methods
-            .mint(qty)
+            .mint(qty, `https://${cid}.ipfs.dweb.link`)
             .send({ from: this.value, gas: 2900000, gasPrice: '29000000000' }).on('error', (error) => {
               console.log(error);
               this.isLoading = false;
             }).on('confirmation', async (confirmation, receipt) => {
-              console.log(receipt);
+              // console.log(receipt);
               this.ipfsUrl = cid;
               this.tokenId = receipt.events.TokenMinted.returnValues.tokenType;
               this.blockNumber = receipt.blockNumber;
@@ -565,9 +605,18 @@ export default {
             .on('error', (error) => {
               console.log(error);
               this.isLoading = false;
+            }).on('confirmation', async (confirmation, receipt) => {
+              // this.isLoading = false;
+              // this.closedBid = true;
+              // console.log(receipt);
+              // this.ipfsUrl = cid;
+              // this.tokenId = receipt.events.Transfer.returnValues.tokenId;
+              // this.blockNumber = receipt.blockNumber;
+              // this.transactionHash = receipt.transactionHash;
+              this.$router.push({ name: 'Profile', params: { walletAddress: this.value } });
             });
         }
-        this.$refs['collectible-nft'].submit();
+        // this.$refs['collectible-nft'].submit();
       } else {
         const contract = new web3.eth.Contract(require('@/assets/abi/erc721').default, this.erc721ContractAddress);
         this.tokentype = 1;
@@ -581,16 +630,17 @@ export default {
               console.log(error);
               this.isLoading = false;
             }).on('confirmation', async (confirmation, receipt) => {
-              // console.log(receipt);
+              console.log(receipt);
               this.ipfsUrl = cid;
               this.tokenId = receipt.events.Transfer.returnValues.tokenId;
               this.blockNumber = receipt.blockNumber;
               this.transactionHash = receipt.transactionHash;
+              this.$router.push({ name: 'Profile', params: { walletAddress: this.value } });
             });
         } else if (this.pricingType === PriceType.FIXED) {
           console.log('yes');
           this.market_visibility = true;
-          contract.methods
+          await contract.methods
             .setApprovalForAll(this.delegateContractAddress, true)
             .send({ from: this.value })
             .on('error', (error) => {
@@ -599,7 +649,7 @@ export default {
             });
           await contract.methods
             .mint(`https://${cid}.ipfs.dweb.link`)
-            .send({ from: this.value }).on('error', (error) => {
+            .send({ from: this.value, gas: 2900000, gasPrice: '29000000000' }).on('error', (error) => {
               console.log(error);
               this.isLoading = false;
             }).on('confirmation', async (confirmation, receipt) => {
@@ -610,6 +660,7 @@ export default {
               this.transactionHash = receipt.transactionHash;
             });
           const price = document.querySelector('.price').value;
+          console.log(this.tokenId);
           await delegateContract.methods
             .OfferForSale(this.erc20ContractAddress, this.erc721ContractAddress,
               this.tokenId, (1),
@@ -619,6 +670,15 @@ export default {
             .on('error', (error) => {
               console.log(error);
               this.isLoading = false;
+            }).on('confirmation', async (confirmation, receipt) => {
+              // this.isLoading = false;
+              // this.closedBid = true;
+              // console.log(receipt);
+              // this.ipfsUrl = cid;
+              // this.tokenId = receipt.events.Transfer.returnValues.tokenId;
+              // this.blockNumber = receipt.blockNumber;
+              // this.transactionHash = receipt.transactionHash;
+              this.$router.push({ name: 'Profile', params: { walletAddress: this.value } });
             });
         } else if (this.pricingType === PriceType.TIMED_AUCTION) {
           const startingBid = document.querySelector('.minimum_bid').value;
@@ -627,7 +687,7 @@ export default {
           const startTime = this.getTimestamp(startDate);
           const endTime = this.getTimestamp(endDate);
           this.market_visibility = true;
-          contract.methods
+          await contract.methods
             .setApprovalForAll(this.delegateContractAddress, true)
             .send({ from: this.value })
             .on('error', (error) => {
@@ -655,13 +715,22 @@ export default {
             .on('error', (error) => {
               console.log(error);
               this.isLoading = false;
+            }).on('confirmation', async (confirmation, receipt) => {
+              // this.isLoading = false;
+              // this.closedBid = true;
+              // console.log(receipt);
+              // this.ipfsUrl = cid;
+              // this.tokenId = receipt.events.Transfer.returnValues.tokenId;
+              // this.blockNumber = receipt.blockNumber;
+              // this.transactionHash = receipt.transactionHash;
+              this.$router.push({ name: 'Profile', params: { walletAddress: this.value } });
             });
         } else if (this.pricingType === PriceType.UNLIMITED_AUCTION) {
           const startingBid = document.querySelector('.minimum_bid').value;
           const startDate = document.querySelector('.starting_date').value;
           const startTime = this.getTimestamp(startDate);
           this.market_visibility = true;
-          contract.methods
+          await contract.methods
             .setApprovalForAll(this.delegateContractAddress, true)
             .send({ from: this.value })
             .on('error', (error) => {
@@ -674,7 +743,7 @@ export default {
               console.log(error);
               this.isLoading = false;
             }).on('confirmation', async (confirmation, receipt) => {
-              // console.log(receipt);
+              console.log(receipt);
               this.ipfsUrl = cid;
               this.tokenId = receipt.events.Transfer.returnValues.tokenId;
               this.blockNumber = receipt.blockNumber;
@@ -688,20 +757,32 @@ export default {
             .on('error', (error) => {
               console.log(error);
               this.isLoading = false;
+              // this.$router.push({ name: 'Profile', params: { walletAddress: this.value } });
+            }).on('confirmation', async (confirmation, receipt) => {
+              // this.isLoading = false;
+              // this.closedBid = true;
+              // console.log(receipt);
+              // this.ipfsUrl = cid;
+              // this.tokenId = receipt.events.Transfer.returnValues.tokenId;
+              // this.blockNumber = receipt.blockNumber;
+              // this.transactionHash = receipt.transactionHash;
+              this.$router.push({ name: 'Profile', params: { walletAddress: this.value } });
             });
         }
-        this.$refs['collectible-nft'].submit();
+        // this.$refs['collectible-nft'].submit();
       }
     },
     async onSubmit(CollectibleNftData) {
-      sessionStorage.clear();
       // let response = null;
+      this.isLoading = true;
       try {
+        this.isLoading = true;
         // const { data } = this.$api.CREATENFT(CollectibleNftData);
         // response = data;
         console.log(CollectibleNftData);
-        this.$api.CREATENFT(CollectibleNftData);
-        this.$router.push({ name: 'Profile' });
+        // this.$api.CREATENFT(CollectibleNftData);
+        this.metaData(CollectibleNftData);
+        // this.$router.push({ name: 'Profile', params: { walletAddress: this.value } });
       } catch (error) {
         // response = error.response.data;
         this.isLoading = false;

@@ -11,7 +11,7 @@
       >
         <img
           class="token-image"
-          :src="`https://ipfs.io/ipfs/${nftDetails.uri}`"
+          :src="nftDetails.uri"
         >
         <div class="input-div">
           <div class="toggle-div label">
@@ -336,8 +336,8 @@ export default {
       pricingType: PriceType.FIXED,
       ipfsUrl: '',
       userData: JSON.parse(localStorage.getItem('userData')),
-      erc721ContractAddress: '0xF3538d2696FF98396Aa0386d91bd7f9C02570511',
-      erc1155ContractAddress: '0x24d5CaBE5A68653c1a6d10f65679839a5CD4a42A',
+      erc721ContractAddress: '0x9684836C7adA86cc99b1B747d87aAae1494F8ad3',
+      erc1155ContractAddress: '0xDCB2fA7857b2fbF9e977b9180d4B9cD1A7f942b2',
       erc20ContractAddress: '0x82ccaff54be0d4cf6b10de0a225584adb9adf7d3',
       delegateContractAddress: '0xe6cC989A64dd61f889D350e3eDB4A381Ee86b6e2',
     };
