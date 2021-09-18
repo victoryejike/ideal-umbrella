@@ -1,4 +1,144 @@
 {
+  "2fa_screen": {
+    "otp_placeholder": "Enter the verification code",
+    "otp_text": "OTP Code",
+    "submit": "Submit",
+    "title": "Two-factor Authentication"
+  },
+  "axios": {
+    "network_error": "Network Error",
+    "unexcepted_error": "Unexcepted Error"
+  },
+  "buy_modal": {
+    "bid_message": "Confirmation will be sent to you mail once it is created",
+    "btn": "Go to Market Place",
+    "resale-btn": "Go to Profile",
+    "buy_message": "Confirmation will be sent to you mail once it is created",
+    "resale_message": "Confirmation will be sent to you mail once it is added to marketplace",
+    "closeBid_message": "You have Successfully closed bidding for this NFT",
+    "success": "Congratulation 😊",
+    "notification": "Please be advised that you will have to accept two transactions requests on your wallet for the transaction and gas fees to complete your NFT purchase."
+  },
+  "share": {
+    "share_title": "Choose Platform to share your Naffit NFT"
+  },
+  "collectible": {
+    "amount_label": "Amount",
+    "amount_placeholder": "Enter price for one piece",
+    "auction_expiration_label": "Auction Expiration Date",
+    "auction_expiration_placeholder": "Enter Auction Expiration Date",
+    "auction_label": "Minimum Bid",
+    "auction_placeholder": "Enter minimum bid",
+    "auction_start_label": "Auction Start Date",
+    "auction_start_placeholder": "Enter Auction Start Date",
+    "category": "Choose Category",
+    "choose_collection_label": "Choose Collection",
+    "create_button_text": "Create",
+    "resale_button_text": "Resale",
+    "discription_label": "Description",
+    "discription_placeholder": "e.g. “After purchasing you’ll be able to get the real T-Shirt”",
+    "file_type_text": "PNG, GIF, WEBP, MP4 or MP3. Max 20mb.",
+    "number_of_copies_label": "Number of copies",
+    "number_of_copies_placeholder": "e.g. 10“ ",
+    "put_on_marketplace": "List on marketplace",
+    "received_amount_label": "Received Amount (Service fee: 2.5%)",
+    "received_amount_placeholder": "Enter price for one piece",
+    "royalties_label": "Royalties",
+    "tab": {
+      "fixed_price": "FIXED PRICE",
+      "timed_auction": "TIMED AUCTION",
+      "unlimited_auction": "UNLIMITED AUCTION"
+    },
+    "title_label": "Title",
+    "title_multiple": "Create Multiple Collectible",
+    "title_placeholder": "e.g. “Redeemable Lady Gaga T-Shirt”",
+    "title_single": "Create Single Collectible",
+    "upload_button_text": "UPLOAD",
+    "upload_file_label": "Upload File"
+  },
+  "components": {
+    "country_code": "Country Code",
+    "search": "Search",
+    "search_placeholder": "Search by NFT Name",
+    "select_placeholder": "Select Item",
+    "times_up": "Time's up"
+  },
+  "connect_wallet": {
+    "description": "Connect with one of available wallet providers or create a new wallet.",
+    "title": "Connect your Wallet"
+  },
+  "created": {
+    "no_item": {
+      "bid": "No Bid Made for this NFT",
+      "btn": "Create",
+      "found": "No items found",
+      "text": "Do you want to create one to sell now?"
+    }
+  },
+  "default": "Default Template",
+  "discover_screen": {
+    "search_result": "Searching: {0}",
+    "title": "Discover the latest NFT in the market"
+  },
+  "edit_profile": {
+    "account": "ACCOUNT",
+    "avatar": "Avatar",
+    "bio": "Bio",
+    "bio_placeholder": "Tell about yourself in a few words",
+    "choose_file": "Choose File",
+    "display_name": "Display Name",
+    "display_name_placeholder": "Enter your display name",
+    "edit_profile": "EDIT PROFILE",
+    "email": "E-Mail",
+    "email_placeholder": "Your E-mail for marketplace notifications",
+    "need_verified_account": "Need a verified account?",
+    "portfolio": "Personal site or portfolio",
+    "portfolio_placeholder": "https://",
+    "recommend": "We recommend an image of at least 400x400. Gifs work too.",
+    "update_btn": "Update"
+  },
+  "error_page": {
+    "btn": "Home",
+    "message": "Looks like you’re lost!"
+  },
+  "footer": {
+    "fanschain": {
+      "community": "Community",
+      "exchange": "Exchange",
+      "fto": "Fan Token Offering",
+      "title": "Fanschain"
+    },
+    "legal": {
+      "privacy_policy": "Privacy Policy",
+      "terms": "Terms",
+      "title": "Legal",
+      "trading_policy": "Insider Trading Policy"
+    },
+    "nft": {
+      "create": "Create NFT",
+      "discover": "Discover",
+      "how_it_works": "How it works",
+      "profile": "My Profile",
+      "title": "NFT Marketplace",
+      "wallet": "Wallet"
+    }
+  },
+  "forgot_password": {
+    "already_have_account": "Already have an account?",
+    "country_code": "Country Code",
+    "forgot_password": "Forgot Password",
+    "login": "Login",
+    "phone": "Phone Number",
+    "send": "Send",
+    "sms_code": "OTP"
+  },
+  "global": {
+    "already_has_request": "There are alredy has a request in the MetaMask, please unlock it first",
+    "connect_metamask": "Please connect or unlock your MetaMask before creating transaction",
+    "no_metamask": "No MetaMask wallet detected!\nPlease download or enable it first.",
+    "wrong_network": "Wrong Network",
+    "wrong_network_des": "Please change your network to {0} and connect again"
+  },
   "header": {
     "create": "創建",
     "discover": "發現",
@@ -8,9 +148,58 @@
     "login": "登錄",
     "logout": "登出",
     "my_nft": "我的 NFT",
+    "profile": "Profile",
     "register": "註冊",
     "setting": "賬戶設置",
     "wallet": "錢包"
+  },
+  "index_screen": {
+    "banner_text": "NFT Marketplace",
+    "discover_tab": {
+      "cheap": "CHEAPEST",
+      "high": "HIGHEST",
+      "recent": "LATEST"
+    },
+    "end_of_content": "End of Content",
+    "more": "More",
+    "no_content": {
+      "day": "No Top Seller Today",
+      "month": "No Top Seller in This Month",
+      "week": "No Top Seller in This Week"
+    },
+    "popular_no_content": "No Popular NFT",
+    "seller_tab": {
+      "day": "DAY",
+      "month": "MONTH",
+      "week": "WEEK"
+    },
+    "title": {
+      "discover": "Discover",
+      "popular": "Popular",
+      "top_seller": "Top Sellers"
+    }
+  },
+  "kyc_screen": {
+    "confirm": "Confirm",
+    "id_number_label": "ID Number",
+    "id_number_placeholder": "Enter your ID number",
+    "id_type_label": "ID Type",
+    "id_verification": "ID Verfication",
+    "name_label": "Full Name",
+    "name_placeholder": "Enter your full name",
+    "nationality_label": "Nationality"
+  },
+  "login_screen": {
+    "email_placeholder": "Enter your email address",
+    "email_text": "Email Address",
+    "forgot_password": "Forgot Password?",
+    "login": "Login",
+    "not_a_member": "Not a member?",
+    "password_placehoder": "Enter your password",
+    "password_text": "Login Password",
+    "phone_placeholder": "Enter your phone number",
+    "phone_text": "Phone Number",
+    "registered": "Registered"
   },
   "menu": {
     "discovery": "發現",
@@ -33,5 +222,181 @@
       "setting": "賬戶設置"
     },
     "register": "註冊"
+  },
+  "nft_details": {
+    "bid": {
+      "bid-content": "You are about to place a bid for",
+      "quantity_label": "Quantity",
+      "service_fee": "Service fee",
+      "total_bid_amount": "Total bid amount",
+      "user_balance": "Your balance",
+      "user_bid_label": "Your bid",
+      "user_bid_placeholder": "Enter bid",
+      "user_bidding_balance": "Your bidding balance"
+    },
+    "blockchain": "Blockchain",
+    "blockchain_value": "Ethereum Chain",
+    "buy": {
+      "buy-content": "You are about to purchase",
+      "total_buy_amount": "Total buy amount",
+      "user_buy_label": "Amount"
+    },
+    "buy_nft": "Buy NFT",
+    "buy_now": "Buy Now",
+    "close_bid": "Close Bid",
+    "contact_details": "Contact Details",
+    "content": "Symbiotic refers to a failed lab experiment, a reaction of two different organisms. Symbiotic refers to a failed lab experiment, a reaction of ...",
+    "creator": "Creator",
+    "description": "Description",
+    "highest_bid": "Highest Bid",
+    "minimum_bid": "Minimum Bid",
+    "place_a_bid": "Place a bid",
+    "place_bid": "Place Bid",
+    "price": "Price",
+    "read_more": "Read more",
+    "tabs": {
+      "bids": "BIDS",
+      "details": "DETAILS",
+      "history": "HISTORY"
+    },
+    "takeoff": "Take Off Marketplace",
+    "puton": "Put on Marketplace",
+    "token_id": "Token ID",
+    "token_text": "Everydays - The First 5000 Days"
+  },
+  "nft_index": {
+    "button_text": "Timed Auctions",
+    "description": "Choose Single if you want your collectible to be one of a kind or Multiple if you want to sell one collectible multiple times. We do not own your private keys and cannot access your funds without your confirmation.",
+    "title": "Create Collectible"
+  },
+  "otp_disclaimer": {
+    "msg": "A 6-digit OTP code will be sent via Email or SMS. Message and Data rates may apply."
+  },
+  "profile": {
+    "created": "CREATED",
+    "edit_profile": "Edit Profile",
+    "onsale": "ON SALES",
+    "owned": "OWNED",
+    "share": "Share",
+    "username": "Chris Torres"
+  },
+  "rabind_email_screen": {
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "email_verfication": "Phone Verification Code",
+    "email_verfication_label": "Email Verification Code",
+    "email_verfication_placehoder": "Enter the verification code",
+    "new_phone_label": "New Phone",
+    "new_phone_placeholder": "Enter New Phone",
+    "original_email_label": "Original Email",
+    "original_email_placehoder": "Enter original email address",
+    "phone_label": "Phone",
+    "phone_label_label": "****4321",
+    "phone_verfication_placehoder": "Enter the verification code",
+    "rebind_email": "Rebind Email"
+  },
+  "rabind_phone_screen": {
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "email_verfication_label": "Email Verification Code",
+    "email_verfication_placehoder": "Enter the verification code",
+    "new_email_label": "Enter new Email",
+    "new_email_placeholder": "Enter new Email Address",
+    "new_phone_label": "New Phone",
+    "new_phone_placeholder": "Enter new phone",
+    "new_phone_verfication": "New Phone Verification Code",
+    "original_phone_label": "Original Phone",
+    "original_phone_placehoder": "Enter phone number",
+    "original_phone_verfication": "Original Phone Verification Code",
+    "phone_label": "Phone",
+    "phone_label_label": "****4321",
+    "phone_verfication_placehoder": "Enter the verification code",
+    "rebind_phone": "Rebind Phone"
+  },
+  "register_screen": {
+    "agree_text": "I have read and agree to the",
+    "already_have_account": "Already have an account?",
+    "confirm_password_label": "Confirm Password",
+    "confirm_password_placehoder": "Confirm your password",
+    "email_label": "Email Address",
+    "email_placeholder": "Enter your email address",
+    "login": "Login",
+    "login_password_label": "Login Password",
+    "login_password_placehoder": "Enter your password",
+    "phone_label": "Phone Number",
+    "phone_placeholder": "Enter your phone number",
+    "privacy_agreement": " Terms of Use Privacy Agreement",
+    "register": "Register",
+    "send_code": "Send Code",
+    "verification_code__placehoder": "Enter the verification code",
+    "verification_code_label": "OTP"
+  },
+  "reset_password_screen": {
+    "cancel": "Cancel",
+    "confirm_password_label": "Confirm Password",
+    "confirm_password_placehoder": "Enter new password",
+    "new_password_label": "New Password",
+    "new_password_placehoder": "Enter new password",
+    "original_password_label": "Original Password",
+    "original_password_placehoder": "Enter current password",
+    "reset": "Reset",
+    "reset_password": "Reset Password"
+  },
+  "router": {
+    "expired": "Login Session is expired, please login again",
+    "fill_in_username": "Please fill in your name first before creating NFT",
+    "invalid_access": "Invalid access, token undefined"
+  },
+  "tab_titles": {
+    "email": "EMAIL",
+    "phone": "PHONE"
+  },
+  "user_index_screen": {
+    "account": "ACCOUNT",
+    "edit_profile": "EDIT PROFILE",
+    "settings": {
+      "body": {
+        "anti_phish": "Once you enable the anti-phishing code, it will be included in all authentic emails sent from us.",
+        "api": "Generate an API key for pulling market data and real-time trading services.",
+        "asset_pwd": "Used for withdrawals and asset transfers.",
+        "for_security": "For login, withdrawal and general account security.",
+        "id_ver": "Used for withdrawals and API verification."
+      },
+      "button": {
+        "change": "CHANGE",
+        "rebind": "RE-BIND",
+        "settings": "SETTINGS",
+        "verify": "VERIFY"
+      },
+      "header": {
+        "anti_phish": "ANTI-PHISHING CODE",
+        "api": "API",
+        "asset_pwd": "ASSET PASSWORD",
+        "email": "EMAIL",
+        "google_2fa": "GOOGLE 2FA",
+        "id_ver": "IDENTITY VERIFICATION",
+        "login_pwd": "LOGIN PASSWORD",
+        "phone": "PHONE",
+        "preference": "PREFERENCE"
+      }
+    },
+    "uid": "UID"
+  },
+  "validator": {
+    "agree_terms_msg": "Please accept the Terms and Conditions.",
+    "email_msg": "Invalid email address.",
+    "match_msg": "Passwords must match.",
+    "otp_msg": "The code should be a 6 digit number.",
+    "password_msg": "Invalid password, the password must contain at least 8 characters in length, and at least 1 lowercase, uppercase and numeric values.",
+    "phone_msg": "Invalid phone number.",
+    "required_msg": "Field cannot be empty.",
+    "username_msg": "Invalid username, it should be an email address or a phone number.",
+    "select_countery_code": "Please select the country code as well."
+  },
+  "wallet": {
+    "address": "0xa4fcd1ae1...4eac",
+    "copy": " Copy",
+    "new_wallet": "Connect Wallet",
+    "other_wallet": "Connect Other Wallet"
   }
 }
