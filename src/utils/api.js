@@ -56,7 +56,7 @@ const API_SERVICES = {
     } catch (error) {
       response = [];
     }
-
+    console.log(response);
     if (response?.success) {
       return response?.data;
     }

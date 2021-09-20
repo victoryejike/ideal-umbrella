@@ -33,7 +33,7 @@
       <div
         class="product-div"
         :style="[{height: `${size}px`}, {width: `${size}px`}]"
-        @click="handleClick"
+        @click.self="handleClick"
       >
         <img
           v-if="assetType === 'image'"
@@ -85,7 +85,7 @@
           <div
             v-if="marketplace === true"
             class="timed-auction-badge off-marketplace"
-            @click="takeOffMarket"
+            @click.self="takeOffMarket"
           >
             <span>Keep NFT</span>
             <span
@@ -106,7 +106,7 @@
           <div
             v-else
             class="timed-auction-badge"
-            @click="ResaleURL"
+            @click.self="ResaleURL"
           >
             Sell NFT
           </div>
