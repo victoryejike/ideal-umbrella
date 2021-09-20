@@ -52,7 +52,7 @@
       <div class="display-token-details">
         <div class="user-details">
           <div class="details-section">
-            <label> {{ $t('nft_details.creator') }}</label>
+            <label> {{ $t('nft_details.owner') }}</label>
             <div class="creater-details">
               <img
                 class="creater-image"
