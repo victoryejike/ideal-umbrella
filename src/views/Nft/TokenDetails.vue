@@ -124,7 +124,25 @@
               >
                 <div class="bids-inner-div">
                   <div>
-                    <div class="author">
+                    <div
+                      v-if="item.user_id.display_name"
+                      class="author"
+                    >
+                      {{
+                        item.user_id.display_name
+                      }}
+                      <img
+                        v-if="item.user_address"
+                        class="tick-icon"
+                        height="16"
+                        src="@svg/tick.svg"
+                        width="16"
+                      >
+                    </div>
+                    <div
+                      v-else
+                      class="author"
+                    >
                       {{
                         ((item?.user_address).
                           replace((item?.user_address).substring(5, 36), '*******'))
