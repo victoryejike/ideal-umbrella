@@ -99,6 +99,7 @@ export default {
 
     const response = await this.$api.GET_POPULAR_NFT();
     const matchKeyResponse = this.$global.translateNFTDetails(response);
+    console.log(1);
     this.popularList.push(...matchKeyResponse);
     this.isLoading = false;
   },

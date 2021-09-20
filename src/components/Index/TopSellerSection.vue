@@ -95,7 +95,7 @@ export default {
         if (response && response?.length > 0) {
           const matchKeyResponse = response.map((item) => {
           // eslint-disable-next-line no-underscore-dangle
-            const seller = item._top_sellers;
+            const seller = item._users;
             return {
               avatar: seller.image,
               author: seller.display_name,
