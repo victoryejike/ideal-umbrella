@@ -1,12 +1,6 @@
 export default [
   {
-    inputs: [
-      {
-        internalType: 'address',
-        name: 'erc20TokenAddress',
-        type: 'address',
-      },
-    ],
+    inputs: [],
     stateMutability: 'nonpayable',
     type: 'constructor',
   },
@@ -64,81 +58,6 @@ export default [
     anonymous: false,
     inputs: [
       {
-        indexed: false,
-        internalType: 'address',
-        name: 'seller',
-        type: 'address',
-      },
-      {
-        indexed: false,
-        internalType: 'enum ERC721NafitiBasic.AuctionType',
-        name: 'auctionType',
-        type: 'uint8',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'tokenId',
-        type: 'uint256',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'amount',
-        type: 'uint256',
-      },
-    ],
-    name: 'AuctionCreated',
-    type: 'event',
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: 'address',
-        name: 'highestBidder',
-        type: 'address',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'highestBid',
-        type: 'uint256',
-      },
-      {
-        indexed: false,
-        internalType: 'address',
-        name: 'seller',
-        type: 'address',
-      },
-    ],
-    name: 'BidClosed',
-    type: 'event',
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: 'address',
-        name: 'bidder',
-        type: 'address',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'tokenId',
-        type: 'uint256',
-      },
-    ],
-    name: 'BidPlaced',
-    type: 'event',
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
         indexed: true,
         internalType: 'address',
         name: 'from',
@@ -159,65 +78,6 @@ export default [
     ],
     name: 'Transfer',
     type: 'event',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'uint256',
-        name: '_tokenId',
-        type: 'uint256',
-      },
-    ],
-    name: 'CloseBid',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'uint256',
-        name: '_tokenId',
-        type: 'uint256',
-      },
-      {
-        internalType: 'enum ERC721NafitiBasic.AuctionType',
-        name: '_auctionType',
-        type: 'uint8',
-      },
-      {
-        internalType: 'uint256',
-        name: '_duration',
-        type: 'uint256',
-      },
-      {
-        internalType: 'uint256',
-        name: '_startingPrice',
-        type: 'uint256',
-      },
-    ],
-    name: 'CreateAuction',
-    outputs: [],
-    stateMutability: 'payable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'uint256',
-        name: '_tokenId',
-        type: 'uint256',
-      },
-      {
-        internalType: 'uint256',
-        name: '_amount',
-        type: 'uint256',
-      },
-    ],
-    name: 'PlaceBid',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
   },
   {
     inputs: [
@@ -267,50 +127,6 @@ export default [
       },
     ],
     stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'uint256',
-        name: '_tokenId',
-        type: 'uint256',
-      },
-    ],
-    name: 'buy',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'uint256',
-        name: '_tokenId',
-        type: 'uint256',
-      },
-    ],
-    name: 'cancelBid',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'uint256',
-        name: '_tokenId',
-        type: 'uint256',
-      },
-      {
-        internalType: 'uint256',
-        name: '_price',
-        type: 'uint256',
-      },
-    ],
-    name: 'createSellOrder',
-    outputs: [],
-    stateMutability: 'nonpayable',
     type: 'function',
   },
   {
@@ -448,9 +264,9 @@ export default [
         type: 'uint256',
       },
       {
-        internalType: 'bytes',
+        internalType: 'byte',
         name: '_data',
-        type: 'bytes',
+        type: 'byte',
       },
     ],
     name: 'safeTransferFrom',

@@ -306,7 +306,7 @@ const ipfs = require('nano-ipfs-store').at('https://ipfs.infura.io:5001');
 
 const APP_NAME = 'Naffiti';
 const APP_LOGO_URL = 'https://example.com/logo.png';
-const ETH_JSONRPC_URL = 'https://ropsten.infura.io/v3/58bf1103531f4b858b31eb3c5c4ddd2f';
+const ETH_JSONRPC_URL = 'https://rinkeby.infura.io/v3/58bf1103531f4b858b31eb3c5c4ddd2f';
 const CHAIN_ID = 3;
 
 // Initialize WalletLink
@@ -364,10 +364,10 @@ export default {
       pricingType: PriceType.FIXED,
       ipfsUrl: '',
       userData: JSON.parse(localStorage.getItem('userData')),
-      erc721ContractAddress: '0x9684836C7adA86cc99b1B747d87aAae1494F8ad3',
-      erc1155ContractAddress: '0xDCB2fA7857b2fbF9e977b9180d4B9cD1A7f942b2',
-      erc20ContractAddress: '0x82ccaff54be0d4cf6b10de0a225584adb9adf7d3',
-      delegateContractAddress: '0xD5B6FbB0728A55596eFDE6F5412396AF39366Ed4',
+      erc721ContractAddress: '0x9aE66F8aDF65816BE94C957D6D37b316791Bc5CD',
+      erc1155ContractAddress: '0x5eb7Ce96075387E343D4c50b42ADb4AFE79852E5',
+      erc20ContractAddress: '0x05Ba83D5b36F3E449b606C0253AeD0c8373eFE92',
+      delegateContractAddress: '0x5B39243bc3bC37DC8d1E4088b85B103a7719cD1d',
     };
   },
   computed: {

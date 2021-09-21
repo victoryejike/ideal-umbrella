@@ -359,7 +359,7 @@ import NoBid from './NoBid.vue';
 
 const APP_NAME = 'Naffiti';
 const APP_LOGO_URL = 'https://example.com/logo.png';
-const ETH_JSONRPC_URL = 'https://ropsten.infura.io/v3/58bf1103531f4b858b31eb3c5c4ddd2f';
+const ETH_JSONRPC_URL = 'https://rinkeby.infura.io/v3/58bf1103531f4b858b31eb3c5c4ddd2f';
 const CHAIN_ID = 3;
 // Initialize WalletLink
 export const walletLink = new WalletLink({
@@ -401,9 +401,9 @@ export default {
       token: '',
       userData: JSON.parse(localStorage.getItem('userData')),
       Address: localStorage.getItem('account'),
-      erc721ContractAddress: '0xF3538d2696FF98396Aa0386d91bd7f9C02570511',
-      erc1155ContractAddress: '0x24d5CaBE5A68653c1a6d10f65679839a5CD4a42A',
-      delegateContractAddress: '0xD5B6FbB0728A55596eFDE6F5412396AF39366Ed4',
+      erc721ContractAddress: '0x9aE66F8aDF65816BE94C957D6D37b316791Bc5CD',
+      erc1155ContractAddress: '0x5eb7Ce96075387E343D4c50b42ADb4AFE79852E5',
+      delegateContractAddress: '0x5B39243bc3bC37DC8d1E4088b85B103a7719cD1d',
     };
   },
   computed: {
