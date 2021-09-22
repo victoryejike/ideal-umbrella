@@ -85,7 +85,7 @@
           <div
             v-if="marketplace === true"
             class="timed-auction-badge off-marketplace"
-            @click.self="takeOffMarket"
+            @click="takeOffMarket"
           >
             <span>Keep NFT</span>
             <span
