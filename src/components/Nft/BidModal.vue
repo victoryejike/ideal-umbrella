@@ -187,7 +187,7 @@ export default {
               this.isLoading = true;
               try {
                 await delegateContract.methods
-                  .placeBid(this.erc721ContractAddress,
+                  .placeBid(this.nftTokenAddress,
                     web3.utils.toWei(this.initialBidValue), this.tokenid, this.userData.uid)
                   .send({ from: this.Address })
                   .on('error', (error) => {
