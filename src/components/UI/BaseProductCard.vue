@@ -74,7 +74,7 @@
           @click="handleClick"
         >
         <div
-          v-if="period != null"
+          v-if="period != null && marketplace === true"
           class="timed-auction-badge"
         >
           {{ timeLeft }}
