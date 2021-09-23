@@ -78,6 +78,7 @@ const GLOBAL_FUNCTION = {
           avatar: nft.owner?.image,
           verified: nft.owner?.is_kyc_verified || false,
           period: null,
+          bid: nft.bid ? nft.bid : null,
         };
 
         if (nft.pricing_type === 'timed_auction' && nft.starting_date && nft.expiration_date) {

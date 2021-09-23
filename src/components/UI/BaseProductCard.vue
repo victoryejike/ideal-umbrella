@@ -83,7 +83,7 @@
           v-else-if="marketplace != null"
         >
           <div
-            v-if="marketplace === true"
+            v-if="marketplace === true && bid === null"
             class="timed-auction-badge off-marketplace"
             @click="takeOffMarket"
           >
@@ -104,7 +104,7 @@
             </span>
           </div>
           <div
-            v-else
+            v-else-if="marketplace === false"
             class="timed-auction-badge"
             @click.self="ResaleURL"
           >
@@ -204,6 +204,7 @@ export default {
     verified: { type: Boolean, required: false, default: false },
     period: { type: Object, required: false, default: null },
     marketplace: { type: Boolean, required: false, default: null },
+    bid: { type: Object, required: false, default: null },
   },
   data() {
     return {

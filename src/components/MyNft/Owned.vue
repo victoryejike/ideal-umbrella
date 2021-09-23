@@ -10,6 +10,7 @@
         :assetType="item.assetType"
         :author="item.author"
         :avatar="item.avatar"
+        :bid="item.bid"
         class="gridbox-product-card"
         :css="cardCSS"
         :image="item.image"

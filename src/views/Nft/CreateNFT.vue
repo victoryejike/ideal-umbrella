@@ -526,7 +526,7 @@ export default {
               console.log(error);
               this.isLoading = false;
             }).on('confirmation', async (confirmation, receipt) => {
-              console.log(receipt);
+              // console.log(receipt);
               this.ipfsUrl = cid;
               this.tokenId = receipt.events.TokenMinted.returnValues.tokenType;
               this.blockNumber = receipt.blockNumber;
@@ -548,7 +548,7 @@ export default {
               console.log(error);
               this.isLoading = false;
             }).on('confirmation', async (confirmation, receipt) => {
-              console.log(receipt);
+              // console.log(receipt);
               this.ipfsUrl = cid;
               this.tokenId = receipt.events.TokenMinted.returnValues.tokenType;
               this.blockNumber = receipt.blockNumber;
