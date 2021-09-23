@@ -86,7 +86,7 @@ export default {
         this.$store.dispatch('auth/login', response?.data);
         localStorage.setItem('userUID', response?.data.uid);
         // eslint-disable-next-line no-restricted-globals
-        location.assign(`https://naffiti.com/#/account/profile/${localStorage.getItem('account')}`);
+        location.assign('/');
         // this.$router.push(`/account/profile/${localStorage.getItem('account')}`);
         this.$toast.success(response?.message);
       } else {
