@@ -35,6 +35,7 @@
             v-for="(item, index) in popularList"
             :id="item.id"
             :key="index"
+            :assetType="item.assetType"
             :author="item.author"
             :avatar="item.avatar"
             class="popular-product-card"
@@ -99,7 +100,6 @@ export default {
 
     const response = await this.$api.GET_POPULAR_NFT();
     const matchKeyResponse = this.$global.translateNFTDetails(response);
-    console.log(1);
     this.popularList.push(...matchKeyResponse);
     this.isLoading = false;
   },

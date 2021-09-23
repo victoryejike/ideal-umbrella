@@ -1,4 +1,4 @@
-import router from '@/router';
+// import router from '@/router';
 
 const initialState = () => ({
   countryList: [],
@@ -37,10 +37,10 @@ const getters = {
 const actions = {
   disconnect({ commit, state }) {
     localStorage.clear();
-    // eslint-disable-next-line no-restricted-globals
-    location.reload();
     commit('isWalletConnected', false);
-    router.push('/');
+    // router.push('/');
+    // eslint-disable-next-line no-restricted-globals
+    location.assign('/');
   },
 };
 
