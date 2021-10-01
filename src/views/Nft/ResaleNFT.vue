@@ -60,12 +60,14 @@
                 name="name"
                 :options="coinList"
                 rules="required"
+                @click="getServiceFeeCoin"
               />
             </template>
           </BaseUnderlinedInput>
           <BaseUnderlinedInput
             ref="receivedAmount"
             class="input-field"
+            disabled
             name="receivedAmount"
             :placeholder="$t('collectible.received_amount_placeholder')"
             rules="required"
@@ -73,7 +75,8 @@
             type="number"
           >
             <template #element>
-              <BaseScrollableSelectBox
+              {{ coin }}
+              <!-- <BaseScrollableSelectBox
                 id="coinList"
                 class="label"
                 :default-selected="true"
@@ -82,7 +85,7 @@
                 name="name"
                 :options="coinList"
                 rules="required"
-              />
+              /> -->
             </template>
           </BaseUnderlinedInput>
         </template>
@@ -141,6 +144,7 @@
         <BaseUnderlinedInput
           v-model="nftDetails.title"
           class="input-field"
+          disabled
           name="title"
           :placeholder="$t('collectible.title_placeholder')"
           rules="required"
@@ -149,6 +153,7 @@
         <BaseUnderlinedInput
           v-model="nftDetails.description"
           class="input-field"
+          disabled
           name="description"
           :placeholder="$t('collectible.discription_placeholder')"
           rules="required"
@@ -301,6 +306,7 @@ export default {
       placeBuy: false,
       selectedSwitch: true,
       coinType: 'ETH',
+      coin: 'ETH',
       collectible_type: '',
       coinList: [
         { name: 'ETH', image: 'https://res.cloudinary.com/ddqrqm0ow/image/upload/v1629997919/ethereum_rynhsn.svg', id: 'ETH' },
@@ -339,7 +345,7 @@ export default {
       erc721ContractAddress: '0x9aE66F8aDF65816BE94C957D6D37b316791Bc5CD',
       erc1155ContractAddress: '0x5eb7Ce96075387E343D4c50b42ADb4AFE79852E5',
       erc20ContractAddress: '0x8C5B4AB57Eef1e2C78c9a16843701195B51a812C',
-      delegateContractAddress: '0x5B39243bc3bC37DC8d1E4088b85B103a7719cD1d',
+      delegateContractAddress: '0xD687d510FF1E33668688a51C11C734Ba2980BeD0',
     };
   },
   computed: {
@@ -373,7 +379,7 @@ export default {
       let response = null;
       try {
         let type = null;
-        if (this.standard === 'erc1155') {
+        if (this.nfttype === 'multiple') {
           type = false;
           const { data } = await this.$api.GETCOLLECTIBLE(localStorage.getItem('account'), type);
           response = data;
@@ -410,6 +416,9 @@ export default {
       const newAmount = (amount - discountAmount).toFixed(4);
       this.$refs.receivedAmount.value = newAmount;
     },
+    getServiceFeeCoin() {
+      this.coin = document.querySelector('.options-text').innerText;
+    },
     getTimestamp(time) {
       const myDate = time.split('-');
       const newDate = new Date(myDate[0], myDate[1] - 1, myDate[2]);
@@ -435,10 +444,10 @@ export default {
       const web3 = new Web3(provider);
       const delegateContract = new web3.eth.Contract(require('@/assets/abi/delegateContract').default, this.delegateContractAddress);
       if (this.nfttype === 'multiple') {
+        console.log('multiple');
         this.tokentype = 2;
         const qty = this.nftDetails.supply;
         const contract = new web3.eth.Contract(require('@/assets/abi/erc1155').default, this.erc1155ContractAddress);
-        const price = document.querySelector('.price').value;
         if (this.pricingType === PriceType.FIXED) {
           console.log(this.pricingType);
           this.tokenId = this.nftDetails.tokenId;
@@ -458,6 +467,7 @@ export default {
               if (receipt) {
                 this.isLoading = true;
                 try {
+                  const price = document.querySelector('.price').value;
                   await delegateContract.methods
                     .OfferForSale(this.erc20ContractAddress, this.erc1155ContractAddress,
                       this.tokenId, qty,
@@ -477,6 +487,7 @@ export default {
               }
             });
         } if (this.pricingType === PriceType.UNLIMITED_AUCTION) {
+          console.log('unlimited');
           const startingBid = document.querySelector('.minimum_bid').value;
           const startDate = document.querySelector('.starting_date').value;
           const startTime = this.getTimestamp(startDate);

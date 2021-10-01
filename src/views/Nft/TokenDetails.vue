@@ -223,11 +223,18 @@
             class="actions"
           >
             <BaseRoundButton
-              v-if="bidsList?.length == 0"
+              v-if="bidsList?.length == 0 && nftDetails.market_visibility === true"
               class="buy-button btn-primary btn-md btn-bold"
               :icon="isLoading ? 'loading' : 'arrow-right'"
               :text="$t('nft_details.takeoff')"
               @click="takeOffMarket"
+            />
+            <BaseRoundButton
+              v-else-if="bidsList?.length == 0 && nftDetails.market_visibility === false"
+              class="buy-button btn-primary btn-md btn-bold"
+              :icon="isLoading ? 'loading' : 'arrow-right'"
+              :text="$t('nft_details.puton')"
+              @click="resale"
             />
             <BaseRoundButton
               v-else
@@ -403,7 +410,7 @@ export default {
       Address: localStorage.getItem('account'),
       erc721ContractAddress: '0x9aE66F8aDF65816BE94C957D6D37b316791Bc5CD',
       erc1155ContractAddress: '0x5eb7Ce96075387E343D4c50b42ADb4AFE79852E5',
-      delegateContractAddress: '0x5B39243bc3bC37DC8d1E4088b85B103a7719cD1d',
+      delegateContractAddress: '0xD687d510FF1E33668688a51C11C734Ba2980BeD0',
     };
   },
   computed: {
@@ -425,10 +432,10 @@ export default {
     this.bidsList = await this.$api.GET_BIDS(this.$route.params.id);
     console.log(this.bidsList);
     this.detailsTabList = [
-      // {
-      //   text: this.$t('nft_details.contact_details'),
-      //   value: `${this.nftDetails.owner_address?.slice(0, 15)}...`,
-      // },
+      {
+        text: this.$t('nft_details.bid.quantity_label'),
+        value: this.nftDetails.supply ? `${this.nftDetails.supply}` : 1,
+      },
       {
         text: this.$t('nft_details.price'),
         value: `${this.nftDetails.minimum_bid || this.nftDetails.price} ETH`,
@@ -501,7 +508,7 @@ export default {
       this.isLoading = true;
       const delegateContract = new web3.eth.Contract(require('@/assets/abi/delegateContract').default, this.delegateContractAddress);
       await delegateContract.methods
-        .closeBid(this.erc721ContractAddress, this.nftDetails.tokenId, (1), '0x00')
+        .closeBid(this.nftAddress, this.nftDetails.tokenId, this.token, '0x00')
         .send({ from: this.Address })
         .on('error', (error) => {
           console.log(error);

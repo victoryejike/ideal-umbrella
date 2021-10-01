@@ -29,7 +29,7 @@ const publicRoute = [
     path: '/2fa',
     name: '2FA',
     component: () => import('@view/2FA.vue'),
-    beforeEnter: (to, from, next) => (to.params?.formData ? next() : next({ name: 'Login', params: { errorMsg: $t('router.invalid_access') } })),
+    beforeEnter: (to, from, next) => (to.params?.formData ? next() : next({ name: 'ConnectWallet', params: { errorMsg: $t('router.invalid_access') } })),
   },
   // {
   //   path: '/register',

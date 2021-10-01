@@ -60,6 +60,7 @@
                 name="coin"
                 :options="coinList"
                 rules="required"
+                @click="getServiceFeeCoin"
               />
             </template>
           </BaseUnderlinedInput>
@@ -75,7 +76,8 @@
           >
             <template #element>
               <!-- <span style="font-weight: bold;">ETH</span> -->
-              <BaseScrollableSelectBox
+              {{ coin }}
+              <!-- <BaseScrollableSelectBox
                 id="coinList"
                 class="label"
                 :default-selected="true"
@@ -84,7 +86,7 @@
                 name="name"
                 :options="coinList"
                 rules="required"
-              />
+              /> -->
             </template>
           </BaseUnderlinedInput>
         </template>
@@ -328,6 +330,7 @@ export default {
       selectedSwitch: true,
       closedBid: false,
       coinType: 'ETH',
+      coin: 'ETH',
       collectible_type: '',
       collectibleList: [
         { name: 'ERC-721', id: 'erc' },
@@ -367,7 +370,7 @@ export default {
       erc721ContractAddress: '0x9aE66F8aDF65816BE94C957D6D37b316791Bc5CD',
       erc1155ContractAddress: '0x5eb7Ce96075387E343D4c50b42ADb4AFE79852E5',
       erc20ContractAddress: '0x8C5B4AB57Eef1e2C78c9a16843701195B51a812C',
-      delegateContractAddress: '0x5B39243bc3bC37DC8d1E4088b85B103a7719cD1d',
+      delegateContractAddress: '0xD687d510FF1E33668688a51C11C734Ba2980BeD0',
     };
   },
   computed: {
@@ -438,6 +441,9 @@ export default {
       const discountAmount = ((amount * 0.025).toFixed(4));
       const newAmount = (amount - discountAmount).toFixed(4);
       this.$refs.receivedAmount.value = newAmount;
+    },
+    getServiceFeeCoin() {
+      this.coin = document.querySelector('.options-text').innerText;
     },
     getTimestamp(time) {
       const myDate = time.split('-');
@@ -769,7 +775,6 @@ export default {
               this.$router.push({ name: 'Profile', params: { walletAddress: this.value } });
             });
         }
-        // this.$refs['collectible-nft'].submit();
       }
     },
     async onSubmit(CollectibleNftData) {
