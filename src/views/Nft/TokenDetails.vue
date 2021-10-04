@@ -692,12 +692,6 @@ label {
   margin-bottom: 0.625rem;
 }
 
-.nft-details {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-
 .align {
   margin-right: 3rem;
 }
