@@ -103,10 +103,18 @@
           </div>
         </div>
 
-        <div class="token-content details-section">
-          <label> {{ $t('nft_details.description') }}</label>
-          <div class="token-description">
-            {{ nftDetails.description }}
+        <div class="nft-details">
+          <div class="token-content details-section">
+            <label> {{ $t('nft_details.description') }}</label>
+            <div class="token-description">
+              {{ nftDetails.description }}
+            </div>
+          </div>
+          <div class="token-content details-section align">
+            <label> {{ $t('nft_details.bid.quantity_label') }}</label>
+            <div class="token-description">
+              {{ nftDetails.supply || 1 }}
+            </div>
           </div>
         </div>
         <BaseNavigationTab
@@ -684,6 +692,13 @@ label {
   margin-bottom: 0.625rem;
 }
 
+.nft-details {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 78%;
+}
+
 .bids-main-div {
   margin-bottom: 1.4688rem;
   margin-top: 3rem;
@@ -846,12 +861,16 @@ label {
     width: 100%;
   }
 
-  .user-details {
+  .user-details, .nft-details {
     width: 100%;
   }
 
   .token-content {
     width: 100%;
+  }
+
+  .align {
+    text-align: right;
   }
 }
 </style>
