@@ -696,7 +696,10 @@ label {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  width: 78%;
+}
+
+.align {
+  margin-right: 3rem;
 }
 
 .bids-main-div {
@@ -871,6 +874,7 @@ label {
 
   .align {
     text-align: right;
+    margin-right: 0;
   }
 }
 </style>
