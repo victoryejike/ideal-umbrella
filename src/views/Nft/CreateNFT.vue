@@ -309,7 +309,7 @@ const ipfs = require('nano-ipfs-store').at('https://ipfs.infura.io:5001');
 const APP_NAME = 'Naffiti';
 const APP_LOGO_URL = 'https://example.com/logo.png';
 const ETH_JSONRPC_URL = 'https://rinkeby.infura.io/v3/58bf1103531f4b858b31eb3c5c4ddd2f';
-const CHAIN_ID = 3;
+const CHAIN_ID = 4;
 
 // Initialize WalletLink
 const walletLink = new WalletLink({
