@@ -157,8 +157,8 @@
     "banner_text": "NFT Marketplace",
     "discover_tab": {
       "cheap": "CHEAPEST",
-      "high": "HIGHEST",
-      "recent": "LATEST"
+      "high": "HIGHEST PRICE",
+      "recent": "RECENTLY ADDED"
     },
     "end_of_content": "End of Content",
     "more": "More",

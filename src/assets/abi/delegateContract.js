@@ -510,6 +510,45 @@ export default [
     inputs: [
       {
         internalType: 'address',
+        name: '',
+        type: 'address',
+      },
+      {
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
+      },
+      {
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
+      },
+    ],
+    name: 'bids',
+    outputs: [
+      {
+        internalType: 'address',
+        name: 'bidder',
+        type: 'address',
+      },
+      {
+        internalType: 'uint256',
+        name: 'bid',
+        type: 'uint256',
+      },
+      {
+        internalType: 'uint256',
+        name: 'quantity',
+        type: 'uint256',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'address',
         name: '_nftTokenAddress',
         type: 'address',
       },
@@ -583,6 +622,11 @@ export default [
         internalType: 'bytes',
         name: '_data',
         type: 'bytes',
+      },
+      {
+        internalType: 'uint256',
+        name: '_quantity',
+        type: 'uint256',
       },
     ],
     name: 'instantBuy',
@@ -780,6 +824,11 @@ export default [
         internalType: 'string',
         name: '_userId',
         type: 'string',
+      },
+      {
+        internalType: 'uint256',
+        name: '_quantity',
+        type: 'uint256',
       },
     ],
     name: 'placeBid',

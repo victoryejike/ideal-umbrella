@@ -57,6 +57,7 @@
       :text="$t('nft_details.bid.quantity_label')"
       type="number"
     />
+    <span v-if="nfttype">Available quantity: {{ nfttype }}</span>
     <div class="details-section">
       <div class="bidding-details">
         <div class="label">
@@ -149,7 +150,7 @@ export default {
       erc20ContractAddress: '0x8C5B4AB57Eef1e2C78c9a16843701195B51a812C',
       erc721ContractAddress: '0x9aE66F8aDF65816BE94C957D6D37b316791Bc5CD',
       erc1155ContractAddress: '0x5eb7Ce96075387E343D4c50b42ADb4AFE79852E5',
-      delegateContractAddress: '0xD687d510FF1E33668688a51C11C734Ba2980BeD0',
+      delegateContractAddress: '0xc893549e36EEE4AD7EB263195fdaF05AF8a4c196',
     };
   },
   async mounted() {
@@ -177,7 +178,10 @@ export default {
     },
     async onSubmit(formData) {
       const amount = await this.getBalance();
-      if (amount >= this.finalValue) {
+      const qty = document.querySelector('.quantity').value;
+      if ((qty > this.nfttype)) {
+        this.$toast.error('Sorry, you entered more quantity than available');
+      } else if (amount >= this.finalValue) {
         this.isLoading = true;
         const web3 = new Web3(window.ethereum);
         // this.getBalance();
@@ -199,7 +203,7 @@ export default {
               this.isLoading = true;
               try {
                 await delegateContract.methods
-                  .instantBuy(this.nftTokenAddress, this.token, this.tokenid, '0x0')
+                  .instantBuy(this.nftTokenAddress, this.token, this.tokenid, '0x0', qty)
                   .send({ from: this.Address })
                   .on('error', (error) => {
                     console.log(error);
