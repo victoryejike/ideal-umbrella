@@ -69,7 +69,7 @@ const publicRoute = [
         params.nft = data;
         next();
       } else {
-        this.$router.push({ name: 'PathNotFound' });
+        next({ name: 'PathNotFound' });
       }
     },
   },

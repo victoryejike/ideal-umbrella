@@ -345,7 +345,7 @@ export default {
       erc721ContractAddress: '0x9aE66F8aDF65816BE94C957D6D37b316791Bc5CD',
       erc1155ContractAddress: '0x5eb7Ce96075387E343D4c50b42ADb4AFE79852E5',
       erc20ContractAddress: '0x8C5B4AB57Eef1e2C78c9a16843701195B51a812C',
-      delegateContractAddress: '0xc893549e36EEE4AD7EB263195fdaF05AF8a4c196',
+      delegateContractAddress: '0xc2199b47e35Bc1D3eAeC73651728Bd83857C4B01',
     };
   },
   computed: {

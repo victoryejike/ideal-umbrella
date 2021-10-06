@@ -150,7 +150,7 @@ export default {
       erc20ContractAddress: '0x8C5B4AB57Eef1e2C78c9a16843701195B51a812C',
       erc721ContractAddress: '0x9aE66F8aDF65816BE94C957D6D37b316791Bc5CD',
       erc1155ContractAddress: '0x5eb7Ce96075387E343D4c50b42ADb4AFE79852E5',
-      delegateContractAddress: '0xc893549e36EEE4AD7EB263195fdaF05AF8a4c196',
+      delegateContractAddress: '0xc2199b47e35Bc1D3eAeC73651728Bd83857C4B01',
     };
   },
   async mounted() {
@@ -178,8 +178,8 @@ export default {
     },
     async onSubmit(formData) {
       const amount = await this.getBalance();
-      const qty = document.querySelector('.quantity').value;
-      if ((qty > this.nfttype)) {
+      const qty = this.nfttype ? document.querySelector('.quantity').value : 1;
+      if (this.nfttype && (qty > this.nfttype)) {
         this.$toast.error('Sorry, you entered more quantity than available');
       } else if (amount >= this.finalValue) {
         this.isLoading = true;
@@ -211,6 +211,7 @@ export default {
                     this.$toast.error('An error occuured');
                   }).once('receipt', async () => {
                     this.$emit('bidPlaced', true);
+                    // window.location.reload();
                   });
               } catch (error) {
                 console.log(error);

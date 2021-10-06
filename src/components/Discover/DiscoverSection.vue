@@ -5,6 +5,13 @@
   >
     <template #right>
       <BaseNavigationTab
+        v-if="search"
+        :mobile-max-width="38"
+        :style="{'pointer-events':($refs['grid-box']?.isLoading) ? 'none': 'auto'}"
+        :width="9"
+      />
+      <BaseNavigationTab
+        v-else
         :list="discoverTab"
         :mobile-max-width="38"
         :style="{'pointer-events':($refs['grid-box']?.isLoading) ? 'none': 'auto'}"
@@ -31,6 +38,7 @@ export default {
   components: { IndexSection, ProductGridBox },
   props: {
     number: { type: Number, required: false, default: 10 },
+    search: { type: String, required: false, default: '' },
     title: { type: String, required: true },
     underlined: { type: Boolean, required: false, default: true },
   },

@@ -142,7 +142,7 @@ export default {
       erc20ContractAddress: '0x8C5B4AB57Eef1e2C78c9a16843701195B51a812C',
       erc721ContractAddress: '0x9aE66F8aDF65816BE94C957D6D37b316791Bc5CD',
       erc1155ContractAddress: '0x5eb7Ce96075387E343D4c50b42ADb4AFE79852E5',
-      delegateContractAddress: '0xc893549e36EEE4AD7EB263195fdaF05AF8a4c196',
+      delegateContractAddress: '0xc2199b47e35Bc1D3eAeC73651728Bd83857C4B01',
       userData: JSON.parse(localStorage.getItem('userData')),
     };
   },
@@ -165,9 +165,9 @@ export default {
       return naff;
     },
     async onSubmit(formData) {
-      const qty = document.querySelector('.quantity').value;
+      const qty = this.nfttype ? document.querySelector('.quantity').value : 1;
       const amount = await this.getBalance();
-      if ((qty > this.nfttype)) {
+      if (this.nfttype && (qty > this.nfttype)) {
         this.$toast.error('Sorry, you entered more quantity than available');
       } else if ((this.initialBidValue >= this.minimumbid) && (amount >= this.initialBidValue)) {
         this.getTokenAddress();
@@ -200,24 +200,12 @@ export default {
                     this.$toast.error('An error occurred');
                   }).once('receipt', async () => {
                     this.$emit('bidPlaced', true);
+                    // window.location.reload();
                   });
               } catch (error) {
                 console.log(error);
               }
             }
-            // let response = null;
-            // try {
-            //   const { data } = await this.$api.CREATEBIDS(formData);
-            //   response = data;
-            // } catch (error) {
-            //   response = error?.response?.data;
-            // }
-
-            // if (response?.success) {
-            //   this.$emit('bidPlaced', response.success);
-            // } else {
-            //   this.$toast.error(response.error);
-            // }
           });
       } else {
         this.$toast.error('Sorry, cannot place bid. Either bid is lower than last bid or not enough Naff token');
