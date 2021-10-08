@@ -5,7 +5,7 @@
   >
     <template #right>
       <BaseNavigationTab
-        v-if="search"
+        v-if="underlined"
         :mobile-max-width="38"
         :style="{'pointer-events':($refs['grid-box']?.isLoading) ? 'none': 'auto'}"
         :width="9"
